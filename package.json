@@ -1,0 +1,22 @@
+{
+  "name": "toddstreetWebsitev1.1",
+  "version": "1.0.0",
+  "description": "My tiptop Nuxt.js project",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "frontmatter-markdown-loader": "^1.6.0",
+    "lodash": "^4.17.11",
+    "nuxt": "^2.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
