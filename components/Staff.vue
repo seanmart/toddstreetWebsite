@@ -65,8 +65,10 @@ export default {
 
 .employee .image{
   box-shadow: 0px 20px 20px -20px rgba(0,0,0,.5);
-  height: 150px;
-  width: 150px;
+  height: 30vw;
+  width: 30vw;
+  max-height: 150px;
+  max-width: 150px;
   margin: 0px auto;
   background-size: cover;
   border-radius: 100%;

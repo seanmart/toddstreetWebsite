@@ -25,13 +25,14 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   margin-top: -40px;
 
 }
 
 .client{
-  flex: 1 1 auto;
-  padding: 40px;
+  flex: 0 0 auto;
+  padding: 30px;
 }
 
 .client svg{

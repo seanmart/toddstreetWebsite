@@ -93,6 +93,10 @@ export default {
 }
 
 @media screen and (max-width: 700px){
+  .menu{
+    align-items: center;
+  }
+
   .column{
     flex: 1 0 100%;
     text-align: center;

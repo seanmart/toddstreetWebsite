@@ -34,19 +34,11 @@ export default {
       return this.$store.state.nav.darkMode;
     },
     headerStyles() {
-      if (this.active) return;
+      if (this.active) return { show: true };
       return { hide: this.hide, show: this.show, transition: this.transition };
     }
   },
-  watch: {
-    active() {
-      if (this.active) {
-        setTimeout(() => (this.color = "#fff"), 350);
-      } else {
-        this.color = this.colorOnPage;
-      }
-    }
-  },
+
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -115,6 +107,7 @@ header{
   transform: translateY(0px);
 }
 
+
 .header-bar.show,
 .header-bar.hide{
   background: white;
@@ -126,7 +119,7 @@ header{
   max-width: 120px;
   display: inline-block;
   line-height: 0px;
-  margin-left: auto
+  margin-left: auto;
 }
 
 .header-menu{

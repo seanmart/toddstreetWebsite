@@ -98,7 +98,7 @@ section {
 
 h1 {
   font-weight: 900;
-  font-size: calc(2.5em + 0.7vw);
+  font-size: calc(1.8em + 1vw);
   text-align: center;
 }
 
