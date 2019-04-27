@@ -5,8 +5,8 @@
       <template v-for="stat in stats">
         <div class="stat">
           <div class="icon blue" v-html="icons[stat.icon].body" />
-          <h1>{{ title(stat["stat-title"]) }}</h1>
-          <span>{{ stat["stat-description"] }}</span>
+          <h1>{{ title(stat['stat-title']) }}</h1>
+          <span>{{ stat['stat-description'] }}</span>
         </div>
       </template>
     </div>
@@ -17,25 +17,25 @@
 export default {
   computed: {
     stats() {
-      return this.$store.getters.stats;
+      return this.$store.getters.stats
     },
     icons() {
-      return this.$store.getters.icons;
+      return this.$store.getters.icons
     }
   },
   methods: {
     title(title) {
-      if (title["date-diff"]) {
-        let today = new Date().getFullYear();
-        return today - title["date-diff"];
+      if (title['date-diff']) {
+        let today = new Date().getFullYear()
+        return today - title['date-diff']
       }
       if (title.get) {
-        return this.$store.getters[title.get];
+        return this.$store.getters[title.get]
       }
-      return title;
+      return title
     }
   }
-};
+}
 </script>
 
 <style lang="css">
@@ -61,7 +61,7 @@ export default {
 }
 
 .stat h1{
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 

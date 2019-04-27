@@ -124,7 +124,7 @@ header{
   bottom: 0px;
   transform: translateY(150%);
   transition: transform .5s;
-  background: black;
+  background: rgba(0,0,0,.9);
   color: white;
   padding-top: 80px;
 }

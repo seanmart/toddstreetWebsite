@@ -16,15 +16,15 @@
 export default {
   computed: {
     cares() {
-      return this.$store.getters.careOverview;
+      return this.$store.getters.careOverview
     }
   },
   methods: {
     img(img) {
-      return { backgroundImage: `url(${img})` };
+      return { backgroundImage: `url(${img})` }
     }
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
@@ -41,7 +41,7 @@ export default {
   flex: 0 0 23%;
   background: white;
   border: 1px solid #eee;
-  box-shadow: 0px 20px 20px -20px rgba(0,0,0,.5);
+  box-shadow: 0px 15px 20px -10px rgba(0,0,0,.2);
   margin-bottom: 30px;
 }
 
