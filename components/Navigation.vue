@@ -114,9 +114,9 @@ header{
   fill: #111;
 }
 
-.bar .l .logo,
-.bar .b .top,
-.bar .b .bottom{
+.bar .logo,
+.bar .top,
+.bar .bottom{
   transform-origin: center;
   transition-delay: 0px;
   transition: fill .2s, transform .25s;
@@ -187,16 +187,16 @@ header{
 }
 
 .active .b,
-.active .l .logo{
+.active .logo{
   transition-delay: .3s;
   fill: #fff;
 }
 
-.active .b .top{
+.active .top{
   transform: translateX(-10%) rotate(45deg);
 }
 
-.active .b .bottom{
+.active .bottom{
   transform: translateY(-18%) translateX(-8%) rotate(-45deg);
 }
 
