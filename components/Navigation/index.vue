@@ -2,7 +2,7 @@
   <header :class="{ active }">
     <div ref="header" class="header-bar" :class="headerStyles">
       <div class="wrapper is-padding-sides">
-        <Bars :color="color" :active="active" @clicked="active = $event" />
+        <Bars :active="active" @clicked="active = $event" />
         <nuxt-link to="/"><Logo :style="{ fill: color }"/></nuxt-link>
       </div>
     </div>
@@ -24,8 +24,7 @@ export default {
       scrolled: false,
       show: false,
       maxScroll: 0,
-      lastScroll: 0,
-      color: “#000”
+      lastScroll: 0
     };
   },
   computed: {
