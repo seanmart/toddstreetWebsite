@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="is-padding line-top">
-    <h1 class="is-padding-bottom"><i class="yellow">How</i> We Care</h1>
+  <div class="is-padding">
+    <h1 class="is-padding-bottom section"><i class="yellow">How</i> We Care</h1>
     <div class="cares">
       <template v-for="care in cares">
         <div class="care">
@@ -40,8 +40,7 @@ export default {
 .care{
   flex: 0 0 23%;
   background: white;
-  border: 1px solid #eee;
-  box-shadow: 0px 15px 20px -10px rgba(0,0,0,.2);
+  box-shadow: 0px 2px 5px -2px rgba(0,0,0,.2);
   margin-bottom: 30px;
 }
 

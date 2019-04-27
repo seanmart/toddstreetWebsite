@@ -7,8 +7,8 @@
         viewBox="0 0 252 252"
         @click="active = !active"
       >
-        <rect class="top" width="252" height="26" rx="4.46" y="80" />
-        <rect class="bottom" y="147" width="252" height="26" rx="4.46" />
+        <rect class="top" width="252" height="15" rx="4.46" y="80" />
+        <rect class="bottom" y="147" width="252" height="15" rx="4.46" />
       </svg>
       <nuxt-link to="/" class="l"><Logo /></nuxt-link>
     </div>
@@ -16,7 +16,7 @@
     <div class="bar-bg" ref="bg" />
 
     <div class="menu is-padding">
-      <div class="column">
+      <div class="column links">
         <h4>Links</h4>
         <template v-for="(l, i) in nav">
           <nuxt-link :key="i" :to="l.route" @click.native="active = false">
@@ -24,7 +24,7 @@
           </nuxt-link>
         </template>
       </div>
-      <div class="column">
+      <div class="column info">
         <h4>Information</h4>
         <span>{{ company }}</span>
         <span>{{ street }}</span>
@@ -76,8 +76,6 @@ export default {
 
       bg.style.opacity = (sy - bh) / bh
 
-      if (this.active) return
-
       this.show = sy > 0 && ((sy < ls && ms > bh) || (ms > bh && sy < bh))
       this.scrolled = sy > bh || this.show
       this.scroll.max = sy > ms ? sy : sy === 0 ? 0 : ms
@@ -102,7 +100,8 @@ header{
 }
 
 .bar .b{
-  width: 25px;
+  width: 40px;
+  padding: 5px;
 }
 
 .bar .l{
@@ -112,15 +111,21 @@ header{
 
 .bar .b,
 .bar .l{
-  transition: fill .2s;
+  fill: #111;
+}
+
+.bar .l,
+.bar .b .top,
+.bar .b .bottom{
+  transform-origin: center;
   transition-delay: 0px;
-  fill: #000;
+  transition: fill .2s, transform .25s;
 }
 
 .bar-bg{
   z-index: -1;
   background: white;
-  box-shadow: 0px 0px 10px rgba(0,0,0,.1)
+  box-shadow: 0px 0px 4px rgba(0,0,0,.1)
 }
 
 .bar, .bar-bg{
@@ -140,7 +145,7 @@ header{
 
 .show .bar,
 .show .bar-bg{
-  transform: translateY(80px);
+  transform: translateY(100%);
 }
 
 .menu{
@@ -160,7 +165,7 @@ header{
 
 .column{
   flex: 1 1 auto;
-  padding-top: 80px;
+  padding-top: 70px;
 }
 
 .column h4{
@@ -187,9 +192,39 @@ header{
   fill: #fff;
 }
 
+.active .b .top{
+  transform: translateX(-10%) rotate(45deg);
+}
+
+.active .b .bottom{
+  transform: translateY(-18%) translateX(-8%) rotate(-45deg);
+}
+
+.active .bar{
+  top: -80px;
+  transform: translateY(100%);
+  position: fixed;
+}
+
 .active .bar-bg{
   transition-delay: .45s;
   background: rgba(0,0,0,0);
   box-shadow: none;
+}
+
+@media screen and (max-width: 700px){
+  .menu{
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .column .links{
+    flex: 1 1 auto;
+  }
+
+  .column h2{
+    font-size: calc(1em + 2vw)
+  }
 }
 </style>

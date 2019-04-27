@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="staff is-padding">
-    <h1 class="is-padding-bottom"><i class="blue">Who</i> We Are</h1>
+    <h1 class="is-padding-bottom section"><i class="blue">Who</i> We Are</h1>
     <div class="staff-section">
       <template v-for="(e, i) in leaders">
         <div class="employee">
@@ -27,22 +27,22 @@
 </template>
 
 <script>
-import { filter, orderBy } from "lodash";
+import { filter, orderBy } from 'lodash'
 export default {
   computed: {
     workers() {
-      return this.$store.getters.staffWorkers;
+      return this.$store.getters.staffWorkers
     },
     leaders() {
-      return this.$store.getters.staffLeaders;
+      return this.$store.getters.staffLeaders
     }
   },
   methods: {
     img(img) {
-      return { backgroundImage: `url(${img})` };
+      return { backgroundImage: `url(${img})` }
     }
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
@@ -65,8 +65,8 @@ export default {
 
 .employee .image{
   box-shadow: 0px 20px 20px -20px rgba(0,0,0,.5);
-  height: 30vw;
-  width: 30vw;
+  height: 35vw;
+  width: 35vw;
   max-height: 150px;
   max-width: 150px;
   margin: 0px auto;

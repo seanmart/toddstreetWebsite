@@ -6,7 +6,9 @@
     </div>
     <div class="content is-max-width" ref="content">
       <div class="intro is-padding">
-        <h1 class="is-padding-bottom"><i class="red">What</i> We Believe</h1>
+        <h1 class="is-padding-bottom section">
+          <i class="red">What</i> We Believe
+        </h1>
         <h5>
           True engagement is what transforms an audience into something bigger,
           motivating them to think, feel and act. The catalyst to accomplish
@@ -28,38 +30,38 @@
 </template>
 
 <script>
-import Staff from "@/components/Staff";
-import WorkOverview from "@/components/WorkOverview";
-import CareOverview from "@/components/CareOverview";
-import Clients from "@/components/Clients";
-import Stats from "@/components/Stats";
+import Staff from '@/components/Staff'
+import WorkOverview from '@/components/WorkOverview'
+import CareOverview from '@/components/CareOverview'
+import Clients from '@/components/Clients'
+import Stats from '@/components/Stats'
 export default {
   components: { Staff, WorkOverview, CareOverview, Clients, Stats },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
-    this.handleScroll();
+    window.addEventListener('scroll', this.handleScroll)
+    this.handleScroll()
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleScroll() {
-      const bg = this.$refs.bg;
-      const ct = this.$refs.content.getBoundingClientRect().top;
-      const wh = window.innerHeight;
-      let o = ct / wh;
-      bg.style.opacity = o > 0 ? o : 0;
+      const bg = this.$refs.bg
+      const ct = this.$refs.content.getBoundingClientRect().top
+      const wh = window.innerHeight
+      let o = ct / wh
+      bg.style.opacity = o > 0 ? o : 0
     },
     img(id) {
       switch (id) {
-        case "bg":
-          return { backgroundImage: "url(/uploads/cityscape.jpg)" };
-        case "vf":
-          return { backgroundImage: "url(/uploads/viewfinder_website.png)" };
+        case 'bg':
+          return { backgroundImage: 'url(/uploads/cityscape.jpg)' }
+        case 'vf':
+          return { backgroundImage: 'url(/uploads/viewfinder_website.png)' }
       }
     }
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
@@ -86,8 +88,8 @@ export default {
 .viewfinder{
   flex: 0 0 auto;
   height: 70%;
-  width: 80vw;
-  max-width: 700px;
+  width: 70vw;
+  max-width: 500px;
   margin: 0px auto;
   background-size: contain;
   background-position: bottom center;

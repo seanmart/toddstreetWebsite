@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 export default {
   components: { Navigation, Footer }
-};
+}
 </script>
 
 <style>
 html {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -34,6 +34,10 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 section {
@@ -97,8 +101,11 @@ section {
 }
 
 h1 {
-  font-weight: 900;
   font-size: calc(1.8em + 1vw);
+}
+
+h1.section {
+  font-weight: 900;
   text-align: center;
 }
 

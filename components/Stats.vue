@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="is-padding">
-    <h1 class="is-padding-bottom"><i class="blue">Our</i> Stats</h1>
+    <h1 class="is-padding-bottom section"><i class="blue">Our</i> Stats</h1>
     <div class="stats">
       <template v-for="stat in stats">
         <div class="stat">

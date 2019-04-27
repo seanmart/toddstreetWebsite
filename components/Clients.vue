@@ -1,6 +1,8 @@
 <template lang="html">
-  <div class="is-padding is-dark">
-    <h1 class="is-padding-bottom"><i class="red">Who</i> We Work With</h1>
+  <div class="is-padding">
+    <h1 class="is-padding-bottom section">
+      <i class="red">Who</i> We Work With
+    </h1>
     <div class="clients">
       <template v-for="client in clients">
         <div class="client" v-html="client.body" />
@@ -12,10 +14,10 @@
 export default {
   computed: {
     clients() {
-      return this.$store.getters.clients;
+      return this.$store.getters.clients
     }
   }
-};
+}
 </script>
 
 <style lang="css">
@@ -36,7 +38,7 @@ export default {
 }
 
 .client svg{
-  fill: #999;
+  fill: #bbb;
   width: 100%;
   max-height: 60px;
   max-width: 100px;
