@@ -94,7 +94,7 @@ header{
   position: fixed;
   transition: translateY .25s;
   transform: translateY(0px);
-  bottom: 100%;
+  top: -80px;
 }
 
 .header-bar.show{
