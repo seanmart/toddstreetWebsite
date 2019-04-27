@@ -3,7 +3,7 @@
     <div ref="header" class="header-bar" :class="headerStyles">
       <div class="wrapper is-padding-sides">
         <Bars :active="active" @clicked="active = $event" />
-        <nuxt-link to="/"><Logo :style="{ fill: color }"/></nuxt-link>
+        <nuxt-link to="/"><Logo /></nuxt-link>
       </div>
     </div>
     <div class="header-menu">
@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import Logo from "@/components/svg/Logo";
-import Bars from "./Bars";
-import Menu from "./Menu";
+import Logo from '@/components/svg/Logo'
+import Bars from './Bars'
+import Menu from './Menu'
 export default {
   components: { Logo, Bars, Menu },
   data() {
@@ -25,42 +25,41 @@ export default {
       show: false,
       maxScroll: 0,
       lastScroll: 0
-    };
+    }
   },
   computed: {
     headerStyles() {
-      if (this.active) return;
-      return { scrolled: this.scrolled, show: this.show };
+      return { scrolled: this.scrolled, show: this.show }
     }
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll)
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     close() {
-      this.active = false;
+      this.active = false
     },
     handleScroll() {
-      if (this.active) return;
+      if (this.active) return
 
-      const sy = window.scrollY;
-      const hh = this.$refs.header.clientHeight;
-      const ls = this.lastScroll;
-      const ms = this.maxScroll;
+      const sy = window.scrollY
+      const hh = this.$refs.header.clientHeight
+      const ls = this.lastScroll
+      const ms = this.maxScroll
 
       // set header
-      this.scrolled = sy > ls && sy > hh;
-      this.show = sy > 0 && ((sy < ls && ms > hh) || (ms > hh && sy < hh));
-     
+      this.show = sy > 0 && ((sy < ls && ms > hh) || (ms > hh && sy < hh))
+      this.scrolled = sy > hh || this.show
+
       // set scroll
-      this.maxScroll = sy > ms ? sy : sy === 0 ? 0 : ms;
-      this.lastScroll = sy;
+      this.maxScroll = sy > ms ? sy : sy === 0 ? 0 : ms
+      this.lastScroll = sy
     }
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
@@ -77,7 +76,7 @@ header{
   right: 0px;
   height: 80px;
   z-index: 1;
-  transition: background .5s;
+  transition: background .3s;
 }
 
 .header-bar .wrapper{
@@ -90,7 +89,7 @@ header{
 
 .header-bar.scrolled{
   position: fixed;
-  transition: translateY .25s;
+  transition: transform .25s;
   transform:translateY(0px);
   top: -80px;
 }
@@ -135,6 +134,7 @@ header{
 }
 
 .active .header-menu{
+  top: 0px;
   transform: translateY(0px);
 }
 </style>
