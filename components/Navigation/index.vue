@@ -31,7 +31,7 @@ export default {
   computed: {
     headerStyles() {
       if (this.active) return;
-      return { scrolling: this.scrolled, show: this.show,  };
+      return { scrolled: this.scrolled, show: this.show,  };
     }
   },
 
@@ -90,7 +90,7 @@ header{
 }
 
 
-.header-bar.scrolling{
+.header-bar.scrolled{
   position: fixed;
   transition: translateY .25s;
   top: -80px;
