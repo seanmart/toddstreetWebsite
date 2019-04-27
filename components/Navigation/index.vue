@@ -99,7 +99,7 @@ header{
 
 .header-bar.show{
   position: fixed;
-  transform: translateY(100%);
+  transform: translateY(80px);
 }
 
 
