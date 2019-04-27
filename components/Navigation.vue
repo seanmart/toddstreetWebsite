@@ -10,7 +10,7 @@
         <rect class="top" width="252" height="15" rx="4.46" y="80" />
         <rect class="bottom" y="147" width="252" height="15" rx="4.46" />
       </svg>
-      <nuxt-link to="/" class="l"><Logo /></nuxt-link>
+      <nuxt-link class="l" to="/"><Logo class="logo"/></nuxt-link>
     </div>
 
     <div class="bar-bg" ref="bg" />
@@ -114,7 +114,7 @@ header{
   fill: #111;
 }
 
-.bar .l svg,
+.bar .l .logo,
 .bar .b .top,
 .bar .b .bottom{
   transform-origin: center;
@@ -156,7 +156,7 @@ header{
   bottom: 0px;
   transform: translateY(150%);
   transition: transform .5s;
-  background: rgba(0,0,0,.9);
+  background: rgba(0,0,0,1);
   display:flex;
   justify-content: center;
   align-items: stretch;
@@ -187,7 +187,7 @@ header{
 }
 
 .active .b,
-.active .l svg{
+.active .l .logo{
   transition-delay: .3s;
   fill: #fff;
 }
@@ -206,11 +206,7 @@ header{
   position: fixed;
 }
 
-.active .bar-bg{
-  transition-delay: .45s;
-  background: rgba(0,0,0,0);
-  box-shadow: none;
-}
+
 
 @media screen and (max-width: 700px){
   .menu{
