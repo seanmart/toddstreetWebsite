@@ -21,21 +21,17 @@ export default {
   data() {
     return {
       active: false,
-      hide: false,
+      scrolling: false,
       show: false,
       maxScroll: 0,
-      transition: false,
       lastScroll: 0,
       color: this.colorOnPage
     };
   },
   computed: {
-    colorOnPage() {
-      return this.$store.state.nav.darkMode;
-    },
     headerStyles() {
       if (this.active) return;
-      return { hide: this.hide, show: this.show, transition: this.transition };
+      return { scrolling: this.scrolling, show: this.show,  };
     }
   },
 
@@ -58,9 +54,9 @@ export default {
       const ms = this.maxScroll;
 
       // set header
-      this.transition = sy > 0 && (this.hide || this.show);
-      this.hide = sy > ls && sy > hh;
+      this.scrolling = sy > ls && sy > hh;
       this.show = sy > 0 && ((sy < ls && ms > hh) || (ms > hh && sy < hh));
+     
       // set scroll
       this.maxScroll = sy > ms ? sy : sy === 0 ? 0 : ms;
       this.lastScroll = window.scrollY;
@@ -83,10 +79,7 @@ header{
   right: 0px;
   height: 80px;
   z-index: 1;
-  border-bottom: 1px solid rgba(0,0,0,0);
-  background: rgba(255,255,255,0);
-  transition: background .25s;
-  transition-delay: .1s;
+  transition: background .5s;
 }
 
 .header-bar .wrapper{
@@ -96,24 +89,21 @@ header{
   align-items: center;
 }
 
-.header-bar.transition{
-  transition: transform .25s;
-}
 
-.header-bar.hide{
+.header-bar.scrolling{
   position: fixed;
-  transform: translateY(-100%);
+  transition: translateY .5s;
+  transform: translate(0px, -100%);
 }
 
 .header-bar.show{
   position: fixed;
-  transform: translateY(0px);
-  transition-delay: 0s
+  transform: translateY(100%);
 }
 
 
 .header-bar.show,
-.header-bar.hide,
+.header-bar.scrolling,
 .active .header-bar{
   background: white;
   border-bottom: 1px solid #eee;
@@ -143,7 +133,6 @@ header{
 
 .active .header-bar{
   position: fixed;
-  transition-delay: 0s
 }
 
 .active .header-menu{
