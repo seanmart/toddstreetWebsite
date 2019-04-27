@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       active: false,
-      scrolling: false,
+      scrolled: false,
       show: false,
       maxScroll: 0,
       lastScroll: 0,
@@ -31,7 +31,7 @@ export default {
   computed: {
     headerStyles() {
       if (this.active) return;
-      return { scrolling: this.scrolling, show: this.show,  };
+      return { scrolling: this.scrolled, show: this.show,  };
     }
   },
 
@@ -54,7 +54,7 @@ export default {
       const ms = this.maxScroll;
 
       // set header
-      this.scrolling = sy > ls && sy > hh;
+      this.scrolled = sy > ls && sy > hh;
       this.show = sy > 0 && ((sy < ls && ms > hh) || (ms > hh && sy < hh));
      
       // set scroll
