@@ -2,8 +2,8 @@
   <header :class="{ active }">
     <div ref="header" class="header-bar" :class="headerStyles">
       <div class="wrapper is-padding-sides">
-        <Bars :active="active" @clicked="active = $event" />
-        <nuxt-link to="/"><Logo /></nuxt-link>
+        <Bars :active="active" @clicked="active = $event" :color="color" />
+        <nuxt-link to="/"><Logo :style="{ fill: color }"/></nuxt-link>
       </div>
     </div>
     <div class="header-menu">
@@ -24,7 +24,8 @@ export default {
       scrolled: false,
       show: false,
       maxScroll: 0,
-      lastScroll: 0
+      lastScroll: 0,
+      color: '#000'
     }
   },
   computed: {
@@ -37,6 +38,15 @@ export default {
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll)
+  },
+  watch: {
+    active() {
+      if (this.active && !this.scrolled) {
+        setTimeout(() => (this.color = '#fff'), 300)
+      } else {
+        this.color = '#000'
+      }
+    }
   },
   methods: {
     close() {
@@ -99,10 +109,7 @@ header{
   transform: translateY(80px);
 }
 
-
-.header-bar.show,
-.header-bar.scrolled,
-.active .header-bar{
+.header-bar.scrolled{
   background: white;
   border-bottom: 1px solid #eee;
 }
