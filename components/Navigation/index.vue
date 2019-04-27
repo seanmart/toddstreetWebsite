@@ -25,7 +25,7 @@ export default {
       show: false,
       maxScroll: 0,
       lastScroll: 0,
-      color: ‘#000’
+      color: “#000”
     };
   },
   computed: {
