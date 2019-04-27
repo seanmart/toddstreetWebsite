@@ -92,8 +92,9 @@ header{
 
 .header-bar.scrolling{
   position: fixed;
-  transition: translateY .5s;
-  transform: translate(0px, -100%);
+  transition: translateY .25s;
+  transform: translateY(0px);
+  bottom: 100%;
 }
 
 .header-bar.show{
