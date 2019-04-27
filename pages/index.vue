@@ -1,11 +1,11 @@
 <template lang="html">
   <section>
-    <div class="landing">
+    <div class="landing is-full-height">
       <div class="cityscape" ref="bg" :style="img('bg')" />
       <div class="viewfinder" :style="img('vf')" />
     </div>
     <div class="content is-max-width" ref="content">
-      <div class="intro is-padding">
+      <div class="intro is-padding is-full-height">
         <h1 class="is-padding-bottom section">
           <i class="red">What</i> We Believe
         </h1>
@@ -67,7 +67,6 @@ export default {
 <style lang="css" scoped>
 
 .landing{
-  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -94,5 +93,12 @@ export default {
   background-size: contain;
   background-position: bottom center;
   background-repeat: no-repeat;
+}
+
+.intro{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

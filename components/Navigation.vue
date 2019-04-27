@@ -114,7 +114,7 @@ header{
   fill: #111;
 }
 
-.bar .l,
+.bar .l svg,
 .bar .b .top,
 .bar .b .bottom{
   transform-origin: center;
@@ -187,7 +187,7 @@ header{
 }
 
 .active .b,
-.active .l{
+.active .l svg{
   transition-delay: .3s;
   fill: #fff;
 }

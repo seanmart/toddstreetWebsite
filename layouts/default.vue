@@ -54,6 +54,10 @@ section {
   color: white;
 }
 
+.is-full-height {
+  height: 100vh;
+}
+
 .is-padding,
 .is-padding-left,
 .is-padding-sides {
@@ -138,8 +142,7 @@ h5 {
   font-size: calc(1em + 0.7vw);
   font-weight: 500;
   margin: 0px auto 1em;
-  max-width: 850px;
-  text-align: center;
+  max-width: 1000px;
   color: #999;
   line-height: 1.5em;
 }
