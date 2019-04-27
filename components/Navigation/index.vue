@@ -34,7 +34,7 @@ export default {
       return this.$store.state.nav.darkMode;
     },
     headerStyles() {
-      if (this.active) return { show: true };
+      if (this.active) return;
       return { hide: this.hide, show: this.show, transition: this.transition };
     }
   },
@@ -58,7 +58,7 @@ export default {
       const ms = this.maxScroll;
 
       // set header
-      this.transition = this.hide || this.show;
+      this.transition = sy > 0 && (this.hide || this.show);
       this.hide = sy > ls && sy > hh;
       this.show = sy > 0 && ((sy < ls && ms > hh) || (ms > hh && sy < hh));
       // set scroll
@@ -84,6 +84,9 @@ header{
   height: 80px;
   z-index: 1;
   border-bottom: 1px solid rgba(0,0,0,0);
+  background: rgba(255,255,255,0);
+  transition: background .25s;
+  transition-delay: .1s;
 }
 
 .header-bar .wrapper{
@@ -105,11 +108,13 @@ header{
 .header-bar.show{
   position: fixed;
   transform: translateY(0px);
+  transition-delay: 0s
 }
 
 
 .header-bar.show,
-.header-bar.hide{
+.header-bar.hide,
+.active .header-bar{
   background: white;
   border-bottom: 1px solid #eee;
 }
@@ -138,6 +143,7 @@ header{
 
 .active .header-bar{
   position: fixed;
+  transition-delay: 0s
 }
 
 .active .header-menu{

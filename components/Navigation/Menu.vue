@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="menu is-padding" :class="{ active }">
+  <div class="menu is-padding">
     <div class="column">
       <h3>Links</h3>
       <nuxt-link
@@ -51,7 +51,7 @@ export default {
 }
 
 .column{
-  flex: 0 0 33.333%;
+  flex: 0 0 50%;
   opacity: 0;
   transition: opacity .5s;
   transition-delay: 0s
@@ -93,17 +93,16 @@ export default {
 }
 
 @media screen and (max-width: 700px){
-  .menu{
-    align-items: center;
-  }
 
   .column{
     flex: 1 0 100%;
     text-align: center;
+    align-items: center;
   }
 
   .column a{
-    width: 100%;
+    padding: 10px;
+    margin: 0px auto 10px;
   }
 }
 </style>
