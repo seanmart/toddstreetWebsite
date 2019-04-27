@@ -1,11 +1,8 @@
 <template lang="html">
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
     viewBox="0 0 2310.7 358"
-    xml:space="preserve"
+    class="toddstreet"
   >
     <path
       d="M122.1,344.7c-25.7,0-45.8-6.1-60.1-18.4c-14.4-12.3-21.5-32.9-21.5-61.9v-98.7H11.8V97.1h28.7V35.7h85.2v61.5
@@ -83,8 +80,8 @@
   </svg>
 </template>
 
-<script>
-export default {}
-</script>
-
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.toddstreet{
+  width: 120px;
+}
+</style>

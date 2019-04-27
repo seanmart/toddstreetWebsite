@@ -1,16 +1,8 @@
 <template lang="html">
   <header :class="{ active, scrolled, show }">
     <div class="bar is-padding-sides" ref="bar">
-      <svg
-        class="b"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 252 252"
-        @click="active = !active"
-      >
-        <rect class="top" width="252" height="15" rx="4.46" y="80" />
-        <rect class="bottom" y="147" width="252" height="15" rx="4.46" />
-      </svg>
-      <nuxt-link class="l" to="/"><Logo class="logo"/></nuxt-link>
+      <Burger @clicked="active = !active" :on="active" />
+      <Logo :style="{ marginLeft: 'auto' }" @click.native="$router.push('/')" />
     </div>
 
     <div class="bar-bg" ref="bg" />
@@ -36,8 +28,9 @@
 
 <script>
 import Logo from '@/components/svg/Logo'
+import Burger from '@/components/svg/Burger'
 export default {
-  components: { Logo },
+  components: { Logo, Burger },
   computed: {
     nav() {
       return this.$store.state.nav
@@ -60,6 +53,7 @@ export default {
       scrolled: false,
       active: false,
       show: false,
+      color: '#000',
       scroll: {
         max: 0,
         last: 0
@@ -99,27 +93,9 @@ header{
   z-index: 1;
 }
 
-.bar .b{
-  width: 40px;
-  padding: 5px;
-}
-
-.bar .l{
-  width: 120px;
-  margin-left: auto;
-}
-
-.bar .b,
-.bar .l{
-  fill: #111;
-}
-
-.bar .logo,
-.bar .top,
-.bar .bottom{
-  transform-origin: center;
-  transition-delay: 0px;
-  transition: fill .2s, transform .25s;
+.bar svg{
+  fill: #000;
+  cursor: pointer;
 }
 
 .bar-bg{
@@ -186,27 +162,15 @@ header{
   transform: translateY(0px);
 }
 
-.active .b,
-.active .logo{
-  transition-delay: .3s;
-  fill: #fff;
-}
-
-.active .top{
-  transform: translateX(-10%) rotate(45deg);
-}
-
-.active .bottom{
-  transform: translateY(-18%) translateX(-8%) rotate(-45deg);
-}
-
 .active .bar{
   top: -80px;
   transform: translateY(100%);
   position: fixed;
 }
 
-
+.active .bar svg{
+  animation: fill .5s forwards
+}
 
 @media screen and (max-width: 700px){
   .menu{
@@ -221,6 +185,21 @@ header{
 
   .column h2{
     font-size: calc(1em + 2vw)
+  }
+}
+
+@keyframes fill{
+  0%{
+    fill: #000;
+  }
+  72%{
+    fill: #000;
+  }
+  82%{
+    fill: #fff
+  }
+  100%{
+    fill: #fff
   }
 }
 </style>
