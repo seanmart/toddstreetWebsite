@@ -93,7 +93,6 @@ header{
 .header-bar.scrolling{
   position: fixed;
   transition: translateY .25s;
-  transform: translateY(0px);
   top: -80px;
 }
 
