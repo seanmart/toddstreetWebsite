@@ -31,10 +31,9 @@ export default {
   computed: {
     headerStyles() {
       if (this.active) return;
-      return { scrolled: this.scrolled, show: this.show,  };
+      return { scrolled: this.scrolled, show: this.show };
     }
   },
-
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -59,7 +58,7 @@ export default {
      
       // set scroll
       this.maxScroll = sy > ms ? sy : sy === 0 ? 0 : ms;
-      this.lastScroll = window.scrollY;
+      this.lastScroll = sy;
     }
   }
 };
@@ -69,7 +68,7 @@ export default {
 
 header{
   position: relative;
-  z-index: 100
+  z-index: 100;
 }
 
 .header-bar{
@@ -93,6 +92,7 @@ header{
 .header-bar.scrolled{
   position: fixed;
   transition: translateY .25s;
+  transform:translateY(0px);
   top: -80px;
 }
 
@@ -103,7 +103,7 @@ header{
 
 
 .header-bar.show,
-.header-bar.scrolling,
+.header-bar.scrolled,
 .active .header-bar{
   background: white;
   border-bottom: 1px solid #eee;
