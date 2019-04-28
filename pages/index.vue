@@ -1,11 +1,11 @@
 <template lang="html">
   <section>
-    <div class="landing fullheight">
-      <div class="cityscape fullheight" ref="bg" :style="img('bg')" />
+    <div class="landing" :style="{ height: windowHeight }">
+      <div class="cityscape" ref="bg" :style="img('bg')" />
       <div class="viewfinder" :style="img('vf')" />
     </div>
     <div class="content is-max-width" ref="content">
-      <div class="intro is-padding is-min-full-height">
+      <div class="intro is-padding">
         <h1 class="is-padding-bottom section">
           <i class="red">What</i> We Believe
         </h1>
@@ -38,7 +38,10 @@ import Stats from '@/components/Stats'
 export default {
   components: { Staff, WorkOverview, CareOverview, Clients, Stats },
   mounted() {
-    if (window.innerHeight < 600 && window.innerWidth < 800) {
+    if (
+      typeof window.orientation !== 'undefined' ||
+      navigator.userAgent.indexOf('IEMobile') !== -1
+    ) {
       this.windowHeight = `${window.innerHeight}px`
     }
     window.addEventListener('scroll', this.handleScroll)
@@ -83,6 +86,7 @@ export default {
 
 .cityscape{
   position: fixed;
+  height: 100%;
   top: 0px;
   left: 0px;
   bottom: 0px;
