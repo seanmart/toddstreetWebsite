@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="projects">
     <template v-for="(project, i) in projects">
-      <div :key="i" class="project" :style="{ background: project.color }">
+      <div :key="i" class="project">
         <div class="info">
-          <span>{{ project["work-category"] }}</span>
+          <span>{{ project['work-category'] }}</span>
           <h3>{{ project.header }}</h3>
-          <nuxt-link :to="`/work/${project.permalink}`">View</nuxt-link>
+          <Link :to="`/work/${project.permalink}`">view project</Link>
         </div>
         <div class="image" :style="img(project['cover-image'])" />
       </div>
@@ -14,19 +14,21 @@
 </template>
 
 <script>
-import { filter, orderBy } from "lodash";
+import { filter, orderBy } from 'lodash'
+import Link from '@/components/Button'
 export default {
+  components: { Link },
   computed: {
     projects() {
-      return this.$store.getters.workOverview;
+      return this.$store.getters.workOverview
     }
   },
   methods: {
     img(img) {
-      return { backgroundImage: `url(${img})` };
+      return { backgroundImage: `url(${img})` }
     }
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
@@ -40,13 +42,11 @@ export default {
 
 .project{
   flex: 0 0 50%;
-  padding: 0px 80px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 350px;
   position: relative;
+  z-index: 0;
   overflow: hidden;
+  background: #fff;
 }
 
 .project .image{
@@ -58,29 +58,40 @@ export default {
   bottom: 0px;
   right: 0px;
   z-index: 0;
-  transition: .25s
+  transition: .25s;
+  transform-origin: bottom center;
 }
 
 .project .info{
-  position: relative;
+  padding: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
   z-index: 1;
   text-align: center;
-  color: white;
-  opacity: 0
-}
-
-.project:hover .image{
-  transform: scale(1.10);
-  opacity: .2;
+  color: black;
+  opacity: 0;
+  transition-delay: .1s;
+  transition: .5s;
 }
 
 .project:hover .info{
+  transition-delay: 0s;
+  transition: .25s;
   opacity: 1
 }
 
 .project span{
   display: block;
   margin-bottom: 10px;
+  color: rgba(0,0,0,.3);
 }
 
 .project h3{
@@ -88,11 +99,6 @@ export default {
   margin-bottom: 40px;
 }
 
-.project a{
-  padding: 5px 15px;
-  border: 1px solid white;
-  border-radius: 3px;
-}
 
 @media screen and (max-width:800px){
   .project{

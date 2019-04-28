@@ -5,7 +5,10 @@
       <template v-for="care in cares">
         <div class="care">
           <div class="care-image" :style="img(care['cover-image'])" />
-          <h4>{{ care.title }}</h4>
+          <div class="info">
+            <h4>{{ care.title }}</h4>
+            <Button to="/work">view</Button>
+          </div>
         </div>
       </template>
     </div>
@@ -13,7 +16,9 @@
 </template>
 
 <script>
+import Button from '@/components/Button'
 export default {
+  components: { Button },
   computed: {
     cares() {
       return this.$store.getters.careOverview
@@ -42,15 +47,23 @@ export default {
   background: white;
   box-shadow: 0px 2px 5px -2px rgba(0,0,0,.2);
   margin-bottom: 30px;
+
 }
 
 .care-image{
-  padding-top: 100%;
+  padding-top: 70%;
   background-size: cover;
 }
 
+.info{
+  padding: 30px;
+  text-align: center;
+}
+
 h4{
-  padding: 40px 30px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  text-align: left;
 }
 
 @media screen and (max-width: 1200px){
