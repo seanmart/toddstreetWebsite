@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
-    <div class="landing is-full-height">
-      <div class="cityscape" ref="bg" :style="img('bg')" />
+    <div class="landing fullheight">
+      <div class="cityscape fullheight" ref="bg" :style="img('bg')" />
       <div class="viewfinder" :style="img('vf')" />
     </div>
     <div class="content is-max-width" ref="content">
@@ -38,11 +38,19 @@ import Stats from '@/components/Stats'
 export default {
   components: { Staff, WorkOverview, CareOverview, Clients, Stats },
   mounted() {
+    if (window.innerHeight < 600 && window.innerWidth < 800) {
+      this.windowHeight = `${window.innerHeight}px`
+    }
     window.addEventListener('scroll', this.handleScroll)
     this.handleScroll()
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll)
+  },
+  data() {
+    return {
+      windowHeight: '100vh'
+    }
   },
   methods: {
     handleScroll() {
@@ -87,7 +95,7 @@ export default {
 .viewfinder{
   flex: 0 0 auto;
   height: 70%;
-  width: 70vw;
+  width: 65vw;
   max-width: 500px;
   margin: 0px auto;
   background-size: contain;
