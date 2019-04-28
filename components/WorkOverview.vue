@@ -68,6 +68,7 @@ export default {
 }
 
 .project .image{
+  user-select: none;
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -86,7 +87,7 @@ export default {
   transition: .5s;
   transform: translateX(-10px);
   position: relative;
-  z-index: 1
+  z-index: -1
 }
 
 .project span{
@@ -109,6 +110,7 @@ export default {
 
   .hover .info{
     opacity: 1;
+    z-index: 1;
     transform: translateX(0px);
   }
 }
@@ -125,6 +127,7 @@ export default {
 
   .active .info{
     opacity: 1;
+    z-index: 1;
     transform: translateX(0px);
   }
 }
