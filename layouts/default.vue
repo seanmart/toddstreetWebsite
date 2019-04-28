@@ -125,7 +125,7 @@ h3 {
 }
 
 h4 {
-  font-size: calc(0.7em + 0.5vw);
+  font-size: calc(0.9em + 0.2vw);
 }
 
 h5 {

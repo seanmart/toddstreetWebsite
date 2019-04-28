@@ -6,7 +6,7 @@
         <div class="care">
           <div class="image" :style="img(care['cover-image'])" />
           <div class="info">
-            <h4>{{ care.title }}</h4>
+            <h3>{{ care.title }}</h3>
             <span class="small">{{ shorten(care.body) }}...</span>
             <Button to="/work" class="link">view</Button>
           </div>
@@ -73,7 +73,7 @@ export default {
   background: white;
 }
 
-h4{
+h3{
   margin-bottom: 10px;
   font-weight: 700;
   text-align: left;
