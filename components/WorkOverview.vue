@@ -1,7 +1,13 @@
 <template lang="html">
   <div class="projects">
     <template v-for="(project, i) in projects">
-      <div :key="i" class="project">
+      <div
+        :key="i"
+        class="project"
+        :class="{ hover: hover === i }"
+        v-touch:top="() => touchHandler(i)"
+        v-touch-class="'hover'"
+      >
         <div class="info">
           <span>{{ project['work-category'] }}</span>
           <h3>{{ project.header }}</h3>
@@ -23,9 +29,17 @@ export default {
       return this.$store.getters.workOverview
     }
   },
+  data() {
+    return {
+      hover: null
+    }
+  },
   methods: {
     img(img) {
       return { backgroundImage: `url(${img})` }
+    },
+    touchHandler(key) {
+      this.hover = key
     }
   }
 }
@@ -75,22 +89,24 @@ export default {
   z-index: 1
 }
 
-.project:hover .image{
+.hover .image{
   opacity: .05
 }
 
-.project:hover .info{
+.hover .info{
   opacity: 1;
   transform: translateX(0px);
 }
 
 .project span{
+  user-select: none;
   display: block;
   margin-bottom: 10px;
   color: rgba(0,0,0,.3);
 }
 
 .project h3{
+  user-select: none;
   display: block;
   margin-bottom: 40px;
 }
