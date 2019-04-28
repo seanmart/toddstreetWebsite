@@ -138,7 +138,7 @@ span.small {
 
 span.big {
   font-size: calc(1em + 0.5vw);
-  line-height: calc(1.3em + 0.2vw);
+  line-height: calc(1.6em + 0.2vw);
 }
 
 .section {

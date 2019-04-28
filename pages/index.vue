@@ -104,6 +104,6 @@ export default {
 
 span{
   color: #999;
-  margin-bottom:10px;
+  margin-bottom:20px;
 }
 </style>
