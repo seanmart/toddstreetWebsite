@@ -1,11 +1,11 @@
 <template lang="html">
   <header :class="{ active, scrolled, show }">
-    <div class="bar is-padding-sides" ref="bar">
+    <div class="bar is-padding-sides is-max-width" ref="bar">
       <Burger @clicked="active = !active" :on="active" />
       <Logo :style="{ marginLeft: 'auto' }" @click.native="$router.push('/')" />
     </div>
 
-    <div class="bar-bg" ref="bg" />
+    <div class="bar-bg is-max-width" ref="bg" />
 
     <div class="menu is-padding">
       <div class="column links">

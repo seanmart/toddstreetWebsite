@@ -16,10 +16,9 @@ export default {
 
 .button{
   display: inline-block;
-  background: rgba(0,0,0,.03);
-  color: rgba(0,0,0,.4);
+  background: black;
+  color: white;
   padding: 10px 15px;
-  border: 1px solid rgba(0,0,0,.1);
   font-weight: 600;
   border-radius: 3px;
   text-transform: uppercase;
@@ -28,9 +27,7 @@ export default {
   letter-spacing: .1em;
 }
 
-.button:hover{
-  background: black;
-  color: white;
-  border-color: black;
+.button:hover,.button:active{
+  background: #555
 }
 </style>

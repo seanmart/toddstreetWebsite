@@ -25,7 +25,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background: #f2f2f2;
+  background: #eee;
   color: #111;
 }
 
@@ -54,8 +54,16 @@ section {
   color: white;
 }
 
+.is-grey {
+  background: #f6f6f6;
+}
+
 .is-full-height {
   height: 100vh;
+}
+
+.is-min-full-height {
+  min-height: 100vh;
 }
 
 .is-padding,
@@ -105,10 +113,35 @@ section {
 }
 
 h1 {
-  font-size: calc(1.8em + 1vw);
+  font-size: calc(2em + 0.5vw);
 }
 
-h1.section {
+h2 {
+  font-size: calc(1.5em + 0.5vw);
+}
+
+h3 {
+  font-size: calc(1em + 0.5vw);
+}
+
+h4 {
+  font-size: calc(0.7em + 0.5vw);
+}
+
+h5 {
+  font-size: calc(0.3em + 0.75vw);
+}
+
+span.small {
+  font-size: calc(0.7em + 0.1vw);
+}
+
+span.big {
+  font-size: calc(1em + 0.5vw);
+  line-height: calc(1.3em + 0.2vw);
+}
+
+.section {
   font-weight: 900;
   text-align: center;
 }
@@ -126,33 +159,10 @@ h1.section {
   fill: #ffac0c;
 }
 
-h2 {
-  font-size: calc(1em + 1vw);
-}
-
-h3 {
-  font-size: calc(1em + 0.5vw);
-}
-
-h4 {
-  font-size: calc(0.9em + 0.2vw);
-}
-
-h5 {
-  font-size: calc(1em + 0.7vw);
-  font-weight: 500;
-  margin: 0px auto 1em;
-  max-width: 1000px;
-  color: #999;
-  line-height: 1.5em;
-}
-
-h5:last-child {
-  margin-bottom: 0px;
-}
-
-span.small {
-  font-size: calc(0.7em + 0.2vw);
+span,
+p,
+a {
+  font-family: 'Roboto Slab', serif;
 }
 
 a {

@@ -1,7 +1,7 @@
 ---
 title: Friends of Hudson River Park
 cover-image: '/uploads/hudson-river-park.png'
-overview: true
+overview: false
 date: 2016-02-02
 ---
 
@@ -13,6 +13,6 @@ Caitlin, an Illinois native, relocated to New York five years ago, and immediate
 
 “It’s important, especially in such a big city, to have spaces for children to get to enjoy sports and where families can form a community, says Caitlin, “The parks and piers along the Hudson allow families from all over to come enjoy summertime activities, sports, and camps that they might not otherwise have access to.”
 
-Caitlin helped greet guests at the organization’s first-annual event, which was hosted by a committee of celebrities including Martha Stewart, Brooke Shields, and Nate Berkus. The organization treated donors to a performance by singer Janelle Monae and haut cuisine from the French eatery Le District, raising nearly $500,000 in the process.
+Caitlin helped greet guests at the organization’s first-annual event, which was hosted by a committee of celebrities including Martha Stewart, Brooke Shields, and Nate Berkus. The organization treated donors to a performance by singer Janelle Monae and haut cuisine from the French eatery Le District, raising nearly \$500,000 in the process.
 
 We couldn’t agree more with Caitlin and Friends of Hudson River Park about the importance of taking care of our green spaces. It wouldn’t quite be spring in the city without them.

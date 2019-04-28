@@ -78,7 +78,6 @@ export default {
   font-weight: 600;
   text-align: center;
   margin-top: 20px;
-  color: #555;
 }
 
 .employee span{

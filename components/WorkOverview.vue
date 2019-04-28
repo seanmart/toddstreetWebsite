@@ -43,10 +43,14 @@ export default {
 .project{
   flex: 0 0 50%;
   height: 350px;
+  padding: 40px;
   position: relative;
   z-index: 0;
   overflow: hidden;
   background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .project .image{
@@ -59,33 +63,25 @@ export default {
   right: 0px;
   z-index: 0;
   transition: .25s;
-  transform-origin: bottom center;
+  opacity: 1;
 }
 
 .project .info{
-  padding: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: white;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  z-index: 1;
-  text-align: center;
   color: black;
   opacity: 0;
-  transition-delay: .1s;
   transition: .5s;
+  transform: translateX(-10px);
+  position: relative;
+  z-index: 1
+}
+
+.project:hover .image{
+  opacity: .05
 }
 
 .project:hover .info{
-  transition-delay: 0s;
-  transition: .25s;
-  opacity: 1
+  opacity: 1;
+  transform: translateX(0px);
 }
 
 .project span{

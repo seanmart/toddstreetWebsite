@@ -1,13 +1,14 @@
 <template lang="html">
-  <div class="is-padding">
+  <div class="is-padding is-grey">
     <h1 class="is-padding-bottom section"><i class="yellow">How</i> We Care</h1>
     <div class="cares">
       <template v-for="care in cares">
         <div class="care">
-          <div class="care-image" :style="img(care['cover-image'])" />
+          <div class="image" :style="img(care['cover-image'])" />
           <div class="info">
             <h4>{{ care.title }}</h4>
-            <Button to="/work">view</Button>
+            <span class="small">{{ shorten(care.body) }}...</span>
+            <Button to="/work" class="link">view</Button>
           </div>
         </div>
       </template>
@@ -27,6 +28,12 @@ export default {
   methods: {
     img(img) {
       return { backgroundImage: `url(${img})` }
+    },
+    shorten(s) {
+      return s
+        .split(' ')
+        .slice(0, 15)
+        .join(' ')
     }
   }
 }
@@ -37,50 +44,65 @@ export default {
 .cares{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: -30px;
+  margin: 0px -20px -20px;
 }
 
 .care{
-  flex: 0 0 23%;
-  background: white;
-  box-shadow: 0px 2px 5px -2px rgba(0,0,0,.2);
-  margin-bottom: 30px;
+  flex: 0 0 33.333%;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
 }
 
-.care-image{
-  padding-top: 70%;
+.image{
+  flex: 0 0 200px;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .info{
-  padding: 30px;
-  text-align: center;
+  flex: 1 1 auto;
+  position: relative;
+  padding: 30px 30px 60px;
+  background: white;
 }
 
 h4{
-  margin-bottom: 30px;
-  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 700;
   text-align: left;
+  text-transform: uppercase;
 }
 
-@media screen and (max-width: 1200px){
-  .care{
-    flex: 0 0 31%;
-  }
+span{
+  margin-bottom: 30px;
+  line-height: 1.4em;
+  color: #999;
+  display: block;
 }
 
-@media screen and (max-width: 900px){
+.link{
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+
+@media screen and (max-width: 1000px){
   .care{
-    flex: 0 0 48%;
+    flex: 0 0 100%;
+    flex-direction: row;
   }
 }
 
 @media screen and (max-width: 600px){
   .care{
-    flex: 0 0 100%;
+    flex-direction: column;
   }
 }
 </style>

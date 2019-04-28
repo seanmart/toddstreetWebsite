@@ -28,13 +28,13 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin-top: -40px;
-
+  margin: -30px;
 }
 
 .client{
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   padding: 30px;
+  text-align: center;
 }
 
 .client svg{

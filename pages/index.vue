@@ -5,20 +5,20 @@
       <div class="viewfinder" :style="img('vf')" />
     </div>
     <div class="content is-max-width" ref="content">
-      <div class="intro is-padding is-full-height">
+      <div class="intro is-padding is-min-full-height">
         <h1 class="is-padding-bottom section">
           <i class="red">What</i> We Believe
         </h1>
-        <h5>
+        <span class="big">
           True engagement is what transforms an audience into something bigger,
           motivating them to think, feel and act. The catalyst to accomplish
           enduring results.
-        </h5>
-        <h5>
+        </span>
+        <span class="big">
           As a Marketing Communications Agency, we create compelling content and
           design innovative solutions to engage audiences authentically across
           live and virtual platforms.
-        </h5>
+        </span>
       </div>
       <WorkOverview />
       <Staff />
@@ -100,5 +100,10 @@ export default {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+span{
+  color: #999;
+  margin-bottom:10px;
 }
 </style>
