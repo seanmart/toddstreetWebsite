@@ -65,9 +65,10 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  overflow: hidden;
 }
 
-.project .image{
+.image{
   user-select: none;
   background-size: cover;
   background-position: center;
@@ -81,36 +82,35 @@ export default {
   opacity: 1;
 }
 
-.project .info{
+.info{
   color: black;
   opacity: 0;
   transition: .5s;
   transform: translateX(-10px);
   position: relative;
-  z-index: -1
+  z-index: 1;
 }
 
-.project span{
+span{
   user-select: none;
   display: block;
   margin-bottom: 10px;
   color: rgba(0,0,0,.3);
 }
 
-.project h3{
+h3{
   user-select: none;
   display: block;
   margin-bottom: 40px;
 }
 
-@media screen and (min-width:800px){
+@media screen and (min-width:801px){
   .hover .image{
     opacity: .05
   }
 
   .hover .info{
     opacity: 1;
-    z-index: 1;
     transform: translateX(0px);
   }
 }
@@ -125,9 +125,12 @@ export default {
     opacity: .05
   }
 
+  .info{
+    transform: translateX(-100%);
+  }
+
   .active .info{
     opacity: 1;
-    z-index: 1;
     transform: translateX(0px);
   }
 }
