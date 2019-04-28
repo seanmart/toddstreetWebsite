@@ -92,7 +92,7 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  right: 0px;
+  width: 100%;
   background-size: cover;
   background-position: bottom center;
   z-index: -1;

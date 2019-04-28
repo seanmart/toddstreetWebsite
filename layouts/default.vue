@@ -29,6 +29,11 @@ html {
   color: #111;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 *,
 *:before,
 *:after {
@@ -38,10 +43,6 @@ html {
 
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-section {
-  min-height: 100vh;
 }
 
 .is-max-width {

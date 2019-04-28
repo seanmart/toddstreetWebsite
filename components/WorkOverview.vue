@@ -4,8 +4,8 @@
       <div
         :key="i"
         class="project"
-        :class="{ hover: hover === i }"
-        v-touch:top="() => touchHandler(i)"
+        :class="{ active: active === i }"
+        v-touch="() => touchHandler(i)"
         v-touch-class="'hover'"
       >
         <div class="info">
@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      hover: null
+      active: null
     }
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
       return { backgroundImage: `url(${img})` }
     },
     touchHandler(key) {
-      this.hover = key
+      this.active = key == this.active ? null : key
     }
   }
 }
@@ -89,15 +89,6 @@ export default {
   z-index: 1
 }
 
-.hover .image{
-  opacity: .05
-}
-
-.hover .info{
-  opacity: 1;
-  transform: translateX(0px);
-}
-
 .project span{
   user-select: none;
   display: block;
@@ -111,10 +102,30 @@ export default {
   margin-bottom: 40px;
 }
 
+@media screen and (min-width:800px){
+  .hover .image{
+    opacity: .05
+  }
+
+  .hover .info{
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
 
 @media screen and (max-width:800px){
+
   .project{
     flex: 0 0 100%;
+  }
+
+  .active .image{
+    opacity: .05
+  }
+
+  .active .info{
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 </style>
