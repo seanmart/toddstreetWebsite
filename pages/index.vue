@@ -1,7 +1,11 @@
 <template lang="html">
   <section>
     <div class="landing" :style="{ height: windowHeight }">
-      <div class="cityscape" ref="bg" :style="img('bg')" />
+      <div
+        class="cityscape"
+        ref="bg"
+        :style="[img('bg'), { height: windowHeight }]"
+      />
       <div class="viewfinder" :style="img('vf')" />
     </div>
     <div class="content is-max-width" ref="content">
@@ -86,10 +90,8 @@ export default {
 
 .cityscape{
   position: fixed;
-  height: 100%;
   top: 0px;
   left: 0px;
-  bottom: 0px;
   right: 0px;
   background-size: cover;
   background-position: bottom center;
