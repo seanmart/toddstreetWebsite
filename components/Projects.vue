@@ -19,4 +19,10 @@ export default {
   flex: 0 0 50%;
   height: 400px;
 }
+
+@media screen and (max-width: 800px){
+  .project{
+    flex: 0 0 100%;
+  }
+}
 </style>
