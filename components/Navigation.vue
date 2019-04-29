@@ -72,8 +72,8 @@ export default {
       const bg = this.$refs.bg;
       const ls = this.last;
       const ms = this.max;
-      const o = (sy - st + bh * 2) / bh;
       const st = co ? co.offsetTop : 0;
+      const o = (sy - st + bh * 2) / bh;
 
       bg.style.opacity = o < 0 ? 0 : o > 1 ? 1 : o;
 

@@ -37,7 +37,7 @@ export default {
 }
 
 .client svg{
-  fill: #bbb;
+  fill: #aaa;
   width: 100%;
   max-height: 60px;
   max-width: 100px;

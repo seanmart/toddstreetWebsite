@@ -49,7 +49,7 @@ export default {
 }
 
 .image{
-  flex: 0 0 200px;
+  flex: 0 0 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
