@@ -1,62 +1,39 @@
 <template lang="html">
-  <div class="projects">
-    <template v-for="(project, i) in projects">
-      <div
-        :key="i"
-        class="project"
-        :class="{ active: active === i }"
-        v-touch="() => touchHandler(i)"
-        v-touch-class="'hover'"
-      >
-        <div class="info">
-          <span>{{ project['work-category'] }}</span>
-          <h3>{{ project.header }}</h3>
-          <Link :to="`/work/${project.permalink}`">view project</Link>
-        </div>
-        <div class="image" :style="img(project['cover-image'])" />
-      </div>
-    </template>
+  <div
+    class="project-item"
+    :class="{ active }"
+    v-touch="() => (active = !active)"
+    v-touch-class="'hover'"
+  >
+    <div class="info">
+      <span>{{ data["work-category"] }}</span>
+      <h3>{{ data.header }}</h3>
+      <Link :to="`/work/${data.permalink}`">view project</Link>
+    </div>
+    <div
+      class="image"
+      :style="{ backgroundImage: `url(${data['cover-image']})` }"
+    />
   </div>
 </template>
 
 <script>
-import { filter, orderBy } from 'lodash'
-import Link from '@/components/Button'
+import { filter, orderBy } from "lodash";
+import Link from "@/components/Button";
 export default {
+  props: ["data"],
   components: { Link },
-  computed: {
-    projects() {
-      return this.$store.getters.workOverview
-    }
-  },
   data() {
     return {
       active: null
-    }
-  },
-  methods: {
-    img(img) {
-      return { backgroundImage: `url(${img})` }
-    },
-    touchHandler(key) {
-      this.active = key == this.active ? null : key
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
 
-.projects{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background: #f2583e
-}
-
-.project{
-  flex: 0 0 50%;
-  height: 350px;
+.project-item{
   padding: 40px;
   position: relative;
   z-index: 0;
@@ -117,9 +94,6 @@ h3{
 
 @media screen and (max-width:800px){
 
-  .project{
-    flex: 0 0 100%;
-  }
 
   .active .image{
     opacity: .05

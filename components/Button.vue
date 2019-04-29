@@ -1,5 +1,5 @@
 <template lang="html">
-  <nuxt-link :to="to" class="button">
+  <nuxt-link :to="to" class="button" :class="{ big }">
     <slot />
   </nuxt-link>
 </template>
@@ -7,9 +7,10 @@
 <script>
 export default {
   props: {
-    to: String
+    to: String,
+    big: { type: Boolean, default: false }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
@@ -25,6 +26,12 @@ export default {
   font-size: .6em;
   line-height: .6em;
   letter-spacing: .1em;
+}
+
+.button.big{
+  padding: 15px 25px;
+  font-size: 1em;
+  letter-spacing: .2em;
 }
 
 .button:hover,.button:active{

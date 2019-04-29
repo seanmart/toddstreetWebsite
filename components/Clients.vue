@@ -1,23 +1,22 @@
 <template lang="html">
   <div class="is-padding">
-    <h1 class="is-padding-bottom section">
-      <i class="red">Who</i> We Work With
-    </h1>
-    <div class="clients">
+    <Grid>
       <template v-for="client in clients">
         <div class="client" v-html="client.body" />
       </template>
-    </div>
+    </Grid>
   </div>
 </template>
 <script>
+import Grid from "@/components/Grid";
 export default {
+  components: { Grid },
   computed: {
     clients() {
-      return this.$store.getters.clients
+      return this.$store.getters.clients;
     }
   }
-}
+};
 </script>
 
 <style lang="css">
@@ -32,7 +31,7 @@ export default {
 }
 
 .client{
-  flex: 1 1 auto;
+  flex: 0 0 25%;
   padding: 30px;
   text-align: center;
 }
@@ -42,5 +41,17 @@ export default {
   width: 100%;
   max-height: 60px;
   max-width: 100px;
+}
+
+@media screen and (max-width: 1000px){
+  .client{
+    flex: 0 0 33.333%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .client{
+    flex: 0 0 50%;
+  }
 }
 </style>

@@ -1,47 +1,51 @@
 <template lang="html">
   <header :class="{ active, scrolled, show }">
-    <div class="bar is-padding-sides is-max-width" ref="bar">
-      <Burger @clicked="active = !active" :on="active" />
-      <Logo :style="{ marginLeft: 'auto' }" @click.native="$router.push('/')" />
+    <div class="bar is-padding-sides" ref="bar">
+      <div class="is-max-width inner-bar">
+        <Burger @clicked="active = !active" :on="active" />
+        <Logo class="logo" @click.native="$router.push('/')" />
+      </div>
     </div>
 
-    <div class="bar-bg is-max-width" ref="bg" />
+    <div class="bar-bg" ref="bg" />
 
     <div class="menu is-padding">
-      <div class="column links">
-        <h4>Links</h4>
-        <template v-for="(l, i) in nav">
-          <nuxt-link :key="i" :to="l.route" @click.native="active = false">
-            <h2>{{ l.label }}</h2>
-          </nuxt-link>
-        </template>
-      </div>
-      <div class="column info">
-        <h4>Information</h4>
-        <span>{{ company }}</span>
-        <span>{{ street }}</span>
-        <span>{{ city }}, {{ state }}, {{ zip }}</span>
+      <div class="inner-menu is-max-width">
+        <div class="column links">
+          <h4>Links</h4>
+          <template v-for="(l, i) in nav">
+            <nuxt-link :key="i" :to="l.route" @click.native="active = false">
+              <h2>{{ l.label }}</h2>
+            </nuxt-link>
+          </template>
+        </div>
+        <div class="column info">
+          <h4>Information</h4>
+          <span>{{ company }}</span>
+          <span>{{ street }}</span>
+          <span>{{ city }}, {{ state }}, {{ zip }}</span>
+        </div>
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import Logo from '@/components/svg/Logo'
-import Burger from '@/components/svg/Burger'
+import Logo from "@/components/svg/Logo";
+import Burger from "@/components/svg/Burger";
 export default {
   components: { Logo, Burger },
   computed: {
     nav() {
-      return this.$store.state.nav
+      return this.$store.state.nav;
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-    this.handleScroll()
+    window.addEventListener("scroll", this.handleScroll);
+    this.handleScroll();
   },
   destroyed() {
-    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener("scroll", this.handleScroll);
   },
   data() {
     return {
@@ -53,30 +57,31 @@ export default {
       scrolled: false,
       active: false,
       show: false,
-      color: '#000',
+      color: "#000",
       scroll: {
         max: 0,
         last: 0
       }
-    }
+    };
   },
   methods: {
     handleScroll() {
-      const sy = window.scrollY
-      const bh = this.$refs.bar.clientHeight
-      const bg = this.$refs.bg
-      const ls = this.scroll.last
-      const ms = this.scroll.max
+      const sy = window.scrollY;
+      const bh = this.$refs.bar.clientHeight;
+      const st = document.getElementById("content").offsetTop;
+      const bg = this.$refs.bg;
+      const ls = this.last;
+      const ms = this.max;
+      const o = (sy - st + bh * 2) / bh;
+      bg.style.opacity = o < 0 ? 0 : o > 1 ? 1 : o;
 
-      bg.style.opacity = (sy - bh) / bh
-
-      this.show = sy > 0 && ((sy < ls && ms > bh) || (ms > bh && sy < bh))
-      this.scrolled = sy > bh || this.show
-      this.scroll.max = sy > ms ? sy : sy === 0 ? 0 : ms
-      this.scroll.last = sy
+      this.show = sy > 0 && ((sy < ls && ms > bh) || (ms > bh && sy < bh));
+      this.scrolled = sy > bh || this.show;
+      this.max = sy > ms ? sy : sy === 0 ? 0 : ms;
+      this.last = sy;
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
@@ -87,10 +92,20 @@ header{
 
 .bar{
   position: absolute;
+  z-index: 1;
+}
+
+.inner-bar{
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  z-index: 1;
+}
+
+.logo{
+  width: 150px;
+  max-width: 25vw;
+  margin-left: auto;
 }
 
 .bar svg{
@@ -100,6 +115,7 @@ header{
 
 .bar-bg{
   z-index: -1;
+  position: relative;
   background: white;
   box-shadow: 0px 0px 4px rgba(0,0,0,.1)
 }
@@ -132,7 +148,10 @@ header{
   bottom: 0px;
   transform: translateY(150%);
   transition: transform .5s;
-  background: rgba(0,0,0,1);
+  background: #000
+}
+
+.inner-menu{
   display:flex;
   justify-content: center;
   align-items: stretch;

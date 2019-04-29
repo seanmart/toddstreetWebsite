@@ -1,9 +1,5 @@
 <template lang="html">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 2310.7 358"
-    class="toddstreet"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2310.7 358">
     <path
       d="M122.1,344.7c-25.7,0-45.8-6.1-60.1-18.4c-14.4-12.3-21.5-32.9-21.5-61.9v-98.7H11.8V97.1h28.7V35.7h85.2v61.5
   		h56.5v68.6h-56.5v82.4c0,8.7,1.9,14.9,5.8,18.7c3.9,3.8,9.7,5.6,17.5,5.6c5.7,0,11.2-0.8,16.6-2.4c5.4-1.6,10.6-3.6,15.7-6.2v66.8
@@ -80,8 +76,4 @@
   </svg>
 </template>
 
-<style lang="css" scoped>
-.toddstreet{
-  width: 120px;
-}
-</style>
+<style lang="css" scoped></style>

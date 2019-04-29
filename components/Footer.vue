@@ -1,5 +1,5 @@
 <template lang="html">
-  <footer class="is-max-width is-padding">
+  <footer class="is-padding">
     footer
   </footer>
 </template>

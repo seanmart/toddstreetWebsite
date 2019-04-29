@@ -1,90 +1,28 @@
 <template lang="html">
-  <div class="staff is-padding">
-    <h1 class="is-padding-bottom section"><i class="blue">Who</i> We Are</h1>
-    <div class="staff-section">
-      <template v-for="(e, i) in leaders">
-        <div class="employee">
-          <div class="image" :style="img(e.image)" />
-          <div class="info">
-            <h4>{{ e.title }}</h4>
-            <span class="small">{{ e.role }}</span>
-          </div>
-        </div>
-      </template>
-    </div>
-    <div class="staff-section">
-      <template v-for="(e, i) in workers">
-        <div class="employee">
-          <div class="image" :style="img(e.image)" />
-          <div class="info">
-            <h4>{{ e.title }}</h4>
-            <span class="small">{{ e.role }}</span>
-          </div>
-        </div>
-      </template>
-    </div>
+  <div class="is-padding-top is-padding-sides">
+    <Grid v-for="(list, i) in data" :key="i">
+      <Employee
+        v-for="(item, x) in list"
+        :key="x"
+        :data="item"
+        class="employee"
+      />
+    </Grid>
   </div>
 </template>
 
 <script>
-import { filter, orderBy } from 'lodash'
+import Employee from "@/components/items/Employee";
+import Grid from "@/components/Grid";
 export default {
-  computed: {
-    workers() {
-      return this.$store.getters.staffWorkers
-    },
-    leaders() {
-      return this.$store.getters.staffLeaders
-    }
-  },
-  methods: {
-    img(img) {
-      return { backgroundImage: `url(${img})` }
-    }
-  }
-}
+  components: { Employee, Grid },
+  props: ["data"]
+};
 </script>
 
 <style lang="css" scoped>
-
-
-.staff-section{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.staff-section:last-of-type{
-  margin-bottom: -50px;
-}
-
 .employee{
   flex: 0 0 20%;
-  padding-bottom: 50px;
-}
-
-.employee .image{
-  box-shadow: 0px 20px 20px -20px rgba(0,0,0,.5);
-  height: 35vw;
-  width: 35vw;
-  max-height: 150px;
-  max-width: 150px;
-  margin: 0px auto;
-  background-size: cover;
-  border-radius: 100%;
-}
-
-.employee h4{
-  font-weight: 600;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.employee span{
-  display: block;
-  text-align: center;
-  margin: 5px 5%;
-  color: #999;
 }
 
 @media screen and (max-width:1200px){
@@ -96,6 +34,12 @@ export default {
 @media screen and (max-width:950px){
   .employee{
     flex: 0 0 33.333%
+  }
+}
+
+@media screen and (max-width: 800px){
+  .project{
+    flex: 0 0 100%;
   }
 }
 
