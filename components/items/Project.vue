@@ -1,6 +1,5 @@
 <template lang="html">
-  <nuxt-link
-    :to="`/projects/${data.permalink}`"
+  <div
     class="project-item"
     :class="{ active }"
     v-touch="() => (active = !active)"
@@ -15,7 +14,8 @@
       class="image"
       :style="{ backgroundImage: `url(${data['cover-image']})` }"
     />
-  </nuxt-link>
+    <nuxt-link class="link" :to="`/projects/${data.permalink}`" />
+  </div>
 </template>
 
 <script>
@@ -82,6 +82,15 @@ h3{
   margin-bottom: 40px;
 }
 
+.link{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1;
+}
+
 @media screen and (min-width:801px){
   .hover .image{
     opacity: .05
@@ -95,6 +104,9 @@ h3{
 
 @media screen and (max-width:800px){
 
+  .link{
+    display: none;
+  }
 
   .active .image{
     opacity: .05
