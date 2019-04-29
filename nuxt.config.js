@@ -1,7 +1,7 @@
-import pkg from './package'
+import pkg from "./package";
 
 export default {
-  mode: 'universal',
+  mode: "universal",
 
   /*
    ** Headers of the page
@@ -9,20 +9,20 @@ export default {
   head: {
     title: pkg.name,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
-        rel: 'stylesheet',
+        rel: "stylesheet",
         href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i,900,900i'
+          "https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i,900,900i"
       },
       {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto+Slab:400,700'
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Roboto+Slab:400,700"
       }
     ]
   },
@@ -30,7 +30,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: "#fff" },
 
   /*
    ** Global CSS
@@ -40,7 +40,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/touch', ssr: false }],
+  plugins: [{ src: "~/plugins/touch", ssr: false }],
 
   /*
    ** Nuxt.js modules
@@ -57,8 +57,8 @@ export default {
     extend(config, ctx) {
       config.module.rules.push({
         test: /\.markdown$/,
-        loader: 'frontmatter-markdown-loader'
-      })
+        loader: "frontmatter-markdown-loader"
+      });
     }
   }
-}
+};

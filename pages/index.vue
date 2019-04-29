@@ -27,7 +27,7 @@
       </Intro>
 
       <Projects :data="projects">
-        <nuxt-link to="/work" class="view-projects is-black text-white">
+        <nuxt-link to="/projects" class="view-projects is-black text-white">
           <p class="big">View All Work</p>
         </nuxt-link>
       </Projects>
@@ -165,5 +165,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100px;
+}
+
+.view-projects p{
+  margin: 0px;
 }
 </style>

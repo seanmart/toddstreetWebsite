@@ -14,5 +14,6 @@ export default {};
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 </style>

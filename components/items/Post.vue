@@ -8,7 +8,7 @@
       <div class="info">
         <h3>{{ data.title }}</h3>
         <span class="small">{{ shorten(data.body) }}...</span>
-        <Button to="/work" class="link">check it out</Button>
+        <Button :to="link" class="link">check it out</Button>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
 <script>
 import Button from "@/components/Button";
 export default {
-  props: ["data"],
+  props: ["data", "link"],
   components: { Button },
   methods: {
     img(img) {
@@ -65,7 +65,6 @@ h3{
   margin-bottom: 10px;
   font-weight: 700;
   text-align: left;
-  text-transform: uppercase;
 }
 
 span{

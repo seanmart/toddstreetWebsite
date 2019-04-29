@@ -1,5 +1,5 @@
 <template lang="html">
-  <section class="avoid-nav is-max-width">
+  <section class="projects is-max-width">
     <h1 class="is-padding-bottom title">
       <i class="text-red">What</i> We Deliver
     </h1>
@@ -23,7 +23,9 @@ export default {
 
 <style lang="css" scoped>
 
-
+.projects{
+  padding-top: 160px;
+}
 .project{
   flex: 0 0 33.333%;
   height: 350px;

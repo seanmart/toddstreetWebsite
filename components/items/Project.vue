@@ -1,5 +1,6 @@
 <template lang="html">
-  <div
+  <nuxt-link
+    :to="`/projects/${data.permalink}`"
     class="project-item"
     :class="{ active }"
     v-touch="() => (active = !active)"
@@ -8,13 +9,13 @@
     <div class="info">
       <span>{{ data["work-category"] }}</span>
       <h3>{{ data.header }}</h3>
-      <Link :to="`/work/${data.permalink}`">view project</Link>
+      <Link :to="`/projects/${data.permalink}`">view project</Link>
     </div>
     <div
       class="image"
       :style="{ backgroundImage: `url(${data['cover-image']})` }"
     />
-  </div>
+  </nuxt-link>
 </template>
 
 <script>

@@ -19,7 +19,7 @@ export const state = () => ({
   },
   nav: [
     { route: "/", label: "About Us" },
-    { route: "/work", label: "Our Work" },
+    { route: "/projects", label: "Our Projects" },
     { route: "/care", label: "We Care" },
     { route: "/contact", label: "Contact Us" }
   ]
@@ -97,5 +97,5 @@ export const getters = {
 async function asyncImport(folder, name) {
   name = name.replace("./", "");
   let file = await import(`~/content/${folder}/${name}`);
-  return { ...file.attributes, body: file.body };
+  return { ...file.attributes, body: file.body, html: file.html };
 }

@@ -68,11 +68,13 @@ export default {
     handleScroll() {
       const sy = window.scrollY;
       const bh = this.$refs.bar.clientHeight;
-      const st = document.getElementById("content").offsetTop;
+      const co = document.getElementById("content");
       const bg = this.$refs.bg;
       const ls = this.last;
       const ms = this.max;
       const o = (sy - st + bh * 2) / bh;
+      const st = co ? co.offsetTop : 0;
+
       bg.style.opacity = o < 0 ? 0 : o > 1 ? 1 : o;
 
       this.show = sy > 0 && ((sy < ls && ms > bh) || (ms > bh && sy < bh));

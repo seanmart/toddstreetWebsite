@@ -1,9 +1,10 @@
 ---
-title: 'This holiday season, toddstreet is getting back to the basics of giving.'
-cover-image: '/uploads/brc.png'
+title: "This holiday season, toddstreet is getting back to the basics of giving."
+cover-image: "/uploads/brc.png"
 published: true
 overview: true
 date: 2018-12-25
+id: brc
 ---
 
 More than 62 thousand people will be on the streets of NYC this winter, with 24 thousand of them being children. With the holidays coming, and really reflecting on the year behind us, we wanted a way to share with those less fortunate than ourselves. So we decided to collect basic items like soap, toothpaste, toothbrushes, coats, gloves, socks, etc. and send them to the Bowery Resident’s Committee to be put to good use.
