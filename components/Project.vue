@@ -1,11 +1,15 @@
 <template>
-  <box half responsive :style="{ height: `${height}px` }" class="project">
-    <div class="content" @click="$emit('clicked')" :class="{ active }">
+  <box ratio :image="image" col2 class="project">
+    <div class="content" @click="clicked" :class="{ active }" v-if="!empty">
       <t grey body small>{{ type }}</t>
       <t title medium thick>{{ title }}</t>
-      <t link body small><nuxt-link :to="link">check it out</nuxt-link></t>
+      <t link body small before class="link">
+        <nuxt-link :to="link">check it out</nuxt-link>
+      </t>
     </div>
-    <div class="project-image" :style="{ backgroundImage: `url(${image})` }" />
+    <div class="empty" v-if="empty">
+      <slot></slot>
+    </div>
     <nuxt-link :to="link" class="project-link" />
   </box>
 </template>
@@ -17,7 +21,14 @@ export default {
     link: String,
     image: String,
     height: { type: Number, default: 400 },
-    active: Boolean
+    active: Boolean,
+    empty: Boolean
+  },
+  methods: {
+    clicked() {
+      console.log('clicked')
+      this.$emit('clicked')
+    }
   }
 }
 </script>
@@ -25,6 +36,7 @@ export default {
 .content{
   display: block;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,6 +47,20 @@ export default {
   transition: opacity .5s;
   position: relative;
   z-index: 1
+}
+
+.empty{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.link{
+  position: relative;
+  z-index: 3
 }
 
 .project-image,

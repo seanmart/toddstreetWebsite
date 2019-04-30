@@ -1,7 +1,7 @@
 <template>
-  <box fifth responsive class="employee">
+  <box col5 class="employee">
     <div class="image" :style="{ backgroundImage: `url(${image})` }" />
-    <t title small thick>{{ name }}</t>
+    <t title small thick before>{{ name }}</t>
     <t body small grey>{{ role }}</t>
   </box>
 </template>
@@ -18,7 +18,7 @@ export default {
 
 .employee{
   text-align: center;
-  padding: 20px;
+  padding:10px;
 }
 
 .image{

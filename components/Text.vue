@@ -20,7 +20,9 @@ export default {
     thin: Boolean,
     link: Boolean,
     center: Boolean,
-    width: Boolean
+    width: Boolean,
+    after: Boolean,
+    before: Boolean
   },
   computed: {
     classes() {
@@ -35,7 +37,9 @@ export default {
         grey: this.grey,
         link: this.link,
         center: this.center,
-        width: this.width
+        width: this.width,
+        after: this.after,
+        before: this.before
       }
     }
   }
@@ -43,12 +47,6 @@ export default {
 </script>
 
 <style lang="css">
-
-.text.width{
-    display: block;
-    max-width: 1200px;
-    margin: auto;
-}
 
 .text.center{
   text-align: center;
@@ -88,21 +86,28 @@ p{
   background: black;
   text-transform: uppercase;
   letter-spacing: .1em;
-  margin: 10px 0px;
+}
+
+.text.link.white{
+  color: black;
+  background: white
+}
+
+.text.link:hover{
+  background: #aaa
 }
 
 h1.big{
   font-size: calc(2em + 1vw);
-  margin-bottom: 50px;
 }
+
 h1.medium{
   font-size: calc(1.5em + .5vw);
-  margin: 5px 0px 10px;
 }
 h1.small{
   font-size: calc(.8em + .5vw);
-  margin: 10px 0px;
 }
+
 h3.big{
   font-size: calc(2em + .5vw);
 }
@@ -112,12 +117,12 @@ h3.medium{
 h3.small{
   font-size: calc(.5em + .5vw);
 }
+
 p.big{
-  font-size: calc(1em + .8vw);
-  margin: 10px 0px;
+  font-size: calc(1.8em + .5vw);
 }
 p.medium{
-  font-size: calc(1em + .5vw);
+  font-size: calc(1em + .8vw);
 }
 p.small{
   font-size: calc(.7em + .3vw);
@@ -125,5 +130,31 @@ p.small{
 
 p.small.link{
   font-size: calc(.5em + .2vw);
+}
+
+h1.before{
+  margin-top: 50px;
+}
+
+h1.after{
+  margin-bottom: 50px;
+}
+
+h3.before{
+  margin-top: 40px;
+}
+
+h3.after{
+  margin-bottom: 40px;
+}
+
+h1.small.before,
+p.before{
+  margin-top: 30px;
+}
+
+h1.small.after,
+p.after{
+  margin-bottom: 30px;
 }
 </style>

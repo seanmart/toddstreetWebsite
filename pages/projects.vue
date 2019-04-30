@@ -1,19 +1,18 @@
 <template>
-  <container topnav>
-    <t title big thick center>How We Serve</t>
-    <container flex mobile id="WORK">
+  <block space nav>
+    <container gallery fullwidth>
       <Project
         v-for="(project, i) in projects.data"
-        :key="i"
         :active="projects.active === i"
-        :title="project.header"
-        :image="project['cover-image']"
-        :link="project.permalink"
+        :key="i"
         :type="project['work-category']"
+        :title="project.header"
+        :link="`/projects/${project.permalink}`"
+        :image="project['cover-image']"
         @clicked="projects.active = projects.active === i ? null : i"
       />
     </container>
-  </container>
+  </block>
 </template>
 <script>
 import Project from '@/components/Project'

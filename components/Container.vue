@@ -1,245 +1,93 @@
 <template>
-  <div
-    class="container"
-    :class="{
-      top,
-      bottom,
-      left,
-      right,
-      sides,
-      all,
-      fullblack,
-      fullwhite,
-      cover,
-      allplus,
-      topplus,
-      topnav,
-      height
-    }"
-    :style="containerStyle"
-  >
-    <div
-      class="content"
-      :class="{
-        flex,
-        row,
-        column,
-        middle,
-        center,
-        tablet,
-        mobile,
-        black,
-        white,
-        start,
-        startleft,
-        endright,
-        end
-      }"
-      :style="contentStyle"
-    >
-      <slot />
-    </div>
+  <div class="container" :class="classes" :style="styles">
+    <slot />
   </div>
 </template>
 <script>
 export default {
   props: {
-    all: Boolean,
-    sides: Boolean,
-    top: Boolean,
-    bottom: Boolean,
-    left: Boolean,
-    right: Boolean,
-    flex: Boolean,
-    row: Boolean,
-    column: Boolean,
-    middle: Boolean,
-    center: Boolean,
-    tablet: Boolean,
-    mobile: Boolean,
-    fullblack: Boolean,
-    fullwhite: Boolean,
-    black: Boolean,
-    white: Boolean,
-    cover: Boolean,
-    start: Boolean,
-    end: Boolean,
-    startleft: Boolean,
-    endright: Boolean,
-    allplus: Boolean,
-    topplus: Boolean,
-    topnav: Boolean,
+    gallery: Boolean,
+    cards: Boolean,
+    bar: Boolean,
+    menu: Boolean,
     image: String,
-    height: Boolean,
-    negative: Number
+    black: Boolean,
+    center: Boolean,
+    fullwidth: Boolean,
+    fullheight: Boolean
   },
   computed: {
-    containerStyle() {
-      let styles = {}
-      if (this.negative) styles.margin = `-${this.negative}px`
-      if (this.image) styles.backgroundImage = `url(${this.image})`
-      return styles
+    classes() {
+      return {
+        gallery: this.gallery,
+        cards: this.cards,
+        fullwidth: this.fullwidth,
+        fullheight: this.fullheight,
+        bar: this.bar,
+        image: this.image,
+        black: this.black,
+        menu: this.menu,
+        center: this.center
+      }
     },
-    contentStyle() {
+    styles() {
       let styles = {}
+      if (this.image) styles.backgroundImage = `url(${this.image})`
       return styles
     }
   }
 }
 </script>
-<style lang="css">
+<style lang="css" scoped>
+
 .container{
-  width: 100%;
-  background-size: cover;
-  background-position: center bottom;
+  padding: 50px;
 }
 
-.container.height{
-  height: 100%;
-}
-
-.container.cover{
-  height: 100vh
-}
-
-.container.all,
-.container.top{
-  padding-top: 50px;
-}
-
-.container.all,
-.container.bottom{
-  padding-bottom: 50px;
-}
-
-.container.all,
-.container.sides,
-.container.left{
-  padding-left: 50px;
-}
-
-.container.all,
-.container.sides,
-.container.right{
-  padding-right: 50px;
-}
-
-.container.allplus{
-  padding: 100px;
-}
-
-.container.topplus{
-  padding-top: 100px;
-}
-
-.container.topnav{
-  padding-top: 160px;
-}
-
-.content{
-  width: 100%;
-  height: 100%;
-  max-width: 1500px;
-  margin: 0px auto;
-}
-
-.container.fullblack,
-.content.black{
-  background: #000;
-}
-
-.container.fullwhite,
-.content.white{
-  background: #fff;
-}
-
-.content.flex{
+.container.center{
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.content.row{
+.menu,
+.gallery,
+.bar {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.bar {
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.cards {
+  padding: 40px;
   align-items: stretch;
 }
 
-.content.column{
-  flex-direction: column
+.container.fullwidth{
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-.content.row.middle{
-  align-items: center;
+.container.fullheight{
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
-.content.column.middle{
-  justify-content: center;
+.black{
+  background: black
 }
 
-.content.row.center{
-  justify-content: center;
-}
-
-.content.column.center{
-  align-items: center;
-}
-
-.content.row.end{
- align-items: flex-end;
-}
-
-.content.column.end{
-  justify-content: flex-end;
-}
-
-.content.row.start{
- align-items: flex-start;
-}
-
-.content.column.start{
-  justify-content: flex-start;
-}
-
-.content.row.startleft{
-  justify-content: flex-start;
-}
-
-.content.column.startleft{
-  align-items: flex-start;
-}
-
-.content.row.endright{
-  justify-content: flex-end;
-}
-
-.content.column.endright{
-  align-items: flex-end;
-}
-
-@media screen and (max-width: 950px){
-  .content.column.tablet{
-    flex-direction: row
-  }
-
-  .content.row.tablet{
-    flex-direction: column
-  }
-}
-
-@media screen and (max-width: 600px){
-  .content.column.mobile{
-    flex-direction: row
-  }
-
-  .content.column.tablet.mobile{
-    flex-direction: column
-  }
-
-  .content.row.mobile{
-    flex-direction: column
-  }
-
-  .content.row.tablet.mobile{
-    flex-direction: row
+@media screen and (max-width:750px){
+  .container{
+    padding: 7vw
   }
 }
 </style>

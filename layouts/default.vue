@@ -50,7 +50,18 @@ a {
   color: inherit;
 }
 
-.padded {
-  padding: 20px;
+.red {
+  color: #f2583e;
+  fill: #f2583e;
+}
+
+.blue {
+  color: #43bae1;
+  fill: #43bae1;
+}
+
+.yellow {
+  color: #ffac0c;
+  fill: #ffac0c;
 }
 </style>

@@ -1,22 +1,26 @@
 <template>
-  <header :class="{ hide }">
-    <container sides flex row middle class="top-bar">
-      <Menu class="menu-button" @clicked="hide = !hide" :on="!hide" />
-      <nuxt-link to="/" class="logo-button">
-        <Logo />
-      </nuxt-link>
-    </container>
-    <container class="menu" sides bottom fullblack cover mobile row>
-      <box class="links" half mobile>
-        <t subtitle thick grey>Links</t>
-        <nav>
-          <nuxt-link :to="link.route" v-for="(link, i) in links" :key="i">
-            <t body big white @click.native="hide = true">{{ link.label }}</t>
-          </nuxt-link>
-        </nav>
-      </box>
-      <box class="info" half> </box>
-    </container>
+  <header :class="{ hide, expand, transition }">
+    <block extend class="top-bar-block">
+      <container bar class="top-bar">
+        <Menu class="menu-button" @clicked="hide = !hide" :on="!hide" />
+        <nuxt-link to="/" class="logo-button">
+          <Logo />
+        </nuxt-link>
+      </container>
+    </block>
+    <div class="nav-background" />
+    <block fullheight black extend class="bottom-menu">
+      <container gallery>
+        <box class="links" col2>
+          <nav>
+            <nuxt-link :to="link.route" v-for="(link, i) in links" :key="i">
+              <t body big white @click.native="hide = true">{{ link.label }}</t>
+            </nuxt-link>
+          </nav>
+        </box>
+        <box class="info" col2> </box>
+      </container>
+    </block>
   </header>
 </template>
 <script>
@@ -27,41 +31,96 @@ export default {
   data() {
     return {
       links: this.$store.state.nav,
-      hide: true
+      hide: true,
+      expand: true,
+      transition: false,
+      timeout: null
+    }
+  },
+  watch: {
+    hide() {
+      this.transition = true
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => (this.transition = false), 500)
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+    this.handleScroll()
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      this.expand = window.scrollY < 50
     }
   }
 }
 </script>
 <style>
-.top-bar {
-  height: 80px;
+.top-bar,
+.nav-background {
+  height: 100px;
+}
+
+.top-bar-block {
   position: fixed;
   z-index: 101;
   top: 0px;
-  left: 0px;
-  right: 0px;
 }
 
+.nav-background {
+  position: fixed;
+  z-index: 99;
+  background: white;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 1;
+  transition: opacity 0.25s;
+}
+
+.expand .nav-background {
+  opacity: 0;
+}
+
+.transition .top-bar-block {
+  transition: top 0.5s;
+}
+
+.expand.hide .top-bar-block {
+  top: 50px;
+  position: absolute;
+}
+
+.menu-button {
+  position: relative;
+  left: -5px;
+}
+
+.menu-button svg {
+  display: block;
+}
 .logo-button {
   margin-left: auto;
 }
+
 .logo-button svg {
   width: 150px;
   max-width: 25vw;
 }
 
-.menu-button {
-  padding: 5px;
-  margin-left: -5px;
-}
-
-.menu {
+.bottom-menu {
   position: fixed;
   z-index: 100;
   transition: transform 0.5s;
   padding-top: 100px;
+  top: 0px;
+  left: 0px;
 }
-.hide .menu {
+
+.hide .bottom-menu {
   transform: translateY(150%);
 }
 
@@ -75,7 +134,7 @@ export default {
 .logo-button {
   fill: #fff;
   transition: fill 0s;
-  transition-delay: 0.35s;
+  transition-delay: 0.36s;
 }
 
 nav a {

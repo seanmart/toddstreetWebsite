@@ -1,15 +1,11 @@
 <template>
-  <box third responsive class="post padded">
-    <nuxt-link :to="link">
-      <container flex column tablet mobile height>
-        <div class="image" :style="{ backgroundImage: `url(${image})` }" />
-        <container all fullwhite flex column startleft class="post-content">
-          <t title small thick>{{ title }}</t>
-          <t body small grey class="body">{{ shorten(body) }}</t>
-          <t body small link class="link">check it out</t>
-        </container>
-      </container>
-    </nuxt-link>
+  <box card col3 :to="link">
+    <box :image="image" ratio />
+    <box textbox>
+      <t title small thick>{{ title }}</t>
+      <t body small grey before after>{{ shorten(body) }}...</t>
+      <t body small link>check it out</t>
+    </box>
   </box>
 </template>
 <script>
@@ -31,35 +27,4 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
-
-.image{
-  flex: 0 0 300px;
-  background-size: cover;
-  background-position: center center;
-}
-
-.body{
-  margin-bottom: 20px;
-}
-
-.post-content{
-  flex: 1 1 auto;
-}
-
-.link{
-  margin-top: auto;
-}
-
-@media screen and (max-width: 950px){
-  .image{
-    flex: 0 1 50%;
-  }
-}
-
-@media screen and (max-width: 600px){
-  .image{
-    flex: 0 0 300px;
-  }
-}
-</style>
+<style lang="css" scoped></style>
