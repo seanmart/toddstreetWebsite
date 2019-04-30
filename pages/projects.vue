@@ -1,7 +1,7 @@
 <template>
   <container topnav>
     <t title big thick center>How We Serve</t>
-    <container flex row id="WORK">
+    <container flex mobile id="WORK">
       <Project
         v-for="(project, i) in projects.data"
         :key="i"
@@ -29,4 +29,3 @@ export default {
   }
 }
 </script>
-<style lang="css"></style>
