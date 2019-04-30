@@ -40,7 +40,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/touch', ssr: false }, '~/plugins/components'],
+  plugins: ['~/plugins/components'],
 
   /*
    ** Nuxt.js modules
