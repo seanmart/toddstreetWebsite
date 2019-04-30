@@ -2,10 +2,13 @@
   <div class="home">
     <!--############# LANDING #################-->
 
-    <block fullheight fullwidth class="landing">
+    <div class="landing" ref="landing">
       <div class="viewfinder" :style="viewfinder" />
       <block fullheight fullwidth :image="cityscape" class="cityscape" />
-    </block>
+    </div>
+
+    <!--############# CONTENT #################-->
+
     <block fullwidth class="page">
       <!--############# INTRO #################-->
 
@@ -131,6 +134,11 @@ export default {
       cares: this.$store.getters.caresOverview,
       clients: this.$store.getters.clients
     }
+  },
+  mounted() {
+    if (window.innerWidth < 600) {
+      this.$refs.landing.style.height = `${window.innerHeight}px`
+    }
   }
 }
 </script>
@@ -141,6 +149,8 @@ export default {
 }
 
 .landing{
+height: 100vh;
+width: 100%;
 display: flex;
 flex-direction: column;
 justify-content: flex-end;

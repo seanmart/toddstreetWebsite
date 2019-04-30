@@ -85,15 +85,6 @@ export default {
   opacity: 0;
 }
 
-.transition .top-bar-block {
-  transition: top 0.5s;
-}
-
-.expand.hide .top-bar-block {
-  top: 50px;
-  position: absolute;
-}
-
 .menu-button {
   position: relative;
   left: -5px;
@@ -108,7 +99,7 @@ export default {
 
 .logo-button svg {
   width: 150px;
-  max-width: 25vw;
+  max-width: 35vw;
 }
 
 .bottom-menu {
@@ -154,5 +145,16 @@ nav a:hover {
 
 nav a:active {
   transform: scale(0.97);
+}
+
+@media screen and (min-width: 601px) {
+  .transition .top-bar-block {
+    transition: top 0.5s;
+  }
+
+  .expand.hide .top-bar-block {
+    top: 50px;
+    position: absolute;
+  }
 }
 </style>
