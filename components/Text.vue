@@ -102,7 +102,7 @@ h1.big{
 }
 
 h1.medium{
-  font-size: calc(1.5em + .5vw);
+  font-size: calc(1.3em + .6vw);
 }
 h1.small{
   font-size: calc(.8em + .5vw);

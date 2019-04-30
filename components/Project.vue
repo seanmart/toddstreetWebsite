@@ -1,11 +1,13 @@
 <template>
   <box ratio :image="image" col2 class="project">
     <div class="content" @click="clicked" :class="{ active }" v-if="!empty">
-      <t grey body small>{{ type }}</t>
-      <t title medium thick>{{ title }}</t>
-      <t link body small before class="link">
-        <nuxt-link :to="link">check it out</nuxt-link>
-      </t>
+      <div class="project-text">
+        <t grey body small>{{ type }}</t>
+        <t title medium thick>{{ title }}</t>
+        <nuxt-link :to="link"
+          ><t link body small before class="link">check it out</t></nuxt-link
+        >
+      </div>
     </div>
     <div class="empty" v-if="empty">
       <slot></slot>
@@ -46,7 +48,20 @@ export default {
   background: white;
   transition: opacity .5s;
   position: relative;
-  z-index: 1
+  z-index: 1;
+}
+
+.project-text{
+  transform: translateX(-100%);
+  transition: transform .25s
+}
+
+.active .project-text{
+  transform: translateX(0px);
+}
+
+.project-text a{
+  display: inline-block;
 }
 
 .empty{
@@ -81,6 +96,10 @@ export default {
 .project-link{
   z-index: 2;
   display: none;
+}
+
+.project{
+  overflow: hidden;
 }
 @media screen and (max-width: 800px){
   .content.active{

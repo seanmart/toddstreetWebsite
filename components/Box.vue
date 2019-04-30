@@ -205,9 +205,12 @@ export default {
     flex-basis: 100%;
   }
 
+  .ratio.col5,
+  .ratio.col4,
   .ratio.col3,
-  .ratio.col4{
-    padding-top: calc(56.25%)
+  .ratio.col2,
+  .ratio.col1{
+    padding-top: 100%
   }
 
   .col6,
@@ -215,9 +218,6 @@ export default {
     flex-basis: 50%;
   }
 
-  .ratio.col5{
-    padding-top: calc(56.25%/2)
-  }
 
 }
 </style>
