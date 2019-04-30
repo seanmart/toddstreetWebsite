@@ -1,5 +1,5 @@
 import Container from '@/components/Container'
-import Box from '@/components/box'
+import Box from '@/components/Box'
 import Text from '@/components/Text'
 import Block from '@/components/Block'
 import Vue from 'vue'
