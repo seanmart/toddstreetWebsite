@@ -1,15 +1,12 @@
-<template lang="html">
-  <footer class="is-padding">
+<template>
+  <container>
     footer
-  </footer>
+  </container>
 </template>
-
 <script>
-export default {};
-</script>
+export default{
 
-<style lang="css" scoped>
-footer{
-  background: #222;
 }
+</script>
+<style lang="css">
 </style>

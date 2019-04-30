@@ -1,14 +1,16 @@
 <template lang="html">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 252 252"
-    class="burger"
-    @click="$emit('clicked')"
-    :class="{ on }"
-  >
-    <rect class="top" width="252" height="15" rx="4.46" y="80" />
-    <rect class="bottom" y="147" width="252" height="15" rx="4.46" />
-  </svg>
+  <div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 252 252"
+      class="burger"
+      @click="$emit('clicked')"
+      :class="{ on }"
+    >
+      <rect class="top" width="252" height="15" rx="4.46" y="80" />
+      <rect class="bottom" y="147" width="252" height="15" rx="4.46" />
+    </svg>
+  </div>
 </template>
 
 <script>

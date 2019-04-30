@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="post-item">
+  <nuxt-link :to="link" class="post-item">
     <div class="inner-post is-white shadow">
       <div
         class="image"
@@ -11,7 +11,7 @@
         <Button :to="link" class="link">check it out</Button>
       </div>
     </div>
-  </div>
+  </nuxt-link>
 </template>
 
 <script>
