@@ -1,5 +1,6 @@
 <template>
   <block space nav>
+    <t title big thick before center> <i class="red">What</i> We Deliver </t>
     <container gallery fullwidth>
       <Project
         v-for="(project, i) in projects.data"

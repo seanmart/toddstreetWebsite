@@ -40,7 +40,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/components'],
+  plugins: [
+    '~/plugins/components',
+    { src: '~/plugins/scrollReveal', ssr: false }
+  ],
 
   /*
    ** Nuxt.js modules

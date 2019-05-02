@@ -59,7 +59,7 @@ export const getters = {
         state.staff,
         i => i.published !== false && i.department === 'Leadership'
       ),
-      i => i.title.split(' ')[1]
+      'position'
     )
   },
   staffWorkers(state) {

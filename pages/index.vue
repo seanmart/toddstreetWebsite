@@ -14,13 +14,15 @@
 
       <block space class="intro">
         <container center>
-          <t title big thick before after><i class="red">What</i> We Believe</t>
-          <t body medium grey after>
+          <t title big thick before after v-scroll-reveal="titleScroll">
+            <i class="red">What</i> We Believe
+          </t>
+          <t body medium grey after v-scroll-reveal="titleScroll">
             True engagement is what transforms an audience into something
             bigger, motivating them to think, feel and act. The catalyst to
             accomplish enduring results.
           </t>
-          <t body medium grey>
+          <t body medium grey v-scroll-reveal="titleScroll">
             As a Marketing Communications Agency, we create compelling content
             and design innovative solutions to engage audiences authentically
             across live and virtual platforms.
@@ -51,7 +53,7 @@
       <!--############# EMPLOYEES #################-->
 
       <block space extend>
-        <t title big thick before after center>
+        <t title big thick before after center v-scroll-reveal="titleScroll">
           <i class="blue">Who</i> We Are
         </t>
         <container gallery>
@@ -75,9 +77,11 @@
       <!--############# WE CARE #################-->
 
       <block extend>
-        <t title big thick before center> <i class="yellow">How</i> We Care </t>
+        <t title big thick before center v-scroll-reveal="titleScroll">
+          <i class="yellow">How</i> We Care
+        </t>
         <container>
-          <t body medium grey>
+          <t body medium grey v-scroll-reveal="titleScroll">
             Our unified commitment to apply our talents to benefit charitable
             organizations for social good broadens our experience, insight,
             creativity and awareness with the work we do for our clients. We
@@ -92,6 +96,7 @@
             :image="care['cover-image']"
             :link="`/care/${care.id}`"
             :body="care.body"
+            linkColor="#ffac0c"
           />
         </container>
       </block>
@@ -99,7 +104,7 @@
       <!--############# CLIENTS #################-->
 
       <block extend space>
-        <t title big thick before after center>
+        <t title big thick before after center v-scroll-reveal="titleScroll">
           <i class="red">Who</i> We Work With
         </t>
         <container>
@@ -122,7 +127,7 @@ export default {
   data() {
     return {
       cityscape: '/uploads/cityscape.png',
-      viewfinder: { backgroundImage: 'url(/uploads/viewfinder.png' },
+      viewfinder: { backgroundImage: 'url(/uploads/viewfinder.png)' },
       projects: {
         data: this.$store.getters.projectsOverview,
         active: null
@@ -132,7 +137,11 @@ export default {
         workers: this.$store.getters.staffWorkers
       },
       cares: this.$store.getters.caresOverview,
-      clients: this.$store.getters.clients
+      clients: this.$store.getters.clients,
+      titleScroll: {
+        distance: '100px',
+        opacity: 0
+      }
     }
   },
   mounted() {
@@ -145,7 +154,7 @@ export default {
 <style lang="css">
 
 .page{
-  background: white;
+  background: #f5f5f5;
 }
 
 .landing{
@@ -176,8 +185,8 @@ align-items: center;
 }
 
 .clients{
-  border-bottom: 1px solid #eee;
-  border-right: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 
 .client{
@@ -186,8 +195,8 @@ align-items: center;
   align-items: center;
   padding: 20px;
   min-height: 150px;
-  border-top: 1px solid #eee;
-  border-left: 1px solid #eee;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
 }
 
 .client p{

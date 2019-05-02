@@ -68,6 +68,10 @@ h1, h3, p{
   font-weight: 500;
 }
 
+h1,h3,.link{
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 p{
   font-family: "Roboto Slab", serif;
 }
@@ -81,20 +85,18 @@ p{
 }
 
 .text.link{
-  padding: 10px 15px;
+  padding: 8px 15px;
   color: white;
+  border-radius: 15px;
   background: black;
   text-transform: uppercase;
-  letter-spacing: .1em;
-}
-
-.text.link.white{
-  color: black;
-  background: white
+  letter-spacing: .15em;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .text.link:hover{
-  background: #aaa
+  opacity: .7
 }
 
 h1.big{
@@ -105,7 +107,7 @@ h1.medium{
   font-size: calc(1.3em + .6vw);
 }
 h1.small{
-  font-size: calc(.8em + .5vw);
+  font-size: calc(1em + .3vw);
 }
 
 h3.big{
@@ -129,7 +131,7 @@ p.small{
 }
 
 p.small.link{
-  font-size: calc(.5em + .2vw);
+  font-size: calc(.4em + .2vw);
 }
 
 h1.before{
@@ -150,11 +152,11 @@ h3.after{
 
 h1.small.before,
 p.before{
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 h1.small.after,
 p.after{
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 </style>

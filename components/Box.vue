@@ -18,7 +18,8 @@ export default {
     col2: Boolean,
     col1: Boolean,
     image: String,
-    to: String
+    to: String,
+    grow: Boolean
   },
   computed: {
     classes() {
@@ -32,7 +33,8 @@ export default {
         textbox: this.textbox,
         image: this.image ? true : false,
         card: this.card,
-        ratio: this.ratio
+        ratio: this.ratio,
+        grow: this.grow
       }
     },
     styles() {
@@ -57,18 +59,14 @@ export default {
   border-radius: 3px;
   overflow: hidden;
   background: white;
-  border: 1px solid #eee;
   min-height: 100%;
   display: flex;
-  flex-direction:column
+  flex-direction:column;
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,.2)
 }
 
 .to{
   cursor: pointer;
-}
-
-.col1,.col2,.col3,.col4,.col5,.col6{
-  flex-grow: 1;
 }
 
 .col6{
@@ -102,6 +100,7 @@ export default {
 }
 
 .card .textbox{
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -143,6 +142,10 @@ export default {
   left: 0px;
   right: 0px;
   bottom: 0px;
+}
+
+.grow{
+  flex-grow: 1
 }
 
 @media screen and (max-width: 1000px){
@@ -187,7 +190,8 @@ export default {
   }
 
   .card .ratio{
-    flex: 0 0 50%;
+    flex: 0 0 35%;
+    padding-top: 30%
   }
 }
 

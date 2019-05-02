@@ -1,5 +1,5 @@
 <template>
-  <box ratio :image="image" col2 class="project">
+  <box ratio :image="image" col2 class="project" v-scroll-reveal="scrollAttr">
     <div class="content" @click="clicked" :class="{ active }" v-if="!empty">
       <div class="project-text">
         <t grey body small>{{ type }}</t>
@@ -26,6 +26,16 @@ export default {
     active: Boolean,
     empty: Boolean
   },
+  data() {
+    return {
+      scrollAttr: {
+        duration: 1000,
+        opacity: 0,
+        scale: 0.9,
+        reset: false
+      }
+    }
+  },
   methods: {
     clicked() {
       console.log('clicked')
@@ -51,14 +61,6 @@ export default {
   z-index: 1;
 }
 
-.project-text{
-  transform: translateX(-100%);
-  transition: transform .25s
-}
-
-.active .project-text{
-  transform: translateX(0px);
-}
 
 .project-text a{
   display: inline-block;
@@ -101,14 +103,27 @@ export default {
 .project{
   overflow: hidden;
 }
+
+.project-text{
+  transform: translateX(-100%);
+  transition: transform .25s
+}
+
+
 @media screen and (max-width: 800px){
+  .active .project-text{
+    transform: translateX(0px);
+  }
+
   .content.active{
     opacity: .95
   }
 }
 
 @media screen and (min-width:801px){
-
+  .project:hover .project-text{
+    transform: translateX(0px);
+  }
   .project:hover .content{
     opacity: .95
   }

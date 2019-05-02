@@ -61,7 +61,7 @@ export default {
 <style>
 .top-bar,
 .nav-background {
-  height: 100px;
+  height: 80px;
 }
 
 .top-bar-block {

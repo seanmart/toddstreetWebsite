@@ -1,5 +1,5 @@
 <template>
-  <box col5 class="employee">
+  <box col5 grow class="employee">
     <div class="image" :style="{ backgroundImage: `url(${image})` }" />
     <t title small thick before>{{ name }}</t>
     <t body small grey>{{ role }}</t>

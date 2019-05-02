@@ -4,7 +4,7 @@
     <box textbox>
       <t title small thick>{{ title }}</t>
       <t body small grey before after>{{ shorten(body) }}...</t>
-      <t body small link>check it out</t>
+      <t body small link :style="{ background: linkColor }">check it out</t>
     </box>
   </box>
 </template>
@@ -14,7 +14,8 @@ export default {
     title: String,
     body: String,
     image: String,
-    link: String
+    link: String,
+    linkColor: { type: String, default: 'black' }
   },
   methods: {
     shorten(s) {
