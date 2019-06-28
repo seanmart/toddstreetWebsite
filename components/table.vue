@@ -66,7 +66,6 @@ export default {
 
   .row, .table.vertical .row{
     flex-direction: column;
-    align-items: center;
   }
 
   .column{

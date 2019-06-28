@@ -77,8 +77,8 @@ p:last-child{
     margin: 40px 0px 0px
   }
 
-  .centered{justify-content: center; align-items: center;}
-  .centered h1{text-align: center;}
+  .centered{align-items: flex-start;}
+  .centered h1{text-align: left;}
 }
 
 @media screen and (min-width: 1200px){

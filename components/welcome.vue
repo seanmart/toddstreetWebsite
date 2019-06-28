@@ -46,9 +46,15 @@ export default {
   align-items: center;
 }
 
-h1{
+#welcome h1{
   font-size: 4vw;
   font-weight: 900;
   flex: 0 0 auto;
+}
+
+@media screen and (max-width: 750px){
+  #welcome h1{
+    font-size: 30px;
+  }
 }
 </style>
