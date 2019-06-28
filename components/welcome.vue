@@ -11,8 +11,9 @@
 <script>
 import brackets from "./brackets";
 import content from "@/content/welcome";
+import vue100vh from "vue-100vh";
 export default {
-  components: { brackets },
+  components: { brackets, vue100vh },
   data() {
     return {
       hide: false,
@@ -23,6 +24,16 @@ export default {
     $route() {
       this.hide = true;
     }
+  },
+  mounted() {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      this.$refs.content.style.height =
+        window.outerHeight - (window.outerHeight - window.innerHeight) + "px";
+    }
   }
 };
 </script>
@@ -30,7 +41,6 @@ export default {
 <style lang="css" scoped>
 #welcome{
   border-bottom: 1px solid #333;
-  height:100vh;
 }
 
 #welcome.hide{

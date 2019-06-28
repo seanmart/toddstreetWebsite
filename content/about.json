@@ -8,40 +8,51 @@
     "lists": [
       {
         "label": "Events",
-        "items": [
-          "Brand Strategy",
-          "Discovery",
-          "Content Creation",
-          "Integrated",
-          "Campaigns",
-          "Digital",
-          "Social Media",
-          "Websites",
-          "Infographics"
+        "list": [
+          "Creative Strategy & Design",
+          "Message Development",
+          "Brand Activation",
+          "Meeting Production & Management",
+          "Broadcast Creative & Execution",
+          "Exhibit Booth Design & Build",
+          "Scenic & Stage Design",
+          "Media Production",
+          "Graphic / Animation Creation",
+          "Talent Negotiation & Coordination"
         ]
       },
       {
         "label": "Communications",
-        "items": [
-          "Brand",
-          "Strategy",
+        "list": [
+          "Brand Strategy",
+          "Video Production",
+          "Content Creation",
+          "Integrated Campaigns",
           "Discovery",
-          "Content",
-          "Creation",
-          "Integrated",
-          "Campaigns"
+          "Digital Campaigns",
+          "Social Media Strategy",
+          "Website Development",
+          "Infographics",
+          "Mobile",
+          "Print"
         ]
       },
       {
         "label": "Training",
-        "items": [
-          "Brand",
-          "Strategy",
-          "Discovery",
-          "Content",
-          "Creation",
-          "Integrated",
-          "Campaigns"
+        "list": [
+          "Instructional Design & Strategy",
+          "Content Development",
+          "TTT / Leader / Participant Guides",
+          "Realtime Assessment / Certification",
+          "Pre / Post Training Communications",
+          "E-Learning Modules",
+          "Virtual Meetings / VILTs",
+          "Game Development",
+          "App Development",
+          "Touchscreen Technology",
+          "VR / AR",
+          "Podcasts",
+          "Data & Analytics"
         ]
       }
     ]

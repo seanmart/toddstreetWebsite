@@ -28,6 +28,14 @@ html {
   color: white;
 }
 
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  min-height: 100vh;
+}
+
 *,
 *:before,
 *:after {
@@ -40,7 +48,7 @@ html {
 }
 
 .max {
-  max-width: 1200px;
+  max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
 }

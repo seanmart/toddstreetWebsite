@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container" ref="nav">
+  <div class="navbar" ref="nav">
     <header :class="{ stick }">
       <div class="wrapper">
         <nuxt-link to="/"><logo class="logo"/></nuxt-link>
@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     handleScroll() {
+      console.log(this.$refs.nav.getBoundingClientRect().top);
       this.stick = this.$refs.nav.getBoundingClientRect().top <= 0;
     }
   }
@@ -50,7 +51,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container, header{
+.navbar, header{
   height: 65px;
 }
 
@@ -67,6 +68,7 @@ header.stick{
   top: 0px;
   left: 0px;
   width: 100%;
+  z-index: 100;
 }
 
 .wrapper{
