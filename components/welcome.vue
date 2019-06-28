@@ -12,7 +12,7 @@
 import brackets from "./brackets";
 import content from "@/content/welcome";
 export default {
-  components: { brackets, vue100vh },
+  components: { brackets },
   data() {
     return {
       hide: false,
