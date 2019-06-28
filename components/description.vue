@@ -62,7 +62,7 @@ p:last-child{
   }
   h1{
     text-align: left;
-    font-size: 51px;
+    font-size: 48px;
     white-space: normal;
     flex: 0 0 auto;
     margin: 0px;

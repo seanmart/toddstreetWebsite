@@ -44,25 +44,15 @@ export default {
 }
 
 .tabs p{
-  flex: 0 0 auto;
+  flex: 0 1 150px;
   font-size: 1.2em;
   opacity: .85;
   cursor: pointer;
   transition: .25s;
   display: inline-block;
   text-align: center;
-  padding: 5px;
 }
 
-.tabs p::after {
-  font-size: 1.2em;
-    display: block;
-    content: attr(title);
-    font-weight: 900;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
-}
 
 .tabs p.active{
   font-weight: 900;
@@ -73,13 +63,14 @@ export default {
   .tabs{
     justify-content: flex-start;
     padding-left: 0px;
+    margin: 70px 0px 50px;
   }
 
   .tabs p{
     text-align: left;
+    font-size: 1em;
+    flex: 1 1 auto;
   }
-  .tabs p:first-child{
-    margin-left: -5px;
-  }
+
 }
 </style>
