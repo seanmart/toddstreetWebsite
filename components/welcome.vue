@@ -11,7 +11,6 @@
 <script>
 import brackets from "./brackets";
 import content from "@/content/welcome";
-import vue100vh from "vue-100vh";
 export default {
   components: { brackets, vue100vh },
   data() {
