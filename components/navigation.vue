@@ -20,7 +20,7 @@
 
 <script>
 import btn from "./button";
-import logo from "@/components/svg/logo";
+import logo from "@/components/svg/Logo";
 import { filter, orderBy } from "lodash";
 export default {
   components: { btn, logo },
