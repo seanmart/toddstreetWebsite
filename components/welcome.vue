@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="welcome" :class="{ hide }">
     <div class="content" ref="content">
-      <brackets animated>
+      <brackets :trigger="triggerBrackets">
         <h1>{{ content.text }}</h1>
       </brackets>
     </div>
@@ -10,12 +10,13 @@
 
 <script>
 import brackets from "./brackets";
-import content from "@/content/welcome";
+import content from "@/content/text/welcome";
 export default {
   components: { brackets },
   data() {
     return {
       hide: false,
+      triggerBrackets: false,
       content: content
     };
   },
@@ -33,6 +34,8 @@ export default {
       this.$refs.content.style.height =
         window.outerHeight - (window.outerHeight - window.innerHeight) + "px";
     }
+
+    setTimeout(() => (this.triggerBrackets = true), 500);
   }
 };
 </script>

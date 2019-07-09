@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="brackets" ref="brackets" :style="{ opacity: animated ? 0 : 1 }">
+  <div class="brackets" ref="brackets">
     <div class="bracket left" />
-    <div class="content">
+    <div class="content" ref="content">
       <slot />
     </div>
     <div class="bracket right" />
@@ -12,31 +12,54 @@
 import { TimelineMax } from "gsap";
 export default {
   props: {
-    animated: Boolean,
-    time: { type: Number, default: 2 }
+    trigger: Boolean,
+    time: { type: Number, default: 3 }
+  },
+  watch: {
+    trigger() {
+      this.trigger ? this.on() : this.off();
+    }
+  },
+  data() {
+    return {
+      tl: new TimelineMax()
+    };
   },
   mounted() {
-    if (!this.animated) return;
-    let brackets = this.$refs.brackets;
-    let width = brackets.getBoundingClientRect().width;
-    let tl = new TimelineMax({ delay: 0.2 });
+    if (this.trigger) this.on();
+  },
+  methods: {
+    on() {
+      let brackets = this.$refs.brackets;
+      let content = this.$refs.content;
+      let width = content.offsetWidth + 1;
 
-    tl.set(brackets, {
-      width: 0,
-      paddingLeft: 4,
-      paddingRight: 4
-    });
+      this.tl.set(content, {
+        width: width
+      });
 
-    tl.to(brackets, this.time, {
-      opacity: 1,
-      width: width,
-      padding: "4vw",
-      ease: Power4.easeOut
-    });
+      this.tl.set(brackets, {
+        width: 0,
+        paddingLeft: 0,
+        paddingRight: 0
+      });
 
-    tl.set(brackets, {
-      clearProps: "all"
-    });
+      this.tl.to(brackets, this.time, {
+        width: width,
+        opacity: 1,
+        paddingLeft: "4vw",
+        paddingRight: "4vw"
+      });
+
+      this.tl.set(content, { clearProps: "all" });
+    },
+    off() {
+      let brackets = this.$refs.brackets;
+
+      this.tl.set(brackets, {
+        clearProps: "all"
+      });
+    }
   }
 };
 </script>
@@ -44,20 +67,26 @@ export default {
 <style lang="css" scoped>
 
 .brackets{
+  box-sizing: content-box;
   position: relative;
-  padding: 4vw;
   overflow: hidden;
-}
-
-.brackets .content{
+  max-width: 90vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  white-space: nowrap;
+  padding: 4vw;
+  opacity: 0
+
+}
+
+.brackets .content{
+  text-align: center;
+  display: inline-block;
+  flex: 0 0 auto;
 }
 
 .bracket{
-  border: .6vw solid #333;
+  border: .6vw solid rgba(255,255,255,.3);
   position: absolute;
   top: 0px;
   height: 100%;

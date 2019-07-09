@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="offers max">
+  <div class="max">
     <tabs :labels="labels" @clicked="active = $event.index" />
     <div class="list" :key="Date.now()">
       <ul
@@ -46,9 +46,8 @@ export default {
 }
 
 .list ul{
-  flex: 1 1 auto;
+  flex: 1 1 50%;
   padding: 0px;
-  animation: smooth-item 1s backwards
 }
 
 .list li{
@@ -64,7 +63,6 @@ export default {
   .list{
     flex-direction: column;
     justify-content: flex-start;
-    animation: smooth-item 1s backwards
   }
 
   .list ul{

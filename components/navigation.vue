@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     handleScroll() {
-      console.log(this.$refs.nav.getBoundingClientRect().top);
       this.stick = this.$refs.nav.getBoundingClientRect().top <= 0;
     }
   }

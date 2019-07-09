@@ -41,16 +41,29 @@ export default {
   border-bottom: 3px solid white;
   width: 100%;
   overflow: scroll;
+  font-size: 1.2em;
 }
 
 .tabs p{
-  flex: 0 1 150px;
-  font-size: 1.2em;
+  flex: 0 0 auto;
+  font-size: inherit;
   opacity: .85;
   cursor: pointer;
-  transition: .25s;
+  transition: font-weight .25s;
   display: inline-block;
   text-align: center;
+  padding:20px;
+}
+
+.tabs p::before {
+  display: block;
+  content: attr(title);
+  font-weight: 900;
+  height: 1px;
+  color: blue;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: inherit
 }
 
 
@@ -63,13 +76,20 @@ export default {
   .tabs{
     justify-content: flex-start;
     padding-left: 0px;
+    padding-right: 0px;
     margin: 70px 0px 50px;
+    font-size: 1em;
   }
 
   .tabs p{
+    flex: 0 1 auto;
     text-align: left;
-    font-size: 1em;
-    flex: 1 1 auto;
+    margin: 0px;
+    padding: 10px;
+  }
+
+  .tabs p:first-child{
+    margin-left: -10px;
   }
 
 }
