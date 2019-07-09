@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="welcome" :class="{ hide }">
     <div class="content" ref="content">
-      <brackets :trigger="triggerBrackets">
+      <brackets v-if="triggerBrackets" :time="2">
         <h1>{{ content.text }}</h1>
       </brackets>
     </div>

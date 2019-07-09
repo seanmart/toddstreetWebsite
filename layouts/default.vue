@@ -54,12 +54,12 @@ body {
 }
 
 .inset {
-  padding: 20vw 10vw;
+  padding: 200px 10vw;
 }
 
 @media screen and (min-width: 1200px) {
   .inset {
-    padding: 240px 120px;
+    padding: 200px 120px;
   }
 }
 

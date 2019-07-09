@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="project">
-    <brackets :trigger="trigger" :time="1">
+    <brackets v-if="trigger" :trigger="true" :time="1">
       <h1 v-if="text.title">{{ text.title }}</h1>
       <p v-if="text.description">{{ text.description }}</p>
     </brackets>

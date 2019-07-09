@@ -1,4 +1,4 @@
 import Vue from "vue";
-import VueCarousel from "vue-carousel";
+import Flickity from "vue-flickity";
 
-Vue.use(VueCarousel);
+Vue.component("flickity", Flickity);

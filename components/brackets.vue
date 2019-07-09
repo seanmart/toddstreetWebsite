@@ -12,54 +12,31 @@
 import { TimelineMax } from "gsap";
 export default {
   props: {
-    trigger: Boolean,
     time: { type: Number, default: 3 }
   },
-  watch: {
-    trigger() {
-      this.trigger ? this.on() : this.off();
-    }
-  },
-  data() {
-    return {
-      tl: new TimelineMax()
-    };
-  },
   mounted() {
-    if (this.trigger) this.on();
-  },
-  methods: {
-    on() {
-      let brackets = this.$refs.brackets;
-      let content = this.$refs.content;
-      let width = content.offsetWidth + 1;
+    let tl = new TimelineMax({ delay: 0.3 });
+    let brackets = this.$refs.brackets;
+    let content = this.$refs.content;
+    let width = content.offsetWidth + 1;
 
-      this.tl.set(content, {
-        width: width
-      });
+    tl.set(content, { width: width });
 
-      this.tl.set(brackets, {
-        width: 0,
-        paddingLeft: 0,
-        paddingRight: 0
-      });
+    tl.set(brackets, {
+      width: 0,
+      paddingLeft: 0,
+      paddingRight: 0
+    });
 
-      this.tl.to(brackets, this.time, {
-        width: width,
-        opacity: 1,
-        paddingLeft: "4vw",
-        paddingRight: "4vw"
-      });
+    tl.to(brackets, this.time, {
+      width: width,
+      opacity: 1,
+      paddingLeft: "4vw",
+      paddingRight: "4vw"
+    });
 
-      this.tl.set(content, { clearProps: "all" });
-    },
-    off() {
-      let brackets = this.$refs.brackets;
-
-      this.tl.set(brackets, {
-        clearProps: "all"
-      });
-    }
+    tl.set(content, { clearProps: "all" });
+    tl.set(brackets, { width: "" });
   }
 };
 </script>
@@ -86,7 +63,7 @@ export default {
 }
 
 .bracket{
-  border: .6vw solid rgba(255,255,255,.3);
+  border: .8vw solid rgba(255,255,255,.3);
   position: absolute;
   top: 0px;
   height: 100%;

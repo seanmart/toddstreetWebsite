@@ -1,15 +1,15 @@
 <template lang="html">
   <no-ssr>
-    <carousel :perPage="1" @page-change="activeProject = $event">
-      <slide v-for="(project, i) in projects" :key="i">
-        <project
-          :trigger="activeProject === i"
-          :image="project.image"
-          :text="project.text"
-          class="slide"
-        />
-      </slide>
-    </carousel>
+    <flickity ref="flickity" :options="flickityOptions">
+      <project
+        v-for="(project, i) in projects"
+        :key="i"
+        :trigger="index === i"
+        :image="project.image"
+        :text="project.text"
+        class="slide carousel-cell"
+      />
+    </flickity>
   </no-ssr>
 </template>
 
@@ -22,8 +22,21 @@ export default {
   },
   data() {
     return {
-      activeProject: 0
+      index: 0,
+      flickityOptions: {
+        initialIndex: 0,
+        prevNextButtons: false,
+        pageDots: true,
+        wrapAround: true,
+        freeScroll: false,
+        autoPlay: 5000
+      }
     };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.flickity.on("change", event => (this.index = event));
+    });
   }
 };
 </script>
