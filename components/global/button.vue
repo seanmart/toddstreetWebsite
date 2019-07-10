@@ -1,8 +1,9 @@
 <template lang="html">
   <button
+    class="button"
     type="button"
     name="button"
-    :class="{ red, white, caps, medium, big }"
+    :class="{ red, white, caps, medium, big, small }"
   >
     <p><slot /></p>
   </button>
@@ -15,13 +16,14 @@ export default {
     white: Boolean,
     big: Boolean,
     medium: Boolean,
+    small: Boolean,
     caps: Boolean
   }
 };
 </script>
 
 <style lang="css">
-button{
+.button{
   border: none;
   color: white;
   padding: 4px 8px;
@@ -29,53 +31,62 @@ button{
   transition: .25s;
 }
 
-button p{
+.button p{
   font-size: .8em;
-  text-shadow: 1px 1px 0px rgba(0,0,0,.1);
 }
 
-button.medium{
+.button.small{
+  padding: 7px 12px;
+  border-radius: 25px;
+}
+
+.button.medium{
   padding: 10px 18px;
   border-radius: 25px;
 }
 
-button.medium p{
-  font-size: 1em;
-  font-weight: 700;
-}
-
-button.big{
+.button.big{
   padding: 12px 24px;
   border-radius: 20px;
   border-radius: 20px;
 }
 
-button.big p{
+.button.small p{
+  font-size: .8em;
+  font-weight: 700;
+}
+
+.button.medium p{
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.button.big p{
   font-size: 1em;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-button.red{
+.button.red{
   background: #ff3d00;
 }
 
-button.white{
+.button.white{
   background: white;
   color: black;
 }
 
-button.caps p{
+.button.caps p{
   text-transform: uppercase;
 }
 
-button:hover{
+.button.red:hover{
   background: #ff1e1e
 }
 
-button:active{
+.button:active{
   transform: scale(.95);
 }
 
-button:focus {outline:0;}
+.button:focus {outline:0;}
 </style>

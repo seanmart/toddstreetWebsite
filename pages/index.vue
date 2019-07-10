@@ -1,24 +1,30 @@
 <template lang="html">
   <div id="home">
-    <div class="intro inset">
-      <description :title="content.intro.title" :text="content.intro.text" />
+    <div id="intro" class="inset">
+      <intro :title="text.intro.title" :body="text.intro.body" />
     </div>
-    <div class="offers inset">
-      <description :title="content.offers.title" :text="content.offers.text" />
-      <offers :lists="offers" />
+    <div id="offers" class="inset">
+      <intro :title="text.offers.title" />
+      <offers :content="offers" />
     </div>
-    <projects :projects="projects" />
-    <div class="employees inset"></div>
+    <div id="projects">
+      <projects :content="projects" />
+    </div>
+    <div id="staff" class="inset">
+      <intro :title="text.staff.title" />
+    </div>
+    <div id="care" class="inset"></div>
+    <div id="clients" class="inset"></div>
   </div>
 </template>
 
 <script>
-import content from "@/content/text/about";
-import description from "@/components/description";
-import projects from "@/components/projects";
-import offers from "@/components/offers";
+import text from "@/content/text/about";
+import intro from "@/components/global/intro";
+import offers from "@/components/home/offers";
+import projects from "@/components/home/projects";
 export default {
-  components: { description, offers, projects },
+  components: { intro, offers, projects },
   data() {
     return {
       nav: {
@@ -26,7 +32,8 @@ export default {
         path: "/",
         nav: 1
       },
-      content: content
+      text: text,
+      offer: 0
     };
   },
   computed: {
@@ -37,26 +44,18 @@ export default {
       let po = this.$store.getters.projectsOverview;
       return po.map(i => {
         return {
-          image: i["cover-image"],
-          text: { title: i["header"] }
+          image: i.cover,
+          text: { title: i.header, category: i.category },
+          link: "/projects/" + i.permalink
         };
       });
     }
   }
 };
 </script>
-
 <style lang="css">
-
-#home .intro{
-  background: white;
+#intro{
   color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#home .intro p{
-  color: #555
+  background: white
 }
 </style>

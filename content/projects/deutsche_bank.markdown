@@ -6,8 +6,8 @@ date: 2012-12-17 00:00:00 -05:00
 position: 5
 header: VIP Sponsorship
 color: "#0018a8"
-cover-image: "/uploads/deutsche_bank_cover.jpg"
-work-category: Experiential Events
+cover: "/uploads/deutsche_bank_cover.jpg"
+category: Experiential Events
 overview: 4
 images:
   - "/uploads/deutsche_bank_interior.jpg"

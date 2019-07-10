@@ -5,9 +5,9 @@ permalink: media_and_influencer_launch
 date: 2012-12-17 00:00:00 -05:00
 position: 0
 header: GODLESS - Media and Influencer Launch
-work-category: Experiential Events
+category: Experiential Events
 color: "#B9090B"
-cover-image: "/uploads/netflix_cover.jpg"
+cover: "/uploads/netflix_cover.jpg"
 images:
   - https://www.youtube.com/embed/1OqCczGRo24
   - "/uploads/netflix_frontier_sign.jpg"

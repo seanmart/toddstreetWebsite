@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import welcome from "@/components/welcome";
-import navigation from "@/components/navigation";
+import welcome from "@/components/global/welcome";
+import navigation from "@/components/global/navigation";
 export default {
   components: { welcome, navigation }
 };
@@ -28,9 +28,6 @@ html {
   color: white;
 }
 
-html {
-  height: 100%;
-}
 body {
   min-height: 100%;
   min-height: 100vh;
@@ -41,10 +38,6 @@ body {
 *:after {
   box-sizing: border-box;
   margin: 0;
-}
-
-#site {
-  overflow-x: hidden;
 }
 
 .max {

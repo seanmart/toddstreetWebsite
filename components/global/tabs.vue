@@ -41,7 +41,7 @@ export default {
   border-bottom: 3px solid white;
   width: 100%;
   overflow: scroll;
-  font-size: 1.2em;
+  font-size: 23px;
 }
 
 .tabs p{
@@ -53,6 +53,7 @@ export default {
   display: inline-block;
   text-align: center;
   padding:20px;
+  transition: font-size .25s
 }
 
 .tabs p::before {
@@ -72,13 +73,12 @@ export default {
   opacity: 1;
 }
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 850px){
   .tabs{
     justify-content: flex-start;
     padding-left: 0px;
     padding-right: 0px;
-    margin: 70px 0px 50px;
-    font-size: 1em;
+    margin: 50px 0px;
   }
 
   .tabs p{
@@ -92,5 +92,11 @@ export default {
     margin-left: -10px;
   }
 
+}
+
+@media screen and (max-width: 600px){
+  .tabs{
+    font-size: 16px
+  }
 }
 </style>

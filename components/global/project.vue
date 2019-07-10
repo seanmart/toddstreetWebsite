@@ -1,23 +1,20 @@
 <template lang="html">
   <div class="project">
-    <brackets v-if="trigger" :trigger="true" :time="1">
-      <h1 v-if="text.title">{{ text.title }}</h1>
-      <p v-if="text.description">{{ text.description }}</p>
-    </brackets>
-    <div class="image" :style="{ backgroundImage: `url(${image})` }" />
+    <div
+      class="image"
+      :class="{ fade: active }"
+      :style="{ backgroundImage: `url(${image})` }"
+    />
   </div>
 </template>
 
 <script>
-import brackets from "@/components/brackets";
 export default {
-  components: {
-    brackets
-  },
   props: {
     image: { type: String, default: "" },
     text: { type: Object, default: {} },
-    trigger: Boolean
+    link: String,
+    active: Boolean
   }
 };
 </script>
@@ -30,6 +27,9 @@ export default {
   align-items: center;
 }
 
+.project .text{
+  padding: 4vw;
+}
 .image{
   background-size: cover;
   background-repeat: no-repeat;
@@ -40,11 +40,27 @@ export default {
   bottom: 0px;
   right: 0px;
   z-index: -1;
-  opacity: .4
+  transition: opacity 1s;
+}
+
+.image.fade{
+  opacity: .3
+}
+
+
+.project .link{
+  margin-top: 40px;
 }
 
 .project h1{
-  font-weight: 900;
-  max-width: 80vw;
+  max-width: 60vw;
+}
+
+.project h3{
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 </style>
