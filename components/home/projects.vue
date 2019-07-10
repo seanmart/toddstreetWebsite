@@ -49,5 +49,6 @@ export default {
 .slide{
   height: 600px;
   width: 100vw;
+  max-height: 80vh;
 }
 </style>

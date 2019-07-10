@@ -41,7 +41,7 @@ export default {
   border-bottom: 3px solid white;
   width: 100%;
   overflow: scroll;
-  font-size: 23px;
+  font-size: 18px;
 }
 
 .tabs p{
@@ -53,7 +53,6 @@ export default {
   display: inline-block;
   text-align: center;
   padding:20px;
-  transition: font-size .25s
 }
 
 .tabs p::before {
@@ -86,6 +85,7 @@ export default {
     text-align: left;
     margin: 0px;
     padding: 10px;
+    font-size: 16px
   }
 
   .tabs p:first-child{

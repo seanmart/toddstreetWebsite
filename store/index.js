@@ -1,4 +1,4 @@
-import { filter, orderBy, keyBy } from "lodash";
+import { filter, orderBy, keyBy, groupBy } from "lodash";
 
 export const state = () => ({
   pages: {},
@@ -49,6 +49,15 @@ export const actions = {
 export const getters = {
   projects(state) {
     return orderBy(state.projects, "position");
+  },
+  groupedStaff(state) {
+    return groupBy(
+      orderBy(
+        filter(state.staff, i => i.published !== false),
+        i => i.title.split(" ")[1]
+      ),
+      "department"
+    );
   },
   staffLeaders(state) {
     return orderBy(

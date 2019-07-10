@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="offers max">
+  <div class="max">
     <tabs :labels="labels" @clicked="active = $event.index" />
     <div class="list">
       <ul v-for="(chunk, a) in list" :key="a">

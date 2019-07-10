@@ -12,6 +12,7 @@
     </div>
     <div id="staff" class="inset">
       <intro :title="text.staff.title" />
+      <staff :content="staff" />
     </div>
     <div id="care" class="inset"></div>
     <div id="clients" class="inset"></div>
@@ -23,8 +24,9 @@ import text from "@/content/text/about";
 import intro from "@/components/global/intro";
 import offers from "@/components/home/offers";
 import projects from "@/components/home/projects";
+import staff from "@/components/home/staff";
 export default {
-  components: { intro, offers, projects },
+  components: { intro, offers, projects, staff },
   data() {
     return {
       nav: {
@@ -49,6 +51,9 @@ export default {
           link: "/projects/" + i.permalink
         };
       });
+    },
+    staff() {
+      return this.$store.getters.groupedStaff;
     }
   }
 };

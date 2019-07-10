@@ -33,7 +33,6 @@ export default {
   line-height: 67px;
   letter-spacing: -1px;
   white-space: pre-wrap;
-  transition: font-size .25s, line-height .25s
 }
 
 .intro .text{
@@ -48,6 +47,7 @@ export default {
 
 .intro h1.no-body{
   text-align: center;
+  padding: 0px;
 }
 
 @media screen and (max-width: 1000px){
