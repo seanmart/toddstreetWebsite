@@ -26,7 +26,7 @@ export default {
       index: 0,
       flickityOptions: {
         initialIndex: 0,
-        prevNextButtons: true,
+        prevNextButtons: false,
         pageDots: true,
         wrapAround: true,
         freeScroll: false,

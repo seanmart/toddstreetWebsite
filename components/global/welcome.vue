@@ -100,7 +100,7 @@ export default {
 
 @media screen and (max-width: 450px){
   .welcome h1{
-    font-size: 25px
+    font-size: 23px
   }
 }
 </style>

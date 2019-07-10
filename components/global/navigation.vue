@@ -57,7 +57,6 @@ export default {
 header{
   padding: 0px 20px;
   border-bottom: 1px solid #333;
-  border-top: 1px solid #333;
   background: black;
   color: white;
 }
