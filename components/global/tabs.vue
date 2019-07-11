@@ -15,8 +15,8 @@
       >
         {{ item }}
       </p>
-      <p class="arrow left" @click="handleClick(-1)"><</p>
-      <p class="arrow right" @click="handleClick(1)">></p>
+      <p class="arrow left" @click="handleClick(-1)">▶</p>
+      <p class="arrow right" @click="handleClick(1)">▶</p>
     </div>
   </div>
 </template>
@@ -94,6 +94,7 @@ export default {
 
 .tabs .arrow.left{
   right: 100%;
+  transform: rotate(180deg);
 }
 
 .tabs .arrow.right{
