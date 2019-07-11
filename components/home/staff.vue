@@ -1,8 +1,13 @@
 <template lang="html">
   <div class="max">
     <tabs :labels="departments" @clicked="active = $event.index" />
-    <div class="employees">
-      <div class="employee" v-for="e in employees">
+    <div
+      class="department"
+      v-for="(d, i) in departments"
+      :class="{ active: active === i }"
+      :key="i"
+    >
+      <div class="employee" v-for="(e, x) in content[d]" :key="x">
         <div class="image" :style="{ backgroundImage: `url(${e.image})` }" />
         <div class="text">
           <h3>{{ e.title }}</h3>
@@ -37,11 +42,15 @@ export default {
 </script>
 
 <style lang="css">
-.employees{
-  display: flex;
+.department{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  display: none
+}
+
+.department.active{
+  display: flex;
 }
 
 .employee{
