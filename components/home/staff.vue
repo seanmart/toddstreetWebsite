@@ -91,7 +91,7 @@ export default {
 }
 
 @media screen and (max-width: 700px){
-  .employees{
+  .department{
     flex-direction: column;
   }
 }
