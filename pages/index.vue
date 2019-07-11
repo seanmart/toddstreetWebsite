@@ -1,20 +1,27 @@
 <template lang="html">
   <div id="home">
     <div id="intro" class="inset">
-      <intro :title="text.intro.title" :body="text.intro.body" />
+      <intro :text="text.intro" />
     </div>
+
     <div id="offers" class="inset">
-      <intro :title="text.offers.title" />
+      <intro :text="text.offers" />
       <offers :content="offers" />
     </div>
+
     <div id="projects">
       <projects :content="projects" />
     </div>
+
     <div id="staff" class="inset">
-      <intro :title="text.staff.title" />
+      <intro :text="text.staff" />
       <staff :content="staff" />
     </div>
-    <div id="care" class="inset"></div>
+
+    <div id="care" class="inset">
+      <intro :text="text.care" />
+    </div>
+
     <div id="clients" class="inset"></div>
   </div>
 </template>

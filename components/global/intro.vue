@@ -10,8 +10,15 @@
 <script>
 export default {
   props: {
-    title: String,
-    body: String
+    text: Object
+  },
+  computed: {
+    title() {
+      return this.text.title || null;
+    },
+    body() {
+      return this.text.body || null;
+    }
   }
 };
 </script>

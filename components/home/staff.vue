@@ -7,7 +7,12 @@
       :class="{ active: active === i }"
       :key="i"
     >
-      <div class="employee" v-for="(e, x) in content[d]" :key="x">
+      <div
+        class="employee"
+        v-for="(e, x) in content[d]"
+        :key="x"
+        :style="{ animationDelay: `.${x}s` }"
+      >
         <div class="image" :style="{ backgroundImage: `url(${e.image})` }" />
         <div class="text">
           <h3>{{ e.title }}</h3>
@@ -46,7 +51,8 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  display: none
+  display: none;
+  margin: 0px -10px;
 }
 
 .department.active{
@@ -59,6 +65,10 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+}
+
+.department.active .employee{
+  animation: fade 1s backwards
 }
 
 .employee .image{
