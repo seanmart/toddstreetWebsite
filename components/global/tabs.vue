@@ -1,14 +1,23 @@
 <template lang="html">
-  <div class="tabs">
-    <p
-      v-for="(item, i) in labels"
-      :title="item"
-      :key="i"
-      @click="click(i)"
-      :class="{ active: i === active }"
+  <div class="tabs-container" ref="tabs">
+    <div
+      class="tabs"
+      :class="{ collapse }"
+      :style="{ opacity: this.totalWidth > 0 ? 1 : 0 }"
     >
-      {{ item }}
-    </p>
+      <p
+        v-for="(item, i) in labels"
+        :title="item"
+        :key="i"
+        @click="click(i)"
+        :class="{ active: i === active }"
+        ref="tab"
+      >
+        {{ item }}
+      </p>
+      <p class="arrow left" @click="handleClick(-1)"><</p>
+      <p class="arrow right" @click="handleClick(1)">></p>
+    </div>
   </div>
 </template>
 
@@ -19,29 +28,76 @@ export default {
   },
   data() {
     return {
-      active: 0
+      active: 0,
+      collapse: false,
+      totalWidth: 0
     };
+  },
+  watch: {
+    active() {
+      this.$emit("clicked", {
+        item: this.labels[this.active],
+        index: this.active
+      });
+    }
+  },
+  mounted() {
+    this.totalWidth = this.$refs.tab.reduce(this.reducer, 0);
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     click(i) {
-      this.$emit("clicked", { item: this.labels[i], index: i });
       this.active = i;
+    },
+    handleResize() {
+      this.collapse = this.$refs.tabs.clientWidth < this.totalWidth;
+    },
+    handleClick(inc) {
+      let i = this.active + inc;
+      this.active =
+        i === this.labels.length ? 0 : i < 0 ? this.labels.length : i;
+    },
+    reducer(total, i) {
+      return total + i.clientWidth;
     }
   }
 };
 </script>
 
 <style lang="css">
-.tabs{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0px 15px 15px;
+.tabs-container{
+  padding: 0px 0px 15px;
   margin: 70px 0px;
   border-bottom: 3px solid white;
   width: 100%;
-  overflow: scroll;
+  overflow: hidden;
+  height: 80px;
+  text-align: center;
+}
+.tabs{
   font-size: 18px;
+  display: inline-flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.tabs .arrow{
+  position: absolute;
+  top: 0px;
+  display: none;
+  padding: 20px;
+}
+
+.tabs .arrow.left{
+  right: 100%;
+}
+
+.tabs .arrow.right{
+  left: 100%;
 }
 
 .tabs p{
@@ -66,37 +122,24 @@ export default {
   font-size: inherit
 }
 
-
 .tabs p.active{
   font-weight: 900;
   opacity: 1;
 }
 
-@media screen and (max-width: 850px){
-  .tabs{
-    justify-content: flex-start;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin: 50px 0px;
-  }
-
-  .tabs p{
-    flex: 0 1 auto;
-    text-align: left;
-    margin: 0px;
-    padding: 10px;
-    font-size: 16px
-  }
-
-  .tabs p:first-child{
-    margin-left: -10px;
-  }
-
+.tabs.collapse{
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.tabs.collapse p{
+  transition: none;
 }
 
-@media screen and (max-width: 600px){
-  .tabs{
-    font-size: 16px
-  }
+.tabs.collapse p.active{
+  order: -1
+}
+
+.tabs.collapse .arrow{
+  display: block;
 }
 </style>
