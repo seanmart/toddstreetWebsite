@@ -1,28 +1,26 @@
 <template lang="html">
-  <div class="tabs-container" ref="tabs">
-    <div
-      class="tabs"
-      :class="{ collapse }"
-      :style="{ opacity: this.totalWidth > 0 ? 1 : 0 }"
-    >
+  <div ref="tabs" class="tabs-container" :class="{ collapse }">
+    <div class="tabs" :style="{ opacity: this.totalWidth > 0 ? 1 : 0 }">
       <p
         v-for="(item, i) in labels"
         :title="item"
         :key="i"
-        @click="click(i)"
+        @click="handleClick(i)"
         :class="{ active: i === active }"
         ref="tab"
       >
         {{ item }}
       </p>
-      <p class="arrow left" @click="handleClick(-1)">▶</p>
-      <p class="arrow right" @click="handleClick(1)">▶</p>
+      <p class="arrow left" @click="handleArrow(active - 1)"><arrow /></p>
+      <p class="arrow right" @click="handleArrow(active + 1)"><arrow /></p>
     </div>
   </div>
 </template>
 
 <script>
+import arrow from "@/components/svg/Arrow";
 export default {
+  components: { arrow },
   props: {
     labels: Array
   },
@@ -33,14 +31,6 @@ export default {
       totalWidth: 0
     };
   },
-  watch: {
-    active() {
-      this.$emit("clicked", {
-        item: this.labels[this.active],
-        index: this.active
-      });
-    }
-  },
   mounted() {
     this.totalWidth = this.$refs.tab.reduce(this.reducer, 0);
     window.addEventListener("resize", this.handleResize);
@@ -50,16 +40,20 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-    click(i) {
+    handleClick(i) {
       this.active = i;
+      this.$emit("clicked", {
+        item: this.labels[this.active],
+        index: this.active
+      });
     },
     handleResize() {
       this.collapse = this.$refs.tabs.clientWidth < this.totalWidth;
     },
-    handleClick(inc) {
-      let i = this.active + inc;
-      this.active =
-        i === this.labels.length ? 0 : i < 0 ? this.labels.length : i;
+    handleArrow(inc) {
+      let l = this.labels.length;
+      let i = inc === l ? 0 : inc < 0 ? l - 1 : inc;
+      this.handleClick(i);
     },
     reducer(total, i) {
       return total + i.clientWidth;
@@ -83,6 +77,7 @@ export default {
   display: inline-flex;
   flex-direction: row;
   position: relative;
+  justify-content: flex-start;
 }
 
 .tabs .arrow{
@@ -92,9 +87,16 @@ export default {
   padding: 20px;
 }
 
+.tabs .arrow.left svg{
+  transform: rotate(180deg);
+}
+
+.tabs .arrow:active{
+  transform: scale(.95)
+}
+
 .tabs .arrow.left{
   right: 100%;
-  transform: rotate(180deg);
 }
 
 .tabs .arrow.right{
@@ -128,19 +130,33 @@ export default {
   opacity: 1;
 }
 
-.tabs.collapse{
-  flex-direction: column;
-  justify-content: flex-start;
+@media screen and (max-width:850px){
+  .tabs-container{
+    text-align: left;
+  }
+
+  .tabs{
+    margin-left: -20px;
+  }
 }
-.tabs.collapse p{
+
+.tabs-container.collapse{
+  text-align: center;
+}
+
+.tabs-container.collapse .tabs{
+  flex-direction: column;
+  margin-left: 0px;
+}
+.tabs-container.collapse p{
   transition: none;
 }
 
-.tabs.collapse p.active{
+.tabs-container.collapse p.active{
   order: -1
 }
 
-.tabs.collapse .arrow{
+.tabs-container.collapse .arrow{
   display: block;
 }
 </style>
