@@ -1,5 +1,10 @@
 <template lang="html">
   <div class="project">
+    <div class="inset">
+      <h3 v-if="text.category">{{ text.category }}</h3>
+      <h1 v-if="text.title">{{ text.title }}</h1>
+      <btn white medium caps :to="link">check it out</btn>
+    </div>
     <div
       class="image"
       :class="{ fade: active }"
@@ -9,28 +14,27 @@
 </template>
 
 <script>
+import btn from "@/components/global/button";
 export default {
   props: {
     image: { type: String, default: "" },
     text: { type: Object, default: {} },
     link: String,
     active: Boolean
-  }
+  },
+  components: { btn }
 };
 </script>
 
 <style lang="css">
 .project{
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .project .text{
   padding: 4vw;
 }
-.image{
+.project .image{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -53,11 +57,11 @@ export default {
 }
 
 .project h1{
-  max-width: 60vw;
+  margin: 10px 0px 40px;
+  font-weight: 900;
 }
 
 .project h3{
-  margin-bottom: 10px;
   text-transform: uppercase;
   font-size: .9em;
   font-weight: 400;

@@ -59,7 +59,7 @@ export default {
 };
 </script>
 <style lang="css">
-#intro{
+#intro,#care{
   color: black;
   background: white
 }
