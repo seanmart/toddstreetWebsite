@@ -1,6 +1,6 @@
 ---
 title: Partnering with Motherhood in Focus
-cover-image: "/uploads/motherhood_in_focus.jpg"
+cover: "/uploads/motherhood_in_focus.jpg"
 date: 2017-01-01
 id: motherhood-in-focus
 ---

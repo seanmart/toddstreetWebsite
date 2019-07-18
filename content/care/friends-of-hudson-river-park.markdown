@@ -1,6 +1,6 @@
 ---
 title: Friends of Hudson River Park
-cover-image: "/uploads/hudson-river-park.png"
+cover: "/uploads/hudson-river-park.png"
 overview: false
 date: 2016-02-02
 id: friends-of-hudson-river-park

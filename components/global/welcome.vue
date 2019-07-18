@@ -9,8 +9,9 @@
 <script>
 import { TimelineMax } from "gsap";
 import text from "@/content/text/welcome";
+import welcomeVideo from "@/components/global/video";
 export default {
-  components: {},
+  components: { welcomeVideo },
   data() {
     return {
       hide: false,
@@ -69,6 +70,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.welcome-video{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 
 .welcome.hide{

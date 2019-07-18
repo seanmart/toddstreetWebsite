@@ -1,6 +1,6 @@
 ---
 title: "Partnership for a Healthier America: 2015 Summit"
-cover-image: "/uploads/PFHA.png"
+cover: "/uploads/PFHA.png"
 published: false
 date: 2014-01-01
 id: pfha

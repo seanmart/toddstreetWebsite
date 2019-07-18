@@ -1,6 +1,6 @@
 ---
-title: "This holiday season, toddstreet is getting back to the basics of giving."
-cover-image: "/uploads/brc.png"
+title: "The basics of holiday giving."
+cover: "/uploads/brc.png"
 published: true
 overview: true
 date: 2018-12-25

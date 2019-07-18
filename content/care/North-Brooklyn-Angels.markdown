@@ -1,6 +1,6 @@
 ---
 title: North Brooklyn Angels
-cover-image: "/uploads/north-brooklyn-angels.jpg"
+cover: "/uploads/north-brooklyn-angels.jpg"
 images:
   - "/uploads/north-angels-2.jpg"
   - "/uploads/north-brooklyn-angels.jpg"

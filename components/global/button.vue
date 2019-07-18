@@ -3,7 +3,7 @@
     class="button"
     type="button"
     name="button"
-    :class="{ red, white, caps, medium, big, small }"
+    :class="{ red, white, caps, medium, big, small, outline }"
   >
     <p><slot /></p>
   </button>
@@ -17,7 +17,8 @@ export default {
     big: Boolean,
     medium: Boolean,
     small: Boolean,
-    caps: Boolean
+    caps: Boolean,
+    outline: Boolean
   }
 };
 </script>
@@ -28,7 +29,7 @@ export default {
   color: white;
   padding: 4px 8px;
   background: black;
-  transition: .25s;
+  transition: transform .25s;
 }
 
 .button p{
@@ -74,6 +75,10 @@ export default {
 .button.white{
   background: white;
   color: black;
+}
+
+.button.white.outline{
+  border: 1px solid black;
 }
 
 .button.caps p{

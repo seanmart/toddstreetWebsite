@@ -1,6 +1,6 @@
 ---
 title: toddstreet ventures to Naju, Korea to volunteer at children’s orphanage
-cover-image: "/uploads/Kate_KoreaTrip_2-150x150.jpg"
+cover: "/uploads/Kate_KoreaTrip_2-150x150.jpg"
 date: 2016-05-05
 published: false
 id: sws

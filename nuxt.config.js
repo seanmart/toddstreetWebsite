@@ -20,6 +20,11 @@ export default {
         rel: "stylesheet",
         href:
           "https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700,900&display=swap"
+      },
+      {
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700&display=swap"
       }
     ]
   },

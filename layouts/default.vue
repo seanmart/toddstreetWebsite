@@ -50,6 +50,29 @@ body {
   padding: 200px 10vw;
 }
 
+.space {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.space.top {
+  margin-bottom: inherit;
+}
+
+.space.bottom {
+  margin-top: inherit;
+}
+
+.flickity-viewport {
+  transition: height 0.2s;
+}
+
+@media screen and (max-width: 500px) {
+  .inset {
+    padding: 200px 7vw;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .inset {
     padding: 200px 120px;

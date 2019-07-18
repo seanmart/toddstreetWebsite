@@ -1,13 +1,22 @@
 <template lang="html">
   <div class="max">
-    <tabs :labels="labels" @clicked="active = $event.index" />
-    <div class="list">
-      <ul v-for="(chunk, a) in list" :key="a">
-        <li v-for="(item, b) in chunk" :key="b">
-          <p>{{ item }}</p>
-        </li>
-      </ul>
-    </div>
+    <tabs
+      :labels="labels"
+      @clicked="index = setIndex($event.index)"
+      :setActive="setActive"
+      class="space top"
+    />
+    <no-ssr>
+      <flickity ref="flickity" :options="flickityOptions">
+        <div class="list" v-for="(list, i) in content" :key="i">
+          <ul v-for="(chunk, a) in listChunk(list.list)" :key="a">
+            <li v-for="(item, b) in chunk" :key="b">
+              <p>{{ item }}</p>
+            </li>
+          </ul>
+        </div>
+      </flickity>
+    </no-ssr>
   </div>
 </template>
 
@@ -19,16 +28,37 @@ export default {
   props: { content: Array },
   data() {
     return {
-      active: 0
+      setActive: 0,
+      flickityOptions: {
+        initialIndex: 0,
+        prevNextButtons: false,
+        pageDots: false,
+        wrapAround: true,
+        freeScroll: false,
+        autoPlay: false,
+        pauseAutoPlayOnHover: false,
+        selectedAttraction: 0.02,
+        friction: 0.25,
+        adaptiveHeight: true
+      }
     };
   },
   computed: {
-    list() {
-      let list = this.content[this.active].list;
-      return chunk(list, Math.ceil(list.length / 2));
-    },
     labels() {
       return this.content.map(x => x.label);
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.flickity.on("change", event => (this.setActive = event));
+    });
+  },
+  methods: {
+    listChunk(l) {
+      return chunk(l, Math.ceil(l.length / 2));
+    },
+    setIndex(i) {
+      this.$refs.flickity.select(i);
     }
   }
 };
@@ -40,11 +70,12 @@ export default {
 .list{
   display: flex;
   flex-direction: row;
-  transition: height .25s
+  width: 100%;
+  padding-top: 50px
 }
 
 .list ul{
-  flex: 1 1 50%;
+  flex: 0 0 50%;
   padding: 0px;
 }
 
@@ -53,7 +84,8 @@ export default {
 }
 
 .list p{
-  font-size: 25px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 23px;
   padding: 5px 0px;
   transition: font-size .25s
 }

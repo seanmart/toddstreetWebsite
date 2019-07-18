@@ -18,8 +18,10 @@
       <staff :content="staff" />
     </div>
 
-    <div id="care" class="inset">
+    <div id="cares" class="inset">
       <intro :text="text.care" />
+      <cares :content="cares" class="space" />
+      <btn big caps black class="center">view more</btn>
     </div>
 
     <div id="clients" class="inset"></div>
@@ -32,8 +34,10 @@ import intro from "@/components/global/intro";
 import offers from "@/components/home/offers";
 import projects from "@/components/home/projects";
 import staff from "@/components/home/staff";
+import cares from "@/components/global/cares";
+import btn from "@/components/global/button";
 export default {
-  components: { intro, offers, projects, staff },
+  components: { intro, offers, projects, staff, cares, btn },
   data() {
     return {
       nav: {
@@ -61,13 +65,40 @@ export default {
     },
     staff() {
       return this.$store.getters.groupedStaff;
+    },
+    cares() {
+      return this.$store.getters.caresOverview.map(care => {
+        return {
+          image: care.cover,
+          text: {
+            title: care.title,
+            description:
+              care.body
+                .split(" ")
+                .slice(0, 20)
+                .join(" ") + "..."
+          }
+        };
+      });
     }
   }
 };
 </script>
 <style lang="css">
-#intro,#care{
+
+
+#intro{
   color: black;
   background: white
+}
+
+#cares{
+  color: black;
+  background: white;
+}
+
+.center{
+  display: block;
+  margin: 0px auto;
 }
 </style>

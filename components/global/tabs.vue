@@ -1,19 +1,12 @@
 <template lang="html">
-  <div ref="tabs" class="tabs-container" :class="{ collapse }">
-    <div class="tabs" :style="{ opacity: this.totalWidth > 0 ? 1 : 0 }">
-      <p
-        v-for="(item, i) in labels"
-        :title="item"
-        :key="i"
-        @click="handleClick(i)"
-        :class="{ active: i === active }"
-        ref="tab"
-      >
-        {{ item }}
+  <div class="tabs" :class="{ collapse, black }" ref="tabs">
+    <arrow class="arrow left" @click.native="set(active - 1)" />
+    <template v-for="(label, i) in labels">
+      <p class="tab" ref="tab" :class="isActive(i)" @click="set(i)">
+        {{ label }}
       </p>
-      <p class="arrow left" @click="handleArrow(active - 1)"><arrow /></p>
-      <p class="arrow right" @click="handleArrow(active + 1)"><arrow /></p>
-    </div>
+    </template>
+    <arrow class="arrow right" @click.native="set(active + 1)" />
   </div>
 </template>
 
@@ -22,7 +15,9 @@ import arrow from "@/components/svg/Arrow";
 export default {
   components: { arrow },
   props: {
-    labels: Array
+    setActive: Number,
+    labels: Array,
+    black: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -31,6 +26,31 @@ export default {
       totalWidth: 0
     };
   },
+  watch: {
+    setActive() {
+      this.set(this.setActive);
+    }
+  },
+  methods: {
+    set(i) {
+      let l = this.labels.length;
+      let next = i === l ? 0 : i < 0 ? l - 1 : i;
+      this.active = next;
+      this.$emit("clicked", {
+        item: this.labels[this.active],
+        index: this.active
+      });
+    },
+    isActive(i) {
+      return this.active === i ? "active" : "";
+    },
+    handleResize() {
+      this.collapse = this.$refs.tabs.clientWidth < this.totalWidth;
+    },
+    reducer(total, i) {
+      return total + i.clientWidth + 20;
+    }
+  },
   mounted() {
     this.totalWidth = this.$refs.tab.reduce(this.reducer, 0);
     window.addEventListener("resize", this.handleResize);
@@ -38,125 +58,76 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.handleResize);
-  },
-  methods: {
-    handleClick(i) {
-      this.active = i;
-      this.$emit("clicked", {
-        item: this.labels[this.active],
-        index: this.active
-      });
-    },
-    handleResize() {
-      this.collapse = this.$refs.tabs.clientWidth < this.totalWidth;
-    },
-    handleArrow(inc) {
-      let l = this.labels.length;
-      let i = inc === l ? 0 : inc < 0 ? l - 1 : inc;
-      this.handleClick(i);
-    },
-    reducer(total, i) {
-      return total + i.clientWidth;
-    }
   }
 };
 </script>
 
 <style lang="css">
-.tabs-container{
-  padding: 0px 0px 15px;
-  margin: 70px 0px;
-  border-bottom: 3px solid white;
-  width: 100%;
-  overflow: hidden;
-  height: 80px;
-  text-align: center;
-}
 .tabs{
-  font-size: 18px;
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
-  position: relative;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px solid #fff;
+  padding-bottom: 20px;
+}
+
+.tabs.black{
+  border-color: black;
+}
+
+.tab{
+  flex: 0 0 auto;
+  padding: 8px 20px;
+  white-space: nowrap;
+  font-weight: 700;
+  margin: 0px 10px;
+  border-radius: 25px;
+}
+
+.tabs.black .tab{
+  color: black;
+}
+
+.tab.active{
+  background: white;
+  color: black;
+}
+
+.tabs.black .tab.active{
+  background: black;
+  color: white;
 }
 
 .tabs .arrow{
-  position: absolute;
-  top: 0px;
+  flex: 0 0 auto;
+  box-sizing: content-box;
+  padding: 10px;
   display: none;
-  padding: 20px;
+  fill: white;
 }
 
-.tabs .arrow.left svg{
-  transform: rotate(180deg);
-}
-
-.tabs .arrow:active{
-  transform: scale(.95)
+.tabs.black .arrow{
+  fill: black;
 }
 
 .tabs .arrow.left{
-  right: 100%;
+  transform: rotate(180deg);
 }
 
-.tabs .arrow.right{
-  left: 100%;
+.tabs.collapse .tab{
+  display: none;
 }
 
-.tabs p{
-  flex: 0 0 auto;
-  font-size: inherit;
-  opacity: .85;
-  cursor: pointer;
-  transition: font-weight .25s;
-  display: inline-block;
-  text-align: center;
-  padding:20px;
-}
-
-.tabs p::before {
+.tabs.collapse .tab.active{
   display: block;
-  content: attr(title);
-  font-weight: 900;
-  height: 1px;
-  color: blue;
-  overflow: hidden;
-  visibility: hidden;
-  font-size: inherit
-}
-
-.tabs p.active{
-  font-weight: 900;
-  opacity: 1;
-}
-
-@media screen and (max-width:850px){
-  .tabs-container{
-    text-align: left;
-  }
-
-  .tabs{
-    margin-left: -20px;
-  }
-}
-
-.tabs-container.collapse{
+  background: none;
+  color: inherit;
+  min-width: 200px;
   text-align: center;
 }
 
-.tabs-container.collapse .tabs{
-  flex-direction: column;
-  margin-left: 0px;
-}
-.tabs-container.collapse p{
-  transition: none;
-}
-
-.tabs-container.collapse p.active{
-  order: -1
-}
-
-.tabs-container.collapse .arrow{
+.tabs.collapse .arrow{
   display: block;
 }
 </style>

@@ -33,7 +33,7 @@ export default {
         autoPlay: 4000,
         pauseAutoPlayOnHover: false,
         selectedAttraction: 0.02,
-        friction: 0.3
+        friction: 0.25
       }
     };
   },

@@ -48,7 +48,7 @@ export default {
 }
 
 .image.fade{
-  opacity: .3
+  opacity: .4
 }
 
 
@@ -65,6 +65,6 @@ export default {
   text-transform: uppercase;
   font-size: .9em;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 </style>

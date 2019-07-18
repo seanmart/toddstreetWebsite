@@ -1,7 +1,7 @@
 ---
 title: Community Kitchen & Food Pantry in Harlem
 overview: true
-cover-image: "/uploads/food_pantry_cover.jpg"
+cover: "/uploads/food_pantry_cover.jpg"
 date: 2015-01-01
 id: community-kitchen
 ---

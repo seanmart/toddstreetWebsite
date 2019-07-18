@@ -47,9 +47,11 @@ export default {
 }
 
 .intro p{
-  margin:15px 0px;
-  font-size: 20px;
-  line-height: 27px;
+  font-family: 'Roboto Slab', serif;
+  margin:17px 0px;
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 400;
 }
 
 .intro h1.no-body{
