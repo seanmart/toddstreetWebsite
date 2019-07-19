@@ -5,5 +5,5 @@ published: false
 position: 100
 role: Account Director
 image: "/uploads/matt-obrien.jpg"
-department: Client Engagement
+department: 2
 ---

@@ -1,12 +1,12 @@
 <template lang="html">
   <div id="home">
     <div id="intro" class="inset">
-      <intro :text="text.intro" />
+      <intro :text="data.intro" />
     </div>
 
-    <div id="offers" class="inset">
-      <intro :text="text.offers" />
-      <offers :content="offers" />
+    <div id="offers2" class="inset">
+      <intro :text="data.offers" />
+      <offerstwo :content="offers" />
     </div>
 
     <div id="projects">
@@ -14,30 +14,46 @@
     </div>
 
     <div id="staff" class="inset">
-      <intro :text="text.staff" />
+      <intro :text="data.staff" />
       <staff :content="staff" />
     </div>
 
     <div id="cares" class="inset">
-      <intro :text="text.care" />
+      <intro :text="data.care" />
       <cares :content="cares" class="space" />
       <btn big caps black class="center">view more</btn>
     </div>
 
-    <div id="clients" class="inset"></div>
+    <div id="clients" class="inset">
+      <intro :text="data.clients" />
+      <clients :content="clients" />
+    </div>
   </div>
 </template>
 
 <script>
-import text from "@/content/text/about";
+import data from "@/content/data/about";
 import intro from "@/components/global/intro";
 import offers from "@/components/home/offers";
+import offerstwo from "@/components/home/offers2";
 import projects from "@/components/home/projects";
 import staff from "@/components/home/staff";
 import cares from "@/components/global/cares";
 import btn from "@/components/global/button";
+import viewfinder from "@/components/svg/Viewfinder";
+import clients from "@/components/home/clients";
 export default {
-  components: { intro, offers, projects, staff, cares, btn },
+  components: {
+    intro,
+    offers,
+    offerstwo,
+    projects,
+    staff,
+    cares,
+    clients,
+    btn,
+    viewfinder
+  },
   data() {
     return {
       nav: {
@@ -45,7 +61,7 @@ export default {
         path: "/",
         nav: 1
       },
-      text: text,
+      data: data,
       offer: 0
     };
   },
@@ -64,7 +80,7 @@ export default {
       });
     },
     staff() {
-      return this.$store.getters.groupedStaff;
+      return this.$store.getters.allStaff;
     },
     cares() {
       return this.$store.getters.caresOverview.map(care => {
@@ -80,6 +96,12 @@ export default {
           }
         };
       });
+    },
+    clients() {
+      let data = this.$store.getters.clients;
+      let staff = {};
+      this.data.clients.categories.forEach(i => (staff[i.label] = data[i.id]));
+      return staff;
     }
   }
 };
@@ -89,8 +111,9 @@ export default {
 
 #intro{
   color: black;
-  background: white
+  background: white;
 }
+
 
 #cares{
   color: black;

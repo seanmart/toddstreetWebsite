@@ -5,5 +5,5 @@ published: false
 position: 100
 role: Creative Producer
 image: "/uploads/lauren-radin.jpg"
-department: Creative Services
+department: 3
 ---

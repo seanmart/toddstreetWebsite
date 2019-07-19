@@ -50,47 +50,20 @@ export const getters = {
   projects(state) {
     return orderBy(state.projects, "position");
   },
-  groupedStaff(state) {
+  staff(state) {
     return groupBy(
-      orderBy(
-        filter(state.staff, i => i.published !== false),
-        i => i.title.split(" ")[1]
-      ),
+      orderBy(filter(state.staff, i => i.published !== false), "position"),
       "department"
     );
   },
-  staffLeaders(state) {
-    return orderBy(
-      filter(
-        state.staff,
-        i => i.published !== false && i.department === "Leadership"
-      ),
-      "position"
-    );
-  },
-  staffWorkers(state) {
-    return orderBy(
-      filter(
-        state.staff,
-        i => i.department !== "Leadership" && i.published !== false
-      ),
-      i => i.title.split(" ")[1]
-    );
-  },
-  allWorkers(state) {
-    return orderBy(
-      filter(state.staff, i => i.published !== false),
-      i => i.title.split(" ")[1]
-    );
-  },
-  staffCount(state, getters) {
-    return getters.staffLeaders.length + getters.staffWorkers.length;
+  allStaff(state) {
+    return filter(state.staff, i => i.published !== false);
   },
   cares(state) {
     return orderBy(state.care, i => new Date(i.date), "desc");
   },
   clients(state) {
-    return orderBy(state.clients, "position");
+    return groupBy(orderBy(state.clients, "position"), "category");
   },
   stats(state) {
     return orderBy(state.stats, "position");

@@ -5,5 +5,5 @@ published: false
 position: 2
 role: Managing Director
 image: "/uploads/gail-seay.jpg"
-department: Leadership
+department: 0
 ---

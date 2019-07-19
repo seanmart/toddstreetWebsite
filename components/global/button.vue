@@ -30,6 +30,7 @@ export default {
   padding: 4px 8px;
   background: black;
   transition: transform .25s;
+  cursor: pointer;
 }
 
 .button p{

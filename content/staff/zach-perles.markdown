@@ -5,5 +5,5 @@ position: 5
 published: false
 role: Director of Client Engagement
 image: "/uploads/zach_perles.jpg"
-department: Client Engagement
+department: 2
 ---

@@ -5,5 +5,5 @@ position: 3
 published: false
 role: Emotional Support
 image: "/uploads/dog.jpg"
-department: Leadership
+department: 0
 ---

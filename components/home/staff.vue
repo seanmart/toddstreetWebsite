@@ -1,15 +1,9 @@
 <template lang="html">
-  <div class="max">
-    <tabs
-      :labels="departments"
-      @clicked="setIndex($event.index)"
-      :setActive="setActive"
-      class="space top"
-    />
+  <div class="max space top">
     <no-ssr>
       <flickity ref="flickity" :options="flickityOptions">
-        <div class="department" v-for="(d, i) in departments" :key="i">
-          <div class="employee" v-for="(e, x) in content[d]" :key="x">
+        <div class="staff-page" v-for="(page, i) in staff" :key="i">
+          <div class="employee" v-for="(e, x) in page" :key="x">
             <div
               class="image"
               :style="{ backgroundImage: `url(${e.image})` }"
@@ -27,10 +21,11 @@
 
 <script>
 import tabs from "@/components/global/tabs";
+import { chunk } from "lodash";
 export default {
   components: { tabs },
   props: {
-    content: Object
+    content: Array
   },
   data() {
     return {
@@ -38,14 +33,14 @@ export default {
       flickityOptions: {
         initialIndex: 0,
         prevNextButtons: false,
-        pageDots: false,
+        pageDots: true,
         wrapAround: true,
         freeScroll: false,
         autoPlay: false,
         pauseAutoPlayOnHover: false,
         selectedAttraction: 0.02,
         friction: 0.25,
-        adaptiveHeight: true
+        adaptiveHeight: false
       }
     };
   },
@@ -55,11 +50,8 @@ export default {
     });
   },
   computed: {
-    departments() {
-      return Object.keys(this.content);
-    },
-    employees() {
-      return this.content[this.departments[this.active]];
+    staff() {
+      return chunk(this.content, 8);
     }
   },
   methods: {
@@ -71,13 +63,12 @@ export default {
 </script>
 
 <style lang="css">
-.department{
+.staff-page{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
-  padding-top: 50px;
 }
 
 .employee{
@@ -110,7 +101,7 @@ export default {
 .employee p{
   font-family: 'Roboto Slab', serif;
   font-size: 13px;
-  font-weight: 300
+  font-weight: 400
 }
 
 @media screen and (max-width: 850px){
@@ -121,7 +112,7 @@ export default {
 }
 
 @media screen and (max-width: 700px){
-  .department{
+  .staff-page{
     flex-direction: column;
   }
 }

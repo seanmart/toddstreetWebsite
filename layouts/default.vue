@@ -51,8 +51,8 @@ body {
 }
 
 .space {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .space.top {
@@ -65,6 +65,14 @@ body {
 
 .flickity-viewport {
   transition: height 0.2s;
+}
+
+.flickity-page-dots .dot {
+  background: white !important;
+}
+
+.tabs.black .flickity-page-dots .dot {
+  background: black !important;
 }
 
 @media screen and (max-width: 500px) {

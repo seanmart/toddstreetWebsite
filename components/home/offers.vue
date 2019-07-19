@@ -85,7 +85,7 @@ export default {
 
 .list p{
   font-family: 'Roboto Slab', serif;
-  font-size: 23px;
+  font-size: 20px;
   padding: 5px 0px;
   transition: font-size .25s
 }

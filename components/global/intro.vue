@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="intro max">
-    <h1 :class="{ ['no-body']: !body }">{{ title }}</h1>
+  <div class="intro max" :class="{ ['no-body']: !body }">
+    <h1>{{ title }}</h1>
     <div class="body" v-if="body">
       <p v-for="p in body.split('\n')">{{ p }}</p>
     </div>
@@ -14,10 +14,12 @@ export default {
   },
   computed: {
     title() {
-      return this.text.title || null;
+      if (!this.text) return "";
+      return this.text.title ? this.text.title : "";
     },
     body() {
-      return this.text.body || null;
+      if (!this.text) return "";
+      return this.text.body ? this.text.body : "";
     }
   }
 };
@@ -54,9 +56,8 @@ export default {
   font-weight: 400;
 }
 
-.intro h1.no-body{
-  text-align: center;
-  padding: 0px;
+.intro.no-body{
+  justify-content: flex-start;
 }
 
 @media screen and (max-width: 1000px){

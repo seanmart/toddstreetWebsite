@@ -48,7 +48,7 @@ export default {
 }
 
 .image.fade{
-  opacity: .4
+  opacity: .5
 }
 
 

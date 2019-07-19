@@ -2,9 +2,9 @@
   <div class="tabs" :class="{ collapse, black }" ref="tabs">
     <arrow class="arrow left" @click.native="set(active - 1)" />
     <template v-for="(label, i) in labels">
-      <p class="tab" ref="tab" :class="isActive(i)" @click="set(i)">
-        {{ label }}
-      </p>
+      <div class="tab" ref="tab" :class="isActive(i)" @click="set(i)">
+        <slot v-bind:label="label" />
+      </div>
     </template>
     <arrow class="arrow right" @click.native="set(active + 1)" />
   </div>
@@ -52,6 +52,7 @@ export default {
     }
   },
   mounted() {
+    if (this.setActive) this.active = this.setActive;
     this.totalWidth = this.$refs.tab.reduce(this.reducer, 0);
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
@@ -66,10 +67,9 @@ export default {
 .tabs{
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
   border-bottom: 3px solid #fff;
-  padding-bottom: 20px;
 }
 
 .tabs.black{
@@ -78,25 +78,21 @@ export default {
 
 .tab{
   flex: 0 0 auto;
-  padding: 8px 20px;
   white-space: nowrap;
-  font-weight: 700;
+  font-weight: 900;
   margin: 0px 10px;
-  border-radius: 25px;
-}
-
-.tabs.black .tab{
-  color: black;
+  border-radius: 0px;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: .3
 }
 
 .tab.active{
-  background: white;
-  color: black;
+  opacity: 1
 }
 
-.tabs.black .tab.active{
-  background: black;
-  color: white;
+.tab:first-of-type{
+  margin-left: 0px;
 }
 
 .tabs .arrow{
@@ -115,6 +111,10 @@ export default {
   transform: rotate(180deg);
 }
 
+.tabs.collapse{
+  justify-content: center;
+}
+
 .tabs.collapse .tab{
   display: none;
 }
@@ -123,7 +123,7 @@ export default {
   display: block;
   background: none;
   color: inherit;
-  min-width: 200px;
+  flex: 1 1 auto;
   text-align: center;
 }
 

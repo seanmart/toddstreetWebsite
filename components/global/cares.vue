@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="max cares">
+  <div class="max cares-container">
     <post
       v-for="(post, i) in content"
       :key="i"
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="css">
-.cares{
+.cares-container{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
