@@ -122,4 +122,10 @@ export default {
   display: inline-block;
   width: 50%;
 }
+
+@media screen and (max-width: 750px){
+  .stack .list p{
+    width: 100%;
+  }
+}
 </style>
