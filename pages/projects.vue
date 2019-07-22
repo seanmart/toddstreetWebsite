@@ -19,7 +19,7 @@ export default {
 <style lang="css" scoped>
 .container{
   min-height: 200vh;
-  background: white;
-  color: black;
+  background: black;
+  color: white;
 }
 </style>

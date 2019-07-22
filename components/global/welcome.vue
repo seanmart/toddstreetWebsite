@@ -8,7 +8,7 @@
 
 <script>
 import { TimelineMax } from "gsap";
-import text from "@/content/data/welcome";
+import data from "@/content/data/welcome";
 import welcomeVideo from "@/components/global/video";
 export default {
   components: { welcomeVideo },
@@ -16,7 +16,7 @@ export default {
     return {
       hide: false,
       triggerBrackets: false,
-      title: text.title
+      title: data.title
     };
   },
   watch: {
@@ -68,6 +68,7 @@ export default {
   width: 100%;
   background: black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;

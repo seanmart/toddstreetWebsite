@@ -4,8 +4,12 @@
       :labels="categories"
       @clicked="setIndex($event.index)"
       :setActive="setActive"
-      class="space top"
-    />
+      class="space top clients-tabs"
+    >
+      <template v-slot:default="props">
+        <h1>{{ props.label }}</h1>
+      </template>
+    </tabs>
     <no-ssr>
       <flickity ref="flickity" :options="flickityOptions">
         <div class="category" v-for="c in categories" :key="c">
@@ -72,6 +76,16 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   padding-top: 50px;
+}
+
+.clients-tabs h1{
+  font-size: 20px;
+  padding: 20px;
+  font-weight: 900
+}
+
+.clients-tabs h1:first-child{
+  margin-left: -20px;
 }
 
 .client{

@@ -1,17 +1,19 @@
 <template lang="html">
-  <no-ssr>
-    <flickity ref="flickity" :options="flickityOptions">
-      <project
-        v-for="(project, i) in content"
-        :key="i"
-        :active="index === i"
-        :image="project.image"
-        :text="project.text"
-        :link="project.link"
-        class="slide carousel-cell"
-      />
-    </flickity>
-  </no-ssr>
+  <div class="projects-container">
+    <no-ssr>
+      <flickity ref="flickity" :options="flickityOptions">
+        <project
+          v-for="(project, i) in content"
+          :key="i"
+          :active="index === i"
+          :image="project.image"
+          :text="project.text"
+          :link="project.link"
+          class="slide carousel-cell"
+        />
+      </flickity>
+    </no-ssr>
+  </div>
 </template>
 
 <script>
@@ -30,7 +32,7 @@ export default {
         pageDots: true,
         wrapAround: true,
         freeScroll: false,
-        autoPlay: 4000,
+        autoPlay: false,
         pauseAutoPlayOnHover: false,
         selectedAttraction: 0.02,
         friction: 0.25
@@ -45,10 +47,13 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .slide{
-  height: 600px;
+  min-height: 90vh;
   width: 100vw;
-  max-height: 80vh;
+}
+
+.projects-container .flickity-page-dots {
+  bottom: 30px;
 }
 </style>

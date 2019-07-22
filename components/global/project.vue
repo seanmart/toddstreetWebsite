@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="project">
-    <div class="inset">
+  <div class="project inset">
+    <div class="max">
       <h3 v-if="text.category">{{ text.category }}</h3>
       <h1 v-if="text.title">{{ text.title }}</h1>
       <btn white medium caps :to="link">check it out</btn>

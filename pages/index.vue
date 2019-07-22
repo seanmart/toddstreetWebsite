@@ -4,11 +4,6 @@
       <intro :text="data.intro" />
     </div>
 
-    <div id="offers2" class="inset">
-      <intro :text="data.offers" />
-      <offerstwo :content="offers" />
-    </div>
-
     <div id="projects">
       <projects :content="projects" />
     </div>
@@ -34,8 +29,6 @@
 <script>
 import data from "@/content/data/about";
 import intro from "@/components/global/intro";
-import offers from "@/components/home/offers";
-import offerstwo from "@/components/home/offers2";
 import projects from "@/components/home/projects";
 import staff from "@/components/home/staff";
 import cares from "@/components/global/cares";
@@ -45,8 +38,6 @@ import clients from "@/components/home/clients";
 export default {
   components: {
     intro,
-    offers,
-    offerstwo,
     projects,
     staff,
     cares,

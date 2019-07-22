@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="max space top">
+  <div class="max space top staff-container">
     <no-ssr>
       <flickity ref="flickity" :options="flickityOptions">
         <div class="staff-page" v-for="(page, i) in staff" :key="i">
@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     staff() {
-      return chunk(this.content, 8);
+      return chunk(this.content, 6);
     }
   },
   methods: {
@@ -63,12 +63,14 @@ export default {
 </script>
 
 <style lang="css">
+
 .staff-page{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
+  padding-bottom: 50px;
 }
 
 .employee{
@@ -104,6 +106,7 @@ export default {
   font-weight: 400
 }
 
+
 @media screen and (max-width: 850px){
   .employee .image{
     height: 100px;
@@ -114,6 +117,11 @@ export default {
 @media screen and (max-width: 700px){
   .staff-page{
     flex-direction: column;
+  }
+
+  .staff-container .flickity-page-dots {
+    top: -40px;
+    bottom: 100%;
   }
 }
 </style>

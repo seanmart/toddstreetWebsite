@@ -51,8 +51,13 @@ body {
 }
 
 .space {
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.space.extra {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .space.top {
@@ -61,10 +66,6 @@ body {
 
 .space.bottom {
   margin-top: inherit;
-}
-
-.flickity-viewport {
-  transition: height 0.2s;
 }
 
 .flickity-page-dots .dot {
@@ -77,7 +78,7 @@ body {
 
 @media screen and (max-width: 500px) {
   .inset {
-    padding: 200px 7vw;
+    padding: 120px 7vw;
   }
 }
 

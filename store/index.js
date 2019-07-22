@@ -50,14 +50,11 @@ export const getters = {
   projects(state) {
     return orderBy(state.projects, "position");
   },
-  staff(state) {
-    return groupBy(
-      orderBy(filter(state.staff, i => i.published !== false), "position"),
-      "department"
-    );
-  },
   allStaff(state) {
-    return filter(state.staff, i => i.published !== false);
+    return orderBy(filter(state.staff, i => i.published !== false), [
+      "position",
+      i => i.title.split(" ")[1]
+    ]);
   },
   cares(state) {
     return orderBy(state.care, i => new Date(i.date), "desc");

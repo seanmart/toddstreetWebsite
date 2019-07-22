@@ -34,6 +34,7 @@ export default {
 }
 
 .intro h1{
+  margin-top: -15px;
   flex: 0 0 auto;
   padding-right: 50px;
   text-align: right;
@@ -44,16 +45,22 @@ export default {
   white-space: pre-wrap;
 }
 
-.intro .text{
+.intro .body{
   flex: 1 1 auto;
+  border-left: 3px solid;
+  padding-left: 50px;
 }
 
 .intro p{
   font-family: 'Roboto Slab', serif;
-  margin:17px 0px;
-  font-size: 18px;
-  line-height: 25px;
+  margin-bottom:17px;
+  font-size: 17px;
+  line-height: 24px;
   font-weight: 400;
+}
+
+.intro p:last-child{
+  margin-bottom: 0px;
 }
 
 .intro.no-body{
@@ -77,10 +84,22 @@ export default {
     flex-direction: column;
   }
 
-  .intro h1, .intro h1.no-body{
+  .intro h1{
     white-space: normal;
-    padding: 0px 0px 20px;
+    padding: 0px 0px 40px;
     text-align: left;
+  }
+
+  .intro h1.no-body{
+    white-space: normal;
+    padding: 0px;
+    text-align: left;
+    border: none;
+  }
+
+  .intro .body{
+    border-left: none;
+    padding-left: 0px;
   }
 }
 

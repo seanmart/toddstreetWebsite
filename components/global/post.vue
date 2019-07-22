@@ -28,10 +28,6 @@ export default {
   flex: 0 0 33.333%;
 }
 
-.post:first-child{
-  border: none;
-}
-
 .inner-post{
   height: 100%;
   display: flex;
@@ -58,9 +54,9 @@ export default {
 }
 
 .post h1{
-  font-size: 20px;
+  font-size: 24px;
   margin-bottom: 20px;
-  font-weight: 900
+  font-weight: 600
 }
 
 .post span{

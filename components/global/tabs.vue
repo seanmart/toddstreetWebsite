@@ -68,7 +68,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: stretch;
+  align-items: center;
   border-bottom: 3px solid #fff;
 }
 
