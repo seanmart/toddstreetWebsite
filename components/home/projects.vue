@@ -42,7 +42,19 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.$refs.flickity.on("change", event => (this.index = event));
-    });
+      
+      this.$refs.flickity.on( 'dragStart.flickity', function( event, pointer ) {
+    document.ontouchmove = function (e) {
+        e.preventDefault();
+    }
+});
+this.$refs.flickity.on( 'dragEnd.flickity', function( event, pointer ) {
+    document.ontouchmove = function (e) {
+        return true;
+    }
+});
+
+});
   }
 };
 </script>
