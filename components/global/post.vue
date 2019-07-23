@@ -39,7 +39,7 @@ export default {
   flex: 0 0 auto;
   padding-top: 100%;
   background-size: cover;
-  box-shadow: 0px 15px 0px -5px black;
+  box-shadow: 0px 15px 0px -10px #aaa;
 }
 
 .post .text{
