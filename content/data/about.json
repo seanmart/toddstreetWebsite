@@ -1,0 +1,33 @@
+{
+  "intro": {
+    "title": "what we\n believe",
+    "body": "True engagement is what transforms an audience into something bigger, motivating them to think, feel and act. The catalyst to accomplish enduring results. \n As a Marketing Communications Agency, we create compelling content and design innovative solutions to engage audiences authentically across live and virtual platforms."
+  },
+  "offers": {
+    "title": "what we offer"
+  },
+  "staff": {
+    "title": "who\n we are",
+    "body": "True engagement is what transforms an audience into something bigger, motivating them to think, feel and act. The catalyst to accomplish enduring results. \n As a Marketing Communications Agency, we create compelling content and design innovative solutions to engage audiences authentically across live and virtual platforms.",
+    "departments": [
+      { "label": "Leadership", "id": 0 },
+      { "label": "Finance & Operations", "id": 1 },
+      { "label": "Client Engagement", "id": 2 },
+      { "label": "Creative Services", "id": 3 }
+    ]
+  },
+  "care": {
+    "title": "how\n we care",
+    "body": "True engagement is what transforms an audience into something bigger, motivating them to think, feel and act. The catalyst to accomplish enduring results. \n As a Marketing Communications Agency, we create compelling content and design innovative solutions to engage audiences authentically across live and virtual platforms."
+  },
+  "clients": {
+    "title": "who we\n work with",
+    "body": "True engagement is what transforms an audience into something bigger, motivating them to think, feel and act. The catalyst to accomplish enduring results. \n As a Marketing Communications Agency, we create compelling content and design innovative solutions to engage audiences authentically across live and virtual platforms.",
+    "categories": [
+      { "label": "Healthcare", "id": 0 },
+      { "label": "Financial", "id": 1 },
+      { "label": "Lifestyle", "id": 2 },
+      { "label": "Technology", "id": 3 }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "toddstreetWebsite_v3.0",
+  "version": "1.0.0",
+  "description": "My doozie Nuxt.js project",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "frontmatter-markdown-loader": "^1.8.0",
+    "gsap": "^2.1.3",
+    "lodash": "^4.17.15",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
