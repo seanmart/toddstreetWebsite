@@ -27,16 +27,15 @@ export default {
   data() {
     return {
       name: "intro-theme",
-      triggers: { start: 90, end: 20 },
+      triggers: { start: 100, end: 20 },
       top: 0
     };
   },
-  mounted() {
-    this.tl = new TimelineMax();
-  },
+  mounted() {},
   methods: {
-    during({ offset }) {
-      this.$refs.text.style.top = offset / 2 + "px";
+    during({ percent, position }) {
+      let dist = position.height - this.$refs.text.clientHeight - 100;
+      this.$refs.text.style.transform = `translateY(${dist * percent}px)`;
     }
   }
 };
@@ -47,10 +46,14 @@ export default {
 .intro-theme{
   background: #551a8b;
   color: white;
+  fill: white;
 }
 
 #intro{
   min-height: 100vh;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
 }
 
 #intro .content{
@@ -76,6 +79,12 @@ export default {
 @media screen and (max-width:800px){
   #intro p{
     font-size: 30px;
+  }
+}
+
+@media screen and (max-width:600px){
+  #intro p{
+    font-size: 28px;
   }
 }
 </style>

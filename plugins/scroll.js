@@ -7,7 +7,7 @@ Vue.directive("scroll", {
 
     if (binding.value.triggers) {
       el.sp = 100 / binding.value.triggers.start;
-      el.ep = 100 / binding.value.triggers.end;
+      el.ep = 100 / binding.value.triggers.end || binding.value.triggers.end;
     } else {
       el.sp = 2;
       el.ep = 2;
@@ -19,8 +19,6 @@ Vue.directive("scroll", {
       let endTrigger = window.innerHeight / el.ep;
 
       el.offset = startTrigger - rect.top;
-
-      console.log(el.offset);
 
       if (binding.value.scroll) {
         binding.value.scroll({
@@ -41,7 +39,8 @@ Vue.directive("scroll", {
         if (binding.value.during) {
           binding.value.during({
             position: rect,
-            offset: el.offset
+            offset: el.offset,
+            percent: el.offset / (el.offsetTop + el.clientHeight - endTrigger)
           });
         }
         return;

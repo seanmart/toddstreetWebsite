@@ -22,7 +22,7 @@ export default {
 }
 
 .logo{
-  width: 50vh;
+  width: 50vw;
   fill: inherit
 }
 </style>

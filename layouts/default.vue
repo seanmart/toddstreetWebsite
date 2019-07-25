@@ -59,4 +59,10 @@ html {
 .slow {
   transition: 1s;
 }
+
+@media screen and (max-width: 700px) {
+  .inset {
+    padding: 5vw;
+  }
+}
 </style>
