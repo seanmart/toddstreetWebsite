@@ -1,63 +1,45 @@
 import Vue from "vue";
 Vue.directive("scroll", {
   bind: (el, binding) => {
-    el.html = document.getElementsByTagName("html")[0];
-    el.triggered = false;
-    el.offset = 0;
+    let triggered = false;
+    let offset = 0;
+    let props = binding.value;
+    let w = window;
 
-    if (binding.value.triggers) {
-      el.sp = 100 / binding.value.triggers.start;
-      el.ep = 100 / binding.value.triggers.end || binding.value.triggers.end;
-    } else {
-      el.sp = 2;
-      el.ep = 2;
-    }
+    // triggers
+    let start = props.start || 50;
+    let end = props.end || 50;
 
     el.handleScroll = () => {
+      // variables
       let rect = el.getBoundingClientRect();
-      let startTrigger = window.innerHeight / el.sp;
-      let endTrigger = window.innerHeight / el.ep;
+      let ts = w.innerHeight / (100 / start);
+      let te = w.innerHeight / (100 / end);
+      let percent = 0;
 
-      el.offset = startTrigger - rect.top;
+      // update
+      offset = ts - rect.top;
 
-      if (binding.value.scroll) {
-        binding.value.scroll({
-          position: rect,
-          offset: el.offset
-        });
-      }
+      if (rect.top < ts && rect.bottom > te) {
+        !triggered && props.on && props.on();
+        triggered = true;
 
-      if (rect.top < startTrigger && rect.bottom > endTrigger) {
-        // add class
-        if (!el.triggered) {
-          binding.value.name && el.html.classList.add(binding.value.name);
-          binding.value.start && binding.value.start();
-          el.triggered = true;
-        }
+        percent = offset / (el.offsetTop + el.offsetHeight - te);
+        props.active && props.active({ rect, offset, percent });
 
-        //send during
-        if (binding.value.during) {
-          binding.value.during({
-            position: rect,
-            offset: el.offset,
-            percent: el.offset / (el.offsetTop + el.clientHeight - endTrigger)
-          });
-        }
         return;
       }
 
-      // remove class
-      if (el.triggered) {
-        binding.value.name && el.html.classList.remove(binding.value.name);
-        binding.value.end && binding.value.end();
-        el.triggered = false;
+      if (triggered) {
+        triggered = false;
+        props.off && props.off();
       }
     };
   },
   unbind: el => {
     window.removeEventListener("scroll", el.handleScroll);
   },
-  inserted: (el, binding) => {
+  inserted: el => {
     window.addEventListener("scroll", el.handleScroll);
     el.handleScroll();
   }

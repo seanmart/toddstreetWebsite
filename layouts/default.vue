@@ -42,27 +42,27 @@ html {
   margin: 0px auto;
 }
 
-.white {
-  background: white;
-  color: black;
-  fill: black;
-  border-color: #ccc;
+.title {
+  font-size: 40px;
+  font-weight: 900;
+  margin-bottom: 20px;
 }
 
-.blue {
-  background: #00acc3;
-  color: white;
-  fill: white;
-  border-color: #white;
-}
-
-.slow {
-  transition: 1s;
+@media screen and (max-width: 800px) {
+  .title {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-width: 700px) {
   .inset {
     padding: 5vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 28px;
   }
 }
 </style>

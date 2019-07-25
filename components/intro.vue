@@ -3,16 +3,16 @@
     id="intro"
     class="inset"
     ref="intro"
-    v-scroll="{ name, triggers, during }"
+    v-scroll="{ start, end, active, on, off }"
   >
     <div class="max content">
       <div class="text" ref="text">
-        <p ref="hi">Hi, We're toddstreet.</p>
-        <p>
+        <h1 class="title">Hi, We're toddstreet.</h1>
+        <h1 class="title">
           We're a Marketing Communications Agency Located in New York City. We
           Offer a wide range of Communications, Event, and Training Solutions.
           We aim to Engage Minds.
-        </p>
+        </h1>
       </div>
       <viewfinder class="viewfinder" />
     </div>
@@ -26,16 +26,21 @@ export default {
   components: { viewfinder },
   data() {
     return {
-      name: "intro-theme",
-      triggers: { start: 100, end: 20 },
-      top: 0
+      start: 100,
+      end: 10
     };
   },
   mounted() {},
   methods: {
-    during({ percent, position }) {
-      let dist = position.height - this.$refs.text.clientHeight - 100;
+    active({ percent, rect }) {
+      let dist = rect.height - this.$refs.text.offsetHeight - 100;
       this.$refs.text.style.transform = `translateY(${dist * percent}px)`;
+    },
+    on() {
+      document.getElementsByTagName("html")[0].classList.add("intro-theme");
+    },
+    off() {
+      document.getElementsByTagName("html")[0].classList.remove("intro-theme");
     }
   }
 };
@@ -44,9 +49,7 @@ export default {
 <style lang="css">
 
 .intro-theme{
-  background: #551a8b;
-  color: white;
-  fill: white;
+  background: #212327;
 }
 
 #intro{
@@ -66,25 +69,7 @@ export default {
   left: 0px;
 }
 
-#intro p{
-  font-size: 40px;
-  font-weight: 900;
-  margin-bottom: 20px;
-}
-
 #intro .viewfinder{
   opacity: .03
-}
-
-@media screen and (max-width:800px){
-  #intro p{
-    font-size: 30px;
-  }
-}
-
-@media screen and (max-width:600px){
-  #intro p{
-    font-size: 28px;
-  }
 }
 </style>

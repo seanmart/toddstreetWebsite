@@ -2,16 +2,16 @@
   <div>
     <landing />
     <intro />
-    <care />
+    <work />
   </div>
 </template>
 
 <script>
 import landing from "@/components/landing";
 import intro from "@/components/intro";
-import care from "@/components/care";
+import work from "@/components/work";
 export default {
-  components: { landing, intro, care }
+  components: { landing, intro, work }
 };
 </script>
 
