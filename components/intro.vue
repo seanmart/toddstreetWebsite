@@ -1,9 +1,17 @@
 <template lang="html">
-  <div id="intro" class="inset" :class="{ show }">
-    <div class="text" ref="text">
+  <div id="intro" class="inset" :class="{ show: intro.show }">
+    <div class="text">
       <div class="line top" />
       <template v-for="(item, i) in titleArray">
-        <h1 :key="i" ref="title" :style="tdelay(i)">{{ item }}</h1>
+        <h1
+          :key="i"
+          :style="{
+            transitionDelay: i / 10 + 's',
+            transitionDuration: intro.duration / 1000 + 's'
+          }"
+        >
+          {{ item }}
+        </h1>
       </template>
       <div class="line bottom" />
     </div>
@@ -19,37 +27,12 @@ export default {
   props: {
     title: [Array, String],
     image: String,
-    video: String,
-    delay: { type: Number, default: 0 }
-  },
-  data() {
-    return {
-      show: false
-    };
+    video: String
   },
   mounted() {
-    if (this.title) {
-      // auto set text size to fit
-      let text = this.$refs.text;
-      let textSize = 50;
-      let width = 0;
-      let percentWidthOfScreen = 70;
-
-      this.$refs.title.forEach(title => {
-        if (title.offsetWidth > width) width = title.offsetWidth;
-      });
-
-      if (width < 200) percentWidthOfScreen = 50;
-      text.style.fontSize = `${(textSize / width) * percentWidthOfScreen}vw`;
-    }
-
-    // if image or video, add event listener to parallax image on scroll
     if (this.image || this.video) {
       window.addEventListener("scroll", this.handleScroll);
     }
-
-    // trigger transition of text onto screen
-    setTimeout(() => (this.show = true), this.delay);
   },
   destroyed() {
     if (this.image || this.video) {
@@ -57,6 +40,9 @@ export default {
     }
   },
   computed: {
+    intro() {
+      return this.$store.state.animations.intro;
+    },
     titleArray() {
       if (!this.title) return [];
       if (Array.isArray(this.title)) return this.title;
@@ -72,9 +58,6 @@ export default {
       return {
         backgroundImage: `url(${i})`
       };
-    },
-    tdelay(i) {
-      return { transitionDelay: `.${i + 1}s` };
     }
   }
 };
@@ -95,15 +78,14 @@ export default {
 #intro .text{
   color: white;
   display: inline-block;
-  font-size: 50px;
   padding: 20px;
 }
 
 #intro .text h1{
   line-height: 93%;
-  font-size: inherit;
+  font-size: 100px;
   font-weight: 900;
-  transition: transform 1s;
+  transition: transform .75s;
   transform: translateX(-150%);
 }
 
@@ -112,7 +94,7 @@ export default {
 }
 
 #intro .bg{
-  opacity: .6;
+  opacity: .4;
   position: absolute;
   top: 0px;
   left: 0px;

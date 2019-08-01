@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="home">
-    <intro :title="title" image="/uploads/bms-3.jpg" :delay="500" />
+    <intro :title="title" image="/uploads/bms-3.jpg" :delay="400" />
   </div>
 </template>
 

@@ -6,20 +6,22 @@ export const state = () => ({
   projects: [],
   offers: [],
   pages: [],
-  showTransition: false,
-  showNav: false,
-  showSidebar: false
+  animations: {
+    intro: { show: false, duration: 500 },
+    cover: { show: false, duration: 500 },
+    topNav: { show: false, duration: 250 },
+    menuButton: { show: false, duration: 250 },
+    sidebar: { show: false, duration: 500 },
+    logo: { show: false, duration: 250 }
+  }
 });
 
 export const mutations = {
-  showNav(state, x) {
-    state.showNav = x;
+  setAnimationShow(state, key) {
+    state.animations[key].show = true;
   },
-  showSidebar(state, x) {
-    state.showSidebar = x;
-  },
-  showTransition(state, x) {
-    state.showTransition = x;
+  setAnimationHide(state, key) {
+    state.animations[key].show = false;
   },
   setPage(state, page) {
     state.pages.push(page);
@@ -30,7 +32,42 @@ export const mutations = {
 };
 
 export const actions = {
+  transitionStart({ commit, state }) {
+    let a = state.animations;
+    let t = Math.max(a.logo.duration, a.menuButton.duration, a.topNav.duration);
+
+    return new Promise((resolve, reject) => {
+      commit("setAnimationHide", "logo");
+      commit("setAnimationHide", "menuButton");
+      commit("setAnimationHide", "topNav");
+      setTimeout(() => {
+        commit("setAnimationHide", "sidebar");
+        setTimeout(() => {
+          commit("setAnimationShow", "cover");
+          setTimeout(() => resolve(), a.cover.duration);
+        }, a.sidebar.duration / 2);
+      }, t);
+    });
+  },
+  transitionEnd({ commit, state }) {
+    let a = state.animations;
+    let t = Math.max(a.logo.duration, a.menuButton.duration, a.topNav.duration);
+
+    return new Promise((resolve, reject) => {
+      commit("setAnimationHide", "cover");
+      setTimeout(() => {
+        commit("setAnimationShow", "sidebar");
+        setTimeout(() => {
+          commit("setAnimationShow", "logo");
+          commit("setAnimationShow", "menuButton");
+          commit("setAnimationShow", "topNav");
+          setTimeout(() => resolve(), t);
+        }, a.sidebar.duration / 2);
+      }, a.cover.duration);
+    });
+  },
   async nuxtServerInit({ commit }) {
+    // pages
     let pages = require.context("../pages", true, /\.vue$/);
     pages.keys().forEach(page => {
       if (pages(page).default.data) {
@@ -43,6 +80,7 @@ export const actions = {
       }
     });
 
+    // data
     let data = {};
     data.staff = require.context("../content/staff", true, /\.markdown$/);
     data.projects = require.context("../content/projects", true, /\.markdown$/);
@@ -61,6 +99,12 @@ export const actions = {
 };
 
 export const getters = {
+  animationTime(state) {
+    let animationTime = Object.keys(state.animations).reduce((time, a) => {
+      return time + state.animations[a].duration;
+    }, 0);
+    return animationTime;
+  },
   pages(state) {
     return orderBy(state.pages, "position");
   },

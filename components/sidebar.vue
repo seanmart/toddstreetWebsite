@@ -1,10 +1,15 @@
 <template lang="html">
-  <div id="sidebar" :class="{ show }">
-    <div class="content">
-      <div class="logo">
-        <nuxt-link to="/"><Logo /></nuxt-link>
-      </div>
+  <div id="sidebar">
+    <div class="logo-container" :class="{ show: logo.show }">
+      <nuxt-link class="logo" to="/">
+        <Logo :style="{ transitionDuration: logo.duration / 1000 + 's' }" />
+      </nuxt-link>
     </div>
+    <div
+      class="background"
+      :class="{ show: sidebar.show }"
+      :style="{ transitionDuration: sidebar.duration / 1000 + 's' }"
+    />
   </div>
 </template>
 
@@ -14,8 +19,11 @@ import Logo from "@/components/svg/Logo";
 export default {
   components: { Logo },
   computed: {
-    show() {
-      return this.$store.state.showSidebar;
+    sidebar() {
+      return this.$store.state.animations.sidebar;
+    },
+    logo() {
+      return this.$store.state.animations.logo;
     }
   }
 };
@@ -23,53 +31,56 @@ export default {
 
 <style lang="css">
 #sidebar{
-  width: 100px;
-  height: 100vh;
   position: fixed;
   top: 0px;
   left: 0px;
-  background: black;
-  z-index: 90;
-  transform: translateX(-100%);
-  transition: transform .25s;
-  transition-delay: .2s;
+  width: 100px;
+  height: 100vh;
+  z-index: 100;
 }
 
-#sidebar .content{
+#sidebar .background{
+  background: black;
   position: absolute;
-  top: 100%;
+  top: 0px;
   left: 0px;
-  height: 100px;
-  width: 100%;
-  transform: rotate(-90deg);
-  transform-origin: top left;
+  right: 0px;
+  bottom: 0px;
+  transform: translateX(-100%);
+  transition: transform;
+}
+
+#sidebar .background.show{
+  transform: translateX(0px);
+}
+
+#sidebar .logo-container{
+  position: absolute;
+  bottom: 70px;
+  left: 0px;
+  right: 0px;
+  height: 150px;
+  z-index: 1;
+  overflow: hidden;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 0px 50px;
 }
 
 #sidebar .logo{
-  transform: translateX(50%);
-  transition:  .25s;
-  transition-delay: 0;
-  opacity: 0;
+  display: inline-block;
+  transform: rotate(-90deg);
 }
 
 #sidebar .logo svg{
-  width: 150px;
   fill: white;
+  width: 150px;
+  transform: translateX(-100%);
+  transition-property: transform;
 }
 
-#sidebar.show{
+#sidebar .logo-container.show svg{
   transform: translateX(0px);
-  transition-delay: 0s;
-}
-
-#sidebar.show .logo{
-  transition-delay: .35s;
-  transform: translateX(0px);
-  opacity: 1;
 }
 
 @media screen and (max-width: 700px){
@@ -78,10 +89,28 @@ export default {
     height: 80px;
   }
 
-  #sidebar .content{
-    height: 80px;
-    transform: rotate(0deg);
-    top: 0px;
+  #sidebar .background{
+    transform: translateY(-100%);
   }
+
+  #sidebar.show .background{
+    transform: translateY(0px);
+  }
+
+  #sidebar .logo-container{
+    top: 0px;
+    right: auto;
+    height: 80px;
+    left: 20px;
+  }
+
+  #sidebar .logo{
+    transform: rotate(0deg)
+  }
+
+  #sidebar.show .logo svg{
+
+  }
+
 }
 </style>

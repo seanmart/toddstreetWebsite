@@ -1,11 +1,6 @@
 <template>
   <div id="site">
-    <div v-if="showTransition" class="cover in" />
-    <div
-      v-if="!showTransition"
-      class="cover out"
-      :class="{ show: pauseTransitionOut }"
-    />
+    <cover />
     <sidebar />
     <navigation />
     <nuxt />
@@ -14,36 +9,22 @@
 <script>
 import sidebar from "@/components/sidebar";
 import navigation from "@/components/navigation";
+import cover from "@/components/cover";
 export default {
-  components: { sidebar, navigation },
-  data() {
-    return {
-      pauseTransitionOut: true
-    };
-  },
-  computed: {
-    showTransition() {
-      return this.$store.state.showTransition;
-    }
-  },
+  components: { sidebar, navigation, cover },
   mounted() {
-    setTimeout(() => {
-      this.transitionOff();
-      this.pauseTransitionOut = false;
-    }, 100);
+    this.transitionEnd();
   },
   watch: {
     $route() {
-      this.showTransition && this.transitionOff();
+      this.transitionEnd();
     }
   },
   methods: {
-    transitionOff() {
-      this.$store.commit("showTransition", false);
-      setTimeout(() => {
-        this.$store.commit("showSidebar", true);
-        this.$store.commit("showNav", true);
-      }, 500);
+    transitionEnd() {
+      this.$store.dispatch("transitionEnd").then(() => {
+        this.$store.commit("setAnimationShow", "intro");
+      });
     }
   }
 };
@@ -58,7 +39,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background: #000;
+  background: #111;
 }
 
 *,
@@ -74,6 +55,15 @@ html {
   }
   to {
     transform: translateX(0px);
+  }
+}
+
+@keyframes slide-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0px);
   }
 }
 
@@ -95,26 +85,13 @@ html {
   }
 }
 
-.cover {
-  background: black;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 101;
-}
-
-.cover.in {
-  animation: slide-in-bottom 0.5s backwards;
-}
-
-.cover.out {
-  animation: slide-out-top 0.5s forwards;
-}
-
-.cover.out.show {
-  animation: none;
+@keyframes slide-out-bottom {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
 
 .inset {
