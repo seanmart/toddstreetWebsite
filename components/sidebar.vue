@@ -75,10 +75,11 @@ export default {
 @media screen and (max-width: 700px){
   #sidebar{
     width: 100%;
-    height: 100px;
+    height: 80px;
   }
 
   #sidebar .content{
+    height: 80px;
     transform: rotate(0deg);
     top: 0px;
   }

@@ -124,4 +124,12 @@ nav.side{
   bottom: 0px;
   transform: translateX(100%);
 }
+
+@media screen and (max-width: 700px){
+  #navigation .menu-button{
+    height: 80px;
+    width: 80px;
+    padding: 20px;
+  }
+}
 </style>
