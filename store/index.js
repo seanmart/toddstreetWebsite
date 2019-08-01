@@ -5,18 +5,27 @@ export const state = () => ({
   care: [],
   projects: [],
   offers: [],
-  colors: []
+  pages: [],
+  showTransition: false,
+  showNav: false,
+  showSidebar: false
 });
 
 export const mutations = {
+  showNav(state, x) {
+    state.showNav = x;
+  },
+  showSidebar(state, x) {
+    state.showSidebar = x;
+  },
+  showTransition(state, x) {
+    state.showTransition = x;
+  },
   setPage(state, page) {
-    state.pages[page.label] = page;
+    state.pages.push(page);
   },
   setData(state, { key, res }) {
     state[key] = res;
-  },
-  setColors(state, obj) {
-    state.colors.push(obj);
   }
 };
 
@@ -27,7 +36,9 @@ export const actions = {
       if (pages(page).default.data) {
         let data = pages(page).default.data();
         if (data.nav) {
-          commit("setPage", data.nav);
+          let path = page.match(/([^:\\/]*?)(?:\.([^ :\\/.]*))?$/)[1];
+          if (path === "index") path = "";
+          commit("setPage", { ...data.nav, path: "/" + path });
         }
       }
     });
@@ -50,8 +61,14 @@ export const actions = {
 };
 
 export const getters = {
+  pages(state) {
+    return orderBy(state.pages, "position");
+  },
   projects(state) {
     return orderBy(state.projects, "position");
+  },
+  projectsOverview(state, getters) {
+    return orderBy(filter(getters.projects, "overview"), "overview");
   },
   staff(state) {
     return groupBy(
@@ -65,6 +82,12 @@ export const getters = {
   cares(state) {
     return orderBy(state.care, i => new Date(i.date), "desc");
   },
+  caresOverview(state, getters) {
+    return getters.cares.slice(0, 3);
+  },
+  careById(state) {
+    return id => filter(state.care, { id })[0];
+  },
   clients(state) {
     return groupBy(orderBy(state.clients, "position"), "category");
   },
@@ -73,15 +96,6 @@ export const getters = {
   },
   thoughts(state) {
     return orderBy(state.thoughts, i => new Date(i.date), "desc");
-  },
-  caresOverview(state, getters) {
-    return getters.cares.slice(0, 3);
-  },
-  projectsOverview(state) {
-    return orderBy(filter(state.projects, "overview"), "overview");
-  },
-  careById(state) {
-    return id => filter(state.care, { id })[0];
   }
 };
 

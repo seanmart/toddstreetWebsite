@@ -1,18 +1,24 @@
 <template lang="html">
-  <div>
-    <landing />
-    <intro />
-    <work />
+  <div id="home">
+    <intro :title="title" image="/uploads/bms-3.jpg" :delay="500" />
   </div>
 </template>
 
 <script>
-import landing from "@/components/landing";
 import intro from "@/components/intro";
-import work from "@/components/work";
 export default {
-  components: { landing, intro, work }
+  components: { intro },
+  data() {
+    return {
+      title: ["Events", "Communications", "Training"]
+    };
+  }
 };
 </script>
 
-<style lang="css"></style>
+<style lang="css">
+
+#home{
+  min-height: 200vh;
+}
+</style>

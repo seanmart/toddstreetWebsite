@@ -3,6 +3,9 @@ export default {
   /*
    ** Headers of the page
    */
+  router: {
+    middleware: "transition"
+  },
   head: {
     title: process.env.npm_package_name || "",
     meta: [
@@ -31,7 +34,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: "#fff" },
+  loading: false,
   /*
    ** Global CSS
    */
@@ -39,7 +42,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: "~/plugins/scroll", ssr: false }],
+  plugins: [],
   /*
    ** Nuxt.js modules
    */
