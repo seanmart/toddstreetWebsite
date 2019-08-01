@@ -40,7 +40,7 @@ export default {
   top: 100%;
   left: 0px;
   height: 100px;
-  width: 100vh;
+  width: 100%;
   transform: rotate(-90deg);
   transform-origin: top left;
   display: flex;

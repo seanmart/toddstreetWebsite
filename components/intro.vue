@@ -29,6 +29,7 @@ export default {
   },
   mounted() {
     if (this.title) {
+      // auto set text size to fit
       let text = this.$refs.text;
       let textSize = 50;
       let width = 0;
@@ -37,13 +38,17 @@ export default {
       this.$refs.title.forEach(title => {
         if (title.offsetWidth > width) width = title.offsetWidth;
       });
+
+      if (width < 200) percentWidthOfScreen = 50;
       text.style.fontSize = `${(textSize / width) * percentWidthOfScreen}vw`;
     }
 
+    // if image or video, add event listener to parallax image on scroll
     if (this.image || this.video) {
       window.addEventListener("scroll", this.handleScroll);
     }
 
+    // trigger transition of text onto screen
     setTimeout(() => (this.show = true), this.delay);
   },
   destroyed() {
@@ -108,7 +113,6 @@ export default {
 
 #intro .bg{
   opacity: .6;
-  background-size: cover;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -121,5 +125,6 @@ export default {
 #intro .bg .image{
   height: 100%;
   width: 100%;
+  background-size: cover;
 }
 </style>

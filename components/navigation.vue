@@ -65,6 +65,7 @@ export default {
 
 <style lang="css">
 #navigation{
+  overflow: hidden;
   position: absolute;
   top: 0px;
   right: 0px;
