@@ -65,7 +65,6 @@ export default {
 
 <style lang="css">
 #navigation{
-  overflow: hidden;
   position: absolute;
   top: 0px;
   right: 0px;
@@ -78,6 +77,8 @@ nav.top{
   padding: 0px 120px;
   display: inline-block;
   white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 nav.top a{
