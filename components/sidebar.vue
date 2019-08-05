@@ -42,11 +42,11 @@ export default {
 
 #menu-button{
   color: white;
-  font-size: 40px;
-  line-height: 40px;
+  font-size: 30px;
+  line-height: 30px;
   height: 80px;
   width:80px;
-  padding: 20px;
+  padding: 25px;
   position: absolute;
   top: 0px;
   left: 0px;
