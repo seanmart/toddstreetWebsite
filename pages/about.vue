@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="about">
-    <intro title="About" image="/uploads/hasselblad_cover.jpg" :delay="500" />
+    <intro :title="[nav.label]" image="/uploads/hasselblad_cover.jpg"/>
   </div>
 </template>
 

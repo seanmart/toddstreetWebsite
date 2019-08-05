@@ -1,30 +1,47 @@
 <template>
-  <div id="site">
-    <cover />
-    <sidebar />
+  <div id="site" >
+    <div id="cover" />
     <navigation />
-    <nuxt />
+    <sidebar />
+    <div id="page" :class="{mobile}">
+      <nuxt />
+    </div>
   </div>
 </template>
 <script>
 import sidebar from "@/components/sidebar";
 import navigation from "@/components/navigation";
-import cover from "@/components/cover";
 export default {
-  components: { sidebar, navigation, cover },
+  components: { sidebar, navigation },
   mounted() {
-    this.transitionEnd();
+    window.addEventListener("scroll", this.handleScroll);
+    this.handleScroll();
+    this.$nextTick(() => {
+      this.$store.dispatch('animation/init')
+      this.$store.dispatch("animation/transition", "in")
+    });
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  data() {
+    return {
+      isScrolled: false
+    };
+  },
+  computed:{
+    mobile(){
+      return this.$store.state.mobile
+    }
   },
   watch: {
-    $route() {
-      this.transitionEnd();
+    isScrolled(scrolled) {
+      this.$store.commit("scrolled", scrolled);
     }
   },
   methods: {
-    transitionEnd() {
-      this.$store.dispatch("transitionEnd").then(() => {
-        this.$store.commit("setAnimationShow", "intro");
-      });
+    handleScroll() {
+      this.isScrolled = window.scrollY > 0;
     }
   }
 };
@@ -49,58 +66,24 @@ html {
   margin: 0;
 }
 
-@keyframes slide-in-left {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0px);
-  }
-}
-
-@keyframes slide-in-top {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes slide-in-bottom {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes slide-out-top {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes slide-out-bottom {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(100%);
-  }
+#cover {
+  background: black;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
 }
 
 .inset {
   padding: 100px;
+  transition: padding .25s;
+  transition-delay: .25s;
 }
 
-@media screen and (max-width: 700px) {
-  .inset {
-    padding: 100px 5vw;
-  }
+#page.mobile .inset{
+  padding: 100px 30px;
+
 }
 </style>

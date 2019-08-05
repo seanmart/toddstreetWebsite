@@ -1,26 +1,13 @@
 <template lang="html">
   <div id="navigation">
-    <nav class="top" ref="top" :class="{ show: showTopNav }">
+    <nav class="top" ref="top">
       <template v-for="(page, i) in pages">
-        <nuxt-link
-          :key="i"
-          :to="page.path"
-          :style="{
-            transitionDelay: i / 10 + 's',
-            transitionDuration: topNav.duration / 1000 + 's'
-          }"
-        >
-          {{ page.label }}
-        </nuxt-link>
+        <div class="top-link" ref="link" :key="i">
+          <nuxt-link :to="page.path">{{ page.label }}</nuxt-link>
+        </div>
       </template>
     </nav>
-    <div
-      class="menu-button"
-      :class="{ show: showMenuButton }"
-      :style="{ transitionDuration: menuButton.duration / 1000 + 's' }"
-    >
-      ☰
-    </div>
+    <div id="menu-button">☰</div>
     <nav class="side">
       <div class="pages">
         <template v-for="(page, i) in pages">
@@ -35,49 +22,46 @@
 </template>
 
 <script>
+import { TimelineMax } from "gsap";
 export default {
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
-    this.handleScroll();
+    this.getNavWidth();
     this.handleResize();
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("resize", this.handleResize);
   },
   data() {
     return {
-      scrolled: false,
-      topNavSwitch: false
+      mobile: false,
+      sideNav: false
     };
   },
   computed: {
     pages() {
-      return this.$store.getters.pages;
+      return this.$store.getters["data/pages"];
     },
-    topNav() {
-      return this.$store.state.animations.topNav;
+    scrolled() {
+      return this.$store.state.scrolled;
     },
-    menuButton() {
-      return this.$store.state.animations.menuButton;
-    },
-    showTopNav() {
-      return !this.scrolled && this.topNavSwitch && this.topNav.show;
-    },
-    showMenuButton() {
-      return (this.scrolled || !this.showTopNav) && this.menuButton.show;
+    ready() {
+      return this.$store.state.ready;
+    }
+  },
+  watch: {
+    mobile(mobile) {
+      this.$store.commit("mobile", mobile);
+      this.ready && this.$store.dispatch("animation/mobile", mobile ? "in" : "out");
     }
   },
   methods: {
-    delay(i) {
-      return { transitionDelay: `.${i}s` };
-    },
-    handleScroll() {
-      this.scrolled = window.scrollY > this.$refs.top.offsetHeight - 20;
-    },
     handleResize() {
-      this.topNavSwitch = window.innerWidth > this.$refs.top.offsetWidth;
+      this.mobile = window.innerWidth < this.navWidth + 300;
+    },
+    getNavWidth() {
+      let reducer = (tally, link) => tally + link.offsetWidth;
+      this.navWidth = this.$refs.link.reduce(reducer, 0);
     }
   }
 };
@@ -85,40 +69,40 @@ export default {
 
 <style lang="css">
 #navigation{
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-  text-align: center;
-  z-index: 100
+  width: 100%;
+  position: relative;
+  z-index: 101;
 }
 
 nav.top{
-  padding: 0px 120px;
-  display: inline-block;
-  white-space: nowrap;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
   overflow: hidden;
-  max-width: 100%;
 }
 
+.top-link{
+  flex: 0 0 auto;
+}
+
+
 nav.top a{
-  display: inline-block;
-  padding: 20px 40px;
+  padding: 40px;
+  display: block;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 2px;
-  transform: translateY(-100%);
-  transition-property: transform;
 }
 
- nav.top.show a{
-  transform: translateY(0px);
-}
-
-#navigation .menu-button{
+#menu-button{
   color: white;
   font-size: 40px;
   line-height: 40px;
@@ -128,12 +112,7 @@ nav.top a{
   position: fixed;
   top: 0px;
   right: 0px;
-  transform: translateX(100%);
-  transition-property: transform;
-}
-
-#navigation .menu-button.show{
-  transform: translateX(0px);
+  z-index: 100;
 }
 
 nav.side{
@@ -143,12 +122,5 @@ nav.side{
   right: 0px;
   bottom: 0px;
   transform: translateX(100%);
-}
-
-@media screen and (max-width: 700px){
-
-  nav.top{
-    transform: translateX(-100%);
-  }
 }
 </style>

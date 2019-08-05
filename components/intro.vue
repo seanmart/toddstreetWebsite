@@ -1,63 +1,47 @@
 <template lang="html">
-  <div id="intro" class="inset" :class="{ show: intro.show }">
+  <div id="intro" class="inset">
     <div class="text">
-      <div class="line top" />
-      <template v-for="(item, i) in titleArray">
-        <h1
-          :key="i"
-          :style="{
-            transitionDelay: i / 10 + 's',
-            transitionDuration: intro.duration / 1000 + 's'
-          }"
-        >
-          {{ item }}
-        </h1>
-      </template>
-      <div class="line bottom" />
+      <h1 v-for="(item, i) in title" :key="i" ref="text">{{ item }}</h1>
     </div>
     <div class="bg" ref="bg">
       <div v-if="video" class="video"></div>
-      <div v-if="image" class="image" :style="bgi(image)" />
+      <div v-if="image" class="image" :style="bgImage(image)" />
     </div>
   </div>
 </template>
 
 <script>
+import {TweenMax} from 'gsap'
 export default {
   props: {
-    title: [Array, String],
+    title: Array,
     image: String,
     video: String
   },
   mounted() {
-    if (this.image || this.video) {
-      window.addEventListener("scroll", this.handleScroll);
-    }
+    window.addEventListener("scroll", this.handleScroll);
+    TweenMax.set(this.$refs.text,{xPercent: -100},0)
   },
   destroyed() {
-    if (this.image || this.video) {
-      window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  computed:{
+    ready(){
+      return this.$store.state.ready
     }
   },
-  computed: {
-    intro() {
-      return this.$store.state.animations.intro;
-    },
-    titleArray() {
-      if (!this.title) return [];
-      if (Array.isArray(this.title)) return this.title;
-      return [this.title];
+  watch:{
+    ready(){
+      TweenMax.staggerTo(this.$refs.text,.75,{xPercent: 0},.2)
     }
   },
   methods: {
     handleScroll() {
       if (window.scrollY > window.innerHeight) return;
-      this.$refs.bg.style.top = `${window.scrollY / 2}px`;
+      this.$refs.bg.style.top = `${window.scrollY / 1.4}px`;
     },
-    bgi(i) {
-      return {
-        backgroundImage: `url(${i})`
-      };
+    bgImage(image) {
+      return { backgroundImage: `url(${image})` };
     }
   }
 };
@@ -78,19 +62,20 @@ export default {
 #intro .text{
   color: white;
   display: inline-block;
-  padding: 20px;
+  overflow: hidden;
 }
 
 #intro .text h1{
   line-height: 93%;
-  font-size: 100px;
+  font-size: 9vw;
   font-weight: 900;
-  transition: transform .75s;
-  transform: translateX(-150%);
+  text-transform: uppercase;
+  letter-spacing: -2px;
 }
 
-#intro.show .text h1{
-  transform: translateX(0px);
+.mobile #intro .text h1{
+  line-height: 110%;
+  letter-spacing: -1px
 }
 
 #intro .bg{

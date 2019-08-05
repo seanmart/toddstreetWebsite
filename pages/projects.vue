@@ -1,11 +1,13 @@
 <template lang="html">
-  <div class="intro">
-    projects
+  <div id="projects">
+    <intro :title="[nav.label]" image="/uploads/plastics_cover.jpg" />
   </div>
 </template>
 
 <script>
+import intro from "@/components/intro";
 export default {
+  components: { intro },
   data() {
     return {
       nav: {
