@@ -1,9 +1,9 @@
 <template>
-  <div id="site" >
+  <div id="site">
     <div id="cover" />
     <navigation />
     <sidebar />
-    <div id="page" :class="{mobile}">
+    <div id="page" :class="{ mobile }">
       <nuxt />
     </div>
   </div>
@@ -17,8 +17,8 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
     this.handleScroll();
     this.$nextTick(() => {
-      this.$store.dispatch('animation/init')
-      this.$store.dispatch("animation/transition", "in")
+      this.$store.dispatch("animation/init");
+      this.$store.dispatch("animation/transition", "in");
     });
   },
   destroyed() {
@@ -26,22 +26,25 @@ export default {
   },
   data() {
     return {
-      isScrolled: false
+      scrolled: false
     };
   },
-  computed:{
-    mobile(){
-      return this.$store.state.mobile
+  computed: {
+    mobile() {
+      return this.$store.state.mobile;
     }
   },
   watch: {
-    isScrolled(scrolled) {
-      this.$store.commit("scrolled", scrolled);
+    scrolled(scrolled) {
+      this.$store.dispatch("scrolled", scrolled);
+    },
+    $route(){
+      this.$store.dispatch("animation/transition", "in")
     }
   },
   methods: {
     handleScroll() {
-      this.isScrolled = window.scrollY > 0;
+      this.scrolled = window.scrollY > 20;
     }
   }
 };
@@ -78,12 +81,11 @@ html {
 
 .inset {
   padding: 100px;
-  transition: padding .25s;
-  transition-delay: .25s;
+  transition: padding 0.25s;
+  transition-delay: 0.25s;
 }
 
-#page.mobile .inset{
+#page.mobile .inset {
   padding: 100px 30px;
-
 }
 </style>

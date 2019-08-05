@@ -20,9 +20,13 @@ export default {
     }
   },
   actions: {
-    mobile({ commit, dispatch, getters }, action) {
-      commit("mobile", action);
-      getters.ready && dispatch("animation/mobile", action ? "in" : "out");
+    mobile({ commit, state, dispatch }, mobile) {
+      commit("mobile", mobile);
+      state.ready && dispatch("animation/mobile", mobile);
+    },
+    scrolled({ commit, state, dispatch }, scrolled) {
+      commit("scrolled", scrolled);
+      state.ready && dispatch("animation/scrolled", scrolled);
     },
     nuxtServerInit({ dispatch }) {
       dispatch("data/getPages");

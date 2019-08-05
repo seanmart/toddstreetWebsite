@@ -19,4 +19,8 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css">
+#projects{
+  min-height: 200vh;
+}
+</style>

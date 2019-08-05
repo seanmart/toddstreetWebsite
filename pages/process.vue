@@ -1,11 +1,13 @@
 <template lang="html">
-  <div class="intro">
-    process
+  <div id="process">
+    <intro :title="[nav.label]" image="/uploads/DealerTrack_Cox-1836.jpg" />
   </div>
 </template>
 
 <script>
+import intro from "@/components/intro";
 export default {
+  components: { intro },
   data() {
     return {
       nav: {
@@ -17,4 +19,8 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css">
+#process{
+  min-height: 200vh;
+}
+</style>

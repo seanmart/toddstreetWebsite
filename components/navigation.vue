@@ -7,7 +7,6 @@
         </div>
       </template>
     </nav>
-    <div id="menu-button">☰</div>
     <nav class="side">
       <div class="pages">
         <template v-for="(page, i) in pages">
@@ -51,8 +50,7 @@ export default {
   },
   watch: {
     mobile(mobile) {
-      this.$store.commit("mobile", mobile);
-      this.ready && this.$store.dispatch("animation/mobile", mobile ? "in" : "out");
+      this.$store.dispatch("mobile", mobile);
     }
   },
   methods: {
@@ -71,7 +69,7 @@ export default {
 #navigation{
   width: 100%;
   position: relative;
-  z-index: 101;
+  z-index: 100;
 }
 
 nav.top{
@@ -100,19 +98,6 @@ nav.top a{
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 2px;
-}
-
-#menu-button{
-  color: white;
-  font-size: 40px;
-  line-height: 40px;
-  height: 80px;
-  width:80px;
-  padding: 20px;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  z-index: 100;
 }
 
 nav.side{

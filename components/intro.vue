@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {TweenMax} from 'gsap'
+import { TweenMax } from "gsap";
 export default {
   props: {
     title: Array,
@@ -19,26 +19,28 @@ export default {
     video: String
   },
   mounted() {
+    TweenMax.set(this.$refs.text, { xPercent: -100, opacity: 0 });
     window.addEventListener("scroll", this.handleScroll);
-    TweenMax.set(this.$refs.text,{xPercent: -100},0)
+    this.handleScroll();
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-  computed:{
-    ready(){
-      return this.$store.state.ready
+  computed: {
+    ready() {
+      return this.$store.state.ready;
     }
   },
-  watch:{
-    ready(){
-      TweenMax.staggerTo(this.$refs.text,.75,{xPercent: 0},.2)
+  watch: {
+    ready() {
+      TweenMax.set(this.$refs.text, { opacity: 1 });
+      TweenMax.staggerTo(this.$refs.text, 0.75, { xPercent: 0 }, 0.2);
     }
   },
   methods: {
     handleScroll() {
       if (window.scrollY > window.innerHeight) return;
-      this.$refs.bg.style.top = `${window.scrollY / 1.4}px`;
+      this.$refs.bg.style.transform = `translateY(${window.scrollY / 1.4}px)`;
     },
     bgImage(image) {
       return { backgroundImage: `url(${image})` };

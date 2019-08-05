@@ -1,5 +1,6 @@
 <template lang="html">
   <div id="sidebar">
+    <div id="menu-button">☰</div>
     <div class="logo-container">
       <div id="logo">
         <nuxt-link to="/"><Logo /></nuxt-link>
@@ -37,7 +38,19 @@ export default {
   width: 100%;
   height: 80px;
   flex-direction: row;
-  justify-content: flex-start;
+}
+
+#menu-button{
+  color: white;
+  font-size: 40px;
+  line-height: 40px;
+  height: 80px;
+  width:80px;
+  padding: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: center;
 }
 
 .logo-container{
