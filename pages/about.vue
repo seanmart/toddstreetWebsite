@@ -1,6 +1,9 @@
 <template lang="html">
   <div id="about">
     <intro :title="[nav.label]" image="/uploads/hasselblad_cover.jpg"/>
+    <div class="section">
+
+    </div>
   </div>
 </template>
 
@@ -22,5 +25,10 @@ export default {
 <style lang="css">
 #about{
   min-height: 200vh;
+}
+
+.section{
+  height: 100vh;
+  background: white;
 }
 </style>

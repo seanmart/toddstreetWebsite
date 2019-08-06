@@ -38,8 +38,8 @@ export default {
     scrolled(scrolled) {
       this.$store.dispatch("scrolled", scrolled);
     },
-    $route(){
-      this.$store.dispatch("animation/transition", "in")
+    $route() {
+      this.$store.dispatch("animation/transition", "in");
     }
   },
   methods: {
@@ -80,7 +80,7 @@ html {
 }
 
 .inset {
-  padding: 100px;
+  padding: 100px 80px;
   transition: padding 0.25s;
   transition-delay: 0.25s;
 }

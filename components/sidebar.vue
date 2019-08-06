@@ -22,7 +22,7 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 80px;
+  width: 70px;
   height: 100vh;
   z-index: 100;
   overflow: hidden;
@@ -36,7 +36,7 @@ export default {
 
 #sidebar.mobile{
   width: 100%;
-  height: 80px;
+  height: 70px;
   flex-direction: row;
 }
 
@@ -44,9 +44,9 @@ export default {
   color: white;
   font-size: 30px;
   line-height: 30px;
-  height: 80px;
-  width:80px;
-  padding: 25px;
+  height: 70px;
+  width:70px;
+  padding: 20px;
   position: absolute;
   top: 0px;
   left: 0px;

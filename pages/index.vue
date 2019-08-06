@@ -10,7 +10,7 @@ export default {
   components: { intro },
   data() {
     return {
-      title: ["Events", "Communications", "Training"]
+      title: ["Events +", "Communications +", "Training"]
     };
   }
 };

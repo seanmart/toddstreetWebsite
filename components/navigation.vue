@@ -3,7 +3,9 @@
     <nav class="top" ref="top">
       <template v-for="(page, i) in pages">
         <div class="top-link" ref="link" :key="i">
-          <nuxt-link :to="page.path">{{ page.label }}</nuxt-link>
+          <nuxt-link :to="page.path" active-class="active">
+            <span>{{ page.label }}</span>
+          </nuxt-link>
         </div>
       </template>
     </nav>
@@ -90,7 +92,7 @@ nav.top{
 
 
 nav.top a{
-  padding: 40px;
+  padding: 20px 40px;
   display: block;
   color: white;
   text-decoration: none;
@@ -98,6 +100,15 @@ nav.top a{
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 2px;
+}
+
+nav.top span{
+  display: inline-block;
+  padding: 7.5px 0px;
+}
+
+nav.top a.active span{
+  border-bottom: 2px solid;
 }
 
 nav.side{

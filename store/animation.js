@@ -114,7 +114,7 @@ export default {
       }
     },
     navigation(context, { load, start}) {
-      tl.staggerTo(topLinks,.5,{ yPercent: load ? 0 : -100 },0.15,start);
+      tl.staggerTo(topLinks,.5,{ yPercent: load ? 0 : -100, ease: load ? Power4.easeOut : Power4.easeIn },0.1,start);
     },
     logo(context, {load, start}){
       load && tl.set(logo, {xPercent: -100}, start)
