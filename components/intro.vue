@@ -1,154 +1,178 @@
 <template lang="html">
-  <div id="intro" class="inset">
-    <div class="text">
-      <h1 v-for="(item, i) in title" :key="i" ref="text">{{ item }}</h1>
-      <div class="line" ref="line" />
-      <div class="description" ref="desc">
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters
-        </p>
+  <div id="intro">
+    <div class="content-container inset">
+      <div class="content">
+        <div class="span">
+          <h1 v-for="(item, i) in title" :key="i" ref="title">
+            {{ item }}
+          </h1>
+        </div>
+        <div class="split">
+          <div class="line" ref="line" />
+          <p ref="desc">{{ description }}</p>
+        </div>
       </div>
     </div>
-    <div class="bg" ref="bg">
-      <div v-if="video" class="video"></div>
-      <div v-if="image" class="image" :style="bgImage(image)" />
+    <div ref="bg" v-if="image">
+      <background :image="image" id="intro-background" />
     </div>
   </div>
 </template>
 
 <script>
+import background from "@/components/background";
 import { TweenMax, TimelineMax } from "gsap";
 export default {
-  props: {
-    title: Array,
-    image: String,
-    video: String
-  },
+  components: { background },
+  props: { props: Object },
   mounted() {
-    TweenMax.set(this.$refs.text, { xPercent: -150, opacity: 0 });
-    TweenMax.set(this.$refs.line, { width: 0 });
-    TweenMax.set(this.$refs.desc, { yPercent: 25, opacity: 0 });
-    window.addEventListener("scroll", this.handleScroll);
-    this.handleScroll();
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    this.init();
   },
   computed: {
     ready() {
       return this.$store.state.ready;
+    },
+    title() {
+      if (!this.props.title) return [];
+      if (typeof this.props.title === "string") return [this.props.title];
+      return this.props.title;
+    },
+    description() {
+      if (!this.props.description) return "";
+      return this.props.description;
+    },
+    image() {
+      if (!this.props.image) return null;
+      return this.props.image;
     }
   },
   watch: {
     ready() {
-      let tl = new TimelineMax();
-      tl.set(this.$refs.text, { opacity: 1 }, 0);
-      tl.staggerTo(this.$refs.text, 0.75, { xPercent: 0 }, 0.1, 0);
-      tl.to(this.$refs.line, .55, { width: "30vw", ease: Power1.easeOut }, 0.3);
-      tl.to(this.$refs.desc, 0.75, { yPercent: 0, opacity: 1 }, 0.3);
+      this.animate();
     }
   },
   methods: {
-    handleScroll() {
-      if (window.scrollY > window.innerHeight) return;
-      window.requestAnimationFrame(()=>{
-        this.$refs.bg.style.transform = `translate3D(0px, ${(window.scrollY / 2).toFixed(2)}px,0)`;
-      })
+    init() {
+      TweenMax.set(this.$refs.title, { xPercent: -10, opacity: 0 });
+      TweenMax.set(this.$refs.line, { scaleX: 0 });
+      TweenMax.set(this.$refs.desc, { yPercent: 25, opacity: 0 });
+      this.image &&
+        TweenMax.fromTo(this.$refs.bg, 1, { scale: 1.2 }, { scale: 1 });
     },
-    bgImage(image) {
-      return { backgroundImage: `url(${image})` };
+    animate() {
+      let tl = new TimelineMax();
+      tl.staggerTo(this.$refs.title, 0.5, { xPercent: 0, opacity: 1 }, 0.15, 0);
+      tl.to(this.$refs.line, 0.5, { scaleX: 1, ease: Power1.easeOut }, 0.2);
+      tl.to(this.$refs.desc, 0.7, { yPercent: 0, opacity: 1 }, 0.1);
     }
   }
 };
 </script>
 
+It is a long established fact that a reader will be distracted by the readable
+content of a page when looking at its layout. The point of using Lorem Ipsum is
+that it has a more-or-less normal distribution of letters
+
 <style lang="css">
 #intro{
+  overflow: hidden;
+  color: white;
+  position: relative;
+}
+
+#intro,
+#intro-background{
   height: 100vh;
   width: 100%;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
+}
+
+#intro-background{
+  opacity: .3;
+}
+
+#intro .content-container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px 120px;
+  z-index: 1;
 }
 
-#intro .text{
-  flex: 0 0 auto;
-  color: white;
-  position: relative;
-  padding: 40px 0px;
+#intro .content{
+  width: 100%;
+  max-width: 1000px;
 }
 
-
-#intro .line{
-  position: absolute;
-  left: 0px;
-  height: 2px;
-  background: white;
-  top: 100%;
-  width: 30vw;
+#intro .span{
+  margin-bottom: 40px;
 }
 
-.mobile #intro .line{
-  position: relative;
-  top: 0px;
-  margin: 40px 0px;
+.mobile #intro .text{
+  margin: 0px;
 }
 
-#intro .text h1{
+#intro h1{
   line-height: 93%;
   font-size: 8vw;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: -2px;
+  white-space: nowrap;
 }
 
-.mobile #intro .text h1{
-  font-weight: 400;
-  line-height: 90%;
-  font-size: 9vw;
+.mobile #intro h1{
+  line-height: 100%;
   letter-spacing: -1px
 }
 
-#intro .description{
-  position: absolute;
-  top: 100%;
-  left: 35vw;
-  width: 400px;
-  max-width: 50vw;
-  font-size: 14px;
-  line-height: 24px;
+#intro .split{
+  display: flex;
+  flex-direction: row;
+}
+
+.mobile #intro .split{
+  display: block;
+}
+
+#intro .line{
+  flex: 0 1 50%;
+  height: 2px;
+  background: white;
+}
+
+.mobile #intro .line{
+  margin: 40px 0px;
+  max-width: 20%;
+}
+
+#intro  p{
+  padding-left: 50px;
+  flex: 0 0 auto;
+  max-width: 500px;
+  font-size: 16px;
+  line-height: 26px;
   margin-top: -7px;
 }
 
-.mobile #intro .description{
-  position: relative;
-  left: 0px;
-  top: 0px;
-  max-width: 80vw;
+.mobile #intro p{
+  font-size: 14px;
+  line-height: 24px;
+  padding: 0px;
 }
 
-#intro .bg{
-  opacity: .4;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
+@media screen and (min-width: 1300px){
+  #intro .text h1{
+    font-size: 104px;
+  }
 }
 
-#intro .bg .image{
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-position: center
+@media screen and (max-width: 600px){
+  #intro h1{
+    font-weight: 400;
+  }
 }
 </style>

@@ -19,15 +19,12 @@ const mutations = {
 
 const actions = {
   getPages({ commit }) {
-    let pages = require.context("../pages", true, /\.vue$/);
+    let pages = require.context("../content/data", true, /\.js/);
     pages.keys().forEach(page => {
-      if (pages(page).default.data) {
-        let data = pages(page).default.data();
-        if (data.nav) {
-          let path = page.match(/([^:\\/]*?)(?:\.([^ :\\/.]*))?$/)[1];
-          if (path === "index") path = "";
-          commit("setPage", { ...data.nav, path: "/" + path });
-        }
+      let data = pages(page).meta;
+      if (data.navPosition) {
+        let path = page.match(/([^:\\/]*?)(?:\.([^ :\\/.]*))?$/)[1];
+        commit("setPage", { ...data, path: "/" + path });
       }
     });
   },
@@ -51,7 +48,7 @@ const actions = {
 
 const getters = {
   pages(state) {
-    return orderBy(state.pages, "position");
+    return orderBy(state.pages, "navPosition");
   },
   projects(state) {
     return orderBy(state.projects, "position");

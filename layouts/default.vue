@@ -80,9 +80,14 @@ html {
 }
 
 .inset {
-  padding: 100px 80px;
+  padding: 100px 120px;
   transition: padding 0.25s;
   transition-delay: 0.25s;
+}
+
+.inset.wide {
+  padding-left: 80px;
+  padding-right: 0px;
 }
 
 #page.mobile .inset {

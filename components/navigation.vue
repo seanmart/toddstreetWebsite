@@ -4,7 +4,7 @@
       <template v-for="(page, i) in pages">
         <div class="top-link" ref="link" :key="i">
           <nuxt-link :to="page.path" active-class="active">
-            <span>{{ page.label }}</span>
+            <span>{{ page.name }}</span>
           </nuxt-link>
         </div>
       </template>
@@ -107,7 +107,8 @@ nav.top span{
   padding: 7.5px 0px;
 }
 
-nav.top a.active span{
+nav.top a.active span,
+nav.top a:hover span{
   border-bottom: 2px solid;
 }
 

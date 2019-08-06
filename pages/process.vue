@@ -1,20 +1,22 @@
 <template lang="html">
   <div id="process">
-    <intro :title="[nav.label]" image="/uploads/DealerTrack_Cox-1836.jpg" />
+    <intro :props="intro" />
   </div>
 </template>
 
 <script>
+import data from "@/content/data/process";
 import intro from "@/components/intro";
 export default {
   components: { intro },
-  data() {
-    return {
-      nav: {
-        label: "Process",
-        position: 3
-      }
-    };
+  computed: {
+    intro() {
+      return {
+        title: data.intro.title || data.meta.name,
+        image: data.intro.image || null,
+        description: data.intro.description || null
+      };
+    }
   }
 };
 </script>

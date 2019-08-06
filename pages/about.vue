@@ -1,23 +1,22 @@
 <template lang="html">
   <div id="about">
-    <intro :title="[nav.label]" image="/uploads/hasselblad_cover.jpg"/>
-    <div class="section">
-
-    </div>
+    <intro :props="intro" />
   </div>
 </template>
 
 <script>
+import data from "@/content/data/about";
 import intro from "@/components/intro";
 export default {
   components: { intro },
-  data() {
-    return {
-      nav: {
-        label: "About",
-        position: 2
-      }
-    };
+  computed: {
+    intro() {
+      return {
+        title: data.intro.title || data.meta.name,
+        image: data.intro.image || null,
+        description: data.intro.description || null
+      };
+    }
   }
 };
 </script>
@@ -25,10 +24,5 @@ export default {
 <style lang="css">
 #about{
   min-height: 200vh;
-}
-
-.section{
-  height: 100vh;
-  background: white;
 }
 </style>
