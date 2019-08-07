@@ -48,7 +48,7 @@ export default {
   },
   watch: {
     mobile(mobile) {
-      mobile && this.$store.dispatch("mobile", mobile);
+      this.$store.dispatch("mobile", mobile);
     }
   },
   methods: {
