@@ -1,3 +1,5 @@
+// prettier-ignore
+
 import { TimelineMax, TweenLite } from "gsap";
 let $cover, $sidebar, $logo, $topLinks, $sideLinks, $sideNav, $button;
 
@@ -28,18 +30,18 @@ export default {
       });
     },
     transitionOn({rootState,commit}){
+      commit("transitioning", true, {root: true})
       return new Promise(resolve => {
         let tl = new TimelineMax();
-        commit("transitioning", true, {root: true})
         tl.eventCallback("onComplete", ()=> resolve())
         rootState.mobile && transitionOutMobile(rootState, tl)
         !rootState.mobile && transitionOut(rootState, tl)
       });
     },
     transitionOff({rootState,commit}){
+      commit("scrolled", false, {root: true});
       return new Promise(resolve => {
         let tl = new TimelineMax();
-        commit("scrolled", false, {root: true});
         rootState.mobile && transitionInMobile(rootState, tl)
         !rootState.mobile && transitionIn(rootState, tl)
         tl.eventCallback("onComplete", ()=> {
@@ -67,9 +69,9 @@ export default {
 
 function transitionInMobile(state,tl){
   cover({ start: 0, load: false, tl });
-  topbar({ start: 0.5, load: true, tl });
-  logoMobile({ start: 0.75, load: true, tl });
-  button({ start: 0.75, load: true, tl });
+  topbar({ start: 1, load: true, tl });
+  logoMobile({ start: 1.4, load: true, tl });
+  button({ start: 1.4, load: true, tl });
 }
 
 function transitionOutMobile(state,tl){
@@ -122,7 +124,7 @@ function menuOpen(state,tl){
 
 function menuClose(state,tl){
   sideLinks({ start: 0, load: false, tl });
-  sideNav({ start: 0.7, load: false, tl });
+  sideNav({ start: .7, load: false, tl });
 }
 
 function scrolledOn(state,tl){
@@ -139,7 +141,7 @@ function scrolledOff(state,tl){
 
 function hide(state, tl){
   tl.set($sideNav, { xPercent: -100 });
-  tl.set($sideLinks, { xPercent: -100 });
+  tl.set($sideLinks, { xPercent: -100, opacity: 0 });
   tl.set($sidebar, { xPercent: -100 });
   tl.set($logo, { xPercent: state.mobile ? 100 : -100 });
   tl.set($topLinks, { yPercent: -100 });
@@ -188,5 +190,5 @@ function sideNav({ load, start, tl }) {
 }
 
 function sideLinks({ load, start, tl }) {
-  tl.staggerTo($sideLinks,0.5,{xPercent: load ? 0 : -150,ease: load ? Power4.easeOut : Power4.easeIn},0.1,start);
+  tl.staggerTo($sideLinks,0.5,{xPercent: load ? 0 : -50,ease: load ? Power4.easeOut : Power4.easeIn, opacity: load ? 1 : 0},0.1,start);
 }

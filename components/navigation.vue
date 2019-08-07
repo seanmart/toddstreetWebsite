@@ -120,6 +120,10 @@ nav.top a:hover span{
 
 .mobile #side-nav{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 nav .side-link a{
