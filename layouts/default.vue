@@ -3,7 +3,7 @@
     <div id="cover" />
     <navigation />
     <sidebar />
-      <nuxt />
+    <nuxt />
   </div>
 </template>
 <script>
@@ -13,11 +13,11 @@ export default {
   components: { sidebar, navigation },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    this.$store.commit("scrolled", window.scrollY > this.scrolledThreshold)
+    this.$store.commit("scrolled", window.scrollY > this.scrolledThreshold);
 
     this.$nextTick(() => {
       this.$store.dispatch("animation/init");
-      this.$store.dispatch("animation/transition", false);
+      this.$store.dispatch("animation/transitionOff");
     });
   },
   destroyed() {
@@ -33,21 +33,21 @@ export default {
     mobile() {
       return this.$store.state.mobile;
     },
-    transitioning(){
-      return this.$store.state.transitioning
+    transitioning() {
+      return this.$store.state.transitioning;
     }
   },
   watch: {
     scrolled(scrolled) {
-        this.$store.dispatch("scrolled", scrolled);
+      this.$store.dispatch("scrolled", scrolled);
     },
     $route() {
-      this.$nextTick(()=>this.$store.dispatch("animation/transition", false))
+      this.$nextTick(() => this.$store.dispatch("animation/transitionOff"));
     }
   },
   methods: {
     handleScroll() {
-      if (this.mobile || this.transitioning) return
+      if (this.mobile || this.transitioning) return;
       this.scrolled = window.scrollY > this.scrolledThreshold;
     }
   }

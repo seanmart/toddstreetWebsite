@@ -3,38 +3,6 @@ let $cover, $sidebar, $logo, $topLinks, $sideLinks, $sideNav, $button;
 
 export default {
   actions: {
-    init({ rootState, dispatch}) {
-      $cover = document.getElementById("cover");
-      $sidebar = document.getElementById("sidebar");
-      $logo = document.getElementById("logo");
-      $topLinks = document.getElementsByClassName("top-link");
-      $button = document.getElementById("menu-button");
-      $sideLinks = document.getElementsByClassName("side-link");
-      $sideNav = document.getElementById("side-nav");
-
-      let tl = new TimelineMax();
-      hide(rootState,tl)
-    },
-    transition({rootState, commit}, out){
-      return new Promise(resolve => {
-        let tl = new TimelineMax();
-
-        if (out){
-          commit("transitioning", true, {root: true})
-          tl.eventCallback("onComplete", ()=> resolve())
-          rootState.mobile && transitionOutMobile(rootState, tl)
-          !rootState.mobile && transitionOut(rootState, tl)
-
-        } else {
-          tl.eventCallback("onComplete", ()=> {
-            commit("transitioning", false, {root: true})
-            resolve()
-          })
-          rootState.mobile && transitionInMobile(rootState, tl)
-          !rootState.mobile && transitionIn(rootState, tl)
-        }
-      });
-    },
     mobile({rootState}, on){
       let tl = new TimelineMax();
       on && mobileOn(rootState,tl)
@@ -50,9 +18,40 @@ export default {
         let tl = new TimelineMax({ onComplete: () => resolve() });
         open && menuOpen(rootState, tl)
         !open && menuClose(rootState, tl)
-
       });
-    }
+    },
+    transitionOn({rootState,commit}){
+      return new Promise(resolve => {
+        let tl = new TimelineMax();
+        commit("transitioning", true, {root: true})
+        tl.eventCallback("onComplete", ()=> resolve())
+        rootState.mobile && transitionOutMobile(rootState, tl)
+        !rootState.mobile && transitionOut(rootState, tl)
+      });
+    },
+    transitionOff({rootState,commit}){
+      return new Promise(resolve => {
+        let tl = new TimelineMax();
+        rootState.mobile && transitionInMobile(rootState, tl)
+        !rootState.mobile && transitionIn(rootState, tl)
+        tl.eventCallback("onComplete", ()=> {
+          commit("transitioning", false, {root: true})
+          resolve()
+        })
+      });
+    },
+    init({ rootState, dispatch}) {
+      $cover = document.getElementById("cover");
+      $sidebar = document.getElementById("sidebar");
+      $logo = document.getElementById("logo");
+      $topLinks = document.getElementsByClassName("top-link");
+      $button = document.getElementById("menu-button");
+      $sideLinks = document.getElementsByClassName("side-link");
+      $sideNav = document.getElementById("side-nav");
+
+      let tl = new TimelineMax();
+      hide(rootState,tl)
+    },
   }
 };
 
