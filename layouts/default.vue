@@ -83,6 +83,11 @@ html {
   z-index: 1000;
 }
 
+.max{
+  max-width: 1200px;
+  margin: 0px auto;
+}
+
 .inset {
   padding: 100px 120px;
   transition: padding 0.25s;
@@ -97,4 +102,5 @@ html {
 .mobile .inset {
   padding: 100px 30px;
 }
+
 </style>

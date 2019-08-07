@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="intro">
     <div class="content-container inset">
-      <div class="content">
+      <div class="content max">
         <div class="span">
           <h1 v-for="(item, i) in title" :key="i" ref="title">
             {{ item }}
@@ -108,7 +108,7 @@ export default {
 }
 
 #intro .span{
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .mobile #intro .text{
@@ -119,7 +119,6 @@ export default {
   line-height: 93%;
   font-size: 8vw;
   font-weight: 300;
-  text-transform: uppercase;
   letter-spacing: -2px;
   white-space: nowrap;
 }
@@ -166,13 +165,14 @@ export default {
 }
 
 @media screen and (min-width: 1300px){
-  #intro .text h1{
+  #intro h1{
     font-size: 104px;
   }
 }
 
 @media screen and (max-width: 600px){
   #intro h1{
+    font-size: 10vw;
     font-weight: 400;
   }
 }
