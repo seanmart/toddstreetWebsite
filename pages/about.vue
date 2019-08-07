@@ -1,6 +1,7 @@
 <template lang="html">
   <div id="about">
     <intro :props="intro" />
+    <div class="white-section"/>
   </div>
 </template>
 
@@ -24,5 +25,10 @@ export default {
 <style lang="css">
 #about{
   min-height: 200vh;
+}
+
+.white-section{
+  height: 100vh;
+  background: white;
 }
 </style>

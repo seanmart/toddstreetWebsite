@@ -3,21 +3,28 @@ let $cover, $sidebar, $logo, $topLinks, $sideLinks, $sideNav, $button;
 
 export default {
   actions: {
-    mobile({rootState}, on){
-      let tl = new TimelineMax();
-      on && mobileOn(rootState,tl)
-      !on && mobileOff(rootState,tl)
+    mobile({rootState, commit}, mobile){
+      commit("mobile", mobile, {root: true});
+      if (!rootState.transitioning){
+        let tl = new TimelineMax();
+        mobile && mobileOn(rootState,tl)
+        !mobile && mobileOff(rootState,tl)
+      }
     },
-    scrolled({ rootState }, scrolled) {
-      let tl = new TimelineMax();
-      scrolled && scrolledOn(rootState,tl)
-      !scrolled && scrolledOff(rootState,tl)
+    scrolled({ rootState, commit }, scrolled) {
+      commit("scrolled", scrolled, {root: true});
+      if (!rootState.mobile){
+        let tl = new TimelineMax();
+        scrolled && scrolledOn(rootState,tl)
+        !scrolled && scrolledOff(rootState,tl)
+      }
     },
-    menu({ rootState }, open) {
+    menu({ rootState, commit }, menu) {
+      commit("menu", menu, {root: true});
       return new Promise(resolve => {
         let tl = new TimelineMax({ onComplete: () => resolve() });
-        open && menuOpen(rootState, tl)
-        !open && menuClose(rootState, tl)
+        menu && menuOpen(rootState, tl)
+        !menu && menuClose(rootState, tl)
       });
     },
     transitionOn({rootState,commit}){
@@ -32,6 +39,7 @@ export default {
     transitionOff({rootState,commit}){
       return new Promise(resolve => {
         let tl = new TimelineMax();
+        commit("scrolled", false, {root: true});
         rootState.mobile && transitionInMobile(rootState, tl)
         !rootState.mobile && transitionIn(rootState, tl)
         tl.eventCallback("onComplete", ()=> {
@@ -56,6 +64,7 @@ export default {
 };
 
 // grouped component animations -------------------------------------------
+
 function transitionInMobile(state,tl){
   cover({ start: 0, load: false, tl });
   topbar({ start: 0.5, load: true, tl });
@@ -106,31 +115,33 @@ function mobileOff(state,tl){
   topNav({ start: 1, load: !state.scrolled, tl });
 }
 
-function menuOpen(rootState,tl){
+function menuOpen(state,tl){
   sideNav({ start: 0, load: true, tl });
   sideLinks({ start: 0.3, load: true, tl });
 }
 
-function menuClose(rootState,tl){
+function menuClose(state,tl){
   sideLinks({ start: 0, load: false, tl });
   sideNav({ start: 0.7, load: false, tl });
 }
 
-function scrolledOn(rootState,tl){
+function scrolledOn(state,tl){
+  if (state.mobile) return
   button({ start: 0, load: true, tl });
 }
 
-function scrolledOff(rootState,tl){
+function scrolledOff(state,tl){
   button({ start: 0, load: false, tl });
 }
 
 
 // component animations ---------------------------------------------------
-function hide(rootState, tl){
+
+function hide(state, tl){
   tl.set($sideNav, { xPercent: -100 });
   tl.set($sideLinks, { xPercent: -100 });
   tl.set($sidebar, { xPercent: -100 });
-  tl.set($logo, { xPercent: rootState.mobile ? 100 : -100 });
+  tl.set($logo, { xPercent: state.mobile ? 100 : -100 });
   tl.set($topLinks, { yPercent: -100 });
   tl.set($button, { xPercent: -100 });
 }

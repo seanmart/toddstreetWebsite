@@ -87,7 +87,7 @@ export default {
 }
 
 #intro-background{
-  opacity: .3;
+  opacity: .25;
 }
 
 #intro .content-container{

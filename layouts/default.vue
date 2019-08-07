@@ -39,7 +39,7 @@ export default {
   },
   watch: {
     scrolled(scrolled) {
-      this.$store.dispatch("scrolled", scrolled);
+      this.$store.dispatch("animation/scrolled", scrolled);
     },
     $route() {
       this.$nextTick(() => this.$store.dispatch("animation/transitionOff"));
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     handleScroll() {
-      if (this.mobile || this.transitioning) return;
+      if (this.transitioning) return;
       this.scrolled = window.scrollY > this.scrolledThreshold;
     }
   }

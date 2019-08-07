@@ -48,7 +48,7 @@ export default {
   },
   watch: {
     mobile(mobile) {
-      this.$store.dispatch("mobile", mobile);
+      this.$store.dispatch("animation/mobile", mobile);
     }
   },
   methods: {
