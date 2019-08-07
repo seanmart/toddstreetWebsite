@@ -46,6 +46,7 @@ export default {
     },
     image() {
       if (!this.props.image) return null;
+      if (process.browser)(new Image()).src = this.props.image
       return this.props.image;
     }
   },
