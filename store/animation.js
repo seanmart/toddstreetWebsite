@@ -38,7 +38,7 @@ export default {
     mobile({rootState}, on){
       let tl = new TimelineMax();
       on && mobileOn(rootState,tl)
-      off && mobileOff(rootState,tl)
+      !on && mobileOff(rootState,tl)
     },
     scrolled({ rootState }, scrolled) {
       let tl = new TimelineMax();
