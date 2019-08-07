@@ -94,7 +94,7 @@ html {
   padding-right: 0px;
 }
 
-#page.mobile .inset {
+.mobile .inset {
   padding: 100px 30px;
 }
 </style>
