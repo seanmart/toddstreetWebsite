@@ -1,7 +1,11 @@
 export default async function({ store }) {
   if (!process.browser) return;
   return new Promise(resolve => {
-    store.commit('ready', false)
-    store.dispatch("animation/transition", "out").then(() => resolve());
+    if (store.state.menu) {
+      store.commit("menu", false)
+      store.dispatch("animation/menu", false)
+    }
+    store.commit("scrolled", false)
+    store.dispatch("animation/transition", true).then(() => resolve());
   });
 }

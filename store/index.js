@@ -4,9 +4,10 @@ import animation from "./animation";
 export default {
   modules: { data, animation },
   state: () => ({
-    ready: false,
     scrolled: false,
-    mobile: false
+    mobile: false,
+    menu: false,
+    transitioning: true,
   }),
   mutations: {
     scrolled(state, scrolled) {
@@ -15,18 +16,21 @@ export default {
     mobile(state, mobile) {
       state.mobile = mobile;
     },
-    ready(state, ready) {
-      state.ready = ready;
+    menu(state, open) {
+      state.menu = open;
+    },
+    transitioning(state, on) {
+      state.transitioning = on;
     }
   },
   actions: {
     mobile({ commit, state, dispatch }, mobile) {
       commit("mobile", mobile);
-      state.ready && dispatch("animation/mobile", mobile);
+      !state.transitioning && dispatch("animation/mobile", mobile);
     },
     scrolled({ commit, state, dispatch }, scrolled) {
       commit("scrolled", scrolled);
-      state.ready && dispatch("animation/scrolled", scrolled);
+      dispatch("animation/scrolled", scrolled);
     },
     nuxtServerInit({ dispatch }) {
       dispatch("data/getPages");

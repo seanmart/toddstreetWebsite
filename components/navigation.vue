@@ -9,15 +9,14 @@
         </div>
       </template>
     </nav>
-    <nav class="side">
-      <div class="pages">
-        <template v-for="(page, i) in pages">
-          <nuxt-link :key="i" :to="page.path">{{ page.label }}</nuxt-link>
-        </template>
-      </div>
-      <div class="contact">
-        this is the contact info
-      </div>
+    <nav id="side-nav" class="side" ref="side">
+      <template v-for="(page, i) in pages">
+        <div class="side-link">
+          <nuxt-link :key="i" :to="page.path" active-class="active">
+            <span>{{ page.name }}</span>
+          </nuxt-link>
+        </div>
+      </template>
     </nav>
   </div>
 </template>
@@ -45,19 +44,16 @@ export default {
     },
     scrolled() {
       return this.$store.state.scrolled;
-    },
-    ready() {
-      return this.$store.state.ready;
     }
   },
   watch: {
     mobile(mobile) {
-      this.$store.dispatch("mobile", mobile);
+      mobile && this.$store.dispatch("mobile", mobile);
     }
   },
   methods: {
     handleResize() {
-      this.mobile = window.innerWidth < this.navWidth + 300;
+      this.mobile = window.innerWidth < this.navWidth + 200;
     },
     getNavWidth() {
       let reducer = (tally, link) => tally + link.offsetWidth;
@@ -86,12 +82,11 @@ nav.top{
   overflow: hidden;
 }
 
-.top-link{
+nav .top-link{
   flex: 0 0 auto;
 }
 
-
-nav.top a{
+nav a{
   padding: 20px 40px;
   display: block;
   color: white;
@@ -107,17 +102,30 @@ nav.top span{
   padding: 7.5px 0px;
 }
 
-nav.top a.active span,
+nav a.active span,
 nav.top a:hover span{
   border-bottom: 2px solid;
 }
 
-nav.side{
+#side-nav{
   position: fixed;
   top: 0px;
   left: 0px;
-  right: 0px;
   bottom: 0px;
-  transform: translateX(100%);
+  background: black;
+  color: white;
+  padding: 70px;
+  max-width: 100%;
 }
+
+.mobile #side-nav{
+  width: 100%;
+}
+
+nav .side-link a{
+  font-weight: 400;
+  font-size: 20px;
+}
+
+
 </style>

@@ -27,11 +27,14 @@ export default {
   props: { props: Object },
   mounted() {
     this.init();
+    setTimeout(() => this.animate(),this.delay)
+  },
+  data() {
+    return {
+      delay: 700
+    };
   },
   computed: {
-    ready() {
-      return this.$store.state.ready;
-    },
     title() {
       if (!this.props.title) return [];
       if (typeof this.props.title === "string") return [this.props.title];
@@ -46,11 +49,6 @@ export default {
       return this.props.image;
     }
   },
-  watch: {
-    ready() {
-      this.animate();
-    }
-  },
   methods: {
     init() {
       TweenMax.set(this.$refs.title, { xPercent: -10, opacity: 0 });
@@ -60,18 +58,20 @@ export default {
         TweenMax.fromTo(this.$refs.bg, 1, { scale: 1.2 }, { scale: 1 });
     },
     animate() {
-      let tl = new TimelineMax();
-      tl.staggerTo(this.$refs.title, 0.5, { xPercent: 0, opacity: 1 }, 0.15, 0);
-      tl.to(this.$refs.line, 0.5, { scaleX: 1, ease: Power1.easeOut }, 0.2);
-      tl.to(this.$refs.desc, 0.7, { yPercent: 0, opacity: 1 }, 0.1);
+        let tl = new TimelineMax();
+        tl.staggerTo(
+          this.$refs.title,
+          0.5,
+          { xPercent: 0, opacity: 1 },
+          0.15,
+          0
+        );
+        tl.to(this.$refs.line, 0.5, { scaleX: 1, ease: Power1.easeOut }, 0.2);
+        tl.to(this.$refs.desc, 0.7, { yPercent: 0, opacity: 1 }, 0.1);
     }
   }
 };
 </script>
-
-It is a long established fact that a reader will be distracted by the readable
-content of a page when looking at its layout. The point of using Lorem Ipsum is
-that it has a more-or-less normal distribution of letters
 
 <style lang="css">
 #intro{
@@ -142,6 +142,7 @@ that it has a more-or-less normal distribution of letters
   flex: 0 1 50%;
   height: 2px;
   background: white;
+  transform-origin: left;
 }
 
 .mobile #intro .line{

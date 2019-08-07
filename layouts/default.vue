@@ -1,11 +1,9 @@
 <template>
-  <div id="site">
+  <div id="site" :class="{ mobile }">
     <div id="cover" />
     <navigation />
     <sidebar />
-    <div id="page" :class="{ mobile }">
       <nuxt />
-    </div>
   </div>
 </template>
 <script>
@@ -15,10 +13,11 @@ export default {
   components: { sidebar, navigation },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    this.handleScroll();
+    this.$store.commit("scrolled", window.scrollY > this.scrolledThreshold)
+
     this.$nextTick(() => {
       this.$store.dispatch("animation/init");
-      this.$store.dispatch("animation/transition", "in");
+      this.$store.dispatch("animation/transition", false);
     });
   },
   destroyed() {
@@ -26,25 +25,30 @@ export default {
   },
   data() {
     return {
-      scrolled: false
+      scrolled: false,
+      scrolledThreshold: 50
     };
   },
   computed: {
     mobile() {
       return this.$store.state.mobile;
+    },
+    transitioning(){
+      return this.$store.state.transitioning
     }
   },
   watch: {
     scrolled(scrolled) {
-      this.$store.dispatch("scrolled", scrolled);
+        this.$store.dispatch("scrolled", scrolled);
     },
     $route() {
-      this.$store.dispatch("animation/transition", "in");
+      this.$nextTick(()=>this.$store.dispatch("animation/transition", false))
     }
   },
   methods: {
     handleScroll() {
-      this.scrolled = window.scrollY > 20;
+      if (this.mobile || this.transitioning) return
+      this.scrolled = window.scrollY > this.scrolledThreshold;
     }
   }
 };

@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="sidebar">
-    <div id="menu-button">☰</div>
+    <div id="menu-button" @click="sideNavToggle">☰</div>
     <div class="logo-container">
       <div id="logo">
         <nuxt-link to="/"><Logo /></nuxt-link>
@@ -13,7 +13,14 @@
 import Logo from "@/components/svg/Logo";
 import { TimelineMax, TweenLite } from "gsap";
 export default {
-  components: { Logo }
+  components: { Logo },
+  methods: {
+    sideNavToggle() {
+      let open = !this.$store.state.menu
+      this.$store.commit("menu", open)
+      this.$store.dispatch("animation/menu", open);
+    }
+  }
 };
 </script>
 
@@ -41,6 +48,7 @@ export default {
 }
 
 #menu-button{
+  cursor: pointer;
   color: white;
   font-size: 30px;
   line-height: 30px;
