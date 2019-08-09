@@ -3,14 +3,16 @@
     <div id="cover" />
     <navigation />
     <sidebar />
+    <intro :props="introProps" />
     <nuxt />
   </div>
 </template>
 <script>
 import sidebar from "@/components/sidebar";
 import navigation from "@/components/navigation";
+import intro from "@/components/intro";
 export default {
-  components: { sidebar, navigation },
+  components: { sidebar, navigation, intro },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
     this.$store.commit("scrolled", window.scrollY > this.scrolledThreshold);
@@ -35,6 +37,10 @@ export default {
     },
     transitioning() {
       return this.$store.state.transitioning;
+    },
+    introProps() {
+      let page = this.$store.state.data.pages[this.$route.name];
+      return { ...page.intro, title: page.intro.title || page.meta.name };
     }
   },
   watch: {
@@ -83,7 +89,7 @@ html {
   z-index: 1000;
 }
 
-.max{
+.max {
   max-width: 1200px;
   margin: 0px auto;
 }
@@ -102,5 +108,4 @@ html {
 .mobile .inset {
   padding: 100px 30px;
 }
-
 </style>

@@ -5,12 +5,12 @@ const state = () => ({
   care: [],
   projects: [],
   offers: [],
-  pages: []
+  pages: {}
 });
 
 const mutations = {
-  setPage(state, page) {
-    state.pages.push(page);
+  setPage(state, { key, page }) {
+    state.pages[key] = page;
   },
   setData(state, { key, res }) {
     state[key] = res;
@@ -21,11 +21,10 @@ const actions = {
   getPages({ commit }) {
     let pages = require.context("../content/data", true, /\.js/);
     pages.keys().forEach(page => {
-      let data = pages(page).meta;
-      if (data.navPosition) {
-        let path = page.match(/([^:\\/]*?)(?:\.([^ :\\/.]*))?$/)[1];
-        commit("setPage", { ...data, path: "/" + path });
-      }
+      let data = pages(page);
+      let name = page.match(/([^:\\/]*?)(?:\.([^ :\\/.]*))?$/)[1];
+      data.meta.path = name === "index" ? "/" : "/" + name;
+      commit("setPage", { page: data, key: name });
     });
   },
   async getData({ commit }) {
@@ -47,8 +46,9 @@ const actions = {
 };
 
 const getters = {
-  pages(state) {
-    return orderBy(state.pages, "navPosition");
+  navPages(state) {
+    let meta = Object.keys(state.pages).map(page => state.pages[page].meta);
+    return orderBy(filter(meta, "navPosition"), "navPosition");
   },
   projects(state) {
     return orderBy(state.projects, "position");

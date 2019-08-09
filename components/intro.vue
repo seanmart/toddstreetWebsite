@@ -13,8 +13,8 @@
         </div>
       </div>
     </div>
-    <div ref="bg" v-if="image">
-      <background :image="image" id="intro-background" />
+    <div ref="bg">
+      <background v-if="image" :image="image" id="intro-background" />
     </div>
   </div>
 </template>
@@ -24,10 +24,18 @@ import background from "@/components/background";
 import { TweenMax, TimelineMax } from "gsap";
 export default {
   components: { background },
-  props: { props: Object },
+  props: {
+    props: {
+      type: Object,
+      default: () => ({
+        image: null,
+        title: null,
+        description: null
+      })
+    }
+  },
   mounted() {
     this.init();
-    setTimeout(() => this.animate(),this.delay)
   },
   data() {
     return {
@@ -36,7 +44,7 @@ export default {
   },
   computed: {
     title() {
-      if (!this.props.title) return [];
+      if (!this.props.title) return [""];
       if (typeof this.props.title === "string") return [this.props.title];
       return this.props.title;
     },
@@ -46,29 +54,30 @@ export default {
     },
     image() {
       if (!this.props.image) return null;
-      if (process.browser)(new Image()).src = this.props.image
+      if (process.browser) new Image().src = this.props.image;
       return this.props.image;
+    }
+  },
+  watch: {
+    $route() {
+      this.$nextTick(() => this.init());
     }
   },
   methods: {
     init() {
       TweenMax.set(this.$refs.title, { xPercent: -10, opacity: 0 });
-      TweenMax.set(this.$refs.line, { scaleX: 0 });
       TweenMax.set(this.$refs.desc, { yPercent: 25, opacity: 0 });
-      this.image &&
-        TweenMax.fromTo(this.$refs.bg, 1, { scale: 1.2 }, { scale: 1 });
+      TweenMax.fromTo(this.$refs.bg, 1, { scale: 1.2 }, { scale: 1 });
+      TweenMax.set(this.$refs.line, { scaleX: 0 });
+      setTimeout(() => this.animate(), this.delay);
     },
     animate() {
-        let tl = new TimelineMax();
-        tl.staggerTo(
-          this.$refs.title,
-          0.5,
-          { xPercent: 0, opacity: 1 },
-          0.15,
-          0
-        );
+      let tl = new TimelineMax();
+      tl.staggerTo(this.$refs.title, 0.5, { xPercent: 0, opacity: 1 }, 0.15, 0);
+      tl.to(this.$refs.desc, 0.7, { yPercent: 0, opacity: 1 }, 0.1);
+      if (this.props.title) {
         tl.to(this.$refs.line, 0.5, { scaleX: 1, ease: Power1.easeOut }, 0.2);
-        tl.to(this.$refs.desc, 0.7, { yPercent: 0, opacity: 1 }, 0.1);
+      }
     }
   }
 };

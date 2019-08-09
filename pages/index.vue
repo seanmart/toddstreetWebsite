@@ -1,23 +1,11 @@
 <template lang="html">
-  <div id="home">
-    <intro :props="intro" />
-  </div>
+  <div id="home"></div>
 </template>
 
 <script>
-import data from "@/content/data/home";
-import intro from "@/components/intro";
+import data from "@/content/data/index";
 export default {
-  components: { intro },
-  computed: {
-    intro() {
-      return {
-        title: data.intro.title || data.meta.name,
-        image: data.intro.image || null,
-        description: data.intro.description || null
-      };
-    }
-  }
+  computed: {}
 };
 </script>
 

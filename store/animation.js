@@ -29,10 +29,16 @@ export default {
         !menu && menuClose(rootState, tl);
       });
     },
-    transitionOn({ rootState, commit }) {
+    transitionOn({ rootState, commit, dispatch }) {
       commit("transitioning", true, { root: true });
       return new Promise(resolve => {
         let tl = new TimelineMax();
+
+        if(rootState.menu){
+          commit("menu", false, { root: true });
+          menuClose(rootState,tl)
+        }
+
         tl.eventCallback("onComplete", () => resolve());
         rootState.mobile && transitionOutMobile(rootState, tl);
         !rootState.mobile && transitionOut(rootState, tl);

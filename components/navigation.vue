@@ -35,12 +35,13 @@ export default {
   data() {
     return {
       mobile: false,
-      sideNav: false
+      sideNav: false,
+      navWidth: 0
     };
   },
   computed: {
     pages() {
-      return this.$store.getters["data/pages"];
+      return this.$store.getters["data/navPages"];
     },
     scrolled() {
       return this.$store.state.scrolled;
@@ -56,6 +57,7 @@ export default {
       this.mobile = window.innerWidth < this.navWidth + 200;
     },
     getNavWidth() {
+      if (!this.$refs.link) return;
       let reducer = (tally, link) => tally + link.offsetWidth;
       this.navWidth = this.$refs.link.reduce(reducer, 0);
     }
@@ -130,6 +132,4 @@ nav .side-link a{
   font-weight: 400;
   font-size: 20px;
 }
-
-
 </style>

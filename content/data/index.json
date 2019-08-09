@@ -1,9 +1,9 @@
 {
   "meta": {
-    "name": "home"
+    "name": "index"
   },
   "intro": {
-    "title": ["hello,","we're toddstreet"],
+    "title": ["hello,", "we're toddstreet"],
     "description": "True engagement is what transforms an audience into something bigger, motivating them to think, feel and act. The catalyst to accomplish enduring results. As a Marketing Communications Agency, we create compelling content and design innovative solutions to engage audiences authentically across live and virtual platforms.",
     "image": "/uploads/bms-3.jpg"
   }

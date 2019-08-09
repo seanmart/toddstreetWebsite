@@ -26,12 +26,12 @@ export default {
 
 <style lang="css">
 #sidebar{
+  z-index: 100;
   position: fixed;
   top: 0px;
   left: 0px;
   width: 70px;
   height: 100vh;
-  z-index: 100;
   overflow: hidden;
   background: black;
   display: flex;
