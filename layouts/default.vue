@@ -3,7 +3,7 @@
     <div id="cover" />
     <navigation />
     <sidebar />
-    <intro :props="introProps" />
+    <intro v-if="introProps" :props="introProps" />
     <nuxt />
   </div>
 </template>
@@ -40,6 +40,7 @@ export default {
     },
     introProps() {
       let page = this.$store.state.data.pages[this.$route.name];
+      if (!page.intro) return;
       return { ...page.intro, title: page.intro.title || page.meta.name };
     }
   },
