@@ -8,6 +8,8 @@ $paddingNum: 120;
 $padding: $paddingNum + px;
 $col: 100% / 12;
 
+$mobile: 600px;
+
 html {
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -26,6 +28,7 @@ a{
 body{
   overflow: hidden;
 }
+
 
 .title{
   font-family: 'Roboto',sans-serif;
@@ -52,10 +55,6 @@ body{
   line-height: 150%
 }
 
-.mobile .copy.big{
-  font-size: 25px;
-}
-
 *,
 *:before,
 *:after {
@@ -68,10 +67,13 @@ body{
   padding: $padding
 }
 
-.tablet .padding{
-  padding: $paddingNum / 2 + px
-}
+@media screen and (max-width: $mobile){
 
-.mobile .padding{
-  padding: $paddingNum / 4 + px
+  .copy.big{
+    font-size: 25px;
+  }
+
+  .padding{
+    padding: $paddingNum / 4 + px
+  }
 }

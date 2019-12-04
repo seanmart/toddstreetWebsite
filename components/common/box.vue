@@ -32,10 +32,4 @@ export default {
   justify-content: center;
   align-items: center
 }
-
-.mobile .box{
-  position: relative;
-  height: 500px;
-  width: 100%;
-}
 </style>

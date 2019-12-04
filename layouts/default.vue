@@ -1,5 +1,5 @@
 <template>
-    <div id="site" :class="[mode,{['menu-open']: menu}]">
+    <div id="site">
       <top/>
       <nuxt />
       <bottom/>
@@ -11,10 +11,7 @@ import bottom from '@/components/site/bottom'
 import {mapState} from 'vuex'
   export default{
     components:{top,bottom},
-    computed: mapState(['mode','menu']),
-    mounted(){
-      setTimeout(()=> this.$loco.init(),500)
-    }
+    computed: mapState(['menu']),
   }
 </script>
 <style lang="scss">

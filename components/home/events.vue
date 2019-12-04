@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="events" ref="events" data-scroll-section>
+  <div id="events" class="padding" ref="events" data-scroll-section>
     <div class="content">
 
       <v-box :styles="{top: '36vw',right:'0px',zIndex: 1}" speed="-.5">
@@ -54,16 +54,10 @@ export default {
 <style lang="scss">
 #events{
   height: 130vw;
-  padding: 0px $padding
 }
 
 #events .content{
   position: relative;
   height: 100%;
-}
-
-.mobile #events{
-  height: auto;
-  padding: 0px;
 }
 </style>
