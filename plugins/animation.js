@@ -8,7 +8,6 @@ let loco,sb
 loco = new Locomotive({
   el: document.getElementById('site'),
   smooth: true,
-  smoothMobile: true,
   getDirection: true,
   inertia: 1.2
 })
