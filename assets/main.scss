@@ -1,0 +1,77 @@
+$color: #fff;
+$color2: #DFFF57;
+
+$bg: #060608;
+$bg2: #0f0f16;
+
+$paddingNum: 120;
+$padding: $paddingNum + px;
+$col: 100% / 12;
+
+html {
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -sebkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -sebkit-font-smoothing: antialiased;
+  font-family: 'Roboto',sans-serif;
+  background: $bg
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+body{
+  overflow: hidden;
+}
+
+.title{
+  font-family: 'Roboto',sans-serif;
+  font-weight: 900;
+  font-size: 5vw
+}
+
+.title.big{
+  font-size: 7.5vw
+}
+
+.copy{
+  font-family: 'Aleo', serif;
+  font-weight: 400
+}
+
+.copy.big{
+  font-size: 50px;
+  line-height: 150%
+}
+
+.copy.medium{
+  font-size: 30px;
+  line-height: 150%
+}
+
+.mobile .copy.big{
+  font-size: 25px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+.padding{
+  padding: $padding
+}
+
+.tablet .padding{
+  padding: $paddingNum / 2 + px
+}
+
+.mobile .padding{
+  padding: $paddingNum / 4 + px
+}

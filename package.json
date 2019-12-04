@@ -1,0 +1,27 @@
+{
+  "name": "websitev4.0",
+  "version": "1.0.0",
+  "description": "My exceptional Nuxt.js project",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
+    "gsap": "^3.0.1",
+    "imports-loader": "^0.8.0",
+    "locomotive-scroll": "^3.2.6",
+    "lodash": "^4.17.15",
+    "nuxt": "^2.0.0",
+    "nuxt-client-init-module": "^0.1.7",
+    "scrollmagic": "^2.0.7"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0"
+  }
+}
