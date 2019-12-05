@@ -1,7 +1,12 @@
 <template lang="html">
   <div id="events" class="padding" ref="events" data-scroll-section>
     <div class="content">
-      <div class="box title-1" data-scroll data-scroll-call="eventsTitle" :data-scroll-speed="disableParallax ? 0 : -.5">
+      <div class="box title-1"
+        data-scroll
+        data-scroll-offset="75%"
+        data-scroll-call="eventsTitle"
+        data-scroll-delay="1"
+      >
         <v-text :text="data.title" :play="playTitle" tag="h1" class="title" />
       </div>
 
@@ -36,6 +41,7 @@ export default {
   mounted(){
     this.$loco.call((e)=>{
       if (e === 'eventsTitle'){
+        console.log('play')
         this.playTitle = true
       }
     })
@@ -96,7 +102,6 @@ export default {
 @media screen and (max-width: $tablet){
   #events {
     height: auto;
-    padding: 0px;
   }
 
   #events .title-1 h1{
@@ -110,10 +115,10 @@ export default {
 
   #events .box {
     padding: 20px;
-    flex: 0 0 auto;
+    flex: 0 0 50%;
     position: relative;
     height: 50vh;
-    width: 50vw;
+    width: auto;
     min-height: 400px;
     top: auto;
     left: auto;
@@ -122,10 +127,13 @@ export default {
 }
 
 @media screen and (max-width: $mobile){
+  #events{
+    padding: 0px;
+  }
 
   #events .box {
-    height: 100vh;
-    width: 100vw;
+    height: 80vh;
+    flex: 0 0 100%;
     padding: 0px;
   }
 
