@@ -14,10 +14,18 @@ export default{
     }
   },
   actions:{
-    initMode({commit}){
-      let width = window.innerWidth
-      let mode = width < 680 ? 'mobile' : width < 980 ? 'tablet' : 'desktop'
+    initMode({ commit,state }, context) {
+      let mode = getMode()
       commit('setMode', mode)
+    },
+    updateMode({commit, state}){
+      let mode = getMode()
+      if (mode !== state.mode ) commit('setMode', mode)
     }
   }
+}
+
+function getMode(){
+  let width = window.innerWidth
+  return width < 680 ? 'mobile' : width < 980 ? 'tablet' : 'desktop'
 }

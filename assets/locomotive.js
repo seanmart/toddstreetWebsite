@@ -10,6 +10,8 @@ export default{
   },
   call(fn){
     this.instance.on('call',fn)
+  },
+  update(){
+    this.instance.init()
   }
-
 }

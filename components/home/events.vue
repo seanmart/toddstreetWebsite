@@ -5,7 +5,7 @@
         <v-text :text="data.title" class="title big" play />
       </div>
 
-      <div class="box image-1" data-scroll :data-scroll-speed="mobile ? 0 : -.5">
+      <div class="box image-1" data-scroll :data-scroll-speed="mobile ? 0 : 8">
         <v-image :image="data.image1" />
       </div>
 

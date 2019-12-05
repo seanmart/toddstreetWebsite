@@ -36,8 +36,7 @@ export default {
    */
   modules: [
     "@nuxtjs/device",
-    "@nuxtjs/style-resources",
-    "nuxt-client-init-module"
+    "@nuxtjs/style-resources"
   ],
   /*
    ** Plugins to load before mounting the App
