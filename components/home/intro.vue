@@ -46,20 +46,19 @@ export default {
   justify-content: flex-start;
   align-items: center;
   padding: $padding;
-  font-size: 3.5vw;
+  font-size: 3vw;
   line-height: 150%;
 }
 
 @media screen and (max-width: $tablet){
   #intro .intro-text{
-    font-size: 28px;
+    font-size: 5vw;
   }
 }
 
 @media screen and (max-width: $mobile){
   #intro .intro-text{
-    font-size: 21px;
-    line-height: 180%;
+    font-size: 6.5vw;
     padding: $paddingMobile;
   }
 }

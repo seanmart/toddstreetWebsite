@@ -4,6 +4,10 @@
       <logo/>
     </div>
 
+    <div class="mobile logo">
+      <logo/>
+    </div>
+
     <button class="button" type="button" name="menu" @click="open = !open">
       <div class="line top"/>
       <div class="line bottom"/>
@@ -17,10 +21,10 @@
               <h1 class="inner-link">{{link.label}}</h1>
             </nuxt-link>
         </div>
+        <div class="top logo">
+          <logo/>
+        </div>
         <div class="info">
-          <div class="top logo">
-            <logo/>
-          </div>
           <div class="address">
             <div class="line"/>
             <div class="item" v-for="(item,i) in data.address" :key="i">
@@ -57,8 +61,10 @@ export default {
     this.buttonAnimation = ba
 
     let tl = new this.$gsap.timeline()
-    tl.fromTo('#top .button',1,{yPercent:-100},{yPercent:0},.25)
-    tl.fromTo('#top .side.logo',1,{yPercent:100},{yPercent:0},.25)
+    tl.set('#top .logo.top',{y:'-100%'})
+    tl.fromTo('#top .button',1,{y:'-100%'},{y:'0%'},.25)
+    tl.fromTo('#top .side.logo',1,{y:'100%'},{y:'0%'},.25)
+    tl.fromTo('#top .mobile.logo',1,{x:'100%'},{x:'0%'},.25)
 
   },
   watch:{
@@ -122,17 +128,36 @@ export default {
     align-items: center;
   }
 
+  #top .logo.top{
+    position: absolute;
+    right: $padding;
+    width: $infoWidth;
+    padding-top: $padding / 2;
+    top: 0px;
+  }
+
+  #top .logo.mobile{
+    width: 130px;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    height: $sideWidth;
+    width: 180px;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 1;
+  }
+
+  #top .logo.mobile svg{
+    flex: 0 0 150px;
+  }
+
   #top .logo.side svg{
     transform: rotate(-90deg);
     flex: 0 0 150px;
   }
 
-  #top .logo.top svg{
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-  }
 
   #top .button{
     position: fixed;
@@ -187,11 +212,6 @@ export default {
     flex: 0 0 $infoWidth;
   }
 
-  #top .logo.top{
-    position: absolute;
-    top: 0px;
-  }
-
   #top .address{
     margin-top: $paddingSmall;
     padding: $paddingSmall 0px;
@@ -233,7 +253,19 @@ export default {
     }
 
     #top .info{
-      flex: 0 0 auto;
+      flex: 0 0 40%;
+    }
+
+    #top .logo.mobile{
+      display: flex;
+    }
+
+    #top .logo.side{
+      display: none;
+    }
+
+    #top .logo.top{
+      display: none;
     }
 
   }
