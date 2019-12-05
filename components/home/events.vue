@@ -44,7 +44,7 @@ export default {
 }
 
 #events .title-1 {
-  top: 38vw;
+  top: 35vw;
   right: 0px;
   z-index: 1;
   display: flex;
