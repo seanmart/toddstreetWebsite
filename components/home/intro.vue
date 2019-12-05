@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
     <v-video class="intro-video" :video="data.video" muted loop play />
-    <div class="intro-text" data-scroll data-scroll-speed="5">
+    <div class="intro-text" data-scroll :data-scroll-speed="disableParallax ? 0 : 5">
       <vText class="big copy" :text="data.text" tag="p" play />
     </div>
   </div>
@@ -11,9 +11,11 @@
 import vVideo from "@/components/common/video";
 import vText from "@/components/common/text";
 import data from "@/assets/data";
+import {mapState} from 'vuex'
 export default {
   props: ["data"],
   components: { vVideo, vText },
+  computed:mapState(['disableParallax']),
   data() {
     return {
       animateText: false,
