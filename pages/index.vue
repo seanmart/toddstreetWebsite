@@ -2,6 +2,8 @@
   <div id="home" ref="home">
     <intro :data="data.intro"/>
     <events :data="data.events"/>
+    <comms :data="data.comms"/>
+    <training :data="data.training"/>
   </div>
 </template>
 
@@ -9,9 +11,11 @@
 import data from '@/assets/data'
 import intro from '@/components/home/intro'
 import events from '@/components/home/events'
+import comms from '@/components/home/comms'
+import training from '@/components/home/training'
 import {mapState} from 'vuex'
 export default {
-  components:{intro,events},
+  components:{intro,events,comms, training},
   data(){
     return{
       data: data.home

@@ -19,7 +19,7 @@ export default {
     }
   },
   mounted(){
-    this.textAnimation = this.$gsap.fromTo(this.$refs.line,1,{y:'100%'},{y:'0%',stagger: .15}).pause()
+    this.textAnimation = this.$gsap.fromTo(this.$refs.line,.5,{y:'100%'},{y:'0%',stagger: .1}).pause()
     if (this.play) this.textAnimation.play()
   },
   watch:{

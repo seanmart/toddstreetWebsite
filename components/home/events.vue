@@ -3,7 +3,7 @@
     <div class="content">
       <div class="box title-1"
         data-scroll
-        data-scroll-offset="75%"
+        :data-scroll-offset="disableParallax ? '100%' : '20%'"
         data-scroll-call="eventsTitle"
         data-scroll-delay="1"
       >
@@ -51,7 +51,7 @@ export default {
 
 <style lang="scss">
 #events {
-  height: 130vw;
+  height: 120vw;
   padding: $padding;
 }
 
@@ -135,10 +135,6 @@ export default {
     height: 80vh;
     flex: 0 0 100%;
     padding: 0px;
-  }
-
-  #events .title-1{
-    height: 50vh;
   }
 
 }

@@ -13,7 +13,7 @@ export default{
   },
   home:{
     intro:{
-      video: 'reel.mp4',
+      video: 'testVideo2.mp4',
       text:[
         'We are content creators,',
         'experience designers and',
@@ -27,7 +27,7 @@ export default{
       title:['We Produce','Meaningful','Events'],
       description: ['this is some text', 'each line is', 'based on how I', 'want it to look'],
       image1: 'events2.jpg',
-      image2: 'events3.jpg',
+      image2: 'events4.gif',
       image3: 'events1.jpg'
     },
     comms:{
@@ -35,7 +35,11 @@ export default{
         'We Create',
         'Impactful',
         'Communications'
-      ]
+      ],
+      description: ['this is some text', 'each line is', 'based on how I', 'want it to look'],
+      image1: 'events2.jpg',
+      image2: 'events4.gif',
+      image3: 'events1.jpg'
     },
     training:{
       title: [
@@ -43,7 +47,11 @@ export default{
         'Training That',
         'Will Elevate',
         'Your Team'
-      ]
+      ],
+      description: ['this is some text', 'each line is', 'based on how I', 'want it to look'],
+      image1: 'events2.jpg',
+      image2: 'events4.gif',
+      image3: 'events1.jpg'
     }
   }
 }
