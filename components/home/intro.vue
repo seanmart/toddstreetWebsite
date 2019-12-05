@@ -48,9 +48,17 @@ export default {
   line-height: 150%;
 }
 
+@media screen and (max-width: $tablet){
+  #intro .intro-text{
+    font-size: 28px;
+  }
+}
+
 @media screen and (max-width: $mobile){
   #intro .intro-text{
-    font-size: 6vw;
+    font-size: 21px;
+    line-height: 180%;
+    padding: $paddingMobile;
   }
 }
 

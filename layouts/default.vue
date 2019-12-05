@@ -1,8 +1,11 @@
 <template>
-  <div id="site" ref="site">
+  </div>
+  <div id="site">
     <top />
-    <nuxt />
-    <bottom />
+    <div id="scroll">
+      <nuxt />
+      <bottom />
+    </div>
   </div>
 </template>
 <script>

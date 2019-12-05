@@ -100,16 +100,22 @@ export default {
     padding: 0px;
   }
 
+  #events .title-1 h1{
+    font-size: 40px;
+  }
+
   #events .content{
     display: flex;
     flex-wrap: wrap;
   }
 
   #events .box {
+    padding: 20px;
     flex: 0 0 auto;
     position: relative;
     height: 50vh;
     width: 50vw;
+    min-height: 400px;
     top: auto;
     left: auto;
     right: auto;
@@ -121,10 +127,8 @@ export default {
   #events .box {
     height: 100vh;
     width: 100vw;
+    padding: 10px;
   }
 
-  #events .title-1{
-    height: 75vh;
-  }
 }
 </style>

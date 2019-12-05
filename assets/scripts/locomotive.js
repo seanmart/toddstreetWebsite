@@ -1,9 +1,11 @@
 import locomotiveScroll from "locomotive-scroll";
 
 let locomotive = new locomotiveScroll({
-  el: document.getElementById('site'),
+  el: document.getElementById('scroll'),
   smooth: true,
-  getDirection: true
+  smoothMobile: true,
+  getDirection: true,
+  touchMultiplier: 3
 })
 
 export default{
