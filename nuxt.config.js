@@ -51,7 +51,7 @@ export default {
    */
   build: {
     styleResources: {
-      scss: ["./assets/main.scss"]
+      scss: ["./assets/scss/main.scss"]
     },
     /*
      ** You can extend webpack config here

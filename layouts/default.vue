@@ -19,7 +19,7 @@ export default {
       smooth: true,
       smoothMobile: true,
       getDirection: true,
-      touchMultiplier: 4
+      touchMultiplier: 3
     })
 
   }

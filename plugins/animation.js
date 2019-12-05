@@ -1,6 +1,6 @@
 import Vue from "vue";
 import gsap from "gsap";
-import locomotive from '@/assets/locomotive'
+import locomotive from '@/assets/scripts/locomotive'
 
 Object.defineProperty(Vue.prototype, "$loco", {
   value: locomotive
