@@ -1,42 +1,23 @@
-import Vue from 'vue'
-import gsap from 'gsap'
-import Locomotive from 'locomotive-scroll';
-import ScrollBuddy from '@/assets/scrollBuddy'
-
-let loco,sb
-
-loco = new Locomotive({
-  el: document.getElementById('site'),
-  smooth: true,
-  getDirection: true,
-  inertia: 1
-})
-
-sb = new ScrollBuddy
+import Vue from "vue";
+import gsap from "gsap";
+import Locomotive from "locomotive-scroll";
 
 const locoPlugin = {
-  install(Vue){
-    Vue.prototype.$loco = loco
+  install(Vue) {
+    Vue.prototype.$loco = new Locomotive({
+      el: document.getElementById("site"),
+      smooth: true,
+      getDirection: true,
+      inertia: 1
+    });
   }
-}
-
-const scrollBuddy = {
-  install(Vue){
-    Vue.prototype.$scrollBuddy = sb
-
-    loco.on('scroll',(e)=>{
-      sb.scroll(e)
-    })
-
-  }
-}
+};
 
 const gsapPlugin = {
-  install(Vue){
-    Vue.prototype.$gsap = gsap
+  install(Vue) {
+    Vue.prototype.$gsap = gsap;
   }
-}
+};
 
-Vue.use(scrollBuddy)
-Vue.use(gsapPlugin)
-Vue.use(locoPlugin)
+Vue.use(gsapPlugin);
+Vue.use(locoPlugin);

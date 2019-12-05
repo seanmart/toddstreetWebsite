@@ -10,11 +10,11 @@
     </button>
 
     <div class="menu">
-      <div class="content">
+      <div class="content padding">
 
         <div class="links">
           <nuxt-link v-for="(link,i) in data.links" :key="i" :to="link.path">
-            <h1 class="title big">{{link.label}}</h1>
+            <div class="title big inner-link">{{link.label}}</div>
           </nuxt-link>
         </div>
         <div class="info">
@@ -75,7 +75,7 @@ export default {
       tl.fromTo('#top .logo.top',.5,{y:'-100%'},{y:'0%',ease:'power2.out'},.25)
       tl.fromTo('#top .address .line',.5,{width:0},{width:'100%',ease:'power2.out'},.5)
       tl.staggerFromTo('#top .address span',.5,{y:'100%'},{y:'0%'},.15,.5)
-      tl.staggerFromTo('#top .links h1',.75,{y:'100%'},{y:'0%'},.15,.6)
+      tl.staggerFromTo('#top .inner-link',.75,{y:'100%'},{y:'0%'},.15,.6)
     },
     closeMenu(){
       let tl = new this.$gsap.timeline()
@@ -160,7 +160,6 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
-    padding: $padding;
     position: relative;
   }
 
@@ -174,11 +173,6 @@ export default {
 
   #top .links a{
     overflow: hidden;
-  }
-
-  #top .links h1{
-    font-size: 90px;
-    white-space: nowrap;
   }
 
   #top .info{
@@ -213,5 +207,17 @@ export default {
     display: block;
     font-size: 20px;
     line-height: 30px;
+  }
+
+  @media screen and (max-width: $tablet){
+
+    #top .logo.top{
+      display: none;
+    }
+
+    #top .content{
+      padding-top: 100px;
+      flex-direction: column;
+    }
   }
 </style>

@@ -1,5 +1,5 @@
 $color: #fff;
-$color2: #DFFF57;
+$color2: #dfff57;
 
 $bg: #060608;
 $bg2: #0f0f16;
@@ -8,7 +8,8 @@ $paddingNum: 120;
 $padding: $paddingNum + px;
 $col: 100% / 12;
 
-$mobile: 600px;
+$mobile: 680px;
+$tablet: 900px;
 
 html {
   word-spacing: 1px;
@@ -16,43 +17,46 @@ html {
   -sebkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -sebkit-font-smoothing: antialiased;
-  font-family: 'Roboto',sans-serif;
-  background: $bg
+  font-family: "Roboto", sans-serif;
+  background: $bg;
 }
 
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
 
-.has-smooth-scroll body{
+body{
+  overflow-scrolling: none;
+}
+
+.has-scroll-smooth body {
   overflow: hidden;
 }
 
-
-.title{
-  font-family: 'Roboto',sans-serif;
+.title {
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
-  font-size: 5vw
+  font-size: 5vw;
 }
 
-.title.big{
-  font-size: 7.5vw
+.title.big {
+  font-size: 70px;
 }
 
-.copy{
-  font-family: 'Aleo', serif;
-  font-weight: 400
+.copy {
+  font-family: "Aleo", serif;
+  font-weight: 400;
 }
 
-.copy.big{
-  font-size: 50px;
-  line-height: 150%
+.copy.big {
+  font-size: 40px;
+  line-height: 150%;
 }
 
-.copy.medium{
+.copy.medium {
   font-size: 30px;
-  line-height: 150%
+  line-height: 150%;
 }
 
 *,
@@ -60,20 +64,38 @@ a{
 *:after {
   box-sizing: border-box;
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 
-.padding{
-  padding: $padding
+.padding {
+  padding: $padding;
+}
+
+@media screen and (max-width: $tablet){
+  .title.big{
+    font-size: 50px;
+  }
+
+  .copy.big {
+    font-size: 30px;
+  }
+
+  .padding {
+    padding: $paddingNum / 3 + px;
+  }
 }
 
 @media screen and (max-width: $mobile){
 
-  .copy.big{
+  .title.big{
+    font-size: 40px;
+  }
+
+  .copy.big {
     font-size: 25px;
   }
 
-  .padding{
-    padding: $paddingNum / 4 + px
+  .padding {
+    padding: $paddingNum / 4 + px;
   }
 }
