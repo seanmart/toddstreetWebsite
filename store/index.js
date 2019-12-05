@@ -14,8 +14,10 @@ export default{
     }
   },
   actions:{
-    nuxtClientInit({ commit,state }, context) {
-
+    initMode({commit}){
+      let width = window.innerWidth
+      let mode = width < 680 ? 'mobile' : width < 980 ? 'tablet' : 'desktop'
+      commit('setMode', mode)
     }
   }
 }

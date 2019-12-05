@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
-    <v-video class="intro-video" :video="data.video" muted loop play data-scroll data-scroll-speed="2"/>
+    <v-video class="intro-video" :video="data.video" muted loop play />
     <div class="intro-text padding" data-scroll data-scroll-speed="5">
       <vText class="big copy" :text="data.text" play />
     </div>

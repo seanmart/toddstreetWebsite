@@ -1,19 +1,19 @@
 <template lang="html">
   <div id="events" class="padding" ref="events" data-scroll-section>
     <div class="content">
-      <div class="box title-1" data-scroll data-scroll-speed="-.5">
+      <div class="box title-1" data-scroll :data-scroll-speed="mobile ? 0 : -.5">
         <v-text :text="data.title" class="title big" play />
       </div>
 
-      <div class="box image-1" data-scroll data-scroll-speed="-.5">
+      <div class="box image-1" data-scroll :data-scroll-speed="mobile ? 0 : -.5">
         <v-image :image="data.image1" />
       </div>
 
-      <div class="box image-2" data-scroll data-scroll-speed=".5">
+      <div class="box image-2" data-scroll :data-scroll-speed="mobile ? 0 : .5">
         <v-image :image="data.image2" />
       </div>
 
-      <div class="box image-3" data-scroll data-scroll-speed=".25">
+      <div class="box image-3" data-scroll :data-scroll-speed="mobile ? 0 : .25">
         <v-image :image="data.image3" />
       </div>
     </div>
@@ -25,7 +25,12 @@ import vText from "@/components/common/text";
 import vImage from "@/components/common/image";
 export default {
   props: ["data"],
-  components: { vText, vImage }
+  components: { vText, vImage },
+  computed:{
+    mobile(){
+      return this.$store.state.mode === 'mobile'
+    }
+  }
 };
 </script>
 
@@ -73,7 +78,8 @@ export default {
   height: 30vw;
 }
 
-.no-smooth {
+@media screen and (max-width: $mobile){
+
   #events {
     height: auto;
     padding: 0px;
@@ -89,10 +95,8 @@ export default {
     width: auto;
   }
 
-  @media screen and (max-width: $mobile){
-    #events .title-1{
-      height: 75vh;
-    }
+  #events .title-1{
+    height: 75vh;
   }
 }
 </style>
