@@ -36,7 +36,6 @@ export default {
   mounted(){
     this.$loco.call((e)=>{
       if (e === 'eventsTitle'){
-        console.log('play title')
         this.playTitle = true
       }
     })
@@ -127,7 +126,11 @@ export default {
   #events .box {
     height: 100vh;
     width: 100vw;
-    padding: 10px;
+    padding: 0px;
+  }
+
+  #events .title-1{
+    height: 50vh;
   }
 
 }
