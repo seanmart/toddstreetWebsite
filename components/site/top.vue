@@ -91,6 +91,7 @@ export default {
 
   $infoWidth:400;
   $sideWidth: $paddingNum / 2 + px;
+
   #top{
     position: relative;
     z-index: 100;
@@ -209,7 +210,7 @@ export default {
     line-height: 30px;
   }
 
-  @media screen and (max-width: $tablet){
+  @media screen and (max-width: $medium){
 
     #top .logo.top{
       display: none;

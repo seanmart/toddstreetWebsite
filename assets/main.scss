@@ -1,38 +1,5 @@
-$color: #fff;
-$color2: #dfff57;
-
-$bg: #060608;
-$bg2: #0f0f16;
-
-$paddingNum: 120;
-$padding: $paddingNum + px;
-$col: 100% / 12;
-
-$mobile: 680px;
-$tablet: 900px;
-
-html {
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -sebkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -sebkit-font-smoothing: antialiased;
-  font-family: "Roboto", sans-serif;
-  background: $bg;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-body{
-  overflow-scrolling: none;
-}
-
-.has-scroll-smooth body {
-  overflow: hidden;
-}
+@import 'config';
+@import 'defaults';
 
 .title {
   font-family: "Roboto", sans-serif;
@@ -71,7 +38,7 @@ body{
   padding: $padding;
 }
 
-@media screen and (max-width: $tablet){
+@media screen and (max-width: $medium){
 
   .title.big{
     font-size: 50px;
@@ -86,7 +53,7 @@ body{
   }
 }
 
-@media screen and (max-width: $mobile){
+@media screen and (max-width: $small){
 
   .title.big{
     font-size: 40px;

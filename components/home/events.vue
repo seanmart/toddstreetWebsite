@@ -1,19 +1,19 @@
 <template lang="html">
   <div id="events" class="padding" ref="events" data-scroll-section>
     <div class="content">
-      <div class="box title-1" data-scroll :data-scroll-speed="mobile ? 0 : -.5">
+      <div class="box title-1" data-scroll data-scroll-speed="-.5">
         <v-text :text="data.title" class="title big" play />
       </div>
 
-      <div class="box image-1" data-scroll :data-scroll-speed="mobile ? 0 : 8">
+      <div class="box image-1" data-scroll data-scroll-speed=".5">
         <v-image :image="data.image1" />
       </div>
 
-      <div class="box image-2" data-scroll :data-scroll-speed="mobile ? 0 : .5">
+      <div class="box image-2" data-scroll data-scroll-speed=".5">
         <v-image :image="data.image2" />
       </div>
 
-      <div class="box image-3" data-scroll :data-scroll-speed="mobile ? 0 : .25">
+      <div class="box image-3" data-scroll data-scroll-speed=".25">
         <v-image :image="data.image3" />
       </div>
     </div>
@@ -27,9 +27,6 @@ export default {
   props: ["data"],
   components: { vText, vImage },
   computed:{
-    mobile(){
-      return this.$store.state.mode === 'mobile'
-    }
   }
 };
 </script>
@@ -78,7 +75,7 @@ export default {
   height: 30vw;
 }
 
-@media screen and (max-width: $mobile){
+@media screen and (max-width: $medium){
 
   #events {
     height: auto;
