@@ -4,16 +4,12 @@ $color2: #dfff57;
 $bg: #060608;
 $bg2: #0f0f16;
 
-$paddingNum: 120;
-$padding: $paddingNum + px;
-$col: 100% / 12;
+$padding: 10vw;
+$paddingSmall: 2.5vw;
 
-$tiny: 500px;
-$small: 700px;
-$medium: 1000px;
-$large: 1200px;
-$big: 1400px;
-$huge: 1600px;
-$enormous: 1800px;
-$gigantic: 2000px;
-$colossal: 2400px;
+$mobile: 700px;
+$tablet: 1000px;
+
+:export{
+  disableParallax: $tablet;
+}

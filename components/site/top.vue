@@ -13,9 +13,9 @@
       <div class="content padding">
 
         <div class="links">
-          <nuxt-link v-for="(link,i) in data.links" :key="i" :to="link.path">
-            <div class="title big inner-link">{{link.label}}</div>
-          </nuxt-link>
+            <nuxt-link v-for="(link,i) in data.links" :key="i" :to="link.path">
+              <h1 class="inner-link">{{link.label}}</h1>
+            </nuxt-link>
         </div>
         <div class="info">
           <div class="top logo">
@@ -51,7 +51,7 @@ export default {
   mounted(){
 
     let ba = new this.$gsap.timeline({paused: true,ease: 'power1.inOut'})
-    ba.to('#top .button',.35,{padding: 10,width:"+=70", height: '+=70'},0)
+    ba.to('#top .button',.35,{padding: 20,width:"+=70", height: '+=70'},0)
     ba.to('#top .button .line.top',.35,{rotation: -45},0)
     ba.to('#top .button .line.bottom',.35,{y: -10, rotation: 45},0)
     this.buttonAnimation = ba
@@ -89,8 +89,8 @@ export default {
 
 <style lang="scss">
 
-  $infoWidth:400;
-  $sideWidth: $paddingNum / 2 + px;
+  $infoWidth: 300px;
+  $sideWidth: 60px;
 
   #top{
     position: relative;
@@ -162,6 +162,7 @@ export default {
     justify-content: flex-start;
     align-items: stretch;
     position: relative;
+    padding: $padding;
   }
 
   #top .links{
@@ -174,23 +175,26 @@ export default {
 
   #top .links a{
     overflow: hidden;
+    display: inline-block;
+  }
+
+  #top .inner-link{
+    font-size: 7vw;
+    display: inline-block;
   }
 
   #top .info{
-    flex: 0 0 $infoWidth - $paddingNum + px;
+    flex: 0 0 $infoWidth;
   }
 
   #top .logo.top{
     position: absolute;
     top: 0px;
-    right: $padding;
-    height: $padding;
-    width: $infoWidth - $paddingNum + px;
   }
 
   #top .address{
-    margin-top: $paddingNum / 3 + px;
-    padding: $paddingNum / 3 + px 0px;
+    margin-top: $paddingSmall;
+    padding: $paddingSmall 0px;
     position: relative;
   }
 
@@ -210,15 +214,34 @@ export default {
     line-height: 30px;
   }
 
-  @media screen and (max-width: $medium){
+  @media screen and (max-width: $tablet){
 
     #top .logo.top{
       display: none;
     }
 
     #top .content{
-      padding-top: 100px;
       flex-direction: column;
     }
+
+    #top .links{
+      min-height: 400px;
+    }
+
+    #top .inner-link{
+      font-size: 9vw;
+    }
+
+    #top .info{
+      flex: 0 0 auto;
+    }
+
+  }
+
+  @media screen and (max-width: $mobile){
+    #top .inner-link{
+      font-size: 11vw;
+    }
+
   }
 </style>

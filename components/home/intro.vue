@@ -1,8 +1,8 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
     <v-video class="intro-video" :video="data.video" muted loop play />
-    <div class="intro-text padding" data-scroll data-scroll-speed="5">
-      <vText class="big copy" :text="data.text" play />
+    <div class="intro-text" data-scroll data-scroll-speed="5">
+      <vText class="big copy" :text="data.text" tag="p" play />
     </div>
   </div>
 </template>
@@ -43,5 +43,15 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding: $padding;
+  font-size: 4vw;
+  line-height: 150%;
 }
+
+@media screen and (max-width: $mobile){
+  #intro .intro-text{
+    font-size: 6vw;
+  }
+}
+
 </style>

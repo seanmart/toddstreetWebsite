@@ -1,19 +1,19 @@
 <template lang="html">
   <div id="events" class="padding" ref="events" data-scroll-section>
     <div class="content">
-      <div class="box title-1" data-scroll data-scroll-speed="-.5">
-        <v-text :text="data.title" class="title big" play />
+      <div class="box title-1" data-scroll data-scroll-call="eventsTitle" :data-scroll-speed="disableParallax ? 0 : -.5">
+        <v-text :text="data.title" :play="playTitle" tag="h1" class="title" />
       </div>
 
-      <div class="box image-1" data-scroll data-scroll-speed=".5">
+      <div class="box image-1" data-scroll :data-scroll-speed="disableParallax ? 0 : .5">
         <v-image :image="data.image1" />
       </div>
 
-      <div class="box image-2" data-scroll data-scroll-speed=".5">
+      <div class="box image-2" data-scroll :data-scroll-speed="disableParallax ? 0 : .5">
         <v-image :image="data.image2" />
       </div>
 
-      <div class="box image-3" data-scroll data-scroll-speed=".25">
+      <div class="box image-3" data-scroll :data-scroll-speed="disableParallax ? 0 : .25">
         <v-image :image="data.image3" />
       </div>
     </div>
@@ -23,10 +23,23 @@
 <script>
 import vText from "@/components/common/text";
 import vImage from "@/components/common/image";
+import {mapState} from 'vuex'
 export default {
   props: ["data"],
   components: { vText, vImage },
-  computed:{
+  computed:mapState(['disableParallax']),
+  data(){
+    return{
+      playTitle: false
+    }
+  },
+  mounted(){
+    this.$loco.call((e)=>{
+      if (e === 'eventsTitle'){
+        console.log('play title')
+        this.playTitle = true
+      }
+    })
   }
 };
 </script>
@@ -34,11 +47,13 @@ export default {
 <style lang="scss">
 #events {
   height: 130vw;
+  padding: $padding;
 }
 
 #events .content {
   position: relative;
   height: 100%;
+  width: 100%;
 }
 
 #events .box {
@@ -52,6 +67,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#events .title-1 h1{
+  font-size: 8vw;
 }
 
 #events .image-1 {
@@ -75,21 +94,33 @@ export default {
   height: 30vw;
 }
 
-@media screen and (max-width: $medium){
-
+@media screen and (max-width: $tablet){
   #events {
     height: auto;
     padding: 0px;
   }
 
+  #events .content{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   #events .box {
+    flex: 0 0 auto;
     position: relative;
-    height: 100vh;
-    width: 100%;
+    height: 50vh;
+    width: 50vw;
     top: auto;
     left: auto;
     right: auto;
-    width: auto;
+  }
+}
+
+@media screen and (max-width: $mobile){
+
+  #events .box {
+    height: 100vh;
+    width: 100vw;
   }
 
   #events .title-1{

@@ -1,29 +1,14 @@
 @import 'config';
 @import 'defaults';
 
-.title {
+h1,h2,h3,h4,h5{
   font-family: "Roboto", sans-serif;
   font-weight: 900;
-  font-size: 5vw;
 }
 
-.title.big {
-  font-size: 8vw;
-}
-
-.copy {
+span, p{
   font-family: "Aleo", serif;
   font-weight: 400;
-}
-
-.copy.big {
-  font-size: 40px;
-  line-height: 150%;
-}
-
-.copy.medium {
-  font-size: 30px;
-  line-height: 150%;
 }
 
 *,
@@ -32,38 +17,4 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-.padding {
-  padding: $padding;
-}
-
-@media screen and (max-width: $medium){
-
-  .title.big{
-    font-size: 50px;
-  }
-
-  .copy.big {
-    font-size: 30px;
-  }
-
-  .padding {
-    padding: $paddingNum / 3 + px;
-  }
-}
-
-@media screen and (max-width: $small){
-
-  .title.big{
-    font-size: 40px;
-  }
-
-  .copy.big {
-    font-size: 25px;
-  }
-
-  .padding {
-    padding: $paddingNum / 4 + px;
-  }
 }

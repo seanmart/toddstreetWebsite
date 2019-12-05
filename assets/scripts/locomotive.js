@@ -1,10 +1,13 @@
 import locomotiveScroll from "locomotive-scroll";
 
+let locomotive = new locomotiveScroll({
+  el: document.getElementById('site'),
+  smooth: true,
+  getDirection: true
+})
+
 export default{
-  instance: null,
-  init(props){
-    this.instance = new locomotiveScroll(props)
-  },
+  instance: locomotive,
   scroll(fn){
     this.instance.on('scroll',fn)
   },
