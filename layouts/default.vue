@@ -18,7 +18,7 @@ export default {
       this.$loco.init({
         el: this.$refs.site,
         smooth: true,
-        mobileScroll: true,
+        smoothMobile: true,
         getDirection: true,
       })
   }
