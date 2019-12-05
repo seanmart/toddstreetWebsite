@@ -4,8 +4,8 @@ let locomotive = new locomotiveScroll({
   el: document.getElementById('scroll'),
   smooth: true,
   getDirection: true,
-  //smoothMobile: true,
-  //touchMultiplier: 3
+  smoothMobile: true,
+  touchMultiplier: 2.5
 })
 
 export default{

@@ -46,7 +46,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   padding: $padding;
-  font-size: 4vw;
+  font-size: 3.5vw;
   line-height: 150%;
 }
 
