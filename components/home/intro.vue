@@ -1,8 +1,10 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
-    <v-video class="intro-video" :video="data.video" muted loop play />
+    <div class="intro-video" ref="video">
+      <v-video :video="data.video" muted loop play />
+    </div>
     <div class="intro-text" data-scroll :data-scroll-speed="disableParallax ? 0 : 5">
-      <vText class="big copy" :text="data.text" tag="p" play />
+      <vText :text="data.text" tag="p" :play="ready" />
     </div>
   </div>
 </template>
@@ -15,14 +17,10 @@ import {mapState} from 'vuex'
 export default {
   props: ["data"],
   components: { vVideo, vText },
-  computed:mapState(['disableParallax']),
-  data() {
-    return {
-      animateText: false,
-      playVideo: false
-    };
-  },
-  mounted() {}
+  computed:mapState(['disableParallax', 'ready']),
+  mounted() {
+    this.$gsap.fromTo(this.$refs.video,2,{opacity:0, scale:1.5},{opacity:1,scale:1})
+  }
 };
 </script>
 
@@ -36,6 +34,9 @@ export default {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+#intro .intro-video .video{
   opacity: 0.2;
 }
 

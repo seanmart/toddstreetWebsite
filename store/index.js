@@ -2,7 +2,8 @@ export default{
   state(){
     return{
       disableParallax: false,
-      menu: false
+      menu: false,
+      ready: false
     }
   },
   mutations:{

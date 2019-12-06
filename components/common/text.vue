@@ -31,17 +31,10 @@ export default {
 </script>
 
 <style lang="scss">
-.text {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-}
-
-.text.right {
-  text-align: right;
-}
 
 .text-line {
+  font-size: inherit;
+  color: inherit;
   white-space: nowrap;
   display: block;
   overflow: hidden;

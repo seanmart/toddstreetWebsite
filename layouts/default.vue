@@ -28,7 +28,10 @@ export default {
 
     window.addEventListener('resize', this.getWidth)
 
-    setTimeout(()=> this.$loco.update(),250)
+    setTimeout(()=> {
+      this.$loco.update()
+      this.$store.commit('set',{key: 'ready', val: true})
+    },500)
 
   },
   methods:{
