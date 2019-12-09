@@ -46,6 +46,7 @@ import data from '@/assets/data'
 import {mapState} from 'vuex'
 export default {
   components:{logo},
+  computed:mapState(['ready']),
   data(){
     return{
       data: data.top,
@@ -53,30 +54,33 @@ export default {
       buttonAnimation: null
     }
   },
-  computed:mapState(['ready']),
   mounted(){
-
     let ba = new this.$gsap.timeline({paused: true,ease: 'power1.inOut'})
     ba.to('#top .button',.35,{padding: 20,width:"+=70", height: '+=70'},0)
     ba.to('#top .button .line.top',.35,{rotation: -45},0)
     ba.to('#top .button .line.bottom',.35,{y: -10, rotation: 45},0)
     this.buttonAnimation = ba
-
   },
   watch:{
     open(open){
       open ? this.openMenu() : this.closeMenu()
     },
     ready(ready){
-      if (ready) this.topInit()
+      ready ? this.showNav() : this.hideNav()
     }
   },
   methods:{
-    topInit(){
+    showNav(){
       let tl = new this.$gsap.timeline()
       tl.to('#top .button',1,{y:'0%'},.25)
       tl.to('#top .side.logo',1,{y:'0%'},.25)
       tl.to('#top .mobile.logo',1,{x:'0%'},.25)
+    },
+    hideNav(){
+      let tl = new this.$gsap.timeline()
+      tl.to('#top .button',1,{y:'-100%'},.25)
+      tl.to('#top .side.logo',1,{y:'100%'},.25)
+      tl.to('#top .mobile.logo',1,{x:'100%'},.25)
     },
     openMenu(){
       let tl = new this.$gsap.timeline()

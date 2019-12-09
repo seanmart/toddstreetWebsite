@@ -1,7 +1,7 @@
 export default{
   state(){
     return{
-      disableParallax: false,
+      parallax: true,
       menu: false,
       ready: false
     }

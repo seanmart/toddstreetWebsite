@@ -5,8 +5,6 @@ let locomotive = new locomotiveScroll({
   inertia: .6,
   smooth: true,
   getDirection: true,
-  //smoothMobile: true,
-  //touchMultiplier: 2.5
 })
 
 export default{

@@ -1,11 +1,17 @@
 <template>
-  <div id="site">
-    <top />
-    <loading/>
-    <div id="scroll">
-      <nuxt />
-      <bottom />
+  <div class="">
+
+    <loading :hide="ready"/>
+
+    <div id="site" :class="{hide: !ready}">
+      <top/>
+      <div id="scroll">
+        <nuxt/>
+        <bottom/>
+      </div>
     </div>
+
+  </div>
   </div>
 </template>
 <script>
@@ -16,16 +22,19 @@ import bottom from "@/components/site/bottom";
 import { mapState } from "vuex";
 export default {
   components: { top, bottom,loading },
-  computed: mapState(["menu",'disableParallax','ready']),
   data(){
     return{
-      disableParallaxWidth: parseInt(styles.disableParallax)
+      parallaxWidth: parseInt(styles.disableParallax),
     }
   },
+  computed: mapState(['ready']),
   mounted(){
-    this.$loco.stop()
+
     window.addEventListener('resize', this.getWidth)
     this.getWidth()
+    this.$loco.stop()
+
+    setTimeout(()=> this.$store.commit('set',{key: 'ready', val: true}),1000)
 
   },
   watch:{
@@ -36,9 +45,19 @@ export default {
   },
   methods:{
     getWidth(){
-      let isLess = window.innerWidth < this.disableParallaxWidth
-      isLess !== this.disableParallax && this.$store.commit('set', {key:'disableParallax',val:isLess})
+      this.$store.commit('set', {
+        key:'parallax',
+        val: window.innerWidth >= this.parallaxWidth
+      })
     }
   }
 };
 </script>
+<style>
+  #site.hide{
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+  }
+</style>

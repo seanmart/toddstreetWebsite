@@ -5,11 +5,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
-  computed: mapState(['ready']),
+  props:{hide:Boolean},
   watch:{
-    ready(){
+    hide(){
       let tl = new this.$gsap.timeline
       tl.to('#loading', 1,{opacity: 0},0)
       tl.set('#loading',{display: 'none'})

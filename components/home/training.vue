@@ -2,22 +2,22 @@
   <div id="training" class="padding" ref="training" data-scroll-section>
     <div class="content">
       <v-box class="training-1"
-        :data-scroll-offset="disableParallax ? '100%' : '40%'"
+        :data-scroll-offset="parallax ? '40%' : '100%'"
         data-scroll-call="trainingTitle"
         data-scroll-delay="1"
       >
         <v-text :text="data.title" :play="playTitle" tag="h1" class="title" />
       </v-box>
 
-      <v-box class="training-2" :speed="disableParallax ? 0 : .5">
+      <v-box class="training-2" :speed="parallax ? .5 : 0">
         <v-image :image="data.image1" />
       </v-box>
 
-      <v-box class="training-3" :speed="disableParallax ? 0 : .5">
+      <v-box class="training-3" :speed="parallax ? .5 : 0">
         <v-image :image="data.image2" />
       </v-box>
 
-      <v-box class="training-4" :speed="disableParallax ? 0 : .25">
+      <v-box class="training-4" :speed="parallax ? .25 : 0">
         <v-image :image="data.image3" />
       </v-box>
     </div>
@@ -32,7 +32,7 @@ import {mapState} from 'vuex'
 export default {
   props: ["data"],
   components: { vText, vImage,vBox },
-  computed:mapState(['disableParallax']),
+  computed:mapState(['parallax']),
   data(){
     return{
       playTitle: false

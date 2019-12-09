@@ -3,22 +3,22 @@
     <div class="content">
       <div class="box events-1"
         data-scroll
-        :data-scroll-offset="disableParallax ? '100%' : '40%'"
+        :data-scroll-offset="parallax ? '40%' : '100%'"
         data-scroll-call="eventsTitle"
         data-scroll-delay="1"
       >
         <v-text :text="data.title" :play="playTitle" tag="h1" class="title" />
       </div>
 
-      <div class="box events-2" data-scroll :data-scroll-speed="disableParallax ? 0 : 2">
+      <div class="box events-2" data-scroll :data-scroll-speed="parallax ? 2 : 0">
         <v-image :image="data.image1" />
       </div>
 
-      <div class="box events-3" data-scroll :data-scroll-speed="disableParallax ? 0 : .5">
+      <div class="box events-3" data-scroll :data-scroll-speed="parallax ? .5 : 0">
         <v-image :image="data.image2" />
       </div>
 
-      <div class="box events-4" data-scroll :data-scroll-speed="disableParallax ? 0 : .25">
+      <div class="box events-4" data-scroll :data-scroll-speed="parallax ? .25 : 0">
         <v-image :image="data.image3" />
       </div>
     </div>
@@ -33,7 +33,7 @@ import {mapState} from 'vuex'
 export default {
   props: ["data"],
   components: { vText, vImage,vBox },
-  computed:mapState(['disableParallax']),
+  computed:mapState(['parallax']),
   data(){
     return{
       playTitle: false

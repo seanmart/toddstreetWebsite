@@ -1,9 +1,9 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
     <div class="intro-video" ref="video">
-      <v-video :video="data.video" muted loop :play="playVideo" @loaded="$emit('loaded')"/>
+      <v-video :video="data.video" muted loop :play="playVideo"/>
     </div>
-    <div class="intro-text" data-scroll :data-scroll-speed="disableParallax ? 0 : 5">
+    <div class="intro-text" data-scroll :data-scroll-speed="parallax ? 5 : 0">
       <vText :text="data.text" tag="p" :play="animateText" :speed=".8" :stagger=".15" />
     </div>
   </div>
@@ -17,7 +17,7 @@ import {mapState} from 'vuex'
 export default {
   props: ["data"],
   components: { vVideo, vText },
-  computed:mapState(['disableParallax', 'ready']),
+  computed:mapState(['parallax','ready']),
   data(){
     return{
       playVideo: false,
@@ -26,12 +26,9 @@ export default {
   },
   watch:{
     ready(ready){
-      if (ready){
-        this.$gsap.to(this.$refs.video,5,{opacity:1})
-        this.playVideo = true
-        setTimeout(()=> this.animateText = true,1000)
-
-      }
+      this.$gsap.to(this.$refs.video,5,{opacity:1})
+      this.playVideo = true
+      setTimeout(()=> this.animateText = true,1000)
     }
   }
 };
@@ -64,19 +61,12 @@ export default {
   justify-content: flex-start;
   align-items: center;
   padding: $padding;
-  font-size: 3vw;
+  font-size: calc(20px + 2vw);
   line-height: 150%;
-}
-
-@media screen and (max-width: $tablet){
-  #intro .intro-text{
-    font-size: 5vw;
-  }
 }
 
 @media screen and (max-width: $mobile){
   #intro .intro-text{
-    font-size: 6.5vw;
     padding: $paddingMobile;
   }
 }

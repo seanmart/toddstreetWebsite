@@ -14,13 +14,6 @@ export default {
   },
   mounted(){
     this.play ? this.$refs.video.play() : this.$refs.video.pause()
-
-    let checkLoaded = setInterval(()=>{
-      if(this.$refs.video.readyState >= 3){
-        clearInterval(checkLoaded)
-        this.$emit('loaded')
-      }
-    },500)
   },
   watch:{
     play(play){
