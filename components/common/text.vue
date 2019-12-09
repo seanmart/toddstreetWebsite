@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="text-container" v-if="text">
     <div class="text-line" v-for="(item, i) in text" :key="i">
-      <component :is="tag" v-html="item" ref="line" />
+      <component :is="tag" v-html="item" ref="line" :style="{transform: 'translateY(100%)'}" />
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted(){
-    this.textAnimation = this.$gsap.fromTo(this.$refs.line,this.speed,{y:'100%'},{y:'0%',stagger: this.stagger}).pause()
+    this.textAnimation = this.$gsap.to(this.$refs.line,this.speed,{y:'0%',stagger: this.stagger}).pause()
     if (this.play) this.textAnimation.play()
   },
   watch:{

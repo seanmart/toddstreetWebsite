@@ -62,10 +62,6 @@ export default {
     ba.to('#top .button .line.bottom',.35,{y: -10, rotation: 45},0)
     this.buttonAnimation = ba
 
-    this.$gsap.set('#top .logo.top',{y:'-100%'})
-    this.$gsap.set('#top .side.logo',{y:'100%'})
-    this.$gsap.set('#top .button',{y:'-100%'})
-    this.$gsap.set('#top .mobile.logo',{x:'100%'})
   },
   watch:{
     open(open){
@@ -135,6 +131,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: translateY(100%);
   }
 
   #top .logo.top{
@@ -143,6 +140,7 @@ export default {
     width: $infoWidth;
     padding-top: $padding / 2;
     top: 0px;
+    transform: translateY(-100%);
   }
 
   #top .logo.mobile{
@@ -156,6 +154,7 @@ export default {
     align-items: center;
     display: none;
     z-index: 1;
+    transform: translateX(100%);
   }
 
   #top .logo.mobile svg{
@@ -180,6 +179,7 @@ export default {
     background: none;
     border: none;
     outline: none;
+    transform: translateY(-100%);
   }
 
   #top .button .line{

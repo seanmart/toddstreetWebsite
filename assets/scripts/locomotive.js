@@ -19,5 +19,11 @@ export default{
   },
   update(){
     this.instance.init()
+  },
+  stop(){
+    this.instance.stop()
+  },
+  start(){
+    this.instance.start()
   }
 }

@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="home" ref="home">
-    <intro :data="data.intro"/>
+    <intro :data="data.intro" @loaded="setReady"/>
     <events :data="data.events"/>
     <comms :data="data.comms"/>
     <training :data="data.training"/>
@@ -19,6 +19,11 @@ export default {
   data(){
     return{
       data: data.home
+    }
+  },
+  methods:{
+    setReady(){
+      this.$store.commit('set', {key: 'ready', val: true})
     }
   }
 }

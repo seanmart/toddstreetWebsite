@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
     <div class="intro-video" ref="video">
-      <v-video :video="data.video" muted loop :play="playVideo" />
+      <v-video :video="data.video" muted loop :play="playVideo" @loaded="$emit('loaded')"/>
     </div>
     <div class="intro-text" data-scroll :data-scroll-speed="disableParallax ? 0 : 5">
       <vText :text="data.text" tag="p" :play="animateText" :speed=".8" :stagger=".15" />
@@ -24,13 +24,10 @@ export default {
       animateText: false
     }
   },
-  mounted(){
-    this.$gsap.set(this.$refs.video,{opacity:0, scale:1.5})
-  },
   watch:{
     ready(ready){
       if (ready){
-        this.$gsap.to(this.$refs.video,5,{opacity:1,scale:1})
+        this.$gsap.to(this.$refs.video,5,{opacity:1})
         this.playVideo = true
         setTimeout(()=> this.animateText = true,1000)
 
@@ -50,6 +47,10 @@ export default {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+#intro .intro-video{
+  opacity: 0;
 }
 
 #intro .intro-video .video{
