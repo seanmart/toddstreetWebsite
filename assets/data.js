@@ -45,8 +45,7 @@ export default{
       title: [
         'We Design',
         'Training That',
-        'Will Elevate',
-        'Your Team'
+        'Elevates Your Team'
       ],
       description: ['this is some text', 'each line is', 'based on how I', 'want it to look'],
       image1: 'events2.jpg',

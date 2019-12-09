@@ -11,7 +11,9 @@ export default {
   props: {
     text: { type: Array, default: null },
     play: Boolean,
-    tag: {type:String, default: 'p'}
+    tag: {type:String, default: 'p'},
+    speed: {type: Number, default: .5},
+    stagger: {type: Number, default: .1}
   },
   data(){
     return{
@@ -19,7 +21,7 @@ export default {
     }
   },
   mounted(){
-    this.textAnimation = this.$gsap.fromTo(this.$refs.line,.5,{y:'100%'},{y:'0%',stagger: .1}).pause()
+    this.textAnimation = this.$gsap.fromTo(this.$refs.line,this.speed,{y:'100%'},{y:'0%',stagger: this.stagger}).pause()
     if (this.play) this.textAnimation.play()
   },
   watch:{

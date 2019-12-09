@@ -65,6 +65,7 @@ export default {
     this.$gsap.set('#top .logo.top',{y:'-100%'})
     this.$gsap.set('#top .side.logo',{y:'100%'})
     this.$gsap.set('#top .button',{y:'-100%'})
+    this.$gsap.set('#top .mobile.logo',{x:'100%'})
   },
   watch:{
     open(open){

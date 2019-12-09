@@ -2,7 +2,7 @@
   <div id="training" class="padding" ref="training" data-scroll-section>
     <div class="content">
       <v-box class="training-1"
-        :data-scroll-offset="disableParallax ? '100%' : '20%'"
+        :data-scroll-offset="disableParallax ? '100%' : '40%'"
         data-scroll-call="trainingTitle"
         data-scroll-delay="1"
       >

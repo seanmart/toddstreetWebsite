@@ -1,10 +1,10 @@
 <template lang="html">
   <div id="intro" data-scroll-section ref="intro">
     <div class="intro-video" ref="video">
-      <v-video :video="data.video" muted loop play />
+      <v-video :video="data.video" muted loop :play="playVideo" />
     </div>
     <div class="intro-text" data-scroll :data-scroll-speed="disableParallax ? 0 : 5">
-      <vText :text="data.text" tag="p" :play="ready" />
+      <vText :text="data.text" tag="p" :play="animateText" :speed="1" :stagger=".25" />
     </div>
   </div>
 </template>
@@ -18,8 +18,24 @@ export default {
   props: ["data"],
   components: { vVideo, vText },
   computed:mapState(['disableParallax', 'ready']),
-  mounted() {
-    this.$gsap.fromTo(this.$refs.video,2,{opacity:0, scale:1.5},{opacity:1,scale:1})
+  data(){
+    return{
+      playVideo: false,
+      animateText: false
+    }
+  },
+  mounted(){
+    this.$gsap.set(this.$refs.video,{opacity:0, scale:1.5})
+  },
+  watch:{
+    ready(ready){
+      if (ready){
+        this.$gsap.to(this.$refs.video,5,{opacity:1,scale:1})
+        this.playVideo = true
+        setTimeout(()=> this.animateText = true,1000)
+
+      }
+    }
   }
 };
 </script>

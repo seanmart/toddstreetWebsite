@@ -3,14 +3,14 @@
     <div class="content">
       <div class="box events-1"
         data-scroll
-        :data-scroll-offset="disableParallax ? '100%' : '20%'"
+        :data-scroll-offset="disableParallax ? '100%' : '40%'"
         data-scroll-call="eventsTitle"
         data-scroll-delay="1"
       >
         <v-text :text="data.title" :play="playTitle" tag="h1" class="title" />
       </div>
 
-      <div class="box events-2" data-scroll :data-scroll-speed="disableParallax ? 0 : .5">
+      <div class="box events-2" data-scroll :data-scroll-speed="disableParallax ? 0 : 2">
         <v-image :image="data.image1" />
       </div>
 
