@@ -13,6 +13,9 @@ export default {
       tl.to('#loading', 1,{opacity: 0},0)
       tl.set('#loading',{display: 'none'})
     }
+  },
+  mounted(){
+    window.addEventListener('load', ()=> this.$store.commit('set',{key: 'ready', val: true}))
   }
 }
 </script>

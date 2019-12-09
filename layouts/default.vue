@@ -34,8 +34,6 @@ export default {
     this.getWidth()
     this.$loco.stop()
 
-    setTimeout(()=> this.$store.commit('set',{key: 'ready', val: true}),1000)
-
   },
   watch:{
     ready(){
