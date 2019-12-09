@@ -4,7 +4,7 @@
       <v-video :video="data.video" muted loop :play="playVideo" />
     </div>
     <div class="intro-text" data-scroll :data-scroll-speed="disableParallax ? 0 : 5">
-      <vText :text="data.text" tag="p" :play="animateText" :speed="1" :stagger=".25" />
+      <vText :text="data.text" tag="p" :play="animateText" :speed=".8" :stagger=".15" />
     </div>
   </div>
 </template>

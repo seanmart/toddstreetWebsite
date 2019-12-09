@@ -3,7 +3,7 @@
     <div class="content">
       <v-box
       class="comms-1"
-      :data-scroll-offset="disableParallax ? '100%' : '40%'"
+      data-scroll-offset="20%"
       data-scroll-call="commsTitle"
       data-scroll-delay="20"
       >

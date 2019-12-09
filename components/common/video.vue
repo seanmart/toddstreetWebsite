@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="video" v-if="video">
-    <video :src="video" :muted="muted" :loop="loop" ref="video"/>
+    <video :src="video" :muted="muted" :loop="loop" ref="video" playsinline/>
   </div>
 </template>
 
