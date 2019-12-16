@@ -1,0 +1,31 @@
+html{
+  background: $midnight;
+  color: $snow
+}
+
+.has-scroll-smooth body{
+  overflow: hidden;
+}
+
+.c-scrollbar{
+  width: 20px;
+  background: white;
+}
+
+@mixin center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin padding{
+  padding: 120px;
+
+  @media (max-width: $tablet){
+    padding: 40px;
+  }
+
+  @media (max-width: $mobile){
+    padding: 20px;
+  }
+}
