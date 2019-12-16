@@ -14,7 +14,10 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [
+      {href:"https://fonts.googleapis.com/css?family=Aleo:300,300i,400,400i,700|Roboto:400,500,700,900&display=swap",rel:'stylesheet'},
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+    ],
     script:{src:'https://cdn.polyfill.io/v2/polyfill.min.js?features=IntersectionObserver,IntersectionObserverEntry'},
     script: [{ src: "https://fast.wistia.com/assets/external/E-v1.js" }]
   },
