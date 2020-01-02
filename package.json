@@ -1,0 +1,25 @@
+{
+  "name": "website6.0",
+  "version": "1.0.0",
+  "description": "toddstreet website redesign",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "body-scroll-lock": "^2.6.4",
+    "gsap": "^3.0.4",
+    "nuxt": "^2.0.0",
+    "nuxt-client-init-module": "^0.1.7",
+    "virtual-scroll": "^1.5.1"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
+  }
+}

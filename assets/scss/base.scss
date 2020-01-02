@@ -1,0 +1,44 @@
+html{
+  background: $midnight;
+  color: $snow
+}
+
+@mixin center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin padding{
+  padding: 105px;
+
+  @media (max-width: $tablet){
+    padding: 10vw;
+  }
+
+  @media (max-width: $mobile){
+    padding: 30px;
+  }
+}
+
+@mixin no-padding-top{
+  padding-top: 0px;
+  @media (max-width: $tablet){
+    padding-top: 0px;
+  }
+  @media (max-width: $mobile){
+    padding-top: 0px;
+  }
+}
+
+@mixin side{
+  width: 105px;
+
+  @media (max-width: $tablet){
+    width: 10vw;
+  }
+
+  @media (max-width: $mobile){
+    width: 30px;
+  }
+}
