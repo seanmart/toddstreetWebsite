@@ -3,9 +3,6 @@ export default {
   /*
    ** Headers of the page
    */
-  router: {
-    middleware: "transition"
-  },
   head: {
     title: process.env.npm_package_name || "",
     meta: [

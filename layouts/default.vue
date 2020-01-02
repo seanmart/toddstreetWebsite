@@ -12,15 +12,13 @@ import sidebar from "@/components/sidebar";
 import navigation from "@/components/navigation";
 import intro from "@/components/intro";
 export default {
+  middleware: "transition",
   components: { sidebar, navigation, intro },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
     this.$store.commit("scrolled", window.scrollY > this.scrolledThreshold);
-
-    this.$nextTick(() => {
-      this.$store.dispatch("animation/init");
-      this.$store.dispatch("animation/transitionOff");
-    });
+    this.$store.dispatch("animation/init");
+    this.$nextTick(() => this.$store.dispatch("animation/transitionOff"));
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);

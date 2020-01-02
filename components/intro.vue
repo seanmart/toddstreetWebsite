@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => this.init());
+    this.init();
   },
   data() {
     return {
@@ -60,16 +60,21 @@ export default {
   },
   watch: {
     $route() {
-      this.$nextTick(() => this.init());
+      this.init();
     }
   },
   methods: {
     init() {
+      this.hide();
+      this.$nextTick(() => {
+        setTimeout(() => this.animate(), this.delay);
+      });
+    },
+    hide() {
       TweenMax.set(this.$refs.title, { xPercent: -10, opacity: 0 });
       TweenMax.set(this.$refs.desc, { yPercent: 25, opacity: 0 });
       TweenMax.fromTo(this.$refs.bg, 1, { scale: 1.2 }, { scale: 1 });
       TweenMax.set(this.$refs.line, { scaleX: 0 });
-      setTimeout(() => this.animate(), this.delay);
     },
     animate() {
       let tl = new TimelineMax();
