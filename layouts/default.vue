@@ -32,14 +32,7 @@ export default {
 
     window.addEventListener('resize', this.getWidth)
     this.getWidth()
-    this.$loco.stop()
 
-  },
-  watch:{
-    ready(){
-      this.$loco.start()
-      this.$loco.update()
-    }
   },
   methods:{
     getWidth(){

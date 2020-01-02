@@ -40,11 +40,7 @@ export default {
     }
   },
   mounted(){
-    this.$loco.call((e)=>{
-      if (e === 'eventsTitle'){
-        this.playTitle = true
-      }
-    })
+  
   }
 };
 </script>

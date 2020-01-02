@@ -21,6 +21,9 @@ export default {
         href:
           "https://fonts.googleapis.com/css?family=Aleo:300,400,700|Roboto:400,500,700,900&display=swap"
       }
+    ],
+    script:[
+      {src: 'https://fast.wistia.com/assets/external/E-v1.js',async: true}
     ]
   },
   /*

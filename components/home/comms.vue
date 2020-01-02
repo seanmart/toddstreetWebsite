@@ -1,12 +1,7 @@
 <template lang="html">
-  <div id="comms" class="padding" ref="comms" data-scroll-section>
+  <div id="comms" class="padding" ref="comms">
     <div class="content">
-      <v-box
-      class="comms-1"
-      :data-scroll-offset="parallax ? '40%' : '100%'"
-      data-scroll-call="commsTitle"
-      data-scroll-delay="20"
-      >
+      <v-box class="comms-1">
         <v-text :text="data.title" :play="playTitle" tag="h1" class="title" />
       </v-box>
 
@@ -40,11 +35,7 @@ export default {
     }
   },
   mounted(){
-    this.$loco.call((e)=>{
-      if (e === 'commsTitle'){
-        this.playTitle = true
-      }
-    })
+
   }
 };
 </script>

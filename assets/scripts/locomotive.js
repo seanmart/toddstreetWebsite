@@ -2,7 +2,7 @@ import locomotiveScroll from "locomotive-scroll";
 
 let locomotive = new locomotiveScroll({
   el: document.getElementById('scroll'),
-  inertia: .6,
+  inertia: 1,
   smooth: true,
   getDirection: true,
 })

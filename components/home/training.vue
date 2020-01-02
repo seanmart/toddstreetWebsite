@@ -39,11 +39,7 @@ export default {
     }
   },
   mounted(){
-    this.$loco.call((e)=>{
-      if (e === 'trainingTitle'){
-        this.playTitle = true
-      }
-    })
+  
   }
 };
 </script>
