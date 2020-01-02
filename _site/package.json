@@ -1,0 +1,29 @@
+{
+  "name": "toddstreet-website-3",
+  "version": "1.0.0",
+  "description": "My superb Nuxt.js project",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "DEPLOY_ENV=GH_PAGES nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/markdownit": "^1.2.3",
+    "cross-env": "^5.2.0",
+    "frontmatter-markdown-loader": "^1.6.0",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.11",
+    "nuxt": "^2.0.0",
+    "vue-markdown-it": "^0.9.4"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "nodemon": "^1.11.0",
+    "prettier": "1.14.3",
+    "push-dir": "^0.4.1"
+  }
+}
