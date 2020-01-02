@@ -2,42 +2,41 @@
   <div class="max">
     <tabs
       :labels="categories"
-      @clicked="setIndex($event.index)"
-      :setActive="setActive"
+      @clicked="index = $event.index"
+      :setActive="index"
       class="space top clients-tabs"
     >
       <template v-slot:default="props">
         <h1>{{ props.label }}</h1>
       </template>
     </tabs>
-    <no-ssr>
-      <flickity ref="flickity" :options="flickityOptions">
-        <div class="category" v-for="c in categories" :key="c">
-          <div
-            v-for="(client, x) in content[c]"
-            :key="x"
-            class="client"
-            :title="client.title"
-          >
-            <div class="inner-client" v-html="client.html" />
-          </div>
+    <carousel :options="options" @swipe="index = $event" :index="index">
+      <div class="category" v-for="c in categories" :key="c">
+        <div
+          v-for="(client, x) in content[c]"
+          :key="x"
+          class="client"
+          :title="client.title"
+        >
+          <div class="inner-client" v-html="client.html" />
         </div>
-      </flickity>
-    </no-ssr>
+      </div>
+    </carousel>
   </div>
 </template>
 
 <script>
+import carousel from "@/components/global/carousel";
 import tabs from "@/components/global/tabs";
 export default {
-  components: { tabs },
+  components: { tabs, carousel },
   props: {
     content: Object
   },
   data() {
     return {
-      setActive: 0,
-      flickityOptions: {
+      index: 0,
+      options: {
         initialIndex: 0,
         prevNextButtons: false,
         pageDots: false,
@@ -51,19 +50,9 @@ export default {
       }
     };
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.flickity.on("change", event => (this.setActive = event));
-    });
-  },
   computed: {
     categories() {
       return Object.keys(this.content);
-    }
-  },
-  methods: {
-    setIndex(i) {
-      this.$refs.flickity.select(i);
     }
   }
 };
@@ -80,12 +69,7 @@ export default {
 
 .clients-tabs h1{
   font-size: 20px;
-  padding: 20px;
   font-weight: 900
-}
-
-.clients-tabs h1:first-child{
-  margin-left: -20px;
 }
 
 .client{

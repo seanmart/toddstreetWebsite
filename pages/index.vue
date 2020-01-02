@@ -4,7 +4,7 @@
       <intro :text="data.intro" />
     </div>
 
-    <div id="projects">
+    <div id="projects-carousel">
       <projects :content="projects" />
     </div>
 
@@ -29,7 +29,7 @@
 <script>
 import data from "@/content/data/about";
 import intro from "@/components/global/intro";
-import projects from "@/components/home/projects";
+import projects from "@/components/home/projectsCarousel";
 import staff from "@/components/home/staff";
 import cares from "@/components/global/cares";
 import btn from "@/components/global/button";
@@ -50,7 +50,7 @@ export default {
       nav: {
         label: "about",
         path: "/",
-        nav: 1
+        index: 1
       },
       data: data,
       offer: 0
@@ -71,7 +71,7 @@ export default {
       });
     },
     staff() {
-      return this.$store.getters.allStaff;
+      return this.$store.getters.staff;
     },
     cares() {
       return this.$store.getters.caresOverview.map(care => {

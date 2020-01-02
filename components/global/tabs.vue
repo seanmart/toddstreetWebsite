@@ -84,7 +84,8 @@ export default {
   border-radius: 0px;
   cursor: pointer;
   font-size: 18px;
-  opacity: .3
+  opacity: .3;
+  padding: 20px;
 }
 
 .tab.active{
@@ -92,7 +93,7 @@ export default {
 }
 
 .tab:first-of-type{
-  margin-left: 0px;
+  margin-left: -20px;
 }
 
 .tabs .arrow{
@@ -125,6 +126,7 @@ export default {
   color: inherit;
   flex: 1 1 auto;
   text-align: center;
+  margin: 0px;
 }
 
 .tabs.collapse .arrow{

@@ -39,7 +39,6 @@ export default {
   flex: 0 0 auto;
   padding-top: 100%;
   background-size: cover;
-  box-shadow: 0px 15px 2px -7.5px #ccc;
 }
 
 .post .text{

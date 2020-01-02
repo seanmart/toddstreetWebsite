@@ -7,7 +7,7 @@ export default {
       nav: {
         label: "process",
         path: "/process",
-        nav: 3
+        index: 3
       }
     };
   }

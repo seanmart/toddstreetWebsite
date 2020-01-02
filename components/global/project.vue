@@ -1,10 +1,5 @@
 <template lang="html">
-  <div class="project inset">
-    <div class="max">
-      <h3 v-if="text.category">{{ text.category }}</h3>
-      <h1 v-if="text.title">{{ text.title }}</h1>
-      <btn white medium caps :to="link">check it out</btn>
-    </div>
+  <div class="project">
     <div
       class="image"
       :class="{ fade: active }"
@@ -29,6 +24,10 @@ export default {
 <style lang="css">
 .project{
   position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .project .text{

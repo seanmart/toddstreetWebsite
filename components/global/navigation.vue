@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="navbar" ref="nav">
-    <header :class="{ stick }">
+    <header>
       <div class="wrapper">
         <nuxt-link to="/"><logo class="logo"/></nuxt-link>
         <div class="mobile-wrapper">
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     pages() {
-      return orderBy(this.$store.state.pages, "nav");
+      return orderBy(this.$store.state.pages, "index");
     }
   },
   methods: {
@@ -59,9 +59,6 @@ header{
   border-bottom: 1px solid #333;
   background: black;
   color: white;
-}
-
-header.stick{
   position: fixed;
   top: 0px;
   left: 0px;
@@ -102,10 +99,6 @@ nav a{
   display: inline-block;
   transition: .25s;
   font-weight: 700
-}
-
-nav a:hover{
-  font-weight: 900
 }
 
 @media screen and (max-width:700px){

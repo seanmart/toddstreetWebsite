@@ -50,7 +50,10 @@ export const getters = {
   projects(state) {
     return orderBy(state.projects, "position");
   },
-  allStaff(state) {
+  projectsOverview(state) {
+    return orderBy(filter(state.projects, "overview"), "overview");
+  },
+  staff(state) {
     return orderBy(filter(state.staff, i => i.published !== false), [
       "position",
       i => i.title.split(" ")[1]
@@ -70,9 +73,6 @@ export const getters = {
   },
   caresOverview(state, getters) {
     return getters.cares.slice(0, 3);
-  },
-  projectsOverview(state) {
-    return orderBy(filter(state.projects, "overview"), "overview");
   },
   careById(state) {
     return id => filter(state.care, { id })[0];

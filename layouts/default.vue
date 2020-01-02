@@ -1,16 +1,14 @@
 <template>
   <div id="site">
-    <welcome />
     <navigation />
     <nuxt />
   </div>
 </template>
 
 <script>
-import welcome from "@/components/global/welcome";
 import navigation from "@/components/global/navigation";
 export default {
-  components: { welcome, navigation }
+  components: { navigation }
 };
 </script>
 
@@ -95,5 +93,40 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.slide-left-enter-active,
+.slide-right-enter-active .slide-left-leave-active,
+.slide-right-leave-active {
+  transition: transform 0.35s;
+}
+
+.slide-left-enter-to,
+.slide-right-enter-to {
+  transform: translateX(0px);
+}
+
+.slide-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-left-enter {
+  transform: translateX(100%);
+}
+
+.slide-right-enter {
+  transform: translateX(100%);
 }
 </style>
