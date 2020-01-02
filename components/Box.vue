@@ -96,7 +96,7 @@ export default {
 .image {
   width: 100%;
   background-size: cover;
-  background-position: center center;
+  background-position: top center;
 }
 
 .card .textbox{

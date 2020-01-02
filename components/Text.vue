@@ -60,8 +60,9 @@ export default {
   color: black
 }
 
-.text.grey{
-  color: #999
+.text.grey,
+.entry p{
+  color: #888
 }
 
 h1, h3, p{
@@ -123,7 +124,8 @@ h3.small{
 p.big{
   font-size: calc(1.8em + .5vw);
 }
-p.medium{
+p.medium,
+.entry p{
   font-size: calc(1em + .8vw);
 }
 p.small{
@@ -151,12 +153,18 @@ h3.after{
 }
 
 h1.small.before,
-p.before{
+p.before,
+.entry p{
   margin-top: 20px;
 }
 
 h1.small.after,
-p.after{
+p.after,
+.entry p{
   margin-bottom: 20px;
+}
+
+.entry a{
+  text-decoration: underline;
 }
 </style>

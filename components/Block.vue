@@ -66,7 +66,7 @@ export default {
 }
 
 .block.nav {
-  padding-top: 160px;
+  padding-top: 180px;
 }
 
 .wrapper {
@@ -86,5 +86,11 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
+  .block.nav {
+    padding-top: 80px;
+  }
 }
 </style>

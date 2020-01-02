@@ -1,9 +1,9 @@
 <template>
-  <box col5 grow class="employee">
+  <div class="employee">
     <div class="image" :style="{ backgroundImage: `url(${image})` }" />
     <t title small thick before>{{ name }}</t>
     <t body small grey>{{ role }}</t>
-  </box>
+  </div>
 </template>
 <script>
 export default {
@@ -19,6 +19,7 @@ export default {
 .employee{
   text-align: center;
   padding:10px;
+  flex: 0 0 20%;
 }
 
 .image{
@@ -29,5 +30,23 @@ export default {
   border-radius: 100%;
   background-size: cover;
   margin: 0px auto;
+}
+
+@media screen and (max-width: 1100px){
+  .employee{
+    flex: 0 0 25%;
+  }
+}
+
+@media screen and (max-width: 880px){
+  .employee{
+    flex: 0 0 33.333%;
+  }
+}
+
+@media screen and (max-width: 670px){
+  .employee{
+    flex: 0 0 50%;
+  }
 }
 </style>

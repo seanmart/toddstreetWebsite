@@ -11,14 +11,25 @@
     <div class="nav-background" />
     <block fullheight black extend class="bottom-menu">
       <container gallery>
-        <box class="links" col2>
+        <box col2 class="links">
           <nav>
-            <nuxt-link :to="link.route" v-for="(link, i) in links" :key="i">
+            <nuxt-link :to="link.route" v-for="(link, i) in nav" :key="i">
               <t body big white @click.native="hide = true">{{ link.label }}</t>
             </nuxt-link>
           </nav>
         </box>
-        <box class="info" col2> </box>
+        <box class="info" col2>
+          <t body medium thick white after>{{ info.company }}</t>
+          <t body small white>{{ info.address.street }}</t>
+          <t body small white>
+            {{ info.address.city }}, {{ info.address.state }},
+            {{ info.address.zip }}
+          </t>
+          <t body small white after>{{ info.address.phone }}</t>
+          <t body small white v-for="(email, i) in info.emails" :key="i">
+            {{ email }}
+          </t>
+        </box>
       </container>
     </block>
   </header>
@@ -30,7 +41,8 @@ export default {
   components: { Menu, Logo },
   data() {
     return {
-      links: this.$store.state.nav,
+      nav: this.$store.state.nav,
+      info: this.$store.state.information,
       hide: true,
       expand: true,
       transition: false,

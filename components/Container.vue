@@ -59,7 +59,7 @@ export default {
   flex-wrap: wrap;
 }
 
-.bar {
+.container.bar {
   flex-wrap: nowrap;
   align-items: center;
   padding-bottom: 0px;

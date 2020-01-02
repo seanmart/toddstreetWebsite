@@ -44,7 +44,7 @@
             :image="project['cover-image']"
             @clicked="projects.active = projects.active === i ? null : i"
           />
-          <Project empty link="/work">
+          <Project empty link="/projects">
             <t body big white>View More</t>
           </Project>
         </container>
@@ -54,7 +54,7 @@
 
       <block space extend>
         <t title big thick before after center v-scroll-reveal="titleScroll">
-          <i class="blue">Who</i> We Are
+          Option <i class="blue">One</i>
         </t>
         <container gallery>
           <Employee
@@ -74,10 +74,27 @@
         </container>
       </block>
 
+      <!--############# EMPLOYEES #################-->
+
+      <block space extend>
+        <t title big thick before after center v-scroll-reveal="titleScroll">
+          Option <i class="blue">Two</i>
+        </t>
+        <container gallery>
+          <Employee
+            v-for="(worker, i) in employees.all"
+            :key="`L${i}`"
+            :image="worker.image"
+            :name="worker.title"
+            :role="worker.role"
+          />
+        </container>
+      </block>
+
       <!--############# WE CARE #################-->
 
-      <block extend>
-        <t title big thick before center v-scroll-reveal="titleScroll">
+      <block extend white>
+        <t title big thick before after center v-scroll-reveal="titleScroll">
           <i class="yellow">How</i> We Care
         </t>
         <container>
@@ -134,7 +151,8 @@ export default {
       },
       employees: {
         leaders: this.$store.getters.staffLeaders,
-        workers: this.$store.getters.staffWorkers
+        workers: this.$store.getters.staffWorkers,
+        all: this.$store.getters.allWorkers
       },
       cares: this.$store.getters.caresOverview,
       clients: this.$store.getters.clients,

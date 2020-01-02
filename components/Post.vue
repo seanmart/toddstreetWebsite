@@ -1,10 +1,13 @@
 <template>
   <box card col3 :to="link">
-    <box :image="image" ratio />
+    <box v-if="image" :image="image" ratio />
     <box textbox>
       <t title small thick>{{ title }}</t>
-      <t body small grey before after>{{ shorten(body) }}...</t>
-      <t body small link :style="{ background: linkColor }">check it out</t>
+      <t v-if="subtitle" body small before after grey>{{ subtitle }}</t>
+      <t v-if="body" body small grey before after>{{ shorten(body) }}...</t>
+      <t v-if="link" body small link :style="{ background: linkColor }"
+        >check it out</t
+      >
     </box>
   </box>
 </template>
@@ -12,6 +15,7 @@
 export default {
   props: {
     title: String,
+    subtitle: String,
     body: String,
     image: String,
     link: String,

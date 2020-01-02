@@ -7,21 +7,23 @@ export const state = () => ({
   clients: [],
   stats: [],
   icons: [],
+  thoughts: [],
   information: {
     company: 'toddstreet',
     address: {
-      street: '30 W 24th Street',
+      street: '30 W 24th Street, Floor 11',
       city: 'New York',
       state: 'NY',
       zip: '10010',
-      phone: ''
-    }
+      phone: '212.966.5900'
+    },
+    emails: ['contact@toddstreet.com', 'hr@toddstreet.com']
   },
   nav: [
     { route: '/', label: 'About Us' },
     { route: '/projects', label: 'Our Projects' },
     { route: '/care', label: 'We Care' },
-    { route: '/contact', label: 'Contact Us' }
+    { route: '/thoughts', label: 'Thought Leadership' }
   ]
 })
 
@@ -34,6 +36,7 @@ export const actions = {
     data.clients = require.context('../content/clients', true, /\.markdown$/)
     data.stats = require.context('../content/stats', true, /\.markdown$/)
     data.icons = require.context('../content/icons', true, /\.markdown$/)
+    data.thoughts = require.context('../content/thoughts', true, /\.markdown$/)
 
     await Object.keys(data).forEach(key => {
       Promise.all(data[key].keys().map(name => asyncImport(key, name))).then(
@@ -71,6 +74,12 @@ export const getters = {
       i => i.title.split(' ')[1]
     )
   },
+  allWorkers(state) {
+    return orderBy(
+      filter(state.staff, i => i.published !== false),
+      i => i.title.split(' ')[1]
+    )
+  },
   staffCount(state, getters) {
     return getters.staffLeaders.length + getters.staffWorkers.length
   },
@@ -86,11 +95,17 @@ export const getters = {
   icons(state) {
     return keyBy(state.icons, 'title')
   },
+  thoughts(state) {
+    return orderBy(state.thoughts, i => new Date(i.date), 'desc')
+  },
   caresOverview(state, getters) {
     return getters.cares.slice(0, 3)
   },
   projectsOverview(state) {
     return orderBy(filter(state.work, 'overview'), 'overview')
+  },
+  careById(state) {
+    return id => filter(state.care, { id })[0]
   }
 }
 

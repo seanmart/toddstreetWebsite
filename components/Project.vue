@@ -1,5 +1,5 @@
 <template>
-  <box ratio :image="image" col2 class="project" v-scroll-reveal="scrollAttr">
+  <box ratio :image="image" col2 class="project">
     <div class="content" @click="clicked" :class="{ active }" v-if="!empty">
       <div class="project-text">
         <t grey body small>{{ type }}</t>
@@ -9,9 +9,9 @@
         >
       </div>
     </div>
-    <div class="empty" v-if="empty">
+    <nuxt-link :to="link" class="empty" v-if="empty">
       <slot></slot>
-    </div>
+    </nuxt-link>
     <nuxt-link :to="link" class="project-link" />
   </box>
 </template>
