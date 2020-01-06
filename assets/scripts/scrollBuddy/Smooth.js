@@ -7,15 +7,11 @@ export default class extends Core{
     super(options)
 
     this.isScrolling = false
-    this.isTicking = false;
-    this.inertia = this.inertia * .1
-    this.inertiaRatio = 1;
 
   }
   init(){
     super.init()
-    this.html.classList.add('has-smooth-scroll')
-    this.body.style.cssText += ';overflow: hidden; height: 100vh;'
+    document.getElementsByTagName('body')[0].style.cssText += ';overflow: hidden; height: 100vh;'
 
     this.instance = {
       delta:{
@@ -41,14 +37,12 @@ export default class extends Core{
 
   startScrolling(){
     this.isScrolling = true
-    this.html.classList.add('is-scrolling');
   }
 
   stopScrolling(){
     this.isScrolling = false
     this.inertiaRatio = 1;
     this.instance.scroll.y = Math.round(this.instance.scroll.y);
-    this.html.classList.remove('is-scrolling');
   }
 
 
@@ -56,12 +50,24 @@ export default class extends Core{
 
   updateDelta(e){
     this.instance.delta.y -= e.deltaY;
+
     if (this.instance.delta.y < 0) this.instance.delta.y = 0;
     if (this.instance.delta.y > this.instance.limit) this.instance.delta.y = this.instance.limit;
+
   }
 
   updateScroll(){
     this.instance.scroll.y = lerp(this.instance.scroll.y, this.instance.delta.y, this.inertia * this.inertiaRatio);
+  }
+
+  update(){
+    this.setScrollLimit()
+    this.updateScroll()
+    this.updateSections()
+    this.updateElements()
+    this.updateElementOffsets()
+    this.transformSections()
+    this.transformElements({transition: true})
   }
 
   // CHECK ---------------------------------
@@ -78,7 +84,6 @@ export default class extends Core{
           this.updateScroll();
           this.transformSections()
           this.transformElements()
-          this.updateScrollEvents()
           this.checkScroll()
         });
       }
@@ -86,17 +91,43 @@ export default class extends Core{
 
 
   // TRANSFORM --------------------------------
-
   transformSections(){
-    let padding = this.windowHeight / 2
-    this.checkSections((current, offset, limit, scrollTop, scrollBottom)=>{
-      if ( (offset - padding) < scrollBottom && (limit + padding) > scrollTop){
-        this.transform(current.el,0, -this.instance.scroll.y)
+    let scroll = {}
+    scroll.top = this.instance.scroll.y
+    scroll.bottom = scroll.top + this.windowHeight
+    let padding = this.windowHeight / 1.25
+
+    this.sections.forEach((current,i)=>{
+
+      let inView = (current.top - padding <= scroll.top) && (current.bottom + padding > scroll.top)
+
+      if (inView){
+
+        this.transform(current.el,0, -scroll.top)
         current.el.style.visibility = 'visible'
-      } else{
+
+        let scrolled = scroll.top - current.top
+        let percent = scrolled / (current.bottom - current.top)
+
+        if (current.onScroll){
+          current.onScroll({
+            scrolled: scrolled,
+            percent: percent,
+            entering: current.bottom - current.height > scroll.top,
+            leaving: current.bottom < scroll.bottom
+          })
+        }
+      } else {
         current.el.style.visibility = 'hidden'
-        this.transform(current.el, 0, 0);
+        this.transform(current.el, 0, '-100%');
       }
+
+      if (current.onChange && inView !== current.inView){
+        current.onChange({visible: inView })
+      }
+
+      this.sections[i].inView = inView
     })
   }
+
 }

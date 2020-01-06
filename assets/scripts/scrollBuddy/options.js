@@ -1,4 +1,4 @@
 export default{
-  inertia: 1,
+  inertia: .8,
   smooth: true
 }

@@ -11,11 +11,9 @@ export default{
   },
   events:{
     title:['We Produce','Meaningful Events'],
-    description: `We produce meaningful events that engage minds across incredible global events, large-scale conferences and festivals, blockbuster product launches to intimate and exclusive press launches, influencer activations and more.`,
+    hero:'events/events1.jpg',
+    description: `We engage minds across incredible global events, large-scale conferences and festivals, blockbuster product launches to intimate and exclusive press launches, influencer activations and more.`,
     cta: {label: 'Get in touch with our events team', link: '/'},
-    images:{
-      image1: 'events/events1.jpg',
-    }
   },
   comms:{
     title:['We Design', 'Impactful Communications'],

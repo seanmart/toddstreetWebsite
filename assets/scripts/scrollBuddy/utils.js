@@ -20,6 +20,36 @@ export function getTranslate(el) {
     return translate;
 }
 
+export function getTop(el){
+  let top = 0
+  do {
+    top += el.offsetTop
+    el = el.offsetParent;
+  } while(el)
+  return top
+}
+
+export function getLeft(el){
+  let left = 0
+  do {
+    left += el.offsetLeft
+    el = el.offsetParent;
+  } while(el)
+  return left
+}
+
 export function isObject(obj) {
   return obj === Object(obj);
+}
+
+export function isInt(n){
+  return Number(n) === n && n % 1 === 0;
+}
+
+export function isFloat(n){
+  return Number(n) === n && n % 1 !== 0;
+}
+
+export function isArray(a){
+  return Array.isArray(a)
 }

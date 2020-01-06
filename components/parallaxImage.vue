@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="parallax-image-container">
-    <div class="parallax-image-wrapper" v-scroll="scrollProps">
+  <div ref="container" class="parallax-image-container">
+    <div class="parallax-image-wrapper" v-scroll="vScrollProps">
       <div ref="image" class="parallax-image" :style="styles"/>
     </div>
   </div>
@@ -10,35 +10,51 @@
 export default {
   props:{
     image: {type: String, default: null},
+    innerParallax: {type: Boolean, default: true},
     parallax:{type: Number, default: null},
-    onScroll: {type:Function, default: null}
+    onScroll: {type:Function, default: null},
+    rotate:{type: Number, default: null},
+    scale:{type: Number, default: null},
   },
   data(){
     return{
-      innerParallax: null
+      animations:{}
     }
   },
   mounted(){
-    this.innerParallax = this.$gsap.to(this.$refs.image,1,{y:'25%', ease: 'linear'}).pause()
+    let props = {ease: 'linear'}
+    if (this.innerParallax) props.y = '25%'
+    if (this.rotate) props.rotation = this.rotate
+    if (this.scale) props.scale = this.scale
+
+    this.animations.scroll = this.$gsap.to(this.$refs.image,1,props).pause()
+    this.animations.reset = ()=> this.$gsap.set(this.$refs.image, {scale: 1.1})
+    this.animations.enter = ()=> this.$gsap.to(this.$refs.image,.75,{scale: 1})
+    this.animations.reset()
   },
   computed:{
-    scrollProps(){
-      let props = {}
-      props.onScroll = this.onScrollEvent
-      props.parallax = {
-        speed: this.parallax,
-        min: 600
-      }
-      return props
-    },
     styles(){
       return this.image ? {backgroundImage: `url(${this.image})`} : {}
+    },
+    vScrollProps(){
+      return{
+        parallax:[
+          {min: 600, ySpeed:this.parallax}
+        ],
+        onScroll:this.onScrollEvent,
+        onChange:this.onChangeEvent
+      }
     }
   },
   methods:{
     onScrollEvent(e){
       if (this.onScroll) this.onScroll(e)
-      this.innerParallax.progress(e.percent)
+      this.animations.scroll.progress(e.percent)
+    },
+    onChangeEvent(e){
+      e.visible
+      ? this.animations.enter()
+      : this.animations.reset()
     }
   }
 }

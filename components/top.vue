@@ -44,7 +44,7 @@ export default {
       this.showSide = window.innerWidth < 600
     },
     toggleSide(on){
-      let speed = on ? .75 : .2
+      let speed = on ? 1 : .5
       this.$gsap.to(this.$refs.button, speed,{y: on ? 0 : '-100%', ease: on ? 'power3.out' : 'power3.in'})
       this.$gsap.to(this.$refs.logo, speed,{y: on ? 0 : '100%', ease: on ? 'power3.out' : 'power3.in'})
     }

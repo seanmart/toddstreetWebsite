@@ -1,8 +1,8 @@
 export default{
   links: [
-    {path: '/about', label: 'Who We Are'},
-    {path: '/work', label: 'What We Do'},
-    {path: '/blog', label: 'What We Think'}
+    {path: '/about', label: 'Who we are'},
+    {path: '/work', label: 'What we do'},
+    {path: '/blog', label: 'What we think'}
   ],
   address:[
     '30 West 24th Street',

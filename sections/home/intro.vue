@@ -3,7 +3,7 @@
 
     <div class="content">
       <div class="top">
-        <reveal :play="ready" opposite class="logo" v-scroll="{parallax: {speed: 2},onChange: toggleNav}">
+        <reveal :play="ready" opposite class="logo" v-scroll="{parallax:{ySpeed:5},onChange: toggleNav}">
           <logo/>
         </reveal>
       </div>
@@ -15,12 +15,14 @@
 
     <div class="menu">
 
-      <reveal class="top hire" :play="ready" :delay=".5" opposite side>
-        <nuxt-link to="/">Hire Us</nuxt-link>
-      </reveal>
+      <div class="top">
+        <reveal class="hire-us" :play="ready" :delay=".5" opposite side>
+          <nuxt-link to="/">Hire Us</nuxt-link>
+        </reveal>
+      </div>
 
-      <div class="label" v-scroll="{parallax:{speed: 1}}">
-        <reveal :play="ready" :delay=".5" ><p>Explore</p></reveal>
+      <div class="label" v-scroll="{parallax:{ySpeed:1}}">
+        <reveal :play="ready" opposite :delay=".5" ><p>Explore</p></reveal>
         <reveal class="line-container" :play="ready" :delay="1" side><div class="line"/></reveal>
       </div>
 
@@ -32,7 +34,7 @@
         </nuxt-link>
       </reveal>
 
-      <div class="info" v-scroll="{parallax:{speed: -1}}">
+      <div class="info" v-scroll="{parallax:{ySpeed:-1}}">
 
         <reveal :play="ready" :delay="1" class="address">
           <p v-for="line in navData.address">{{line}}</p>
@@ -49,12 +51,13 @@
       </div>
     </div>
 
+
     <fullscreen-video
+    play
     class="video"
-    videoId="5k71u7zdpe"
-    :play="ready"
+    videoId="mpl8lcc842"
     :hide="hideVideo"
-    v-scroll="{parallax:{speed: -5}}"
+    v-scroll="{parallax:{ySpeed:-5}}"
     />
 
   </section>
@@ -93,7 +96,7 @@ export default {
     },
     toggleNav(e){
       this.$store.commit('setNav', !e.visible)
-    }
+    },
   }
 };
 </script>
@@ -106,76 +109,40 @@ export default {
   display: flex;
   min-height: 800px;
 
-  @media (max-width: $mobile){
-    min-height: inherit;
-  }
-
   .top{
-    height: 13vw;
-    max-height: 180px;
+    @include padding(false, false, false, true);
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .content{
     flex: 1 1 auto;
+  }
 
-    @media (max-width: $mobile){
-      @include center
-    }
-
-    .logo{
-
-      svg{
-        fill: $snow;
-        width: 25vw;
-        min-width: 200px;
-        max-width: 350px;
-      }
-
-      @media (max-width: $mobile){
-        display: none;
-      }
-
-    }
-
-    .text{
-      font-size: 35px;
-      line-height: 140%;
-
-      p{
-        font-weight: 200;
-      }
-
-      @media (max-width: $tablet){
-        font-size: 3.35vw;
-      }
-
-      @media (max-width: $mobile){
-        font-size: 25px;
-      }
+  .logo{
+    svg{
+      fill: $snow;
+      height: 4vw;
+      min-height: 20px;
+      max-height: 80px;
     }
   }
 
-
   .menu{
     flex: 0 0 auto;
-
-    @media (max-width: $mobile){
-      display: none;
-    }
-
-    .hire{
+    .hire-us{
       text-align: right;
+      height: 4vw;
     }
     .label{
       display: block;
       position: relative;
       padding: 10px 0px;
-
       .line-container{
         position: absolute;
         bottom: 0px;
         width: 100%;
-
         .line{
           border-bottom: 1px solid rgba($snow, .2);
           height: 1px;
@@ -183,78 +150,91 @@ export default {
         }
       }
     }
-
-    .links{
-      padding: 40px 0px 30px;
-    }
-
-    .link{
-      font-size: 40px;
-      line-height: 140%;
-
-      h3{
-        transition: transform .25s;
-        display: block;
-      }
-
-      &:hover h3{
-        transform: translateX(5%);
-      }
-
-      @media (max-width: $tablet){
-        font-size: 3.7vw;
-      }
-    }
-
-    .info{
-      display: flex;
-
-      @media (max-width: 1100px){
-        flex-direction: column;
-      }
-
-      .address{
-        flex: 0 0 auto;
-        padding: 8px;
-        padding-left: 0px;
-
-        p{
-          white-space: nowrap;
-          line-height: 150%;
-        }
-      }
-
-      .social{
-        flex: 1 1 auto;
-        text-align: right;
-        margin-left: 40px;
-
-        @media (max-width: 1100px){
-          margin-left: -10px;
-          text-align: left;
-          margin-top: 40px;
-        }
-
-        a{
-          display: inline-block;
-          padding: 10px;
-        }
-
-        svg{
-          height: 20px;
-          fill: $snow
-        }
-      }
-    }
-
   }
 
+  .links{
+    padding: 40px 0px 30px;
+  }
+
+  .info{
+    display: flex;
+  }
+
+  .address{
+    flex: 0 0 auto;
+    padding: 8px;
+    padding-left: 0px;
+    p{
+      white-space: nowrap;
+    }
+  }
+  .social{
+    flex: 1 1 auto;
+    text-align: right;
+    margin-left: 40px;
+    a{
+      display: inline-block;
+      padding: 10px;
+    }
+    svg{
+      height: 20px;
+      fill: $snow
+    }
+  }
 
   .video {
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: -1;
+  }
+
+  //fonts
+  .text{
+    font-size: calc(15px + 1.5vw);
+    line-height: 140%;
+    font-weight: 200;
+  }
+  .hire-us{
+    font-size: 20px;
+    font-weight: 200;
+  }
+  .label{
+    font-size: 20px;
+    font-weight: 200;
+  }
+  .link{
+    font-size: calc(10px + 3vw);
+    line-height: 140%;
+  }
+  .address{
+    font-size: 20px;
+    line-height: 150%;
+    font-weight: 200;
+  }
+
+  @media (max-width: 1100px){
+    .social{
+      margin-left: -10px;
+      text-align: left;
+      margin-top: 30px;
+    }
+    .info{
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: $mobile){
+    min-height: inherit;
+    .content{
+      @include center
+    }
+    .menu{
+      display: none;
+    }
+    .logo{
+      display: none;
+    }
   }
 
 }

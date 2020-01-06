@@ -17,7 +17,6 @@ export default {
 
 <style lang="scss">
 #comms {
-  height: 200vw;
   .content {
     position: relative;
     height: 100%;

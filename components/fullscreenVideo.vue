@@ -34,8 +34,7 @@ export default {
     },
     wistia(w) {
       if (w) {
-        this.wistia.pause();
-        this.toggleVideo();
+        !this.play && this.wistia.pause();
       }
     }
   },
@@ -70,16 +69,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;
 
   &.hide{
-    display: none;
+    opacity: 0;
   }
 
   .inner {
     flex: 0 0 177.777vh;
     min-width: 100vw;
     min-height: 100vh;
+    pointer-events: none;
   }
 }
 </style>

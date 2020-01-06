@@ -7,10 +7,8 @@ let sb = new scrollBuddy({
 
 Vue.directive('scroll',{
   bind: function(el,binding){
-
     if (binding.arg === 'section') {
       sb.scroll.addSection(el, binding.value)
-
     } else {
       sb.scroll.addElement(el, binding.value)
     }

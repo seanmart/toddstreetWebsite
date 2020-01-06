@@ -1,6 +1,6 @@
 html{
   background: $midnight;
-  color: $snow
+  color: $snow;
 }
 
 @mixin center{
@@ -9,25 +9,24 @@ html{
   align-items: center;
 }
 
-@mixin padding{
-  padding: 105px;
+@mixin padding($top:true, $left:true, $right:true, $bottom:true){
+  @if $top {padding-top: 105px;}
+  @if $left {padding-left: 105px;}
+  @if $right {padding-right: 105px;}
+  @if $bottom {padding-bottom: 105px;}
 
   @media (max-width: $tablet){
-    padding: 10vw;
+    @if $top {padding-top: 10vw;}
+    @if $left {padding-left: 10vw;}
+    @if $right {padding-right: 10vw;}
+    @if $bottom {padding-bottom: 10vw;}
   }
 
   @media (max-width: $mobile){
-    padding: 30px;
-  }
-}
-
-@mixin no-padding-top{
-  padding-top: 0px;
-  @media (max-width: $tablet){
-    padding-top: 0px;
-  }
-  @media (max-width: $mobile){
-    padding-top: 0px;
+    @if $top {padding-top: 30px;}
+    @if $left {padding-left: 30px;}
+    @if $right {padding-right: 30px;}
+    @if $bottom {padding-bottom: 30px;}
   }
 }
 
