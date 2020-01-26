@@ -18,4 +18,11 @@ export default class{
   hasSmooth(){
     return !this.isMobile
   }
+  pause(){
+    this.scroll.stop = true
+  }
+  resume(){
+    this.scroll.stop = false
+  }
+
 }

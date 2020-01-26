@@ -6,10 +6,19 @@
   </div>
 </template>
 <script>
-  import top from '@/components/top'
-  import bottom from '@/components/bottom'
+  import top from '@/sections/site/top'
+  import bottom from '@/sections/site/bottom'
+  import {mapState} from 'vuex'
   export default{
-    components:{top, bottom}
+    components:{top, bottom},
+    computed: mapState(['scroll']),
+    watch:{
+      scroll(scroll){
+        scroll
+        ? this.$scrollbuddy.resume()
+        : this.$scrollbuddy.pause()
+      }
+    }
   }
 </script>
 

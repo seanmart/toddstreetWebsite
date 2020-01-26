@@ -1,4 +1,17 @@
 section{
-  @include padding;
   min-height: 100vh;
+}
+
+.fade-enter-active,
+.fade-leave-active{
+  transition: .75s;
+}
+
+.fade-leave-active{
+  position: absolute;
+}
+
+.fade-enter,
+.fade-leave-to{
+  opacity: 0;
 }

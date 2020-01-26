@@ -1,9 +1,10 @@
-import {getTop, getLeft, isArray, isInt, isFloat} from './utils'
+import {getTranslate,getTop, getLeft, isArray, isInt, isFloat, isObject} from './utils'
 
 export default class{
   constructor(el, params = {}){
 
     this.el = el
+    this.target = params.target ? params.target() : null
 
     // position
     this.top = 0
@@ -13,35 +14,33 @@ export default class{
     this.bottom = 0
     this.right = 0
 
-    // data
-    this.inView = false
-    this.offset = {x:0,y:0}
     this.data = {}
+    this.view = {
+      rendered: false,
+      visible: false
+    }
 
-    // actions
+    this.transform = true
+    this.padding = params.padding || 0
+    this.scroll = params.scroll || null
     this.onScroll = params.onScroll || null
-    this.onChange = params.onChange || null
+    this.onRender = params.onRender || null
+    this.onVisible = params.onVisible || null
+    this.onReveal = params.onReveal || null
     this.parallax = null
     this.sticky = null
-    this.padding = params.padding || 0
 
     if (params.parallax) this.data.parallax = this.sort(params.parallax)
     if (params.sticky) this.data.sticky = this.sort(params.sticky)
 
     this.update()
-
   }
 
   update(){
     this.getPosition()
+    this.offset = 0
     if (this.data.parallax) this.updateParallax()
     if (this.data.sticky) this.updateSticky()
-  }
-
-  updateTransition(x){
-    if (x === this.transition) return
-      this.el.style.transition = x ? 'transform 1s' : ''
-      this.transition = x
   }
 
   updateParallax(){
@@ -49,27 +48,15 @@ export default class{
     this.parallax = data ? this.setParallax(data) : null
   }
 
-  updateParallaxPosition(o,d){
-    let offset = o - this.parallax.offset
-    let distance = offset * this.parallax.speed[d]
-    return offset > 0 ? distance : 0
-  }
-
   updateSticky(){
     let data = this.findByMinimum(this.data.sticky)
     this.sticky = data ? this.setSticky(data) : null
   }
 
-  updateStickyPosition(o){
-    let offset = o - this.sticky.offset
-    let distance = offset - this.sticky.position
-    if (offset < 0) return 0
-    return offset <= this.sticky.duration ? distance : this.offset.y
-  }
-
   setParallax(data){
     return{
       offset: this.getValue(data.offset),
+      duration: this.getValue(data.duration),
       speed:{
         x: -parseFloat((this.getValue(data.xSpeed)/10).toFixed(3)),
         y: -parseFloat((this.getValue(data.ySpeed)/10).toFixed(3))
@@ -87,11 +74,11 @@ export default class{
 
   sort(data){
     if (!isArray(data)) return [data]
-    return data.sort((a,b)=>(a.min || 0) - (b.min || 0))
+    return data.sort((a,b)=>(b.min || 0) - (a.min || 0))
   }
 
   findByMinimum(data){
-    return data.reduce((a,c)=> c.min || 0 < window.innerWidth ? c : a ,null)
+    return data.reduce((a,c)=> (c.min || 0) < window.innerWidth && !a ? c : a,null)
   }
 
   getValue(value){
@@ -114,18 +101,19 @@ export default class{
   }
 
   getPosition(){
-    let top = getTop(this.el)
-    let left = getLeft(this.el)
+    let el = this.target || this.el
+
+    let top = getTop(el)
+    let left = getLeft(el)
 
     this.top = Math.max(top - window.innerHeight,0)
     this.left = Math.max(left - window.innerWidth,0)
-    this.width = this.el.offsetWidth
-    this.height = this.el.offsetHeight
+    this.width = el.offsetWidth
+    this.height = el.offsetHeight
     this.bottom = top + this.height
     this.right = left + this.width
 
   }
-
 
 
 }

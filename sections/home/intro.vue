@@ -1,241 +1,210 @@
 <template lang="html">
-  <section id="intro" v-scroll:section="{onChange: toggleVideo}">
+  <section id="intro" v-scroll:section>
 
     <div class="content">
-      <div class="top">
-        <reveal :play="ready" opposite class="logo" v-scroll="{parallax:{ySpeed:5},onChange: toggleNav}">
-          <logo/>
-        </reveal>
+
+      <div class="text">
+        <text-reveal class="line" :play="ready" :delay=".5" @done="setScroll(true)">
+          <div class="reveal-bottom" v-for="(line,i) in text" :key="i">
+            <component :is="line" v-scroll="textScroll(i)"/>
+          </div>
+        </text-reveal>
       </div>
 
-      <reveal :play="ready" class="text">
-        <p v-for="(line, i) in data.text" :key="i" v-html="line"/>
-      </reveal>
-    </div>
-
-    <div class="menu">
-
-      <div class="top">
-        <reveal class="hire-us" :play="ready" :delay=".5" opposite side>
-          <nuxt-link to="/">Hire Us</nuxt-link>
-        </reveal>
+      <div class="cta">
+        <text-reveal :play="ready" :delay="1">
+          <a href="#" class="reveal-left">Hire Us</a>
+        </text-reveal>
       </div>
 
-      <div class="label" v-scroll="{parallax:{ySpeed:1}}">
-        <reveal :play="ready" opposite :delay=".5" ><p>Explore</p></reveal>
-        <reveal class="line-container" :play="ready" :delay="1" side><div class="line"/></reveal>
-      </div>
+      <div class="info">
+          <text-reveal class="address" :play="ready" :delay="1.25">
+            <p v-for="line in address" class="reveal-bottom">{{line}}</p>
+          </text-reveal>
 
-
-
-      <reveal :play="ready" :delay=".5" class="links">
-        <nuxt-link v-for="(link, i) in navData.links" :key="i" :to="link.path" class="link">
-          <h3>{{link.label}}</h3>
-        </nuxt-link>
-      </reveal>
-
-      <div class="info" v-scroll="{parallax:{ySpeed:-1}}">
-
-        <reveal :play="ready" :delay="1" class="address">
-          <p v-for="line in navData.address">{{line}}</p>
-        </reveal>
-
-        <div class="social">
-          <reveal :play="ready" :delay="1" side horizontal>
-            <a v-for="item in navData.social" :href="item.link">
-              <icons :icon="item.icon"/>
+          <text-reveal class="social" :play="ready" :delay="1.5" horizontal>
+            <a v-for="soc in social" :href="soc.link" class="reveal-bottom">
+              <icons :icon="soc.icon"/>
             </a>
-          </reveal>
-        </div>
-
+          </text-reveal>
       </div>
+
     </div>
 
-
-    <fullscreen-video
-    play
-    class="video"
-    videoId="mpl8lcc842"
-    :hide="hideVideo"
-    v-scroll="{parallax:{ySpeed:-5}}"
-    />
+    <video-player :videoId="data.video" class="video" v-scroll="{parallax:{ySpeed: -5}}"/>
 
   </section>
 </template>
 
 <script>
-import reveal from "@/components/reveal";
-import fullscreenVideo from "@/components/fullscreenVideo";
-import logo from '@/components/logo'
-import icons from '@/components/icons'
 import navData from '@/assets/data/nav'
-import { mapState } from "vuex";
+import videoPlayer from '@/components/videoPlayer'
+import icons from '@/components/icons'
+import textReveal from '@/components/textReveal'
+import {mapState} from 'vuex'
+
+import textSwap from '@/components/textSwap'
+import Vue from 'vue'
+Vue.component('textSwap', textSwap)
+
 export default {
-  props: ["data"],
-  components: { reveal, fullscreenVideo, logo, icons },
+  components:{videoPlayer, icons, textReveal},
+  props:{
+    data: {type: Object, default: ()=> ({})}
+  },
   data(){
     return{
-      navData: navData,
-      hideVideo: false,
-      fadeVideo: null
+      social: navData.social,
+      address: navData.address
     }
   },
   mounted(){
-    this.$gsap.set('#intro .video', {opacity: 0})
-    this.fadeVideo = this.$gsap.to('#intro .video', 1,{opacity:0}).pause()
+    this.setScroll(false)
   },
-  computed: mapState(["ready"]),
-  watch: {
-    ready(r) {
-      r && this.$gsap.to("#intro .video", 5, { opacity: 0.3 });
+  computed:{
+    ...mapState(['ready']),
+    text(){
+      return this.data.text.split('<br/>').map(line => {
+        let data = line.match(/\[(.*?)\]/)
+        if (data){
+          return {
+            template: `<div>${line.replace(`[${data[1]}]`, `<text-swap :list="list" :speed="5"/>`)}</div>`,
+            props:{list: {type: null, default:()=>this.data[data[1]]}}
+          }
+        } else {
+          return{
+            template:`<div>${line}</div>`
+          }
+        }
+      })
     }
   },
   methods:{
-    toggleVideo(e){
-      this.hideVideo = !e.visible
+    textScroll(i){
+      return{
+        parallax:[
+          {min: 800,ySpeed: (this.text.length - i) / 2},
+          {min: 0,ySpeed: (this.text.length - i) / 4}
+        ]
+      }
     },
-    toggleNav(e){
-      this.$store.commit('setNav', !e.visible)
-    },
+    setScroll(x){
+      this.$store.commit('setScroll', x)
+    }
   }
-};
+}
 </script>
 
 <style lang="scss">
-#intro {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  min-height: 800px;
+  #intro{
+    @include padding();
+    overflow: hidden;
+    height: 100vh;
 
-  .top{
-    @include padding(false, false, false, true);
-    padding-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .content{
-    flex: 1 1 auto;
-  }
-
-  .logo{
-    svg{
-      fill: $snow;
-      height: 4vw;
-      min-height: 20px;
-      max-height: 80px;
-    }
-  }
-
-  .menu{
-    flex: 0 0 auto;
-    .hire-us{
-      text-align: right;
-      height: 4vw;
-    }
-    .label{
-      display: block;
+    .content{
       position: relative;
-      padding: 10px 0px;
-      .line-container{
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        .line{
-          border-bottom: 1px solid rgba($snow, .2);
-          height: 1px;
-          width: 100%;
+      height: 100%;
+    }
+
+    .text{
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .line{
+        flex: 0 0 auto;
+        display: inline-block;
+        font-size: $unit / 2;
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      .swap-item{
+        font-style: italic;
+        font-weight: bold;
+        letter-spacing: .2vw;
+        white-space: nowrap;
+        margin: 0px .4vw;
+      }
+    }
+
+    .info{
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      display: flex;
+      align-items: flex-end;
+
+      .address{
+        flex: 0 0 auto;
+        line-height: 140%;
+      }
+
+      .social{
+        flex: 0 0 auto;
+        padding-left: 20px;
+        a{
+          line-height: 0;
+          display: inline-block;
+          padding: 0px 20px;
+          fill: $snow;
+          svg{
+            width: 20px;
+          }
         }
       }
     }
-  }
 
-  .links{
-    padding: 40px 0px 30px;
-  }
+    .cta{
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+    }
 
-  .info{
-    display: flex;
-  }
+    .video{
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: -1;
+      width: 100vw;
+      height: 100vh;
+      opacity: .25;
+    }
 
-  .address{
-    flex: 0 0 auto;
-    padding: 8px;
-    padding-left: 0px;
-    p{
-      white-space: nowrap;
+    @media (min-width: $fullscreen){
+      .text .line{
+        font-size: 40px;
+      }
     }
-  }
-  .social{
-    flex: 1 1 auto;
-    text-align: right;
-    margin-left: 40px;
-    a{
-      display: inline-block;
-      padding: 10px;
-    }
-    svg{
-      height: 20px;
-      fill: $snow
-    }
-  }
 
-  .video {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: -1;
-  }
+    @media (max-width: $tablet){
+      .text .line{
+        font-size: 5vw;
+      }
+    }
 
-  //fonts
-  .text{
-    font-size: calc(15px + 1.5vw);
-    line-height: 140%;
-    font-weight: 200;
-  }
-  .hire-us{
-    font-size: 20px;
-    font-weight: 200;
-  }
-  .label{
-    font-size: 20px;
-    font-weight: 200;
-  }
-  .link{
-    font-size: calc(10px + 3vw);
-    line-height: 140%;
-  }
-  .address{
-    font-size: 20px;
-    line-height: 150%;
-    font-weight: 200;
-  }
+    @media (max-width: $mobile){
+      .text{
+        font-size: 5.5vw;
+      }
+      .info{
+        display: none;
+      }
+      .cta{
+        display: none;
+      }
+    }
 
-  @media (max-width: 1100px){
-    .social{
-      margin-left: -10px;
-      text-align: left;
-      margin-top: 30px;
+    @media (max-height: $mobileLandscape){
+      .text .line{
+        font-size: 6vh;
+      }
     }
-    .info{
-      flex-direction: column;
-    }
-  }
 
-  @media (max-width: $mobile){
-    min-height: inherit;
-    .content{
-      @include center
-    }
-    .menu{
-      display: none;
-    }
-    .logo{
-      display: none;
-    }
-  }
 
-}
+  }
 </style>

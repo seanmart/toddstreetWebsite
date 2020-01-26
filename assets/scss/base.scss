@@ -3,31 +3,31 @@ html{
   color: $snow;
 }
 
+@mixin padding($top:true, $right:true, $bottom:true, $left:true){
+  @if $top {padding-top: $unit}
+  @if $left {padding-left: $unit}
+  @if $right {padding-right: $unit}
+  @if $bottom {padding-bottom: $unit}
+
+  @media (min-width: $fullscreen){
+    @if $top {padding-top: 87.5px;}
+    @if $left {padding-left: 87.5px;}
+    @if $right {padding-right: 87.5px;}
+    @if $bottom {padding-bottom: 87.5px;}
+  }
+}
+
+@mixin sideWidth(){
+  width: $unit;
+  @media (min-width: $fullscreen){
+    width: 87.5px;
+  }
+}
+
 @mixin center{
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@mixin padding($top:true, $left:true, $right:true, $bottom:true){
-  @if $top {padding-top: 105px;}
-  @if $left {padding-left: 105px;}
-  @if $right {padding-right: 105px;}
-  @if $bottom {padding-bottom: 105px;}
-
-  @media (max-width: $tablet){
-    @if $top {padding-top: 10vw;}
-    @if $left {padding-left: 10vw;}
-    @if $right {padding-right: 10vw;}
-    @if $bottom {padding-bottom: 10vw;}
-  }
-
-  @media (max-width: $mobile){
-    @if $top {padding-top: 30px;}
-    @if $left {padding-left: 30px;}
-    @if $right {padding-right: 30px;}
-    @if $bottom {padding-bottom: 30px;}
-  }
 }
 
 @mixin side{
@@ -40,4 +40,19 @@ html{
   @media (max-width: $mobile){
     width: 30px;
   }
+}
+
+@function stroke($stroke, $color) {
+  $shadow: ();
+  $from: $stroke*-1;
+  @for $i from $from through $stroke {
+   @for $j from $from through $stroke {
+      $shadow: append($shadow, $i*1px $j*1px 0 $color, comma);
+    }
+  }
+  @return $shadow;
+}
+
+@mixin stroke($stroke, $color) {
+  text-shadow: stroke($stroke, $color);
 }

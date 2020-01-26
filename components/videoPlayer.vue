@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="fullscreen-video" v-if="videoId" :class="{hide}">
-    <div class="inner">
+  <div class="video-player" v-if="videoId" :class="{hide}">
+    <div class="video-player-wrapper" v-scroll="{onRender}">
       <div
         :id="videoId"
         :class="`wistia_embed wistia_async_${videoId} videoFoam=true`"
@@ -12,59 +12,51 @@
 <script>
 export default {
   props: {
-    videoId: { type: String, default: null },
-    play: Boolean,
-    hide: Boolean
+    videoId: { type: String, default: null }
   },
   data() {
     return {
-      wistia: null
+      wistia: null,
+      hide: false
     };
   },
   mounted() {
-    if (!window.Wistia) return
     this.setVideo();
   },
-  watch: {
-    play(play) {
-      this.wistia && this.toggleVideo(play);
-    },
+  watch:{
     hide(hide){
-      this.wistia && this.toggleVideo(!hide);
-    },
-    wistia(w) {
-      if (w) {
-        !this.play && this.wistia.pause();
-      }
+      this.toggleVideo()
     }
   },
   methods: {
+    onRender(visible){
+      if (!this.wistia) return
+      this.hide = !visible
+    },
     setVideo() {
       let interval;
+
       let check = () => {
+        if (!Wistia) return
         let w = Wistia.api(`${this.videoId}`);
         if (w) {
           clearInterval(interval);
           this.wistia = w;
+          this.toggleVideo()
         }
       };
+
       interval = setInterval(check, 100);
     },
-    toggleVideo(play) {
-      if (play) {
-        this.wistia.play();
-      } else {
-        this.wistia.pause();
-      }
+    toggleVideo(){
+      this.hide ? this.wistia.pause() : this.wistia.play()
     }
   }
 };
 </script>
 
 <style lang="scss">
-.fullscreen-video {
-  height: 100vh;
-  width: 100vw;
+.video-player {
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -74,7 +66,7 @@ export default {
     opacity: 0;
   }
 
-  .inner {
+  .video-player-wrapper {
     flex: 0 0 177.777vh;
     min-width: 100vw;
     min-height: 100vh;

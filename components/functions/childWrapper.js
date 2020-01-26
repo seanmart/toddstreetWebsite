@@ -9,11 +9,13 @@ export default{
     let childs = []
     children.forEach(c => {
       if (c.tag){
-        if (!c.data) c.data= {}
-        if (c.data.staticClass){
-          c.data.staticClass += ' ' + props.childClass
-        } else {
-          c.data.staticClass = props.childClass
+        if (props.childClass){
+          if (!c.data) c.data= {}
+          if (c.data.staticClass){
+            c.data.staticClass += ' ' + props.childClass
+          } else {
+            c.data.staticClass = props.childClass
+          }
         }
         childs.push(c)
       }
