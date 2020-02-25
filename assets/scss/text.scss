@@ -1,0 +1,26 @@
+html{
+  font-family: merriweather, serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.header,h1{
+  font-family: titular, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.medium-header,h2,h3{
+  font-family: titular, sans-serif;
+  font-weight: 400;
+}
+
+.small-header,h4,h5{
+  font-family: titular, sans-serif;
+  font-weight: 600;
+}
+
+.body-copy, p{
+  line-height: 170%;
+  font-weight: 300;
+}

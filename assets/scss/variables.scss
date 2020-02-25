@@ -1,0 +1,40 @@
+//colors
+$midnight: #050811;
+$charcoal: #717682;
+$snow: #f5f5f5;
+$ruby: #e53935;
+$creme: #e4e9ed;
+$storm: #343638;
+$events: #0a6df5;
+
+//media
+$fullscreen: 1400px;
+$tablet: 1000px;
+$tabletLandscape: 800px;
+$mobile: 600px;
+$mobileLandscape: 400px;
+
+//sizing
+$site-content-width: 1200px;
+$unit: 100px;
+$unit-tablet: 60px;
+$unit-mobile: 30px;
+
+:export {
+  siteContentWidth: $site-content-width;
+  unit: $unit;
+  unitTablet: $unit-tablet;
+  unitMobile: $unit-mobile;
+  fullscreen: $fullscreen;
+  tablet: $tablet;
+  tabletLandscape: $tabletLandscape;
+  mobile: $mobile;
+  mobileLandscape: $mobileLandscape;
+  midnight: $midnight;
+  charcoal: $charcoal;
+  snow: $snow;
+  ruby: $ruby;
+  creme: $creme;
+  storm: $storm;
+  events: $events;
+}

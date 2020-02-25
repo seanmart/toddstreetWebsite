@@ -1,0 +1,23 @@
+{
+  "name": "website_v7.0",
+  "version": "1.0.0",
+  "description": "My phenomenal Nuxt.js project",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "gsap": "^3.1.1",
+    "nuxt": "^2.0.0",
+    "virtual-scroll": "^1.5.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2"
+  }
+}
