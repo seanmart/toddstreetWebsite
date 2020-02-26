@@ -91,7 +91,13 @@ export default class extends Core{
   }
 
   addSection(el, params = {}){
-    this.elements.push(new Element(el, {...params, scroll: true}))
+
+    let onMount = (mounted)=>{
+      el.style.visibility = mounted ? 'visible' : 'hidden'
+      params.onMount && params.onMount()
+    }
+
+    this.elements.push(new Element(el, {...params, scroll: true, padding: 500, onMount}))
   }
 
 

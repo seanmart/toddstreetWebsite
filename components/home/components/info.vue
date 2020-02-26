@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="info-section" v-scroll="{onScroll,onLeaveTop}" :class="{reverse}">
-    <!--<div class="circle" v-scroll="circleScroll" :style="circleStyles"/>-->
+    <div class="circle" v-scroll="circleScroll" :style="circleStyles"/>
     <h2 v-html="subtitle" ref="subtitle"/>
     <h1  v-for="(line,i) in titleLines" :key="i" v-html="line" ref="title"/>
     <div class="line main" ref="mainline"/>
@@ -156,13 +156,6 @@ export default {
     }
   }
 
-  @media (max-width:$tablet){
-    padding: $unit-tablet;
-  }
-  @media (max-width: $mobile){
-    padding: $unit-mobile;
-  }
-
   &.reverse{
     text-align: right;
     .circle{
@@ -175,6 +168,46 @@ export default {
         padding-left: $unit;
       }
     }
+  }
+
+  @media (max-width:$tablet){
+    padding: $unit-tablet;
+
+    h1{
+      font-size: 17vw;
+      line-height: 75%;
+    }
+    
+    &.reverse .content,
+    .content{
+      flex-direction: column;
+
+      .description{
+        flex: 0 0 auto;
+        padding: 0px 0px $unit-tablet;
+        font-size: 3.5vw;
+      }
+
+      .offerings{
+        flex: 0 0 auto;
+
+        h3{
+          font-size: 5vw;
+        }
+
+        .offer{
+
+          h4{
+            flex: 0 0 50%;
+            font-size: 2.5vw;
+          }
+        }
+      }
+    }
+
+  }
+  @media (max-width: $mobile){
+    padding: $unit-mobile;
   }
 
 }

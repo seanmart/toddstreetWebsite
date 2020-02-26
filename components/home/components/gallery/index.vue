@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="gallery-section" v-scroll="{onLeaveTop}">
+  <div class="gallery-section">
     <template v-for="(image,i) in images" >
-      <gallery-item :key="i" :image="image" :index="i + 1" :hide="triggerHide"/>
+      <gallery-item :key="i" :image="image" :index="i + 1" />
     </template>
   </div>
 </template>
@@ -13,16 +13,6 @@ export default {
   props:{
     images:{type: Array, default: ()=>[]}
   },
-  data(){
-    return{
-      triggerHide: null
-    }
-  },
-  methods:{
-    onLeaveTop(){
-      this.triggerHide = Date.now()
-    }
-  }
 }
 </script>
 
@@ -35,10 +25,10 @@ export default {
   padding: 0px $unit;
 
   @media (max-width:$tablet){
-    padding: $unit-tablet / 4 * 3;
+    padding: $unit-tablet;
   }
   @media (max-width: $mobile){
-
+    padding: $unit-mobile
   }
 }
 </style>

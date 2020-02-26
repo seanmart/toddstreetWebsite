@@ -126,8 +126,6 @@ export default class {
     scroll.top = props.scrollTop || instance.scroll.y
     scroll.bottom = scroll.top + this.windowHeight
 
-    let count = 0
-
     elements.forEach((current, i)=>{
 
       let bottom = current.bottom + current.offset
@@ -136,8 +134,6 @@ export default class {
         mounted: current.top - current.padding <= scroll.top && bottom + current.padding > scroll.top,
         visible: current.top <= scroll.top && bottom > scroll.top
       }
-
-      count++
 
       if (!current.view.mounted && !view.mounted) return
       let scrolled = scroll.top - Math.max(current.top,0)
@@ -149,15 +145,13 @@ export default class {
         let transform = {
           x:0,
           y:0,
-          s: 0,
-          r: 0,
-          changed: false,
+          s:0,
+          r:0,
           offset: 0
         }
 
         // transform
         if (current.transform){
-          transform.changed = true
 
           let tOffset = Math.max(scrolled - current.transform.offset,0)
           if (current.transform.duration) tOffset = Math.min(parallaxOffset,current.transform.duration)
@@ -173,7 +167,6 @@ export default class {
 
         // sticky
         if (current.sticky){
-          transform.changed = true
           let stickyOffset = Math.min(Math.max(scrolled - current.sticky.offset,0),current.sticky.duration)
           transform.y += stickyOffset - current.sticky.position
           transform.offset += transform.y
@@ -181,13 +174,12 @@ export default class {
 
         // scroll
         if (current.scroll){
-          transform.changed = true
           let scrollDistance = scroll.top + transform.y
           if (current.scroll.duration) scrollDistance = Math.min(scrollDistance, current.scroll.duration)
           transform.y -= scrollDistance
         }
 
-        if (update && transform.changed) {
+        if (update) {
           current.el.style.transition = transition ? 'transform 1s' : ''
           this.transform(current.el, transform.y,transform.x,transform.r,transform.s)
         }
@@ -198,42 +190,50 @@ export default class {
 
       // EVENTS --------------------------------------------------------------
 
-      if (view.visible){
+      if (view.visible !== current.view.visible){
 
-        // enter events
-        if (view.visible !== current.view.visible && update){
-          let fromTop = current.bottom > scroll.top && current.top < scroll.top
-          let fromBottom = current.top < scroll.top && current.top < scroll.top
+        if (view.visible){
+          // enter events
           current.onEnter && current.onEnter()
-          current.onEnterTop && fromTop && current.onEnterTop()
-          current.onEnterBottom && fromBottom && current.onEnterBottom()
-        }
-      } else {
+          current.onEnterTop && bottom > scroll.bottom && current.onEnterTop()
+          current.onEnterBottom && current.top < scroll.top && current.onEnterBottom()
 
-        // leave events
-        if (view.visible !== current.view.visible && update){
+          if (current.track){
+            current.onEnter && console.log('ran onEnter for ' + current.track)
+            current.onEnterTop && bottom > scroll.bottom && console.log('ran onEnterTop for ' + current.track)
+            current.onEnterBottom && current.top < scroll.top && console.log('ran onEnterBottom for ' + current.track)
+          }
+
+        } else {
+          // leave events
           current.onLeave && current.onLeave()
           current.onLeaveTop && current.top > scroll.top && current.onLeaveTop()
           current.onLeaveBottom && bottom < scroll.top && current.onLeaveBottom()
+
+          if (current.track){
+            current.onLeave && console.log('ran onLeave for ' + current.track)
+            current.onLeaveTop && current.top > scroll.top && console.log('ran onLeaveTop for ' + current.track)
+            current.onLeaveBottom && bottom < scroll.top && console.log('ran onLeaveBottom for ' + current.track)
+          }
         }
       }
 
-      // SCROLL --------------------------------------------------------------
+      // mount
+      if (current.onMount && view.mounted != current.view.mounted){
+        current.onMount(view.mounted)
+      }
 
-      if (view.visible || view.visible !== current.view.visible){
-
-        // scroll
-        if (current.onScroll){
-          current.onScroll({
-            scroll: instance.scroll,
-            delta: instance.delta,
-            scrolled: scrolled,
-            percent: parseFloat(Math.min(Math.max((scroll.top - current.top) / (bottom - current.top),0), 1).toFixed(4)),
-            entering: bottom > scroll.bottom,
-            onScreen: bottom < scroll.bottom,
-            leaving:current.top < scroll.top
-          })
-        }
+      // scroll
+      if (current.onScroll && (view.visible || view.visible !== current.view.visible)){
+        current.onScroll({
+          scroll: instance.scroll,
+          delta: instance.delta,
+          scrolled: scrolled,
+          percent: parseFloat(Math.min(Math.max((scroll.top - current.top) / (bottom - current.top),0), 1).toFixed(4)),
+          entering: bottom > scroll.bottom,
+          onScreen: bottom < scroll.bottom,
+          leaving:current.top < scroll.top
+        })
       }
 
       current.view = view

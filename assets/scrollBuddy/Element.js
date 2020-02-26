@@ -35,6 +35,9 @@ export default class{
     this.onLeaveBottom = params.onLeaveBottom || null
     this.onEnter = params.onEnter || null
     this.onLeave = params.onLeave || null
+    this.onMount = params.onMount || null
+
+    this.track = params.track || null
 
     if (params.transform) this.data.transform = this.sort(params.transform)
     if (params.sticky) this.data.sticky = this.sort(params.sticky)
@@ -104,7 +107,7 @@ export default class{
   }
 
   findByMinimum(data){
-    return data.reduce((a,c)=> (c.min || 0) < window.innerWidth && !a ? c : a,null)
+    return data.reduce((a,c)=> (parseInt(c.min) || 0) < window.innerWidth && !a ? c : a,null)
   }
 
   getValue(value){
