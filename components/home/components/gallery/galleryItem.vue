@@ -23,7 +23,7 @@ export default {
   mounted(){
     this.animation = this.$gsap.timeline({paused: true})
     this.animation.fromTo(this.$refs.image,1,{y:'-10%'},{y:'10%', ease: 'linear'},0)
-    this.animation.fromTo(this.$refs.content,.3,{y:'50px'},{y:'0%', ease: 'power2.out'},0)
+    this.animation.fromTo(this.$refs.content,.3,{y:'100px'},{y:'0%', ease: 'power2.out'},0)
   },
   computed:{
     scrollProps(){
