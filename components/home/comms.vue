@@ -21,7 +21,5 @@ export default {
 </script>
 
 <style lang="scss">
-#comms{
-  padding: $unit 0px;
-}
+
 </style>

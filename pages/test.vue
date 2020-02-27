@@ -3,9 +3,7 @@
     <div class="boxes" v-scroll:section>
 
       <template v-for="i in 1000">
-        <div class="box" :key="i" :style="photo()" v-scroll="{transform:{
-          rotate: i * 1
-        }}"/>
+        <div class="box" :class="`item-${i}`" :key="i" :style="photo()" v-scroll="{rotate: i * .001, x: rnd(-2,2), y:rnd(-5,5)}"/>
       </template>
 
       </div>

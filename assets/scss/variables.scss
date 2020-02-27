@@ -15,16 +15,16 @@ $mobile: 600px;
 $mobileLandscape: 400px;
 
 //sizing
-$site-content-width: 1200px;
-$unit: 100px;
-$unit-tablet: 60px;
-$unit-mobile: 30px;
+$site-content-width: 1000px;
+$site-padding: 100px;
+$site-padding-tablet: 70px;
+$site-padding-mobile: 25px;
 
 :export {
   siteContentWidth: $site-content-width;
-  unit: $unit;
-  unitTablet: $unit-tablet;
-  unitMobile: $unit-mobile;
+  sitePadding: $site-padding;
+  sitePaddingTablet: $site-padding-tablet;
+  sitePaddingMobile: $site-padding-mobile;
   fullscreen: $fullscreen;
   tablet: $tablet;
   tabletLandscape: $tabletLandscape;

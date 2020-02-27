@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="gallery-section">
     <template v-for="(image,i) in images" >
-      <gallery-item :key="i" :image="image" :index="i + 1" />
+      <gallery-item :key="i" :image="image" :index="i + 1"/>
     </template>
   </div>
 </template>
@@ -12,7 +12,7 @@ export default {
   components:{galleryItem},
   props:{
     images:{type: Array, default: ()=>[]}
-  },
+  }
 }
 </script>
 
@@ -22,13 +22,14 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  padding: 0px $unit;
+  padding: 0px $site-padding;
+  margin: 0px -1vw;
 
   @media (max-width:$tablet){
-    padding: $unit-tablet;
+    padding: $site-padding-tablet;
   }
   @media (max-width: $mobile){
-    padding: $unit-mobile
+    padding: $site-padding-mobile
   }
 }
 </style>

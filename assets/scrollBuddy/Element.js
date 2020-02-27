@@ -5,109 +5,57 @@ export default class{
     this.el = el
     this.target = params.target ? params.target() : null
 
-    // position
     this.top = 0
     this.left = 0
     this.width = 0
     this.height = 0
     this.bottom = 0
     this.right = 0
-    this.offset = 0
 
     this.getPosition()
 
-    this.padding = params.scroll ? 500 : 0
-
-    this.view = {
-      mounted: this.top - this.padding < 0,
-      visible: this.top < 0,
-    }
-
-    this.data = {}
-
-    this.transform = null
-    this.sticky = null
-
+    // events
     this.onScroll = params.onScroll || null
-    this.onEnterTop = params.onEnterTop || null
-    this.onLeaveTop = params.onLeaveTop || null
-    this.onEnterBottom = params.onEnterBottom || null
-    this.onLeaveBottom = params.onLeaveBottom || null
     this.onEnter = params.onEnter || null
+    this.onEnterTop = params.onEnterTop || null
+    this.onEnterBottom = params.onEnterBottom || null
     this.onLeave = params.onLeave || null
-    this.onMount = params.onMount || null
+    this.onLeaveTop = params.onLeaveTop || null
+    this.onLeaveBottom = params.onLeaveBottom || null
+    this.onReady = params.onReady || null
+    this.onResize = params.onResize || null
 
-    this.track = params.track || null
+    //transform
+    this.section = params.section || false
+    this.scroll = params.scroll || null
+    this.x = params.x ? -this.getValue(params.x) / 10 : null
+    this.y = params.y ? -this.getValue(params.y) / 10 : null
+    this.rotate = params.rotate ? this.getValue(params.rotate) / 10 : null
+    this.scale = params.scale ? this.getValue(params.scale) / 1000 : null
+    this.sticky = params.sticky ? this.getValue(params.sticky) : null
+    this.duration = params.duration ? this.getValue(params.duration) : null
+    this.offset = params.offset ? this.getValue(params.offset) : null
 
-    if (params.transform) this.data.transform = this.sort(params.transform)
-    if (params.sticky) this.data.sticky = this.sort(params.sticky)
-    if (params.scroll) this.data.scroll = this.sort(params.scroll)
-
-
-    if (this.data.transform) this.updateTransform()
-    if (this.data.sticky) this.updateSticky()
-    if (this.data.scroll) this.updateScroll()
+    // state
+    this.padding = this.scroll ? 500 : params.padding || 0
+    this.visible = this.top < 0
+    this.inView = this.top - this.padding < 0
+    this.bottomOffset = 0
 
   }
 
   update(){
+    if (this.onResize){
+      let params = this.onResize()
+      if (params.x !== undefined) this.x = params.x ? -this.getValue(params.x) / 10 : null
+      if (params.y !== undefined) this.y = params.y ? -this.getValue(params.y) / 10 : null
+      if (params.scale !== undefined) this.scale = params.scale ? this.getValue(params.scale) / 1000 : null
+      if (params.sticky !== undefined) this.sticky = params.sticky ? this.getValue(params.sticky) : null
+      if (params.duration !== undefined) this.duration = params.duration ? this.getValue(params.duration) : null
+      if (params.offset !== undefined) this.offset = params.offset ? this.getValue(params.offset) : null
+    }
+
     this.getPosition()
-    this.offset = 0
-
-    if (this.data.transform) this.updateTransform()
-    if (this.data.sticky) this.updateSticky()
-    if (this.data.scroll) this.updateScroll()
-
-  }
-
-  updateTransform(){
-    let data = this.findByMinimum(this.data.transform)
-    this.transform = data ? this.setTransform(data) : null
-  }
-
-  updateSticky(){
-    let data = this.findByMinimum(this.data.sticky)
-    this.sticky = data ? this.setSticky(data) : null
-  }
-
-  updateScroll(){
-    let data = this.findByMinimum(this.data.scroll)
-    this.scroll = data ? this.setScroll(data) : null
-  }
-
-  setTransform(data = {}){
-    return{
-      offset: this.getValue(data.offset),
-      duration: this.getValue(data.duration),
-      r: parseFloat((this.getValue(data.rotate)/100).toFixed(3)),
-      s: parseFloat((this.getValue(data.scale)/1000).toFixed(3)),
-      x: -parseFloat((this.getValue(data.x)/10).toFixed(3)),
-      y: -parseFloat((this.getValue(data.y)/10).toFixed(3))
-    }
-  }
-
-  setSticky(data = {}){
-    return{
-      offset: !data.position ? this.getValue(data.offset) : 0,
-      position: this.getValue(data.position),
-      duration: this.getValue(data.duration)
-    }
-  }
-
-  setScroll(data = {}){
-    return{
-      duration: data.duration ? this.getValue(data.duration) : null,
-      reverse: data.reverse || false
-    }
-  }
-
-  sort(data){
-    if (!isArray(data)) return [data]
-    return data.sort((a,b)=>(b.min || 0) - (a.min || 0))
-  }
-
-  findByMinimum(data){
-    return data.reduce((a,c)=> (parseInt(c.min) || 0) < window.innerWidth && !a ? c : a,null)
   }
 
   getValue(value){
@@ -143,6 +91,5 @@ export default class{
     this.right = left + this.width
 
   }
-
 
 }

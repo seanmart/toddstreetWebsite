@@ -20,7 +20,5 @@ export default {
 </script>
 
 <style lang="scss">
-#events{
-  padding: 120px 0px;
-}
+
 </style>

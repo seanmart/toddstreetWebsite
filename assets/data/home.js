@@ -14,7 +14,7 @@ export default{
       'Illustrators'
     ],
     image: 'events/events1.jpg',
-    wistia: '0txiy730ui'
+    //wistia: '0txiy730ui'
   },
   events:{
     subtitle: 'We Produce',

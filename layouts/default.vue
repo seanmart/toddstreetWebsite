@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="site">
     <top/>
     <nuxt />
   </div>
@@ -10,3 +10,9 @@ export default{
   components:{top}
 }
 </script>
+<style lang="scss">
+  #site{
+    width: 100vw;
+    overflow: hidden;
+  }
+</style>

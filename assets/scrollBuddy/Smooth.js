@@ -91,13 +91,7 @@ export default class extends Core{
   }
 
   addSection(el, params = {}){
-
-    let onMount = (mounted)=>{
-      el.style.visibility = mounted ? 'visible' : 'hidden'
-      params.onMount && params.onMount()
-    }
-
-    this.elements.push(new Element(el, {...params, scroll: true, padding: 500, onMount}))
+    this.elements.push(new Element(el, {...params, scroll: true}))
   }
 
 
@@ -127,7 +121,7 @@ export default class extends Core{
     clearTimeout(this.instance.scrollbar.delayHide)
     this.scrollbar.el.style.opacity = 1
     let distance = this.windowHeight * (this.instance.scroll.y / (this.instance.limit + this.windowHeight))
-    this.transform(this.scrollbar.el,distance,0)
+    this.transform(this.scrollbar.el,{y:distance})
     this.instance.scrollbar.delayHide = setTimeout(()=> this.scrollbar.el.style.opacity = 0, 300)
   }
 

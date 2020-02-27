@@ -20,7 +20,5 @@ export default {
 </script>
 
 <style lang="scss">
-#training{
-  padding: $unit 0px;
-}
+
 </style>

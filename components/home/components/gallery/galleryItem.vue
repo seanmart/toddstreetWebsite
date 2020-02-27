@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="gallery-item">
-    <div class="content" ref="content">
-      <div class="image-container" v-scroll="scrollProps">
+    <div class="content" :class="{show}">
+      <div class="image-container" v-scroll="itemScroll">
         <div class="image" ref="image" :style="{backgroundImage: `url(${image})`}"/>
       </div>
     </div>
@@ -14,27 +14,32 @@ export default {
   props:{
     image: {type:String,default: null},
     index: {type: Number, default: 0},
+    hide: [String,Number,Boolean]
   },
   data(){
     return{
+      show: false,
       animation: null
     }
   },
   mounted(){
-    this.animation = this.$gsap.timeline({paused: true})
-    this.animation.fromTo(this.$refs.image,1,{y:'-10%'},{y:'10%', ease: 'linear'},0)
-    this.animation.fromTo(this.$refs.content,.3,{y:'100px'},{y:'0%', ease: 'power2.out'},0)
+    this.animation = this.$gsap.fromTo(this.$refs.image,1,{y:'-10%'},{y:'10%', ease: 'linear'}).pause()
   },
   computed:{
-    scrollProps(){
+    itemScroll(){
       let count = this.index > 8 ? this.index % 8 : this.index
-      let props = {}
+      let parallax = [2,3,5,8].indexOf(count) > -1 ? 2 : null
 
-      props.onScroll = (e)=> this.animation.progress(e.percent)
+      let onScroll = (e)=> {
+        this.show = true
+        this.animation && this.animation.progress(e.percent)
+      }
 
-      if ([2,3,5,8].indexOf(count) > -1) props.transform = {min: vars.tablet, y: 2}
+      let onResize = ()=>{
+        return {y:window.innerWidth < parseInt(vars.tablet) ? null : parallax }
+      }
 
-      return props
+      return {y: parallax, onScroll, onResize}
     }
   }
 }
@@ -45,12 +50,18 @@ export default {
   align-self: flex-end;
   flex: 0 0 auto;
   width: 33.333%;
-  padding: $unit / 10;
+  padding: 1vw;
 
   .content{
     padding-bottom: 130%;
     width: 100%;
     position: relative;
+    transform: translateY(50%);
+    transition: transform 1s;
+
+    &.show{
+      transform: translateY(0px);
+    }
 
     .image-container{
       overflow: hidden;
@@ -101,9 +112,9 @@ export default {
   }
 
 
-  @media (max-width:$tablet) and (min-width: $mobile){
-    padding: $unit-tablet / 10;
+  @media (max-width:$tablet) and (min-width: $mobile + 1){
     width: 50%;
+    transform: translateY(0px);
 
     &:nth-child(even){
       .image-container{
@@ -114,7 +125,6 @@ export default {
 
   }
   @media (max-width: $mobile){
-    padding: 0px;
     width: 100%;
   }
 
