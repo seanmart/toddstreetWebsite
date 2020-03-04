@@ -20,13 +20,15 @@ export default {
   ],
   styleResources: {
     scss: [
-      "~assets/scss/variables.scss"
+      "~assets/scss/text.scss",
+      "~assets/scss/color.scss",
+      "~assets/scss/size.scss",
+      "~assets/scss/space.scss"
     ]
   },
   css: [
     '~assets/scss/reset.scss',
     '~assets/scss/transitions.scss',
-    '~assets/scss/text.scss',
     '~assets/scss/base.scss'
   ],
   plugins: [

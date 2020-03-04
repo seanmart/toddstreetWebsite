@@ -1,23 +1,16 @@
 <template lang="html">
-  <component  :is="tag" class="swap">
+  <div class="swap">
     <transition name="swap">
-      <ul :key="index" class="swap-item">
-        <li
-          class="swap-letter"
-          v-for="(letter,i) in letters"
-          :key="i"
-          v-html="letter"
-          :style="{transitionDelay: `${i * (.3/letters.length)}s`}"
-          />
-      </ul>
+      <div :key="index" class="swap-item">{{list[index]}}</div>
     </transition>
-  </component>
+  </div>
 </template>
 
 <script>
+import split from './split'
 export default {
+  components:{split},
   props:{
-    tag: {type: String, default: 'p'},
     list: {type:Array, default: ()=>[]},
     speed: {type: Number, default: 1}
   },
@@ -31,11 +24,10 @@ export default {
       let i = this.index + 1
       this.index = i === this.list.length ? 0 : i
     },this.speed * 1000)
-
   },
   computed:{
-    letters(){
-      return this.list[this.index].split('').map(l => l === ' ' ? '&nbsp' : l)
+    listItem(){
+      return this.list[this.index].split('').map(l => l.replace(' ', '&nbsp'))
     }
   }
 }
@@ -44,32 +36,28 @@ export default {
 <style lang="scss">
 .swap{
   display: inline-block;
+  width: 100%;
   position: relative;
+  overflow: hidden;
 
   .swap-item{
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-
-    .swap-letter{
-      transition: transform 1s, opacity 1s;
-    }
+    line-height: 100%;
   }
 }
 
 .swap-enter-active,
 .swap-leave-active{
-  transition: transform 1s, opacity 1s;
+  transition: 1s;
 }
 
 .swap-leave-active{
   position: absolute;
 }
 
-.swap-enter .swap-letter{
+.swap-enter{
   transform: translateY(100%);
 }
-.swap-leave-to .swap-letter{
+.swap-leave-to{
   transform: translateY(-100%);
 }
 </style>

@@ -91,7 +91,7 @@ export default class extends Core{
   }
 
   addSection(el, params = {}){
-    this.elements.push(new Element(el, {...params, scroll: true}))
+    this.elements.push(new Element(el, {...params, scroll: true, section: true, padding: '100vh'}))
   }
 
 

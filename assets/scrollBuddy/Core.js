@@ -81,7 +81,7 @@ export default class {
   }
 
   addElement(el,params = {}){
-    if (params.cancel) return
+    if (Object.keys(params).length == 0) return
     this.elements.push(new Element(el, params))
   }
 
@@ -114,16 +114,19 @@ export default class {
 
       // position ===============================================
 
-      let top = current.offset
-                ? current.top + current.offset
+      let top = current.offsetTop
+                ? current.top + current.offsetTop
                 : current.top
 
       let bottom = current.duration
-                   ? current.top + current.duration
+                   ? top + current.duration
                    : current.bottom + current.bottomOffset
+
+      if (current.offsetBottom) bottom += current.offsetBottom
 
       let inView = top - current.padding <= scrollTop && bottom + current.padding >= scrollTop
       let below = top > scrollTop
+      let above = bottom < scrollTop
       let visible = top <= scrollTop && bottom >= scrollTop
 
       let transform = {y: 0, x: 0, scale: 1, rotate: 0, scroll: 0 }
@@ -131,21 +134,34 @@ export default class {
 
       // transforms ===============================================
 
-      if (inView){
+      if (current.transform && (inView || visible !== current.visible) ){
+
         let y = 0
         if (current.scroll) transform.y -= Math.max(top,0) + scrolled
         if (current.y) y += scrolled * current.y
-        if (current.sticky) y += scrolled - current.sticky
+        if (current.sticky) y += scrolled
         if (current.x) transform.x += scrolled * current.x
-        if (current.scale) transform.scale += 1 + scrolled * current.scale
+        if (current.scale) transform.scale += scrolled * current.scale
         if (current.rotate) transform.rotate += scrolled * current.rotate
 
         current.bottomOffset = y
         transform.y += y
 
         this.transform(current.el, transform, transition)
-      } else if (below && current.inView){
-        this.transform(current.el, transform, transition)
+
+      }
+
+      // section ===============================================
+
+      if (current.section && current.inView !== inView){
+        if (inView){
+          current.el.style.opacity = 1
+          current.el.style.pointerEvents = 'all'
+        } else {
+          current.el.style.opacity = 0
+          current.el.style.pointerEvents = 'none'
+          this.transform(current.el, {x:0,y:0,scale: 1,rotate:0}, transition)
+        }
       }
 
       // onscroll ===============================================
@@ -166,13 +182,13 @@ export default class {
 
       if (current.visible !== visible){
         if (visible){
-          if (current.onEnterBottom && below) current.onEnterBottom()
-          if (current.onEnterTop && !below) current.onEnterTop()
-          if (current.onEnter) current.onEnter()
+          if (current.onEnterBottom && below) current.onEnterBottom(current.el)
+          if (current.onEnterTop && !below) current.onEnterTop(current.el)
+          if (current.onEnter) current.onEnter(current.el)
         } else {
-          if (current.onLeaveBottom && below) current.onLeaveBottom()
-          if (current.onLeaveTop && !below) current.onLeaveTop()
-          if (current.onLeave) current.onLeave()
+          if (current.onLeaveBottom && !below) current.onLeaveBottom(current.el)
+          if (current.onLeaveTop && below) current.onLeaveTop(current.el)
+          if (current.onLeave) current.onLeave(current.el)
         }
       }
 

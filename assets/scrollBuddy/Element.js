@@ -28,34 +28,48 @@ export default class{
     //transform
     this.section = params.section || false
     this.scroll = params.scroll || null
+    this.sticky = params.sticky || null
     this.x = params.x ? -this.getValue(params.x) / 10 : null
     this.y = params.y ? -this.getValue(params.y) / 10 : null
     this.rotate = params.rotate ? this.getValue(params.rotate) / 10 : null
-    this.scale = params.scale ? this.getValue(params.scale) / 1000 : null
-    this.sticky = params.sticky ? this.getValue(params.sticky) : null
+    this.scale = params.scale ? this.getValue(params.scale) / 10000 : null
     this.duration = params.duration ? this.getValue(params.duration) : null
-    this.offset = params.offset ? this.getValue(params.offset) : null
+    this.offsetTop = params.offsetTop ? this.getValue(params.offsetTop) : null
+    this.offsetBottom = params.offsetBottom ? this.getValue(params.offsetBottom) : null
 
     // state
-    this.padding = this.scroll ? 500 : params.padding || 0
+    this.padding = params.padding ? this.getValue(params.padding) : 0
     this.visible = this.top < 0
     this.inView = this.top - this.padding < 0
     this.bottomOffset = 0
+    this.transform = this.sticky || this.rotate || this.scale || this.y || this.x || this.scroll
+
+    this.params = params
+    this.onReady && this.onReady(this.el)
 
   }
 
   update(){
+
+    this.getPosition()
+
+    if (this.x) this.x = -this.getValue(this.params.x) / 10
+    if (this.y) this.y = -this.getValue(this.params.y) / 10
+    if (this.scale) this.scale = this.getValue(this.params.scale) / 1000
+    if (this.duration) this.duration = this.getValue(this.params.duration)
+    if (this.offset) this.offset = this.getValue(this.params.offset)
+    if (this.padding) this.padding = this.getValue(this.params.padding)
+
+
     if (this.onResize){
       let params = this.onResize()
       if (params.x !== undefined) this.x = params.x ? -this.getValue(params.x) / 10 : null
       if (params.y !== undefined) this.y = params.y ? -this.getValue(params.y) / 10 : null
       if (params.scale !== undefined) this.scale = params.scale ? this.getValue(params.scale) / 1000 : null
-      if (params.sticky !== undefined) this.sticky = params.sticky ? this.getValue(params.sticky) : null
       if (params.duration !== undefined) this.duration = params.duration ? this.getValue(params.duration) : null
       if (params.offset !== undefined) this.offset = params.offset ? this.getValue(params.offset) : null
     }
 
-    this.getPosition()
   }
 
   getValue(value){

@@ -1,6 +1,6 @@
 export default{
   intro:{
-    text:`We are [roles] <br/> who transform an audience into <br/> something bigger, motivating <br/> them to think, feel and act.`,
+    title: 'We are content creators <br/> who transform an audience into <br/> something bigger, motivating <br/> them to think, feel and act.',
     roles:[
       'Content Creators',
       'Experience Designers',
@@ -13,12 +13,11 @@ export default{
       'Film Buffs',
       'Illustrators'
     ],
-    image: 'events/events1.jpg',
-    //wistia: '0txiy730ui'
+    //image: 'events/events1.jpg',
+    wistia: '0txiy730ui'
   },
   events:{
-    subtitle: 'We Produce',
-    title:'Meaningful <br/> Events',
+    background: '#cfe3fe',
     cover: '/events/eventsCover.jpg',
     description: `We engage minds across incredible global events,
                   large-scale conferences and festivals, blockbuster
@@ -36,22 +35,21 @@ export default{
       `Graphic / Animation Creation`,
       `Talent Negotiation & Coordination`
     ],
-    gallery:[
+    images:[
       '/events/events5.jpg',
       '/events/events6.jpg',
       '/events/events3.jpg',
-      '/events/events4.gif',
+      '/events/events5.jpg',
       '/events/events1.jpg',
       '/events/events2.jpg',
       '/events/events3.jpg',
-      '/events/events4.gif',
+      '/events/events5.jpg',
       '/events/events1.jpg'
     ]
   },
   comms:{
-    subtitle: 'We Design',
-    title:'Impactful <br/> Communications',
-    description: `We engage minds across incredible global events,
+    background: '#fed0cf',
+    description: `We engage minds across <b>incredible</b> global events,
                   large-scale conferences and festivals, blockbuster
                   product launches to intimate and exclusive press
                   launches, influencer activations and more.`,
@@ -68,21 +66,25 @@ export default{
       `Mobile`,
       `Print`
     ],
-    gallery:[
-      '/events/events2.jpg',
-      '/events/events1.jpg',
-      '/events/events3.jpg',
-      '/events/events4.gif',
-      '/events/events1.jpg',
-      '/events/events2.jpg',
-      '/events/events3.jpg',
-      '/events/events4.gif',
-      '/events/events1.jpg'
+    images:[
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
     ]
   },
   training:{
-    subtitle: 'We Create',
-    title:'Elevated <br/> Training',
+    background:'#fef0cf',
     description: `We engage minds across incredible global events,
                   large-scale conferences and festivals, blockbuster
                   product launches to intimate and exclusive press
@@ -102,16 +104,16 @@ export default{
       `Podcasts`,
       `Data & Analytics`
     ],
-    gallery:[
-      '/events/events2.jpg',
-      '/events/events1.jpg',
-      '/events/events3.jpg',
-      '/events/events4.gif',
-      '/events/events1.jpg',
-      '/events/events2.jpg',
-      '/events/events3.jpg',
-      '/events/events4.gif',
-      '/events/events1.jpg'
+    images:[
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
     ]
   },
 }

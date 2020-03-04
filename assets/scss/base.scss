@@ -3,10 +3,32 @@ html{
   color: $midnight;
   fill: $midnight;
   border-color: $midnight;
+  @include font('body')
 }
 
-.button{
-  padding: 20px;
-  text-transform: uppercase;
-  font-size: 2vw;
+.content{
+  position: relative;
+  z-index: 5;
+  max-width: $site-content-width;
+  margin: 0px auto;
+  height: 100%;
+
+  &.widescreen{
+    margin: 0px;
+    max-width: none;
+  }
+
+}
+
+.container{
+  padding: $site-padding;
+  position: relative;
+
+  @media (max-width: $tablet){
+    padding: $site-padding-tablet
+  }
+
+  @media (max-width: $tablet){
+    padding: $site-padding-mobile
+  }
 }

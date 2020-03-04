@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="video-player">
-    <div class="video-wrapper" v-scroll="{onEnter, onLeave}">
+  <div class="video-player" ref="player">
+    <div class="video-wrapper" ref="video" >
       <wistia v-if="wistia" :videoId="wistia" :play="playVideo" @ready="$emit('ready', $event)"/>
       <youtube v-else-if="youtube" :videoId="youtube" :play="playVideo" @ready="$emit('ready', $event)"/>
       <poster v-else-if="image" :image="image" @ready="$emit('ready', $event)"/>
@@ -27,6 +27,12 @@ export default {
   },
   mounted(){
     this.toggleVideo(this.play)
+    window.addEventListener('resize', this.setVideoWidth)
+    this.setVideoWidth()
+
+  },
+  destroy(){
+    window.removeEventListener('resize', this.setVideoWidth)
   },
   watch:{
     play(play){
@@ -34,15 +40,15 @@ export default {
     }
   },
   methods:{
+    setVideoWidth(){
+      let height = this.$refs.player.offsetHeight
+      let width = this.$refs.player.offsetWidth
+      this.$refs.video.style.width = `${Math.max(height * 1.777,width)}px`
+      this.$refs.video.style.height = `${Math.max(width * .5625, height)}px`
+    },
     toggleVideo(play){
       this.playVideo = play
       this.$emit(play ? 'play' : 'pause')
-    },
-    onEnter(){
-      this.toggleVideo(true)
-    },
-    onLeave(){
-      this.toggleVideo(false)
     }
   }
 }
@@ -57,10 +63,10 @@ export default {
 
   .video-wrapper{
     flex: 0 0 auto;
-    width: 177.778vh;
-    height: 56.25vw;
-    min-width: 100vw;
-    min-height: 100vh;
+    //width: 177.778vh;
+    //height: 56.25vw;
+    //min-width: 100vw;
+    //min-height: 100vh;
     pointer-events: none;
     position: relative;
   }

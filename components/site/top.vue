@@ -1,10 +1,10 @@
 <template lang="html">
   <header>
     <div class="logos">
-      <div class="top logo" v-scroll="{scroll: true}">
+      <div class="top logo" v-scroll="{scroll: true, padding: '100%y'}">
         <icons icon="logo"/>
       </div>
-      <div class="side logo" v-scroll="{onScroll, duration:'125%y'}" ref="sideLogo">
+      <div class="side logo" v-scroll="{scroll: true, duration:'100%y'}" ref="sideLogo">
         <icons icon="logo"/>
       </div>
     </div>
@@ -37,16 +37,15 @@ header{
   .logo{
     position: fixed;
     z-index: 100;
+    fill: $midnight;
 
     &.top{
-      fill: $snow;
       top: $site-padding;
       left: $site-padding;
-      svg{width: 250px;}
+      svg{width: 18vw}
     }
 
     &.side{
-      fill: $charcoal;
       left: $site-padding / 4;
       top: 100%;
       width: $site-padding / 2;
