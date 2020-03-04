@@ -1,6 +1,7 @@
 import Smooth from './Smooth'
 import Core from './Core'
 import defaults from './options'
+let mobile = false
 
 export default class{
   constructor(options){
@@ -10,8 +11,8 @@ export default class{
   }
 
   init(){
-    this.isMobile = (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    this.scroll = !this.isMobile && this.options.smooth ? new Smooth(this.options) : new Core(this.options)
+    mobile = (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    this.scroll = !mobile && this.options.smooth ? new Smooth(this.options) : new Core(this.options)
     this.scroll && this.scroll.init()
   }
   hasSmooth(){
@@ -25,6 +26,9 @@ export default class{
   }
   reinit(){
     this.scroll && this.scroll.reinit()
+  }
+  isMobile(){
+    return mobile
   }
 
 }

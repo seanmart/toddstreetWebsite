@@ -1,12 +1,12 @@
 <template lang="html">
   <div id="home" ref="home">
-    <section id="intro" class="container" ref="intro" v-scroll:section>
+    <section id="intro" class="container" ref="introContainer" v-scroll:section>
 
       <div class="content widescreen">
         <h1 class="title" v-html="data.intro.title"/>
         <social class="social"/>
         <div class="mask" v-scroll="videoMaskProps">
-          <div class="mask-content container">
+          <div class="mask-content container" ref="introMaskContainer">
             <div class="content widescreen">
               <h1 class="title" v-html="data.intro.title" v-scroll="titleProps"/>
             </div>
@@ -118,8 +118,7 @@ export default {
     }
   },
   mounted(){
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
+    this.init()
   },
   computed:{
     videoMaskProps(){
@@ -188,8 +187,8 @@ export default {
           this.$gsap.set([this.getClass(el,'list-text')], {xPercent: -100})
         },
         onEnterTop:(el) => {
-          this.$gsap.to(this.getClass(el,'list-line'),.6,{width: '100%',stagger:.08, ease: 'back.out(1)'})
-          this.$gsap.to(this.getClass(el,'list-text'),.6,{xPercent: 0,stagger:.08, delay: .1})
+          this.$gsap.to(this.getClass(el,'list-line'),.5,{width: '100%',stagger:.07, ease: 'back.out(1)'})
+          this.$gsap.to(this.getClass(el,'list-text'),.5,{xPercent: 0,stagger:.07, delay: .1})
         },
       }
     },
@@ -205,19 +204,11 @@ export default {
     getClass(el, c){
       return el.getElementsByClassName(c)
     },
-    handleResize(){
-
-      let win = {
-        width: window.innerWidth,
-        height: window.innerHeight
+    init(){
+      if (this.$scrollbuddy.isMobile()){
+        this.$refs.introContainer.style.height = `${window.innerHeight}px`
+        this.$refs.introMaskContainer.style.height = `${window.innerHeight}px`
       }
-
-      if (win.width < parseInt(vars.mobile)){
-        this.$refs.intro.style.height = `${win.height}px`
-        return
-      }
-
-      this.$refs.intro.style.height = ''
 
     }
   }
@@ -286,6 +277,12 @@ export default {
 
         .title{
           color: white;
+        }
+        @media (max-width: $tablet){
+          right: -$site-padding-tablet;
+        }
+        @media (max-width: $mobile){
+          right: -$site-padding-mobile;
         }
       }
     }
