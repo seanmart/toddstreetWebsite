@@ -20,10 +20,8 @@ export default {
   ],
   styleResources: {
     scss: [
-      "~assets/scss/text.scss",
-      "~assets/scss/color.scss",
-      "~assets/scss/size.scss",
-      "~assets/scss/space.scss"
+      "~assets/scss/variables.scss",
+      "~assets/scss/text.scss"
     ]
   },
   css: [

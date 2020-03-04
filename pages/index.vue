@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="home" ref="home">
-    <section id="intro" class="container" v-scroll:section>
+    <section id="intro" class="container" ref="intro" v-scroll:section>
 
       <div class="content widescreen">
         <h1 class="title" v-html="data.intro.title"/>
@@ -101,7 +101,7 @@ import swap from '@/components/text/swap'
 import social from '@/components/menu/social'
 import gallery from '@/components/gallery'
 import list from '@/components/text/list'
-import colors from '@/assets/scss/color.scss'
+import vars from '@/assets/scss/variables.scss'
 export default {
   components:{
     videoPlayer,
@@ -114,8 +114,12 @@ export default {
   data(){
     return{
       data: data,
-      playIntroVideo: true
+      playIntroVideo: true,
     }
+  },
+  mounted(){
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
   },
   computed:{
     videoMaskProps(){
@@ -150,7 +154,7 @@ export default {
     eventsProps(){
       return{
         offsetBottom: '-50vh',
-        onEnter: (el)=> this.$gsap.set(this.$refs.home, {background: colors.snow}),
+        onEnter: (el)=> this.$gsap.set(this.$refs.home, {background: vars.snow}),
         onLeaveTop: (el)=> this.$gsap.set(this.$refs.home, {background: ''}),
       }
     },
@@ -158,7 +162,7 @@ export default {
       return{
         offsetTop: '50vh',
         offsetBottom: '-50vh',
-        onEnter: (el)=> this.$gsap.set(this.$refs.home, {background: colors.sunny}),
+        onEnter: (el)=> this.$gsap.set(this.$refs.home, {background: vars.sunny}),
         onLeaveTop: (el)=> this.$gsap.set(this.$refs.home, {background: ''}),
       }
     },
@@ -166,7 +170,7 @@ export default {
       return{
         offsetTop: '50vh',
         offsetBottom: '-50vh',
-        onEnter: (el)=> this.$gsap.set(this.$refs.home,{background: colors.training}),
+        onEnter: (el)=> this.$gsap.set(this.$refs.home,{background: vars.training}),
       }
     },
     descriptionProps(){
@@ -200,6 +204,21 @@ export default {
   methods:{
     getClass(el, c){
       return el.getElementsByClassName(c)
+    },
+    handleResize(){
+
+      let win = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+
+      if (win.width < parseInt(vars.mobile)){
+        this.$refs.intro.style.height = `${win.height}px`
+        return
+      }
+
+      this.$refs.intro.style.height = ''
+
     }
   }
 }
