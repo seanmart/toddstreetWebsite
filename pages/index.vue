@@ -25,7 +25,7 @@
 
     <div id="capabilities">
 
-      <section class="events container" v-scroll:section>
+      <section id="events" class="container" v-scroll:section>
         <div class="content widescreen">
           <div class="title">
             <h1>We</h1>
@@ -42,11 +42,21 @@
               <list :list="data.events.offerings" header="Offerings" v-scroll="listProps"/>
             </div>
           </div>
-          <gallery :images="data.events.images"/>
+          <div class="gallery">
+            <template v-for="image in eventsImageGallery">
+              <div class="gallery-item" :class="image.class" :key="i">
+                <div class="gallery-item-content">
+                  <div class="image-wrapper">
+                    <inner-parallax-image class="image" :image="image.image" :outerParallax="image.parallax"/>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </section>
 
-      <section class="comms container" v-scroll:section="commsProps">
+      <section id="comms" class="container" v-scroll:section="commsProps">
         <div class="content widescreen">
           <div class="title">
             <h1>We</h1>
@@ -63,11 +73,17 @@
               <list :list="data.comms.offerings" header="Offerings" v-scroll="listProps"/>
             </div>
           </div>
-          <gallery :images="data.comms.images"/>
+          <div class="gallery">
+            <template v-for="(image,i) in data.comms.images">
+              <div class="gallery-item" :key="i">
+                <inner-parallax-image class="image" :image="image"/>
+              </div>
+            </template>
           </div>
+        </div>
       </section>
 
-      <section class="training container" v-scroll:section="trainingProps">
+      <section id="training" class="container" v-scroll:section="trainingProps">
         <div class="content widescreen">
           <div class="title">
             <h1>We</h1>
@@ -84,7 +100,6 @@
               <list :list="data.training.offerings" header="Offerings" v-scroll="listProps"/>
             </div>
           </div>
-          <gallery :images="data.training.images"/>
         </div>
       </section>
 
@@ -99,16 +114,16 @@ import videoPlayer from '@/components/video'
 import split from '@/components/text/split'
 import swap from '@/components/text/swap'
 import social from '@/components/menu/social'
-import gallery from '@/components/gallery'
+import innerParallaxImage from '@/components/image/innerParallax'
 import list from '@/components/text/list'
 import vars from '@/assets/scss/variables.scss'
 export default {
   components:{
+    innerParallaxImage,
     videoPlayer,
     split,
     swap,
     social,
-    gallery,
     list
   },
   data(){
@@ -121,6 +136,16 @@ export default {
     this.init()
   },
   computed:{
+    eventsImageGallery(){
+      return data.events.images.map((image,i)=>{
+        let index = i % 8 + 1
+        return {
+          image,
+          class: `image-${index}`,
+          parallax: [2,3,5,8].indexOf(index) > -1 ? 2 : 0
+        }
+      })
+    },
     videoMaskProps(){
       return{
         y:2,
@@ -191,13 +216,6 @@ export default {
           this.$gsap.to(this.getClass(el,'list-text'),.5,{xPercent: 0,stagger:.07, delay: .1})
         },
       }
-    },
-    sidePanelProps(){
-      return{
-        offsetTop: '100%y',
-        duration: '100vh',
-        sticky: true
-      }
     }
   },
   methods:{
@@ -253,8 +271,8 @@ export default {
       position: absolute;
       top: 0px;
       right: 0px;
-      height: 70vh;
-      width: 60vw;
+      height: 72vh;
+      width: 64vw;
 
       .video{
         position: absolute;
@@ -351,6 +369,79 @@ export default {
       }
     }
 
+    #events{
+      .gallery{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: flex-start;
+        margin: 0px -1vw;
+
+        .gallery-item{
+          flex: 0 0 auto;
+          width: 33.333%;
+          padding: 1vw;
+
+          .gallery-item-content{
+            height: 100%;
+            position: relative;
+            height: 35vw;
+          }
+
+          .image-wrapper{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            height: 35vw;
+          }
+
+          .image{
+            height: 100%;
+            width: 100%;
+          }
+
+          &.image-1,&.image-6{
+            width: 66.666%;
+
+            .gallery-item-content{
+              height: 70vw;
+            }
+            .image-wrapper{
+              height: 70vw;
+            }
+          }
+
+          &.image-2,&.image-3,&.image-5, &.image-8{
+            .gallery-item-content{
+              height: 17.5vw;
+            }
+          }
+
+          &.image-4{
+            margin-right: 33.333%
+          }
+
+          &.image-7{
+            margin-left: 33.333%
+          }
+        }
+      }
+    }
+
+    #comms {
+      .gallery{
+        .gallery-item{
+          padding: 1vw 0px;
+
+          .image{
+            width: 66.666%;
+            height: 40vw;
+          }
+        }
+      }
+    }
   }
 
 }

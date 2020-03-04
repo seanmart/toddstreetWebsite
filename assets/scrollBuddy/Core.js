@@ -110,6 +110,8 @@ export default class {
     let scrollTop = scroll || this.instance.scroll.y
     let scrollBottom = scrollTop + this.windowHeight
 
+    let count = 0
+
     this.elements.forEach((current,i) => {
 
       // position ===============================================
@@ -125,6 +127,11 @@ export default class {
       if (current.offsetBottom) bottom += current.offsetBottom
 
       let inView = top - current.padding <= scrollTop && bottom + current.padding >= scrollTop
+
+      if (!current.inView && !inView) return
+
+      count++
+
       let below = top > scrollTop
       let above = bottom < scrollTop
       let visible = top <= scrollTop && bottom >= scrollTop
@@ -194,6 +201,8 @@ export default class {
 
       current.visible = visible
       current.inView = inView
+
+      //console.log(count)
     })
   }
 
