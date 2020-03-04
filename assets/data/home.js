@@ -49,7 +49,7 @@ export default{
   },
   comms:{
     background: '#fed0cf',
-    description: `We engage minds across <b>incredible</b> global events,
+    description: `We engage minds across incredible global events,
                   large-scale conferences and festivals, blockbuster
                   product launches to intimate and exclusive press
                   launches, influencer activations and more.`,
@@ -67,11 +67,7 @@ export default{
       `Print`
     ],
     images:[
-      '',
-      '',
-      '',
-      '',
-      ''
+      '/comms/comms1.png'
     ]
   },
   training:{
@@ -95,12 +91,6 @@ export default{
       `Podcasts`,
       `Data & Analytics`
     ],
-    images:[
-      '',
-      '',
-      '',
-      '',
-      ''
-    ]
+    images:[]
   },
 }

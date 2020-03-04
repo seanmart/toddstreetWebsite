@@ -22,6 +22,7 @@ export default {
 
 <style lang="scss">
 .list{
+  overflow: hidden;
 
   .list-header{
     margin-bottom: 2vw;

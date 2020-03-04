@@ -46,7 +46,7 @@ export default {
       top: -30%;
       background-size: cover;
       background-position: center center;
-      background-color: $midnight;
+      //background-color: $midnight;
     }
   }
 </style>

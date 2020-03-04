@@ -3,12 +3,12 @@
     <section id="intro" class="container" ref="introContainer" v-scroll:section>
 
       <div class="content widescreen">
-        <h1 class="title" v-html="data.intro.title"/>
+        <p class="title" v-html="data.intro.title"/>
         <social class="social"/>
         <div class="mask" v-scroll="videoMaskProps">
           <div class="mask-content container" ref="introMaskContainer">
             <div class="content widescreen">
-              <h1 class="title" v-html="data.intro.title" v-scroll="titleProps"/>
+              <p class="title" v-html="data.intro.title" v-scroll="videoMaskTitleProps"/>
             </div>
           </div>
           <video-player
@@ -76,7 +76,7 @@
           <div class="gallery">
             <template v-for="(image,i) in data.comms.images">
               <div class="gallery-item" :key="i">
-                <inner-parallax-image class="image" :image="image"/>
+                <img :src="image"/>
               </div>
             </template>
           </div>
@@ -148,19 +148,19 @@ export default {
     },
     videoMaskProps(){
       return{
-        y:2,
+        y:4,
         onEnter:()=> this.playIntroVideo = true,
         onLeave: ()=> this.playIntroVideo = false
+      }
+    },
+    videoMaskTitleProps(){
+      return{
+        y: -4
       }
     },
     videoProps(){
       return{
         y:-5
-      }
-    },
-    titleProps(){
-      return{
-        y: -2
       }
     },
     circleContainerProps(){
@@ -210,10 +210,12 @@ export default {
         onReady:(el) =>{
           this.$gsap.set([this.getClass(el,'list-line')], {width: 0})
           this.$gsap.set([this.getClass(el,'list-text')], {xPercent: -100})
+          this.$gsap.set([this.getClass(el,'list-header')], {yPercent: -110})
         },
         onEnterTop:(el) => {
           this.$gsap.to(this.getClass(el,'list-line'),.5,{width: '100%',stagger:.07, ease: 'back.out(1)'})
           this.$gsap.to(this.getClass(el,'list-text'),.5,{xPercent: 0,stagger:.07, delay: .1})
+          this.$gsap.to(this.getClass(el,'list-header'),.5,{yPercent: 0})
         },
       }
     }
@@ -227,7 +229,6 @@ export default {
         this.$refs.introContainer.style.height = `${window.innerHeight}px`
         this.$refs.introMaskContainer.style.height = `${window.innerHeight}px`
       }
-
     }
   }
 }
@@ -244,9 +245,6 @@ export default {
   #intro{
     position: relative;
     height: 100vh;
-    &.container{
-      padding-top: 0px;
-    }
 
 
     .title{
@@ -255,7 +253,6 @@ export default {
       position: absolute;
       bottom: 0px;
       left: 0px;
-      margin-bottom: -1vw;
     }
 
     .social{
@@ -271,8 +268,8 @@ export default {
       position: absolute;
       top: 0px;
       right: 0px;
-      height: 72vh;
-      width: 64vw;
+      height: 40vw;
+      width: 59vw;
 
       .video{
         position: absolute;
@@ -285,7 +282,7 @@ export default {
 
       .mask-content{
         position: absolute;
-        top: 0px;
+        top: -$site-padding;
         right: -$site-padding;
         width: 100vw;
         height: 100vh;
@@ -297,9 +294,11 @@ export default {
           color: white;
         }
         @media (max-width: $tablet){
+          top:-$site-padding-tablet;
           right: -$site-padding-tablet;
         }
         @media (max-width: $mobile){
+          top: -$site-padding-mobile;
           right: -$site-padding-mobile;
         }
       }
@@ -322,7 +321,7 @@ export default {
       height: 35vw;
       width: 35vw;
       position: absolute;
-      top: 5vw;
+      top: 0px;
       right: 5vw;
       z-index: -1;
 
@@ -415,7 +414,7 @@ export default {
 
           &.image-2,&.image-3,&.image-5, &.image-8{
             .gallery-item-content{
-              height: 17.5vw;
+              height: 10vw;
             }
           }
 
@@ -435,9 +434,8 @@ export default {
         .gallery-item{
           padding: 1vw 0px;
 
-          .image{
+          img{
             width: 66.666%;
-            height: 40vw;
           }
         }
       }
