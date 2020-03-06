@@ -531,7 +531,7 @@ export default {
           padding: .5vw 0px;
 
           .gallery-item-content{
-            height: 100vh;
+            height: 130vw;
             position: relative;
           }
 
