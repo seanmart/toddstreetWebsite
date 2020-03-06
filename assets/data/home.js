@@ -41,10 +41,7 @@ export default{
       '/events/events3.jpg',
       '/events/events5.jpg',
       '/events/events1.jpg',
-      '/events/events2.jpg',
-      '/events/events3.jpg',
-      '/events/events5.jpg',
-      '/events/events1.jpg'
+      '/events/events2.jpg'
     ]
   },
   comms:{
