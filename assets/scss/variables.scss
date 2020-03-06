@@ -1,16 +1,8 @@
-
-// max site width makes content with padding 1000px wide
-$site-content-width: 1100px;
-
-// site padding used on main sections
-$site-padding: 100px;
-$site-padding-tablet: 70px;
-$site-padding-mobile: 8vw;
-
-$max-font: $site-content-width + ($site-padding * 2);
+// unit for spacing
+$unit: 100vw / 12;
 
 // screen
-$fullscreen: 1400px;
+$widescreen: 1400px;
 $tablet: 1000px;
 $tabletLandscape: 800px;
 $mobile: 600px;
@@ -24,16 +16,9 @@ $ruby: #e53935;
 $sunny: #fad00c;
 $creme: #f5f0e1;
 $storm: #343638;
-$events: #3b2c35;
-$comms: #59c9a5;
-$training:#adf9df;
 
 :export {
-  siteContentWidth: $site-content-width;
-  sitePadding: $site-padding;
-  sitePaddingTablet: $site-padding-tablet;
-  sitePaddingMobile: $site-padding-mobile;
-  fullscreen: $fullscreen;
+  widescreen: $widescreen;
   tablet: $tablet;
   tabletLandscape: $tabletLandscape;
   mobile: $mobile;
@@ -45,7 +30,4 @@ $training:#adf9df;
   sunny: $sunny;
   creme: $creme;
   storm: $storm;
-  events: $events;
-  comms: $comms;
-  training: $training;
 }

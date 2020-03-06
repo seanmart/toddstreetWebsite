@@ -21,7 +21,7 @@ export default {
   styleResources: {
     scss: [
       "~assets/scss/variables.scss",
-      "~assets/scss/text.scss"
+      "~assets/scss/mixins.scss"
     ]
   },
   css: [
