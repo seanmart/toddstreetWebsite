@@ -27,6 +27,12 @@ export default {
     position: relative;
     padding-left: 20px;
 
+    @media (max-width: $tablet){
+      height: 20px;
+      width: 20px;
+      padding-left: 15px;
+    }
+
     &:first-child{
       padding-left: 0px;
 

@@ -42,7 +42,10 @@ header{
     &.top{
       top: $site-padding;
       left: $site-padding;
-      svg{width: 18vw}
+      svg{
+        width: 210px
+      }
+
     }
 
     &.side{

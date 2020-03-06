@@ -1,40 +1,45 @@
 <template lang="html">
   <div id="home" ref="home">
-    <section id="intro" class="container" ref="introContainer" v-scroll:section>
+    <section id="intro" ref="introContainer" v-scroll:section>
 
-      <div class="content widescreen">
-        <p class="title" v-html="data.intro.title"/>
-        <social class="social"/>
-        <div class="mask" v-scroll="videoMaskProps">
-          <div class="mask-content container" ref="introMaskContainer">
-            <div class="content widescreen">
-              <p class="title" v-html="data.intro.title" v-scroll="videoMaskTitleProps"/>
-            </div>
-          </div>
-          <video-player
-            class="video"
-            :image="data.intro.image"
-            :wistia="data.intro.wistia"
-            :play="playIntroVideo"
-            v-scroll="videoProps"
-          />
+      <div class="container">
+        <div class="content widescreen">
+          <p class="title" v-html="data.intro.title"/>
+          <social/>
         </div>
+      </div>
+
+      <div class="masked-content" v-scroll="maskProps">
+          <div class="container" v-scroll="maskContentProps">
+            <div class="content widescreen">
+              <p class="title" v-html="data.intro.title"/>
+            </div>
+        </div>
+
+        <video-player
+          class="video"
+          :image="data.intro.image"
+          :wistia="data.intro.wistia"
+          :play="playIntroVideo"
+          v-scroll="videoProps"
+        />
+
       </div>
 
     </section>
 
+
     <div id="capabilities">
 
+
       <section id="events" class="container" v-scroll:section>
+
         <div class="content widescreen">
           <div class="title">
             <h1>We</h1>
             <h1>Produce</h1>
             <h1 v-scroll="{x: -1}">Meaningful</h1>
             <h1>Events</h1>
-          </div>
-          <div class="circle-container" v-scroll="circleContainerProps">
-            <div class="circle" v-scroll="circleProps"/>
           </div>
           <div class="info">
             <p class="description" v-html="data.events.description" v-scroll="descriptionProps"/>
@@ -43,7 +48,7 @@
             </div>
           </div>
           <div class="gallery">
-            <template v-for="image in eventsImageGallery">
+            <template v-for="(image,i) in eventsImageGallery">
               <div class="gallery-item" :class="image.class" :key="i">
                 <div class="gallery-item-content">
                   <div class="image-wrapper">
@@ -56,43 +61,68 @@
         </div>
       </section>
 
-      <section id="comms" class="container" v-scroll:section="commsProps">
-        <div class="content widescreen">
-          <div class="title">
-            <h1>We</h1>
-            <h1>Create</h1>
-            <h1 v-scroll="{x: -1}">Impactful</h1>
-            <h1>Communications</h1>
-          </div>
-          <div class="circle-container" v-scroll="circleContainerProps">
-            <div class="circle" v-scroll="circleProps"/>
-          </div>
-          <div class="info">
-            <p class="description" v-html="data.comms.description" v-scroll="descriptionProps"/>
-            <div class="side-panel">
-              <list :list="data.comms.offerings" header="Offerings" v-scroll="listProps"/>
+
+      <section id="comms" v-scroll:section="commsProps">
+
+        <div class="container">
+          <div class="content widescreen">
+            <div class="title">
+              <h1>We</h1>
+              <h1>Create</h1>
+              <h1 v-scroll="{x: -1}">Impactful</h1>
+              <h1>Communications</h1>
+            </div>
+            <div class="info">
+              <p class="description" v-html="data.comms.description" v-scroll="descriptionProps"/>
+              <div class="side-panel">
+                <list :list="data.comms.offerings" header="Offerings" v-scroll="listProps"/>
+              </div>
+            </div>
+            <div class="examples">
+              <div class="side" v-scroll="{y:2}" :style="{marginTop: '2vw' }">
+                <div class="example-item">
+                  <div class="example-item-content">
+                    <img class="tablet" :src="data.comms.tablet" alt="">
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="example-item-content">
+                    <img class="phone" ref="phoneLeft" :src="data.comms.phones.phone1" v-scroll="commsPhoneLeft">
+                    <img class="phone" :src="data.comms.phones.phone2" >
+                    <img class="phone" ref="phoneRight" :src="data.comms.phones.phone3" v-scroll="commsPhoneRight">
+                  </div>
+                </div>
+              </div>
+              <div class="side">
+                <div class="example-item">
+                  <div class="example-item-content">
+                    print
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="example-item-content">
+                    verticals
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="gallery">
-            <template v-for="(image,i) in data.comms.images">
-              <div class="gallery-item" :key="i">
-                <img :src="image"/>
-              </div>
-            </template>
-          </div>
         </div>
+        <div class="videos">
+
+        </div>
+
       </section>
 
+
       <section id="training" class="container" v-scroll:section="trainingProps">
+
         <div class="content widescreen">
           <div class="title">
             <h1>We</h1>
             <h1>Design</h1>
             <h1 v-scroll="{x: -1}">Elevated</h1>
             <h1>Training</h1>
-          </div>
-          <div class="circle-container" v-scroll="circleContainerProps">
-            <div class="circle" v-scroll="circleProps"/>
           </div>
           <div class="info">
             <p class="description" v-html="data.training.description" v-scroll="descriptionProps"/>
@@ -101,10 +131,11 @@
             </div>
           </div>
         </div>
+
       </section>
 
-    </div>
 
+    </div>
   </div>
 </template>
 
@@ -130,6 +161,7 @@ export default {
     return{
       data: data,
       playIntroVideo: true,
+      animations:{}
     }
   },
   mounted(){
@@ -146,33 +178,21 @@ export default {
         }
       })
     },
-    videoMaskProps(){
+    maskProps(){
       return{
-        y:4,
+        y:3,
         onEnter:()=> this.playIntroVideo = true,
         onLeave: ()=> this.playIntroVideo = false
       }
     },
-    videoMaskTitleProps(){
+    maskContentProps(){
       return{
-        y: -4
+        y: -3
       }
     },
     videoProps(){
       return{
         y:-5
-      }
-    },
-    circleContainerProps(){
-      return{
-        offsetTop: '30vh',
-        onReady:(el) => this.$gsap.set(el, {scale:0}),
-        onEnterTop:(el) => this.$gsap.to(el,.5,{scale: 1})
-      }
-    },
-    circleProps(){
-      return{
-        y:2
       }
     },
     eventsProps(){
@@ -218,7 +238,22 @@ export default {
           this.$gsap.to(this.getClass(el,'list-header'),.5,{yPercent: 0})
         },
       }
-    }
+    },
+    commsPhoneLeft(){
+      return{
+        x: 1.75,
+        rotate:-.1,
+        offsetTop:-200
+      }
+    },
+    commsPhoneRight(){
+
+      return{
+        x: -1.75,
+        rotate:.1,
+        offsetTop:-200
+      }
+    },
   },
   methods:{
     getClass(el, c){
@@ -226,8 +261,8 @@ export default {
     },
     init(){
       if (this.$scrollbuddy.isMobile()){
-        this.$refs.introContainer.style.height = `${window.innerHeight}px`
-        this.$refs.introMaskContainer.style.height = `${window.innerHeight}px`
+        //this.$refs.introContainer.style.height = `${window.innerHeight}px`
+        //this.$refs.introMaskContainer.style.height = `${window.innerHeight}px`
       }
     }
   }
@@ -246,6 +281,9 @@ export default {
     position: relative;
     height: 100vh;
 
+    .container{
+      height: 100%;
+    }
 
     .title{
       @include font('body huge');
@@ -253,6 +291,14 @@ export default {
       position: absolute;
       bottom: 0px;
       left: 0px;
+      font-size: 50px;
+      margin-bottom: 30px;
+
+      @media (max-width: 850px){
+        bottom: 50%;
+        font-size: 35px;
+        transform: translateY(50%);
+      }
     }
 
     .social{
@@ -260,46 +306,53 @@ export default {
       bottom: 0px;
       right: 0px;
       fill: $charcoal;
+      @media (max-width: $mobile){
+        display: none;
+      }
     }
 
-    .mask{
-      overflow: hidden;
+    .masked-content{
+      z-index: 1;
       background: $midnight;
       position: absolute;
-      top: 0px;
-      right: 0px;
-      height: 40vw;
-      width: 59vw;
+      top: $site-padding;
+      right: $site-padding;
+      left: 403px;
+      bottom: 196px;
+      overflow: hidden;
 
-      .video{
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        width: 100%;
-        height: 100%;
-        opacity: .6;
-      }
-
-      .mask-content{
+      .container{
+        height: 100vh;
+        width: 100vw;
         position: absolute;
         top: -$site-padding;
         right: -$site-padding;
-        width: 100vw;
-        height: 100vh;
-        &.container{
-          padding-top: 0px;
-        }
+      }
 
-        .title{
-          color: white;
-        }
-        @media (max-width: $tablet){
-          top:-$site-padding-tablet;
+      .title{
+        z-index: 1;
+        color: white;
+      }
+
+      .video{
+        z-index: -1;
+        opacity: .5;
+        position: absolute;
+        top: -10%;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+      }
+
+      @media (max-width: $tablet){
+        top: $site-padding-tablet;
+        right: $site-padding-tablet;
+        left: 373px;
+        bottom: 165px;
+
+        .container{
+          top: -$site-padding-tablet;
           right: -$site-padding-tablet;
-        }
-        @media (max-width: $mobile){
-          top: -$site-padding-mobile;
-          right: -$site-padding-mobile;
         }
       }
     }
@@ -375,12 +428,12 @@ export default {
         flex-wrap: wrap;
         align-items: flex-end;
         justify-content: flex-start;
-        margin: 0px -1vw;
+        margin: 0px -.5vw;
 
         .gallery-item{
           flex: 0 0 auto;
           width: 33.333%;
-          padding: 1vw;
+          padding: .5vw;
 
           .gallery-item-content{
             height: 100%;
@@ -429,13 +482,37 @@ export default {
       }
     }
 
-    #comms {
-      .gallery{
-        .gallery-item{
-          padding: 1vw 0px;
+    #comms{
+      .examples{
+        display: flex;
+        flex-direction: row;
+        margin: 0px -.5vw;
 
-          img{
-            width: 66.666%;
+        .side{
+          flex: 1 1 50%;
+        }
+
+        .example-item{
+          width: 100%;
+          height: 40vw;
+          padding: .5vw;
+
+          .example-item-content{
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .tablet{
+            width: 100%;
+          }
+
+          .phone{
+            height: 70%;
+            display: inline-block;
+            position: absolute;
           }
         }
       }

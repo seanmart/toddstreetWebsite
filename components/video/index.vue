@@ -41,10 +41,12 @@ export default {
   },
   methods:{
     setVideoWidth(){
-      let height = this.$refs.player.offsetHeight
-      let width = this.$refs.player.offsetWidth
-      this.$refs.video.style.width = `${Math.max(height * 1.777,width)}px`
-      this.$refs.video.style.height = `${Math.max(width * .5625, height)}px`
+      window.requestAnimationFrame(()=>{
+        let height = this.$refs.player.offsetHeight
+        let width = this.$refs.player.offsetWidth
+        this.$refs.video.style.width = `${Math.max(height * 1.777,width)}px`
+        this.$refs.video.style.height = `${Math.max(width * .5625, height)}px`
+      })
     },
     toggleVideo(play){
       this.playVideo = play
@@ -63,10 +65,6 @@ export default {
 
   .video-wrapper{
     flex: 0 0 auto;
-    //width: 177.778vh;
-    //height: 56.25vw;
-    //min-width: 100vw;
-    //min-height: 100vh;
     pointer-events: none;
     position: relative;
   }

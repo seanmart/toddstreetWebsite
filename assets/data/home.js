@@ -49,10 +49,10 @@ export default{
   },
   comms:{
     background: '#fed0cf',
-    description: `We engage minds across incredible global events,
-                  large-scale conferences and festivals, blockbuster
-                  product launches to intimate and exclusive press
-                  launches, influencer activations and more.`,
+    description: `As design thinkers and doers, toddstreet engages your audience through storytelling,
+                  creating a red thread across multiple platforms. We produce in-house videos,
+                  podcasts and detailed presentations, leveraging our marketing and strategic expertise
+                  to fuel your vision with creativity and clarity.`,
     offerings:[
       `Brand Strategy`,
       `Video Production`,
@@ -66,16 +66,27 @@ export default{
       `Mobile`,
       `Print`
     ],
-    images:[
-      '/comms/comms1.png'
+    tablet: '/comms/tablet1.png',
+    phones:{
+      phone1:'/comms/phone1.png',
+      phone2: '/comms/phone1.png',
+      phone3: '/comms/phone1.png'
+    },
+    print: '/comms/tablet1.png',
+    verticals: [
+      '/comms/phone1.png',
+      '/comms/phone2.png',
+      '/comms/phone3.png'
     ]
   },
   training:{
     background:'#fef0cf',
-    description: `We engage minds across incredible global events,
-                  large-scale conferences and festivals, blockbuster
-                  product launches to intimate and exclusive press
-                  launches, influencer activations and more.`,
+    description: `We work with a wide range of audiences, anywhere from 50 to 4,000+
+                  people, and have over 40 blockbusters successfully launched in
+                  the healthcare space. Our goal is to support your teams at different
+                  phases of their training journey, building on top of what’s already
+                  been done and leveraging live and virtual platforms to facilitate
+                  learning and the application of knowledge.`,
     offerings:[
       `Instructional Design & Strategy`,
       `Content Development`,

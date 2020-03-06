@@ -127,7 +127,6 @@ export default class {
       if (current.offsetBottom) bottom += current.offsetBottom
 
       let inView = top - current.padding <= scrollTop && bottom + current.padding >= scrollTop
-
       if (!current.inView && !inView) return
 
       count++
