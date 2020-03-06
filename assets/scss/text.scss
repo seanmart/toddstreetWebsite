@@ -12,6 +12,9 @@
     @media (min-width: $max-font){
       font-size: 117px;
     }
+    @media(max-width:$mobile){
+      font-size: 9.5vw
+    }
   }
 
   @if $type == 'header big'{
@@ -53,6 +56,9 @@
     font-style: normal;
     font-size: 3vw;
     line-height: 150%;
+    @media (max-width: $mobile){
+      font-size: 5vw;
+    }
   }
 
 
@@ -62,6 +68,9 @@
     line-height: 150%;
     font-style: normal;
     font-size: 1.5vw;
+    @media (max-width: $mobile){
+      font-size: 4vw;
+    }
   }
 
   @if $type == 'body small'{

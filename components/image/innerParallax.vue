@@ -8,7 +8,7 @@
 export default {
   props:{
     image: {type: String, default: ''},
-    outerParallax: {type: Number, default: 0}
+    vScroll: {type: Object, default: ()=>({})}
   },
   data(){
     return{
@@ -25,8 +25,16 @@ export default {
     },
     imageProps(){
       let props = {}
-      props.onScroll = (e)=> this.animation.progress(e.percent)
-      if (this.outerParallax) props.y = this.outerParallax
+
+      props.onScroll = (e) => {
+        this.animation.progress(e.percent)
+        if (this.vScroll.onScroll) this.vScroll.onScroll(e)
+      }
+
+      Object.keys(this.vScroll).forEach(key => {
+        if (key !== 'onScroll') props[key] = this.vScroll[key]
+      })
+
       return props
     }
   }

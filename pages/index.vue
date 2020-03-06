@@ -38,7 +38,7 @@
           <div class="title">
             <h1>We</h1>
             <h1>Produce</h1>
-            <h1 v-scroll="{x: -1}">Meaningful</h1>
+            <h1 v-scroll="capabilitiesTitleProps">Meaningful</h1>
             <h1>Events</h1>
           </div>
           <div class="info">
@@ -52,7 +52,7 @@
               <div class="gallery-item" :class="image.class" :key="i">
                 <div class="gallery-item-content">
                   <div class="image-wrapper">
-                    <inner-parallax-image class="image" :image="image.image" :outerParallax="image.parallax"/>
+                    <inner-parallax-image class="image" :image="image.image" :vScroll="image.vScroll"/>
                   </div>
                 </div>
               </div>
@@ -69,7 +69,7 @@
             <div class="title">
               <h1>We</h1>
               <h1>Create</h1>
-              <h1 v-scroll="{x: -1}">Impactful</h1>
+              <h1 v-scroll="capabilitiesTitleProps">Impactful</h1>
               <h1>Communications</h1>
             </div>
             <div class="info">
@@ -79,7 +79,7 @@
               </div>
             </div>
             <div class="examples">
-              <div class="side" v-scroll="{y:2}" :style="{marginTop: '2vw' }">
+              <div class="side" v-scroll="commsSideProps" :style="{marginTop: '5vw' }">
                 <div class="example-item">
                   <div class="example-item-content">
                     <img class="tablet" :src="data.comms.tablet" alt="">
@@ -101,7 +101,8 @@
                 </div>
                 <div class="example-item">
                   <div class="example-item-content">
-                    verticals
+                    <img class="vertical" :src="data.comms.verticals.vertical1" v-scroll="commsVerticalLeft">
+                    <img class="vertical" :src="data.comms.verticals.vertical2" v-scroll="commsVerticalRight">
                   </div>
                 </div>
               </div>
@@ -121,7 +122,7 @@
           <div class="title">
             <h1>We</h1>
             <h1>Design</h1>
-            <h1 v-scroll="{x: -1}">Elevated</h1>
+            <h1 v-scroll="capabilitiesTitleProps">Elevated</h1>
             <h1>Training</h1>
           </div>
           <div class="info">
@@ -160,6 +161,7 @@ export default {
   data(){
     return{
       data: data,
+      vars: vars,
       playIntroVideo: true,
       animations:{}
     }
@@ -174,9 +176,22 @@ export default {
         return {
           image,
           class: `image-${index}`,
-          parallax: [2,3,5,8].indexOf(index) > -1 ? 2 : 0
+          vScroll:{
+            y: [2,3,5,8].indexOf(index) > -1 ? 2 : 0,
+            onResize: (w,h) => {
+              if (w < parseInt(vars.mobile)) return {y: 0}
+            }
+          }
         }
       })
+    },
+    capabilitiesTitleProps(){
+      return{
+        x: -1,
+        onResize: (w,h)=> {
+          if (w < parseInt(vars.mobile)) return {x: 0}
+        }
+      }
     },
     maskProps(){
       return{
@@ -239,11 +254,22 @@ export default {
         },
       }
     },
+    commsSideProps(){
+      return{
+        y:3,
+        onResize: (w,h)=> {
+          if (w < parseInt(vars.mobile)) return {y: 0}
+        }
+      }
+    },
     commsPhoneLeft(){
       return{
         x: 1.75,
         rotate:-.1,
-        offsetTop:-200
+        offsetTop:-200,
+        onResize: (w,h)=> {
+          if (w < parseInt(vars.mobile)) return {x: .7}
+        }
       }
     },
     commsPhoneRight(){
@@ -251,9 +277,22 @@ export default {
       return{
         x: -1.75,
         rotate:.1,
-        offsetTop:-200
+        offsetTop:-200,
+        onResize: (w,h)=> {
+          if (w < parseInt(vars.mobile)) return {x: -.7}
+        }
       }
     },
+    commsVerticalLeft(){
+      return{
+        x:.1
+      }
+    },
+    commsVerticalRight(){
+      return{
+        x:-.1
+      }
+    }
   },
   methods:{
     getClass(el, c){
@@ -294,10 +333,13 @@ export default {
       font-size: 50px;
       margin-bottom: 30px;
 
-      @media (max-width: 850px){
-        bottom: 50%;
-        font-size: 35px;
-        transform: translateY(50%);
+      @media (max-width: 850px) and (min-width: $mobile + 1){
+        font-size: 34px;
+      }
+
+      @media (max-width: $mobile){
+        bottom: 50vh;
+        margin-bottom: 0px;
       }
     }
 
@@ -338,7 +380,7 @@ export default {
         z-index: -1;
         opacity: .5;
         position: absolute;
-        top: -10%;
+        top: -$site-padding;
         left: 0px;
         bottom: 0px;
         right: 0px;
@@ -354,6 +396,37 @@ export default {
           top: -$site-padding-tablet;
           right: -$site-padding-tablet;
         }
+
+        .video{
+          top: -$site-padding-tablet
+        }
+      }
+
+      @media (max-width: 850px){
+        top: 145px;
+        left: 277px;
+        bottom: 145px;
+
+        .container{
+          top: -145px;
+        }
+      }
+
+      @media (max-width: $mobile){
+        top: 50vh;
+        bottom: 10vh;
+        left: 0px;
+        right: $site-padding-mobile;
+
+        .container{
+          top: -50vh;
+          bottom: -10vh;
+          right: -$site-padding-mobile;
+        }
+
+        .video{
+          top: -20vh;
+        }
       }
     }
   }
@@ -367,7 +440,7 @@ export default {
 
     .title{
       @include font('header huge');
-      margin-bottom: $site-padding;
+      margin-bottom: 5vw;
     }
 
     .circle-container{
@@ -399,23 +472,44 @@ export default {
         b{
           font-weight: bold;
         }
-        @media (min-width: $max-font){
-
-        }
       }
 
       .side-panel{
         flex: 1 1 auto;
         position: relative;
         padding-bottom: $site-padding;
+      }
+
+      .list{
+        color: $midnight;
+        h3{
+          @include font('header');
+        }
+        p{
+          @include font('body small');
+          text-transform: uppercase;
+        }
+      }
+
+    }
+
+    @media (max-width: $mobile){
+
+      .title{
+        margin-bottom: 10vw;
+      }
+
+      .info{
+        flex-direction: column;
+
+        .description{
+          padding: 0px;
+          margin-bottom: 10vw
+        }
+
         .list{
-          color: $midnight;
-          h3{
-            @include font('header');
-          }
           p{
-            @include font('body small');
-            text-transform: uppercase;
+            @include font('body');
           }
         }
       }
@@ -431,14 +525,14 @@ export default {
         margin: 0px -.5vw;
 
         .gallery-item{
+
           flex: 0 0 auto;
-          width: 33.333%;
-          padding: .5vw;
+          width: 100%;
+          padding: .5vw 0px;
 
           .gallery-item-content{
-            height: 100%;
+            height: 100vh;
             position: relative;
-            height: 35vw;
           }
 
           .image-wrapper{
@@ -446,7 +540,7 @@ export default {
             top: 0px;
             left: 0px;
             right: 0px;
-            height: 35vw;
+            height: 100%;
           }
 
           .image{
@@ -454,35 +548,53 @@ export default {
             width: 100%;
           }
 
-          &.image-1,&.image-6{
-            width: 66.666%;
+          @media (min-width: $mobile + 1){
+            width: 33.333%;
+            padding: .5vw;
 
             .gallery-item-content{
-              height: 70vw;
+              height: 35vw;
             }
+
             .image-wrapper{
-              height: 70vw;
+              height: 35vw;
             }
-          }
 
-          &.image-2,&.image-3,&.image-5, &.image-8{
-            .gallery-item-content{
-              height: 10vw;
+            &.image-1,&.image-6{
+              width: 66.666%;
+
+              .gallery-item-content{
+                height: 70vw;
+              }
+              .image-wrapper{
+                height: 70vw;
+              }
             }
-          }
 
-          &.image-4{
-            margin-right: 33.333%
-          }
+            &.image-2,&.image-3,&.image-5, &.image-8{
+              .gallery-item-content{
+                height: 10vw;
+              }
+            }
 
-          &.image-7{
-            margin-left: 33.333%
+            &.image-4{
+              margin-right: 33.333%
+            }
+
+            &.image-7{
+              margin-left: 33.333%
+            }
           }
         }
       }
     }
 
     #comms{
+
+      .info{
+        margin-bottom: 20vw;
+      }
+
       .examples{
         display: flex;
         flex-direction: row;
@@ -511,8 +623,23 @@ export default {
 
           .phone{
             height: 70%;
-            display: inline-block;
             position: absolute;
+          }
+
+          .vertical{
+            height: 100%;
+            margin: 0px .5vw;
+          }
+        }
+        @media (max-width: $mobile){
+          flex-direction: column;
+
+          .side{
+            flex: 0 0 auto;
+          }
+
+          .example-item{
+            height: 50vh;
           }
         }
       }

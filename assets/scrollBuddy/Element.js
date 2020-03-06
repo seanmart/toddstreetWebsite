@@ -43,9 +43,11 @@ export default class{
     this.inView = this.top - this.padding < 0
     this.bottomOffset = 0
     this.transform = this.sticky || this.rotate || this.scale || this.y || this.x || this.scroll
+    this.smooth = params.smooth || null
 
     this.params = params
     this.onReady && this.onReady(this.el)
+    this.onResize && this.getResize()
 
   }
 
@@ -60,16 +62,19 @@ export default class{
     if (this.offset) this.offset = this.getValue(this.params.offset)
     if (this.padding) this.padding = this.getValue(this.params.padding)
 
+    if (this.onResize) this.getResize()
 
-    if (this.onResize){
-      let params = this.onResize()
+  }
+
+  getResize(){
+      let params = this.onResize(window.innerWidth, window.innerHeight)
+      if (!params) return
+      
       if (params.x !== undefined) this.x = params.x ? -this.getValue(params.x) / 10 : null
       if (params.y !== undefined) this.y = params.y ? -this.getValue(params.y) / 10 : null
       if (params.scale !== undefined) this.scale = params.scale ? this.getValue(params.scale) / 1000 : null
       if (params.duration !== undefined) this.duration = params.duration ? this.getValue(params.duration) : null
       if (params.offset !== undefined) this.offset = params.offset ? this.getValue(params.offset) : null
-    }
-
   }
 
   getValue(value){

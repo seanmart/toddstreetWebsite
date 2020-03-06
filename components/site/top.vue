@@ -90,6 +90,13 @@ header{
       &.side{
         display: none;
       }
+      &.top{
+        top: $site-padding-mobile;
+        left: $site-padding-mobile;
+        svg{
+          width: 40vw;
+        }
+      }
     }
   }
 }

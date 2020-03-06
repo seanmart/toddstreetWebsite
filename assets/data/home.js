@@ -73,11 +73,10 @@ export default{
       phone3: '/comms/phone1.png'
     },
     print: '/comms/tablet1.png',
-    verticals: [
-      '/comms/phone1.png',
-      '/comms/phone2.png',
-      '/comms/phone3.png'
-    ]
+    verticals:{
+      vertical1: '/comms/vertical1.png',
+      vertical2: '/comms/vertical2.png',
+    }
   },
   training:{
     background:'#fef0cf',
