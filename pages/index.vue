@@ -52,7 +52,7 @@
               <div class="gallery-item" :class="image.class" :key="i">
                 <div class="gallery-item-content">
                   <div class="image-wrapper">
-                    <inner-parallax-image class="image" :image="image.image" :vScroll="image.vScroll"/>
+                    <div class="image" :style="image.style" v-scroll="image.vScroll" />
                   </div>
                 </div>
               </div>
@@ -174,7 +174,7 @@ export default {
       return data.events.images.map((image,i)=>{
         let index = i % 8 + 1
         return {
-          image,
+          style: {backgroundImage: `url(${image})`},
           class: `image-${index}`,
           vScroll:{
             y: [2,3,5,8].indexOf(index) > -1 ? 2 : 0,
@@ -185,6 +185,7 @@ export default {
         }
       })
     },
+    
     capabilitiesTitleProps(){
       return{
         x: -1,
@@ -193,6 +194,7 @@ export default {
         }
       }
     },
+
     maskProps(){
       return{
         y:3,
@@ -200,16 +202,19 @@ export default {
         onLeave: ()=> this.playIntroVideo = false
       }
     },
+
     maskContentProps(){
       return{
         y: -3
       }
     },
+
     videoProps(){
       return{
         y:-5
       }
     },
+
     eventsProps(){
       return{
         offsetBottom: '-50vh',
@@ -217,6 +222,7 @@ export default {
         onLeaveTop: (el)=> this.$gsap.set(this.$refs.home, {background: ''}),
       }
     },
+
     commsProps(){
       return{
         offsetTop: '50vh',
@@ -225,6 +231,7 @@ export default {
         onLeaveTop: (el)=> this.$gsap.set(this.$refs.home, {background: ''}),
       }
     },
+
     trainingProps(){
       return{
         offsetTop: '50vh',
@@ -232,6 +239,7 @@ export default {
         onEnter: (el)=> this.$gsap.set(this.$refs.home,{background: vars.training}),
       }
     },
+
     descriptionProps(){
       return{
         offsetTop: '20vh',
@@ -239,6 +247,7 @@ export default {
         onEnterTop:(el) => this.$gsap.to(el,1,{y: 0, opacity: 1}),
       }
     },
+
     listProps(){
       return{
         offsetTop: '20vh',
@@ -254,6 +263,7 @@ export default {
         },
       }
     },
+
     commsSideProps(){
       return{
         y:3,
@@ -262,9 +272,10 @@ export default {
         }
       }
     },
+
     commsPhoneLeft(){
       return{
-        x: 1.75,
+        x: 1.5,
         rotate:-.1,
         offsetTop:-200,
         onResize: (w,h)=> {
@@ -272,10 +283,10 @@ export default {
         }
       }
     },
-    commsPhoneRight(){
 
+    commsPhoneRight(){
       return{
-        x: -1.75,
+        x: -1.5,
         rotate:.1,
         offsetTop:-200,
         onResize: (w,h)=> {
@@ -283,16 +294,19 @@ export default {
         }
       }
     },
+
     commsVerticalLeft(){
       return{
         x:.1
       }
     },
+
     commsVerticalRight(){
       return{
         x:-.1
       }
     }
+
   },
   methods:{
     getClass(el, c){
@@ -514,137 +528,138 @@ export default {
         }
       }
     }
+  }
 
-    #events{
-      .gallery{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-end;
-        justify-content: flex-start;
-        margin: 0px -.5vw;
+  #events{
+    .gallery{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: flex-start;
+      margin: 0px -.5vw;
 
-        .gallery-item{
+      .gallery-item{
 
-          flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: 100%;
+        padding: .5vw 0px;
+
+        .gallery-item-content{
+          height: 130vw;
+          position: relative;
+        }
+
+        .image-wrapper{
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          right: 0px;
+          height: 100%;
+        }
+
+        .image{
+          height: 100%;
           width: 100%;
-          padding: .5vw 0px;
+          background-size:cover;
+          background-position: center, center;
+        }
+
+        @media (min-width: $mobile + 1){
+          width: 33.333%;
+          padding: .5vw;
 
           .gallery-item-content{
-            height: 130vw;
-            position: relative;
+            height: 35vw;
           }
 
           .image-wrapper{
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            height: 100%;
+            height: 35vw;
           }
 
-          .image{
-            height: 100%;
-            width: 100%;
-          }
-
-          @media (min-width: $mobile + 1){
-            width: 33.333%;
-            padding: .5vw;
+          &.image-1,&.image-6{
+            width: 66.666%;
 
             .gallery-item-content{
-              height: 35vw;
+              height: 70vw;
             }
-
             .image-wrapper{
-              height: 35vw;
-            }
-
-            &.image-1,&.image-6{
-              width: 66.666%;
-
-              .gallery-item-content{
-                height: 70vw;
-              }
-              .image-wrapper{
-                height: 70vw;
-              }
-            }
-
-            &.image-2,&.image-3,&.image-5, &.image-8{
-              .gallery-item-content{
-                height: 10vw;
-              }
-            }
-
-            &.image-4{
-              margin-right: 33.333%
-            }
-
-            &.image-7{
-              margin-left: 33.333%
+              height: 70vw;
             }
           }
-        }
-      }
-    }
 
-    #comms{
-
-      .info{
-        margin-bottom: 20vw;
-      }
-
-      .examples{
-        display: flex;
-        flex-direction: row;
-        margin: 0px -.5vw;
-
-        .side{
-          flex: 1 1 50%;
-        }
-
-        .example-item{
-          width: 100%;
-          height: 40vw;
-          padding: .5vw;
-
-          .example-item-content{
-            height: 100%;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          &.image-2,&.image-3,&.image-5, &.image-8{
+            .gallery-item-content{
+              height: 10vw;
+            }
           }
 
-          .tablet{
-            width: 100%;
+          &.image-4{
+            margin-right: 33.333%
           }
 
-          .phone{
-            height: 70%;
-            position: absolute;
-          }
-
-          .vertical{
-            height: 100%;
-            margin: 0px .5vw;
-          }
-        }
-        @media (max-width: $mobile){
-          flex-direction: column;
-
-          .side{
-            flex: 0 0 auto;
-          }
-
-          .example-item{
-            height: 50vh;
+          &.image-7{
+            margin-left: 33.333%
           }
         }
       }
     }
   }
 
+  #comms{
+
+    .info{
+      margin-bottom: 20vw;
+    }
+
+    .examples{
+      display: flex;
+      flex-direction: row;
+      margin: 0px -.5vw;
+
+      .side{
+        flex: 1 1 50%;
+      }
+
+      .example-item{
+        width: 100%;
+        height: 40vw;
+        padding: .5vw;
+
+        .example-item-content{
+          height: 100%;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .tablet{
+          width: 100%;
+        }
+
+        .phone{
+          height: 70%;
+          position: absolute;
+        }
+
+        .vertical{
+          height: 100%;
+          margin: 0px .5vw;
+        }
+      }
+      @media (max-width: $mobile){
+        flex-direction: column;
+
+        .side{
+          flex: 0 0 auto;
+        }
+
+        .example-item{
+          height: 50vh;
+        }
+      }
+    }
+  }
 }
 </style>
