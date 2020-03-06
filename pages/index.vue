@@ -268,7 +268,7 @@ export default {
         rotate:-.1,
         offsetTop:-200,
         onResize: (w,h)=> {
-          if (w < parseInt(vars.mobile)) return {x: .7}
+          if (w < parseInt(vars.mobile)) return {x: .7, offsetTop: 0}
         }
       }
     },
@@ -279,7 +279,7 @@ export default {
         rotate:.1,
         offsetTop:-200,
         onResize: (w,h)=> {
-          if (w < parseInt(vars.mobile)) return {x: -.7}
+          if (w < parseInt(vars.mobile)) return {x: -.7, offsetTop: 0}
         }
       }
     },
