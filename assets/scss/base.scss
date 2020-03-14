@@ -1,9 +1,16 @@
+section{
+  min-height: 100vh;
+}
+
 .container{
   padding: $unit;
-  min-height: 100vh;
+  height: 100%;
+  position: relative;
 }
 
 .content{
   position: relative;
   height: 100%;
+  width: 100%;
+  z-index: 1;
 }

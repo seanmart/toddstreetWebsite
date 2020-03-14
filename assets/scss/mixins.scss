@@ -1,0 +1,38 @@
+@mixin font($type: 'body'){
+
+  @if $type == 'body medium' {
+    font-family: lft-etica;
+    font-weight: 100;
+    font-size: 1.9vw;
+    line-height: 150%;
+    letter-spacing: -.001vw;
+  }
+
+  @if $type == 'giant' {
+    font-family: lft-etica;
+    font-weight: 100;
+    font-size: 9vw;
+    line-height: 85%;
+    text-transform: uppercase;
+    letter-spacing: -.3vw;
+
+    @media (max-width: $mobile){
+      font-size: 10vw;
+    }
+  }
+
+  @if $type == 'home intro title' {
+    font-family: lft-etica;
+    font-weight: 100;
+    font-size: 3.7vw;
+    line-height: 120%;
+    //text-transform: uppercase;
+  }
+}
+
+@mixin edges {
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+}

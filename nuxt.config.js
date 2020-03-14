@@ -31,7 +31,8 @@ export default {
   ],
   plugins: [
     { src: "~/plugins/gsap", ssr: false },
-    { src: "~/plugins/scrollBuddy", ssr: false }
+    { src: "~/plugins/scrollBuddy", ssr: false },
+    { src: "~/plugins/css", ssr: false }
   ],
   buildModules: [
   ],

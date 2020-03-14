@@ -120,11 +120,11 @@ export default class {
                 ? current.top + current.offsetTop
                 : current.top
 
-      let bottom = current.duration
-                   ? top + current.duration
+      let bottom = current.offsetBottom
+                   ? current.bottom - current.offsetBottom
+                   : current.duration
+                   ? Math.max(top, 0) + current.duration
                    : current.bottom + current.bottomOffset
-
-      if (current.offsetBottom) bottom += current.offsetBottom
 
       let inView = top - current.padding <= scrollTop && bottom + current.padding >= scrollTop
       if (!current.inView && !inView) return
@@ -181,7 +181,9 @@ export default class {
             entering: bottom > scrollBottom,
             onScreen: bottom < scrollBottom,
             leaving: top < scrollTop
-          })
+          },
+          current.el
+        )
       }
 
       // events ===============================================

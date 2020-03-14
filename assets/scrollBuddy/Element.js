@@ -4,6 +4,7 @@ export default class{
 
     this.el = el
     this.target = params.target ? params.target() : null
+    this.params = params
 
     this.top = 0
     this.left = 0
@@ -11,21 +12,21 @@ export default class{
     this.height = 0
     this.bottom = 0
     this.right = 0
+    this.visible = false
+    this.inView = false
+    this.bottomOffset = 0
+
+    this.update(true)
+
+  }
+
+  update(init = false){
 
     this.getPosition()
+    let newParams = this.params.onResize ? this.params.onResize(window.innerWidth) || {} : {}
+    let params = Object.assign({},this.params,newParams)
 
-    // events
-    this.onScroll = params.onScroll || null
-    this.onEnter = params.onEnter || null
-    this.onEnterTop = params.onEnterTop || null
-    this.onEnterBottom = params.onEnterBottom || null
-    this.onLeave = params.onLeave || null
-    this.onLeaveTop = params.onLeaveTop || null
-    this.onLeaveBottom = params.onLeaveBottom || null
-    this.onReady = params.onReady || null
-    this.onResize = params.onResize || null
-
-    //transform
+    // transform
     this.section = params.section || false
     this.scroll = params.scroll || null
     this.sticky = params.sticky || null
@@ -37,44 +38,21 @@ export default class{
     this.offsetTop = params.offsetTop ? this.getValue(params.offsetTop) : null
     this.offsetBottom = params.offsetBottom ? this.getValue(params.offsetBottom) : null
 
-    // state
+    // events
+    this.onScroll = params.onScroll || null
+    this.onEnter = params.onEnter || null
+    this.onEnterTop = params.onEnterTop || null
+    this.onEnterBottom = params.onEnterBottom || null
+    this.onLeave = params.onLeave || null
+    this.onLeaveTop = params.onLeaveTop || null
+    this.onLeaveBottom = params.onLeaveBottom || null
+    this.onReady = params.onReady || null
+
     this.padding = params.padding ? this.getValue(params.padding) : 0
-    this.visible = this.top < 0
-    this.inView = this.top - this.padding < 0
-    this.bottomOffset = 0
     this.transform = this.sticky || this.rotate || this.scale || this.y || this.x || this.scroll
-    this.smooth = params.smooth || null
 
-    this.params = params
-    this.onReady && this.onReady(this.el)
-    this.onResize && this.getResize()
+    if (init && this.onReady) this.onReady(this.el)
 
-  }
-
-  update(){
-
-    this.getPosition()
-
-    if (this.x) this.x = -this.getValue(this.params.x) / 10
-    if (this.y) this.y = -this.getValue(this.params.y) / 10
-    if (this.scale) this.scale = this.getValue(this.params.scale) / 1000
-    if (this.duration) this.duration = this.getValue(this.params.duration)
-    if (this.offset) this.offset = this.getValue(this.params.offset)
-    if (this.padding) this.padding = this.getValue(this.params.padding)
-
-    if (this.onResize) this.getResize()
-
-  }
-
-  getResize(){
-      let params = this.onResize(window.innerWidth, window.innerHeight)
-      if (!params) return
-      
-      if (params.x !== undefined) this.x = params.x ? -this.getValue(params.x) / 10 : null
-      if (params.y !== undefined) this.y = params.y ? -this.getValue(params.y) / 10 : null
-      if (params.scale !== undefined) this.scale = params.scale ? this.getValue(params.scale) / 1000 : null
-      if (params.duration !== undefined) this.duration = params.duration ? this.getValue(params.duration) : null
-      if (params.offset !== undefined) this.offset = params.offset ? this.getValue(params.offset) : null
   }
 
   getValue(value){

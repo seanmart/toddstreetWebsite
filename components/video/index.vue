@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="video-player" ref="player">
-    <div class="video-wrapper" ref="video" >
+    <div class="video-wrapper" ref="video">
       <wistia v-if="wistia" :videoId="wistia" :play="playVideo" @ready="$emit('ready', $event)"/>
       <youtube v-else-if="youtube" :videoId="youtube" :play="playVideo" @ready="$emit('ready', $event)"/>
       <poster v-else-if="image" :image="image" @ready="$emit('ready', $event)"/>
