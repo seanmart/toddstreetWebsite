@@ -42,7 +42,7 @@ export default class extends Core{
   // ADD -------------------------------------
 
   addScroll(){
-    document.getElementsByTagName('body')[0].style.cssText += ';overflow: hidden; height: 100vh;'
+    document.getElementsByTagName('body')[0].style.cssText += ';overflow: hidden; height: 100vh; transform: translate3d(0,0,0)'
     this.isScrolling = false
 
     this.vs = new VirtualScroll({

@@ -1,19 +1,10 @@
-html{
-  background: $snow;
-  color: $midnight;
-  fill: $midnight;
-  border-color: $midnight;
-  @include font('body')
-}
-
-.container{
+@mixin sitePadding{
   padding: $site-padding;
-  position: relative;
 
   @media (max-width: $tablet){
     padding: $site-padding-tablet
   }
-
+  
   @media (max-width: $mobile){
     padding: $site-padding-mobile
   }
