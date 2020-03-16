@@ -13,6 +13,7 @@ export default{
 <style lang="scss">
   #site{
     width: 100vw;
+    min-height: 100vh;
     overflow: hidden;
   }
 </style>
