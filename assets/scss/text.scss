@@ -1,5 +1,13 @@
 @mixin font($type){
 
+  @if $type == 'header big'{
+    font-family: lft-etica, sans-serif;
+    font-size: 8vw;
+    font-weight: 100;
+    line-height: 90%;
+    text-transform: uppercase;
+  }
+
   @if $type == 'header'{
     font-family: lft-etica, sans-serif;
     font-size: 3vw;

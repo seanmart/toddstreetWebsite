@@ -66,10 +66,16 @@ export default class{
 
   }
 
+  reload(){
+      this.visible = this.top < 0
+      this.inView = this.top - this.padding < 0
+      this.bottomOffset = 0
+  }
+
   getResize(){
       let params = this.onResize(window.innerWidth, window.innerHeight)
       if (!params) return
-      
+
       if (params.x !== undefined) this.x = params.x ? -this.getValue(params.x) / 10 : null
       if (params.y !== undefined) this.y = params.y ? -this.getValue(params.y) / 10 : null
       if (params.scale !== undefined) this.scale = params.scale ? this.getValue(params.scale) / 1000 : null

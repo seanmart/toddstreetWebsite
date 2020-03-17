@@ -1,9 +1,9 @@
 <template lang="html">
   <header>
     <div class="logos">
-      <div class="top logo" v-scroll="{scroll: true, padding: '100%y'}">
+      <nuxt-link to="/" class="top logo" v-scroll="{scroll: true, padding: '100%y'}">
         <icons icon="logo"/>
-      </div>
+      </nuxt-link>
       <div class="side logo" v-scroll="{scroll: true, duration:'100%y'}" ref="sideLogo">
         <icons icon="logo"/>
       </div>

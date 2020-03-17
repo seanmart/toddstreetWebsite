@@ -18,11 +18,12 @@ export default class {
 
     window.addEventListener('resize', this.checkResize, false);
     window.addEventListener("load", this.updateElements)
-    window.scrollTo(0,0)
 
   }
 
   init() {
+
+    window.scrollTo(0,0)
 
     this.windowHeight = window.innerHeight
     this.windowWidth = window.innerWidth
@@ -45,6 +46,7 @@ export default class {
       scroll:{x: 0,y:0},
       limit: this.el.offsetHeight - this.windowHeight,
     }
+
   }
 
   // CHECK -------------------------------
@@ -83,6 +85,13 @@ export default class {
   addElement(el,params = {}){
     if (Object.keys(params).length == 0) return
     this.elements.push(new Element(el, params))
+  }
+
+  // REMOVE ------------------------------
+  removeElement(el){
+    this.elements.forEach((current,index,els)=>{
+      if (current.el == el) els.splice(index,1)
+    })
   }
 
   // UPDATE -------------------------------
