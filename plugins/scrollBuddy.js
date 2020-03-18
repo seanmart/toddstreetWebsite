@@ -2,6 +2,7 @@ import scrollBuddy from '@/assets/scrollBuddy'
 import Vue from 'vue'
 
 export default ({app}) => {
+
   let sb = new scrollBuddy({
     smooth: true,
     scrollbar:{
@@ -15,18 +16,14 @@ export default ({app}) => {
     inserted: function(el,binding){
       if (binding.arg === 'section'){
         sb.addSection(el, binding.value)
+      } else if (binding.arg === 'page'){
+        sb.reinit()
       } else {
         sb.addElement(el, binding.value)
       }
     },
-    unbind: function(el){
-      sb.removeElement(el)
-    }
+    unbind: function(el){sb.removeElement(el)}
   })
 
-  Vue.mixin({mounted:sb.reinit})
-
-  Object.defineProperty(Vue.prototype, "$scrollbuddy", {
-    value: sb
-  });
+  Object.defineProperty(Vue.prototype, "$scrollbuddy", {value: sb});
 }

@@ -1,17 +1,24 @@
 <template lang="html">
-  <div class="broadcasts">
-    broadcasts
+  <div class="experiential" v-scroll:page>
+    <div class="intro" v-scroll:section>
+      <big-title :title="info.title"/>
+    </div>
+    <div class="gallery" v-scroll:section>
+      gallery items
+    </div>
   </div>
 </template>
 
 <script>
+import bigTitle from '@/components/work/title'
 export default {
+  components:{bigTitle},
   data(){
     return{
       info:{
         overview: 2,
-        title: 'Experiential Training',
-        image: '/experiential/experientialTrainingCover.jpg'
+        title: 'Experiential',
+        image: '/experiential/cover.jpg'
       }
     }
   }
@@ -19,4 +26,16 @@ export default {
 </script>
 
 <style lang="scss">
+.experiential{
+  .intro{
+    min-height: 100vh;
+    @include sitePadding();
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .gallery{
+    min-height: 100vh;
+  }
+}
 </style>

@@ -66,12 +66,6 @@ export default class{
 
   }
 
-  reload(){
-      this.visible = this.top < 0
-      this.inView = this.top - this.padding < 0
-      this.bottomOffset = 0
-  }
-
   getResize(){
       let params = this.onResize(window.innerWidth, window.innerHeight)
       if (!params) return

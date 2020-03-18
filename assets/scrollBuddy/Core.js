@@ -11,6 +11,11 @@ export default class {
     this.checkResize = this.checkResize.bind(this);
     this.updateElements = this.updateElements.bind(this);
 
+    this.windowHeight = window.innerHeight
+    this.windowWidth = window.innerWidth
+    this.instance = {scroll:{x: 0,y:0}}
+    this.isTicking = false
+
     this.shouldUpdate = null
     this.inertia = this.inertia * .1
     this.inertiaRatio = 1;
@@ -18,28 +23,17 @@ export default class {
 
     window.addEventListener('resize', this.checkResize, false);
     window.addEventListener("load", this.updateElements)
+    window.scrollTo(0,0)
 
   }
 
   init() {
-
-    window.scrollTo(0,0)
-
-    this.windowHeight = window.innerHeight
-    this.windowWidth = window.innerWidth
-    this.isTicking = false
-
-    this.instance = {
-      scroll:{x: 0,y:0},
-      limit: this.el.offsetHeight - this.windowHeight,
-    }
-
+    this.instance.limit = this.el.offsetHeight - this.windowHeight
     this.addScroll()
   }
 
   reinit(){
-    this.windowHeight = window.innerHeight
-    this.windowWidth = window.innerWidth
+    console.log('reinit')
     this.isTicking = false
 
     this.instance = {
@@ -83,15 +77,19 @@ export default class {
   }
 
   addElement(el,params = {}){
+    console.log('add element before: ',this.elements.length)
     if (Object.keys(params).length == 0) return
     this.elements.push(new Element(el, params))
+    console.log('add element after: ', this.elements.length)
   }
 
   // REMOVE ------------------------------
   removeElement(el){
+    console.log('remove element before: ',this.elements.length)
     this.elements.forEach((current,index,els)=>{
       if (current.el == el) els.splice(index,1)
     })
+    console.log('remove element after: ', this.elements.length)
   }
 
   // UPDATE -------------------------------
@@ -136,6 +134,7 @@ export default class {
       if (current.offsetBottom) bottom += current.offsetBottom
 
       let inView = top - current.padding <= scrollTop && bottom + current.padding >= scrollTop
+
       if (!current.inView && !inView) return
 
       count++

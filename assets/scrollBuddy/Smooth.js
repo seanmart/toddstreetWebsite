@@ -20,12 +20,14 @@ export default class extends Core{
 
   reinit(){
     super.reinit()
+    
     this.instance = {
       ...this.instance,
       delta:{ x: 0, y:0 },
       scrollbar:{ offset:0, lastY:0, delayHide: null }
     }
 
+    this.update()
     this.updateScrollbar()
   }
 

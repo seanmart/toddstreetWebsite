@@ -1,13 +1,16 @@
 <template lang="html">
-  <div class="virtual" v-scroll:section>
-    <div class="intro">
+  <div class="virtual" v-scroll:page >
+    <div class="intro" v-scroll:section>
       <big-title :title="info.title"/>
+    </div>
+    <div class="gallery" v-scroll:section>
+      gallery items
     </div>
   </div>
 </template>
 
 <script>
-import bigTitle from '@/components/caseStudy/title'
+import bigTitle from '@/components/work/title'
 export default {
   components:{bigTitle},
   data(){
@@ -15,7 +18,7 @@ export default {
       info:{
         overview: 1,
         title: 'Virtual Meetings',
-        image: '/broadcast/broadcast1.jpg'
+        image: '/virtual/cover.jpg'
       }
     }
   }
@@ -30,6 +33,9 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+  .gallery{
+    min-height: 100vh;
   }
 }
 </style>

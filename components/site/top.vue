@@ -1,10 +1,12 @@
 <template lang="html">
   <header>
     <div class="logos">
-      <nuxt-link to="/" class="top logo" v-scroll="{scroll: true, padding: '100%y'}">
-        <icons icon="logo"/>
-      </nuxt-link>
-      <div class="side logo" v-scroll="{scroll: true, duration:'100%y'}" ref="sideLogo">
+      <div ref="topLogo" class="top logo" v-scroll:section>
+        <nuxt-link to="/">
+          <icons icon="logo"/>
+        </nuxt-link>
+      </div>
+      <div class="side logo" v-scroll="{scroll: true,duration:'100%y'}" ref="sideLogo">
         <icons icon="logo"/>
       </div>
     </div>
@@ -13,22 +15,19 @@
 
 <script>
 import icons from '@/components/icons'
+import {mapState} from 'vuex'
 export default {
+  props:{init:Boolean},
   components:{icons},
-  data(){
-    return{
-      sideLogoAnimation: null
-    }
-  },
+  computed: mapState(['ready']),
   mounted(){
-    this.sideLogoAnimation = this.$gsap.to(this.$refs.sideLogo,1,{y: '-100%' }).pause()
+    this.$gsap.set(this.$refs.topLogo,{top: `-100%`})
   },
-  methods:{
-    onScroll(e){
-      this.sideLogoAnimation.progress(e.percent)
+  watch:{
+    ready(){
+      this.$gsap.to(this.$refs.topLogo,1,{top: 0, ease: 'power4.out'})
     }
   }
-
 }
 </script>
 
@@ -37,12 +36,19 @@ header{
   .logo{
     position: fixed;
     z-index: 100;
-    fill: $midnight;
 
     &.top{
-      top: $site-padding;
-      left: $site-padding;
+      top: 0px;
+      left: 0px;
+      padding: $site-padding;
+      a{
+        display: block;
+        padding: 10px;
+        margin-top: -10px;
+        margin-left: -10px;
+      }
       svg{
+        fill: inherit;
         width: 210px
       }
 

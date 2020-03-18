@@ -1,7 +1,9 @@
 <template lang="html">
   <div id="splash" ref="splash">
-    <div class="logo" ref="logo">
-      <icons icon="logo"/>
+    <div class="content">
+      <div class="logo" ref="logo">
+        <icons icon="logo"/>
+      </div>
     </div>
   </div>
 </template>
@@ -11,16 +13,9 @@ import icons from '@/components/icons'
 export default {
   components:{icons},
   mounted(){
-    this.$gsap.fromTo(this.$refs.logo,
-      1,{opacity:0,y:'100%'},{opacity:1,y:'0%',delay: 1, onComplete:this.initSite})
-  },
-  methods:{
-    initSite(){
-      this.$emit('ready')
-      this.$gsap.to(this.$refs.splash,1,{opacity: 0, delay: 1, onComplete: ()=>{
-        this.$refs.splash.style.display = 'none'
-      }})
-    }
+    let tl = this.$gsap.timeline({onComplete:()=>this.$emit('ready'),delay: 1})
+    tl.fromTo(this.$refs.logo,1,{opacity:0,yPercent: 100},{opacity:1,yPercent: 0,ease: 'power2.out'})
+    tl.to(this.$refs.splash,1,{height: 0, ease: 'power2.in'},'=-.5')
   }
 }
 </script>
@@ -28,16 +23,31 @@ export default {
 <style lang="scss">
 #splash{
   background: $midnight;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  fill: $snow;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
 
-  .logo{
-    display: inline-block;
-    width: 300px;
-    fill: $snow;
-    svg{
-      width: 100%;
+  .content{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logo{
+      width: 50vw;
+      svg{
+        width: 100%;
+        fill: inherit;
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div id="site">
-    <splash class="splash" @ready="ready = true"/>
-    <top />
-    <nuxt />
+    <splash class="splash" @ready="setReady"/>
+    <top/>
+    <nuxt/>
   </div>
 </template>
 <script>
@@ -13,36 +13,18 @@ export default{
   mounted(){
     this.$scrollbuddy.pause()
   },
-  watch:{
-    ready(ready){
-      ready
-      ? this.$scrollbuddy.resume()
-      : this.$scrollbuddy.pause()
-    }
-  },
-  data(){
-    return{
-      ready: false
+  methods:{
+    setReady(){
+      this.$scrollbuddy.resume()
+      this.$store.commit('set', {key: 'ready', value: true})
     }
   }
 }
 </script>
 <style lang="scss">
+
   #site{
     width: 100vw;
     overflow: hidden;
-
-    .splash{
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      height: 100vh;
-      width: 100vw;
-      z-index: 100;
-
-      &.hide{
-        display: none;
-      }
-    }
   }
 </style>
