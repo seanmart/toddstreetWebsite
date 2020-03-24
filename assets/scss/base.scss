@@ -3,18 +3,25 @@ html{
   color: $midnight;
   fill: $midnight;
   border-color: $midnight;
-  @include font('body')
+  transition: background $colorTransition;
+
+  &.dark{
+    background: $midnight;
+    color: $snow;
+    fill: $snow;
+    border-color: $snow;
+  }
 }
 
-.container{
-  padding: $site-padding;
-  position: relative;
-
-  @media (max-width: $tablet){
-    padding: $site-padding-tablet
+.line{
+  border-top-width: 1px;
+  border-style: solid;
+  transition: border-color $colorTransition;
+  &.space{
+    padding: $site-padding 0px;
   }
+}
 
-  @media (max-width: $mobile){
-    padding: $site-padding-mobile
-  }
+main{
+  padding-top: $site-padding / 2;
 }

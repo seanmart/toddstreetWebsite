@@ -1,14 +1,17 @@
 <template lang="html">
-  <header>
-    <div class="logos">
-      <div ref="topLogo" class="top logo" v-scroll:section>
-        <nuxt-link to="/">
-          <icons icon="logo"/>
-        </nuxt-link>
-      </div>
-      <div class="side logo" v-scroll="{scroll: true,duration:'100%y'}" ref="sideLogo">
+  <header :class="{scrolling}" ref="header">
+    <div class="content">
+
+      <div class="logo" ref="logo">
         <icons icon="logo"/>
       </div>
+
+      <nav>
+        <nuxt-link v-for="(link,i) in links" to="/" :key="i" class="nav-item">
+          <span ref="link">{{'link ' + link}}</span>
+        </nuxt-link>
+      </nav>
+
     </div>
   </header>
 </template>
@@ -17,93 +20,85 @@
 import icons from '@/components/icons'
 import {mapState} from 'vuex'
 export default {
-  props:{init:Boolean},
   components:{icons},
-  computed: mapState(['ready']),
+  data(){
+    return{
+      links: 3,
+      scrolling: false,
+      height: 0
+    }
+  },
   mounted(){
-    this.$gsap.set(this.$refs.topLogo,{top: `-100%`})
+    this.height = this.$refs.header.offsetHeight
+    this.$scrollbuddy.onScroll((e)=>{this.scrolling = e.scroll.y > this.height / 2})
+    this.$scrollbuddy.onResize(()=>{this.height = this.$refs.header.offsetHeight})
+
+    this.init()
   },
   watch:{
     ready(){
-      this.$gsap.to(this.$refs.topLogo,1,{top: 0, ease: 'power4.out'})
+      this.onReady()
     }
+  },
+  methods:{
+    init(){
+      this.$gsap.set(this.$refs.logo,{yPercent: 100, opacity: 0})
+      this.$gsap.set(this.$refs.link,{yPercent: 100})
+    },
+    onReady(){
+      let tl = this.$gsap.timeline({delay: .5})
+      tl.to(this.$refs.logo,.5,{yPercent: 0, opacity: 1},0)
+      tl.to(this.$refs.link,.5,{yPercent: 0, stagger: .1},.1)
+    }
+  },
+  computed:{
+    ...mapState(['ready'])
   }
 }
 </script>
 
 <style lang="scss">
 header{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  padding: $site-padding / 2 $site-padding;
+  transition: transform .35s;
+
+  .content{
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
   .logo{
-    position: fixed;
-    z-index: 100;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 
-    &.top{
-      top: 0px;
-      left: 0px;
-      padding: $site-padding;
-      a{
-        display: block;
-        padding: 10px;
-        margin-top: -10px;
-        margin-left: -10px;
-      }
-      svg{
-        fill: inherit;
-        width: 210px
-      }
-
+    svg{
+      width: 175px;
     }
+  }
+  nav{
+    position: absolute;
+    top: 0px;
+    right: 0px;
 
-    &.side{
-      left: $site-padding / 4;
-      top: 100%;
-      width: $site-padding / 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 150px;
-      box-sizing: content-box;
-      padding-top: 120px;
-      padding-bottom: $site-padding / 2;
+    .nav-item{
+      overflow: hidden;
+      margin-left: 5vw;
+      display: inline-block;
 
-      svg{
-        flex: 0 0 auto;
-        width: 150px;
-        transform: rotate(-90deg)
+      span{
+        display: inline-block;
       }
     }
   }
-  @media (max-width:$tablet){
-    .logo{
-      &.top{
-        top: $site-padding-tablet;
-        left: $site-padding-tablet;
-      }
-      &.side{
-        height: 125px;
-        left: $site-padding-tablet / 4;
-        width: $site-padding-tablet / 2;
-        padding-bottom: $site-padding-tablet / 2;
 
-        svg{
-          width: 125px;
-        }
-      }
-    }
-  }
-  @media (max-width: $mobile){
-    .logo{
-      &.side{
-        display: none;
-      }
-      &.top{
-        top: $site-padding-mobile;
-        left: $site-padding-mobile;
-        svg{
-          width: 40vw;
-        }
-      }
-    }
+  &.scrolling{
+    transform: translateY(-100%);
   }
 }
 </style>

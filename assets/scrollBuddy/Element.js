@@ -34,8 +34,14 @@ export default class{
     this.rotate = params.rotate ? this.getValue(params.rotate) / 10 : null
     this.scale = params.scale ? this.getValue(params.scale) / 10000 : null
     this.duration = params.duration ? this.getValue(params.duration) : null
-    this.offsetTop = params.offsetTop ? this.getValue(params.offsetTop) : null
-    this.offsetBottom = params.offsetBottom ? this.getValue(params.offsetBottom) : null
+    
+    if (params.offset){
+      this.offsetTop = this.getValue(params.offset)
+      this.offsetBottom = this.getValue(params.offset)
+    } else {
+      this.offsetTop = params.offsetTop ? this.getValue(params.offsetTop) : null
+      this.offsetBottom = params.offsetBottom ? this.getValue(params.offsetBottom) : null
+    }
 
     // state
     this.padding = params.padding ? this.getValue(params.padding) : 0

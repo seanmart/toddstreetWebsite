@@ -1,13 +1,13 @@
+// global transition length
+$colorTransition: .5s;
 
 // max site width makes content with padding 1000px wide
 $site-content-width: 1100px;
 
 // site padding used on main sections
-$site-padding: 100px;
-$site-padding-tablet: 70px;
+$site-padding: 10vw;
+$site-padding-tablet: 100px;
 $site-padding-mobile: 8vw;
-
-$max-font: $site-content-width + ($site-padding * 2);
 
 // screen
 $fullscreen: 1400px;
@@ -19,7 +19,7 @@ $mobileLandscape: 400px;
 //colors
 $midnight: #050811;
 $charcoal: #717682;
-$snow: #f5f5f5;
+$snow: #fdf9ee;
 $ruby: #e53935;
 $sunny: #fad00c;
 $creme: #f5f0e1;

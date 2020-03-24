@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="title" v-if="title">
-    <div v-for="(line,i) in lines" :key="i" class="line">
+  <div class="work-title" v-if="title">
+    <div v-for="(line,i) in lines" :key="i" class="work-title-line">
       <h1 ref="title">{{line}}</h1>
     </div>
   </div>
@@ -29,17 +29,17 @@ export default {
   },
   methods:{
     onReady(){
-      this.$gsap.to(this.$refs.title,.75,{yPercent: 0, stagger: .2, delay: .5})
+      this.$gsap.to(this.$refs.title,.75,{yPercent: 0, stagger: .2, delay: .5,ease: 'power2.out'})
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .title{
+  .work-title{
     @include font('header big');
 
-    .line{
+    .work-title-line{
       overflow: hidden;
       margin-top: -1.5vw;
     }

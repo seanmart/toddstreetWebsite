@@ -13,13 +13,14 @@ export default class {
 
     this.windowHeight = window.innerHeight
     this.windowWidth = window.innerWidth
-    this.instance = {scroll:{x: 0,y:0}}
+    this.instance = {scroll:{x: 0,y:0}, direction: 'down'}
     this.isTicking = false
 
     this.shouldUpdate = null
     this.inertia = this.inertia * .1
     this.inertiaRatio = 1;
     this.elements = [];
+    this.events = {scroll:[], resize:[]}
 
     window.addEventListener('resize', this.checkResize, false);
     window.addEventListener("load", this.updateElements)
@@ -33,7 +34,7 @@ export default class {
   }
 
   reinit(){
-    console.log('reinit')
+
     this.isTicking = false
 
     this.instance = {
@@ -47,7 +48,7 @@ export default class {
 
   checkScroll() {
     this.transformElements();
-    this.isTicking = false
+    this.updateScrollEvents()
   }
 
   checkResize(){
@@ -56,6 +57,7 @@ export default class {
       this.windowWidth = window.innerWidth
       this.windowHeight = window.innerHeight
       this.update()
+      this.updateResizeEvents()
     },500)
   }
 
@@ -65,7 +67,10 @@ export default class {
     window.addEventListener("scroll", () => {
       if (this.stop) return
       if (!this.isTicking) {
-        requestAnimationFrame(this.checkScroll)
+        requestAnimationFrame(()=>{
+          this.checkScroll
+          this.isTicking = false
+        })
         this.isTicking = true;
       }
       this.updateScroll();
@@ -77,19 +82,19 @@ export default class {
   }
 
   addElement(el,params = {}){
-    console.log('add element before: ',this.elements.length)
     if (Object.keys(params).length == 0) return
     this.elements.push(new Element(el, params))
-    console.log('add element after: ', this.elements.length)
+  }
+
+  addEvent(event, type){
+    this.events[type].push(event)
   }
 
   // REMOVE ------------------------------
   removeElement(el){
-    console.log('remove element before: ',this.elements.length)
     this.elements.forEach((current,index,els)=>{
       if (current.el == el) els.splice(index,1)
     })
-    console.log('remove element after: ', this.elements.length)
   }
 
   // UPDATE -------------------------------
@@ -102,12 +107,25 @@ export default class {
   }
 
   updateScroll() {
+    this.instance.direction = this.instance.scroll.y < window.scrollY ? 'down': 'up'
     this.instance.scroll.y = window.scrollY;
     this.instance.scroll.x = window.scrollX;
   }
 
   updateElements(){
     this.elements.forEach(current=> current.update())
+  }
+
+  updateScrollEvents(){
+    this.events.scroll.forEach(e => e({...this.instance}))
+  }
+
+  updateResizeEvents(){
+    this.events.resize.forEach(e => e({
+      ...this.instance,
+      width: this.windowWidth,
+      height: this.windowHeight
+    }))
   }
 
   // TRANSFORM ---------------------------
@@ -128,10 +146,10 @@ export default class {
                 : current.top
 
       let bottom = current.duration
-                   ? top + current.duration
+                   ? Math.max(top,0) + current.duration
                    : current.bottom + current.bottomOffset
 
-      if (current.offsetBottom) bottom += current.offsetBottom
+      if (current.offsetBottom) bottom -= current.offsetBottom
 
       let inView = top - current.padding <= scrollTop && bottom + current.padding >= scrollTop
 
@@ -174,7 +192,7 @@ export default class {
         } else {
           current.el.style.opacity = 0
           current.el.style.pointerEvents = 'none'
-          this.transform(current.el, {x:0,y:0,scale: 1,rotate:0}, transition)
+          this.transform(current.el, {x: this.windowWidth ,y:0,scale: 1,rotate:0}, transition)
         }
       }
 
@@ -196,13 +214,13 @@ export default class {
 
       if (current.visible !== visible){
         if (visible){
-          if (current.onEnterBottom && below) current.onEnterBottom(current.el)
-          if (current.onEnterTop && !below) current.onEnterTop(current.el)
-          if (current.onEnter) current.onEnter(current.el)
+          if (current.onEnterBottom && below) current.onEnterBottom(current.el,this.html)
+          if (current.onEnterTop && !below) current.onEnterTop(current.el,this.html)
+          if (current.onEnter) current.onEnter(current.el,this.html)
         } else {
-          if (current.onLeaveBottom && !below) current.onLeaveBottom(current.el)
-          if (current.onLeaveTop && below) current.onLeaveTop(current.el)
-          if (current.onLeave) current.onLeave(current.el)
+          if (current.onLeaveBottom && !below) current.onLeaveBottom(current.el,this.html)
+          if (current.onLeaveTop && below) current.onLeaveTop(current.el,this.html)
+          if (current.onLeave) current.onLeave(current.el,this.html)
         }
       }
 

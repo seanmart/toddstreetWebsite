@@ -1,6 +1,7 @@
 @mixin font($type){
 
   @if $type == 'header big'{
+    transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
     font-size: 8vw;
     font-weight: 100;
@@ -8,28 +9,42 @@
   }
 
   @if $type == 'header'{
+    transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
     font-size: 3vw;
     font-weight: 100;
   }
 
   @if $type == 'header small'{
+    transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
-    font-size: 1.2vw;
+    font-size: 1.75vw;
+    line-height: 120%;
     font-weight: 500;
   }
 
   @if $type == 'body mega'{
+    transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
-    font-size: 5vw;
+    font-size: 3.5vw;
     font-weight: 100;
-    line-height: 140%;
+    line-height: 120%;
   }
 
   @if $type == 'body'{
+    transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
     font-size: 1.2vw;
     font-weight: 200;
+  }
+
+  @if $type == 'button'{
+    transition: color $colorTransition;
+    font-family: lft-etica, sans-serif;
+    font-size: .9vw;
+    letter-spacing: .1vw;
+    font-weight: 500;
+    text-transform: uppercase;
   }
 
 }

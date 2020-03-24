@@ -16,9 +16,10 @@ export default {
   data(){
     return{
       info:{
-        overview: 1,
+        order: 1,
         title: 'Virtual Meetings',
-        image: '/virtual/cover.jpg'
+        image: '/virtual/cover.jpg',
+        color: '#7cd1f5'
       }
     }
   }

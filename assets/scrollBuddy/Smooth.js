@@ -6,6 +6,13 @@ import {lerp,getTranslate} from './utils'
 export default class extends Core{
   constructor(options = {}){
     super(options)
+
+    this.scrollbar = {
+      el: null,
+      offset:0,
+      lastY:0,
+      delayHide: null
+    }
   }
 
   init(){
@@ -13,18 +20,16 @@ export default class extends Core{
 
     this.instance = {
       ...this.instance,
-      delta:{ x: 0, y:0 },
-      scrollbar:{ offset:0, lastY:0, delayHide: null }
+      delta:{ x: 0, y:0 }
     }
   }
 
   reinit(){
     super.reinit()
-    
+
     this.instance = {
       ...this.instance,
-      delta:{ x: 0, y:0 },
-      scrollbar:{ offset:0, lastY:0, delayHide: null }
+      delta:{ x: 0, y:0 }
     }
 
     this.update()
@@ -115,16 +120,18 @@ export default class extends Core{
   }
 
   updateScroll(){
-    this.instance.scroll.y = lerp(this.instance.scroll.y, this.instance.delta.y, this.inertia * this.inertiaRatio);
+    let y = lerp(this.instance.scroll.y, this.instance.delta.y, this.inertia * this.inertiaRatio);
+    this.instance.direction = this.instance.scroll.y < y ? 'down': 'up'
+    this.instance.scroll.y = y
   }
 
   // TRANSFORM -----------------------------
   transformScrollbar(){
-    clearTimeout(this.instance.scrollbar.delayHide)
+    clearTimeout(this.scrollbar.delayHide)
     this.scrollbar.el.style.opacity = 1
     let distance = this.windowHeight * (this.instance.scroll.y / (this.instance.limit + this.windowHeight))
     this.transform(this.scrollbar.el,{y:distance})
-    this.instance.scrollbar.delayHide = setTimeout(()=> this.scrollbar.el.style.opacity = 0, 300)
+    this.scrollbar.delayHide = setTimeout(()=> this.scrollbar.el.style.opacity = 0, 300)
   }
 
   // CHECK ---------------------------------
@@ -140,7 +147,8 @@ export default class extends Core{
         requestAnimationFrame(() => {
           this.updateScroll();
           this.transformScrollbar()
-          this.transformElements()
+
+          super.checkScroll()
           this.checkScroll()
         });
       }
@@ -152,15 +160,15 @@ export default class extends Core{
   }
   touchScrollbar(e){
     this.isTouchingScrollbar = true
-    this.instance.scrollbar.offset = e.clientY
-    this.instance.scrollbar.lastY = this.instance.scroll.y
+    this.scrollbar.offset = e.clientY
+    this.scrollbar.lastY = this.instance.scroll.y
   }
   moveScrollbar(e){
     if (this.isTouchingScrollbar){
         e.preventDefault()
 
-        let difference = ((e.clientY - this.instance.scrollbar.offset) / this.windowHeight) * (this.instance.limit + this.windowHeight)
-        let y = this.instance.scrollbar.lastY + difference
+        let difference = ((e.clientY - this.scrollbar.offset) / this.windowHeight) * (this.instance.limit + this.windowHeight)
+        let y = this.scrollbar.lastY + difference
         if (y > 0 && y < this.instance.limit){
           this.instance.delta.y = y
           this.checkScroll()

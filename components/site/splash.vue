@@ -14,8 +14,8 @@ export default {
   components:{icons},
   mounted(){
     let tl = this.$gsap.timeline({onComplete:()=>this.$emit('ready'),delay: 1})
-    tl.fromTo(this.$refs.logo,1,{opacity:0,yPercent: 100},{opacity:1,yPercent: 0,ease: 'power2.out'})
-    tl.to(this.$refs.splash,1,{height: 0, ease: 'power2.in'},'=-.5')
+    tl.to(this.$refs.logo,1,{opacity:1,y: 0,ease: 'power2.out'})
+    tl.to(this.$refs.splash,.75,{height: 0, ease: 'power2.in'},1)
   }
 }
 </script>
@@ -43,7 +43,10 @@ export default {
     align-items: center;
 
     .logo{
-      width: 50vw;
+      width: 30vw;
+      transform: translateY(100%);
+      opacity: 0;
+
       svg{
         width: 100%;
         fill: inherit;

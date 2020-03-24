@@ -5,5 +5,6 @@ export default{
     color: 'black',
     width: 10
   },
-  el: document.getElementsByTagName('body')[0].firstElementChild
+  el: document.getElementsByTagName('body')[0].firstElementChild,
+  html: document.documentElement
 }

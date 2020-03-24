@@ -16,7 +16,7 @@ export default {
   data(){
     return{
       info:{
-        overview: 3,
+        order: 3,
         title: 'Training',
         image: '/experiential/1.jpg'
       }

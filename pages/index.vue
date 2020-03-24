@@ -1,65 +1,43 @@
 <template lang="html">
-  <main v-scroll:page>
-
+  <main id="home">
     <section class="intro" v-scroll:section>
-      <div class="content">
-        <p v-html="intro.mission" ref="mission"/>
-      </div>
-      <video-player v-if="intro.wistia" class="video" :wistia="intro.wistia"/>
+      <p v-html="data.mission" ref="mission"/>
     </section>
-
     <section class="work" v-scroll:section>
-      <div class="work-item" v-for="(item,i) in caseStudyItems" :key="i">
-        <div class="inner-work-item">
-          <preview
-            :type="item.type"
-            :title="item.title"
-            :link="item.link"
-            :image="item.image"
-          />
+      <div class="card" v-for="(item,i) in work" :key="i" ref="card">
+        <div class="container">
+          <div class="content" v-scroll="cardProps(i)">
+            <div class="image" :style="img(item.image)" v-scroll="{y:-.5}"/>
+          </div>
         </div>
       </div>
     </section>
-
-    <section class="employees" v-scroll:section>
-      <div class="content">
-        <div class="description">
-          we are across the country...
-        </div>
-        <div class="">
-
-        </div>
-      </div>
+    <section class="staff" v-scroll:section>
+      <p v-html="data.staff"/>
+      <staff-marquee :staff="staff.slice(0,Math.ceil(staff.length / 2))" run />
+      <staff-marquee :staff="staff.slice(Math.ceil(staff.length / 2))" run reverse />
     </section>
-
-    <section class="clients" v-scroll:section>
-
-    </section>
-
-    <section class="offerings" v-scroll:section>
+    <section class="process" v-scroll:section>
 
     </section>
   </main>
 </template>
 
 <script>
-import data from '@/assets/data/home'
-import videoPlayer from '@/components/video'
-import preview from '@/components/work/preview'
+import content from '@/assets/data/content'
+import staff from '@/assets/data/staff'
+import staffMarquee from '@/components/staff/staffMarquee'
 import {mapState} from 'vuex'
 export default {
-  components:{
-    videoPlayer,
-    preview
-  },
+  components:{staffMarquee},
   data(){
     return{
-      intro: data.intro
+      data: content.home,
+      widowWidth: null
     }
   },
   mounted(){
-    this.init()
-    if (this.ready) this.onReady()
+    this.setAnimations()
   },
   watch:{
     ready(){
@@ -67,125 +45,114 @@ export default {
     }
   },
   methods:{
-    init(){
-      this.$gsap.set(this.$refs.mission, {opacity:0,y: '10vh'})
+    setAnimations(){
+      this.$gsap.set(this.$refs.mission,{opacity:0,y: '10%'})
     },
     onReady(){
-      this.$gsap.to(this.$refs.mission,1,{opacity:1, y: 0, ease: 'power4.out'})
+      this.$gsap.to(this.$refs.mission,.5,{opacity:1, y: 0})
+    },
+    img(url){
+      return {backgroundImage: `url(${url})`}
+    },
+    shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    },
+    cardProps(i){
+      return [1,4].indexOf(i % 8 + 1) > -1 ? {y:1} : {}
     }
   },
   computed:{
     ...mapState(['ready']),
-    caseStudyItems(){
+    work(){
       let pages = require.context('./work',false, /.*\.vue$/)
-      let caseStudies = pages.keys().map(key => {
-        let page = pages(key)
+      let work = pages.keys().map(key => {
+        let {info} = pages(key).default.data()
         let link = '/work/' + key.replace('.vue', '').replace('./','')
-        return {...page.default.data().info, link}
+        return {...info, link}
       })
 
-      return caseStudies.sort((a,b) => a.overview - b.overview )
+      return work.sort((a,b) => a.order - b.order )
+    },
+    staff(){
+      return this.shuffle(staff)
     }
   }
 }
 </script>
 
 <style lang="scss">
+  main{
+    .intro{
+      padding: $site-padding;
 
-section{
-  min-height: 100vh;
-}
+      p{
+        @include font('body mega');
+        padding-right: $site-padding;
+      }
+    }
+    .work{
+      padding: $site-padding;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      margin: -2vw -2vw 0px;
 
-.intro{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @include sitePadding;
-  position: relative;
-  overflow: hidden;
 
-  .content{
-    flex: 0 0 auto;
-    p{
-      @include font('body mega')
+      .card{
+        flex: 0 0 auto;
+        width: 33.333%;
+        padding: 1vw;
+
+        .container{
+          position: relative;
+          padding-bottom: 130%;
+        }
+
+        .content{
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background: $midnight;
+          overflow: hidden;
+        }
+
+        .image{
+          margin-top: -20%;
+          height: 120%;
+          width: 100%;
+          background-size: cover;
+        }
+
+        &:nth-child(8n + 1),
+        &:nth-child(8n + 4){
+          .content{top: 50%;}
+        }
+
+        &:nth-child(8n + 2),
+        &:nth-child(8n + 5){
+          .container{padding-bottom: 100%;}
+          width: 66.666%;
+        }
+
+        &:nth-child(8n + 3){
+          margin-left: 33.333%;
+        }
+      }
+    }
+
+    .staff{
+      padding: $site-padding 0px;
+
+      p{
+        @include font('body mega');
+        text-align: center;
+        padding: 0px $site-padding $site-padding;
+      }
+    }
+
+    .process{
+      height: 100vh;
     }
   }
-
-  .video{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-  }
-}
-
-.work{
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  flex-wrap:wrap;
-  @include sitePadding;
-
-  .work-item{
-    flex: 0 0 auto;
-    width: 33.333%;
-    padding: .5vw;
-
-    .inner-work-item{
-      padding-bottom: 100%;
-      position: relative;
-    }
-
-    .preview{
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      bottom: 0px;
-      right: 0px;
-      z-index: 1;
-    }
-
-    &:nth-child(8n + 1){
-      width: 66.666%;
-      .inner-work-item{
-        padding-bottom: 50%;
-      }
-    }
-
-    &:nth-child(8n + 2),
-    &:nth-child(8n + 3){
-      .inner-work-item{
-        padding-bottom: 50%;
-      }
-      .preview{
-         bottom: -100%;
-      }
-    }
-
-    &:nth-child(8n + 4){
-      margin-right: 33.333%;
-    }
-
-    &:nth-child(8n + 5){
-      width: 66.666%;
-      margin-left: 33.333%;
-      .inner-work-item{
-        padding-bottom: 50%;
-      }
-    }
-
-  }
-}
-
-.employees{
-  background: $midnight;
-}
-
-.clients{
-}
-
-.offerings{
-}
 </style>

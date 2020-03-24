@@ -16,7 +16,7 @@ export default {
   data(){
     return{
       info:{
-        overview: 4,
+        order: 4,
         title: 'Launch Events',
         image: '/experiential/2.jpg'
       }
