@@ -8,7 +8,8 @@ export default{
                     Morbi vel pellentesque nisl. Phasellus felis leo, mattis
                     ac urna eget, suscipit semper justo. In vitae lacinia massa.
                     Donec sit amet efficitur urna, id efficitur leo. Duis
-                    molestie accumsan diam ac varius. Donec lorem augue`
+                    molestie accumsan diam ac varius. Donec lorem augue`,
+      button: 'Learn more about us'
     }
   }
 }

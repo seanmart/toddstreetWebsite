@@ -55,4 +55,8 @@ export default class{
     instance.addEvent(e, 'resize')
   }
 
+  transform(el,{x = 0,y = 0,rotate = 0,scale = 1}, transition){
+    instance.transform(el,{x,y,rotate,scale}, transition)
+  }
+
 }

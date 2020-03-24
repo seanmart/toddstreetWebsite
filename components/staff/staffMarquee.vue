@@ -15,34 +15,30 @@ export default {
   data(){
     return{
       animation: null,
-      boxWidth: 200,
-      boxHeight: 200,
+      boxWidth: 300,
+      boxHeight: 300,
       play: false,
-      direction: 'down'
+      direction: 'down',
+      distance: 0,
+      backwards: false
     }
   },
   mounted(){
 
-    let distance = this.staff.length * this.boxWidth
+    this.distance = this.staff.length * this.boxWidth
+    this.backwards = this.reverse
 
     this.$gsap.set(this.$refs.employee,{x: (x)=> x * this.boxWidth})
-
-    this.animation = this.$gsap.to(this.$refs.employee, {
-                      duration: this.staff.length * 6,
-                      ease: "none",
-                      x: `+=${distance}`,
-                      modifiers: {
-                        x: this.$gsap.utils.unitize(x => parseFloat(x) % distance)
-                      },
-                      repeat: -1,
-                      paused: true,
-                      runBackwards: this.reverse
-                    });
+    this.addAnimation(true)
 
     this.$scrollbuddy.onScroll((e)=>{
       if (!this.play) return
       this.animation.timeScale(1 + Math.abs((e.delta.y - e.scroll.y) / 20))
-      if (this.direction !== e.direction) this.animation.reversed() ? this.animation.play() : this.animation.reverse()
+      if (this.direction !== e.direction){
+        this.direction = e.direction
+        this.backwards = !this.backwards
+        this.addAnimation(false)
+      }
     })
 
   },
@@ -54,6 +50,19 @@ export default {
     }
   },
   methods:{
+    addAnimation(pause){
+      this.animation = this.$gsap.to(this.$refs.employee, {
+                        duration: this.staff.length * 6,
+                        ease: "none",
+                        x: `+=${this.distance}`,
+                        modifiers: {
+                          x: this.$gsap.utils.unitize(x => parseFloat(x) % this.distance)
+                        },
+                        repeat: -1,
+                        paused: pause,
+                        runBackwards: this.backwards
+                      });
+    },
     img(url){
       return {backgroundImage: `url(${url})`}
     }

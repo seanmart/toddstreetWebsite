@@ -17,8 +17,13 @@
         <h1 v-html="data.staff.title"/>
         <p v-html="data.staff.description"/>
       </div>
-      <staff-marquee :staff="staff.slice(0,Math.ceil(staff.length / 2))" run />
-      <staff-marquee :staff="staff.slice(Math.ceil(staff.length / 2))" run reverse />
+      <div class="rows">
+        <staff-marquee :staff="staff.slice(0,Math.ceil(staff.length / 2))" run />
+        <staff-marquee :staff="staff.slice(Math.ceil(staff.length / 2))" run reverse />
+        <follow-cursor class="link-container">
+          <circle-link class="link" :hover="false" >{{data.staff.button}}</circle-link>
+        </follow-cursor>
+      </div>
     </section>
     <section class="process" v-scroll:section>
 
@@ -30,13 +35,15 @@
 import content from '@/assets/data/content'
 import staff from '@/assets/data/staff'
 import staffMarquee from '@/components/staff/staffMarquee'
+import circleLink from '@/components/text/circleLink'
+import followCursor from '@/components/cursor/followCursor'
 import {mapState} from 'vuex'
 export default {
-  components:{staffMarquee},
+  components:{staffMarquee, circleLink,followCursor},
   data(){
     return{
       data: content.home,
-      widowWidth: null
+
     }
   },
   mounted(){
@@ -146,23 +153,41 @@ export default {
 
     .staff{
       padding: $site-padding 0px;
+      position: relative;
 
       .info{
         display: flex;
         flex-direction: row;
-        align-items: flex-end;
         padding: 0px $site-padding $site-padding;
         width: 100%;
 
         h1{
-          @include font('header');
+          @include font('body mega');
           flex: 0 0 auto;
           margin-right: $site-padding;
         }
 
         p{
-          @include font('body');
           flex: 1 1 auto;
+        }
+      }
+      .rows{
+        position: relative;
+      }
+
+      .link-container{
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .link{
+          flex: 0 0 auto;
         }
       }
     }

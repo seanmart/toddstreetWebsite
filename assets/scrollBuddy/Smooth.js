@@ -8,6 +8,7 @@ export default class extends Core{
     super(options)
 
     this.scrollbar = {
+      ...options.scrollbar,
       el: null,
       offset:0,
       lastY:0,

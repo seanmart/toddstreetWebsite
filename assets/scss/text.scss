@@ -12,6 +12,7 @@
     transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
     font-size: 3vw;
+    line-height: 100%;
     font-weight: 100;
   }
 
@@ -34,17 +35,25 @@
   @if $type == 'body'{
     transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
-    font-size: 1.2vw;
+    font-size: 1.5vw;
+    line-height: 130%;
     font-weight: 200;
   }
 
   @if $type == 'button'{
     transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
-    font-size: .9vw;
-    letter-spacing: .1vw;
+    font-size: 1.2vw;
     font-weight: 500;
-    text-transform: uppercase;
+
+  }
+
+  @if $type == 'link'{
+    transition: color $colorTransition;
+    font-family: lft-etica, sans-serif;
+    font-size: .9vw;
+    letter-spacing: .05vw;
+    font-weight: 500;
   }
 
 }

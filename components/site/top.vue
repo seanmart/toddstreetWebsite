@@ -46,7 +46,7 @@ export default {
       this.$gsap.set(this.$refs.link,{yPercent: 100})
     },
     onReady(){
-      let tl = this.$gsap.timeline({delay: .5})
+      let tl = this.$gsap.timeline()
       tl.to(this.$refs.logo,.5,{yPercent: 0, opacity: 1},0)
       tl.to(this.$refs.link,.5,{yPercent: 0, stagger: .1},.1)
     }
@@ -93,6 +93,7 @@ header{
 
       span{
         display: inline-block;
+        @include font('link')
       }
     }
   }

@@ -4,6 +4,7 @@ html{
   fill: $midnight;
   border-color: $midnight;
   transition: background $colorTransition;
+  @include font('body');
 
   &.dark{
     background: $midnight;

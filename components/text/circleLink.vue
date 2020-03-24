@@ -1,12 +1,16 @@
 <template lang="html">
-  <button type="button" class="circle-button" ref="button">
+  <button type="button" class="circle-button" ref="button" :class="{hover}">
     <slot/>
-    <div class="circle"/>
+    <nuxt-link :to="to" class="circle"/>
   </button>
 </template>
 
 <script>
 export default {
+  props:{
+    to:{String, default: '/'},
+    hover:{type: Boolean, default: true}
+  }
 }
 </script>
 
@@ -18,11 +22,11 @@ export default {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
     @include font('button');
+    color: $snow;
 
     .circle{
-      background: $snow;
+      background: $midnight;
       position: absolute;
       z-index: -1;
       width: 100%;
@@ -31,7 +35,7 @@ export default {
       transition: transform .25s;
     }
 
-    &:hover{
+    &.hover:hover{
       .circle{
         transform: scale3d(1.25,1.25,1)
       }
