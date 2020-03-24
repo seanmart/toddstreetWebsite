@@ -13,7 +13,10 @@
       </div>
     </section>
     <section class="staff" v-scroll:section>
-      <p v-html="data.staff"/>
+      <div class="info">
+        <h1 v-html="data.staff.title"/>
+        <p v-html="data.staff.description"/>
+      </div>
       <staff-marquee :staff="staff.slice(0,Math.ceil(staff.length / 2))" run />
       <staff-marquee :staff="staff.slice(Math.ceil(staff.length / 2))" run reverse />
     </section>
@@ -144,10 +147,23 @@ export default {
     .staff{
       padding: $site-padding 0px;
 
-      p{
-        @include font('body mega');
-        text-align: center;
+      .info{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
         padding: 0px $site-padding $site-padding;
+        width: 100%;
+
+        h1{
+          @include font('header');
+          flex: 0 0 auto;
+          margin-right: $site-padding;
+        }
+
+        p{
+          @include font('body');
+          flex: 1 1 auto;
+        }
       }
     }
 

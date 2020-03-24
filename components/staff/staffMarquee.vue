@@ -36,13 +36,13 @@ export default {
                       },
                       repeat: -1,
                       paused: true,
-                      runBackwards:this.reverse
+                      runBackwards: this.reverse
                     });
 
     this.$scrollbuddy.onScroll((e)=>{
       if (!this.play) return
       this.animation.timeScale(1 + Math.abs((e.delta.y - e.scroll.y) / 20))
-      if (this.direction !== e.direction) this.animation.reversed( !this.animation.reversed() );
+      if (this.direction !== e.direction) this.animation.reversed() ? this.animation.play() : this.animation.reverse()
     })
 
   },
