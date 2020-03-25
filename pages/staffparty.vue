@@ -63,14 +63,14 @@ export default {
 
       .text{
         position: absolute;
-        top: 0px;
-        left: 0px;
-        right: 0px;
+        top: 10px;
+        left: 10px;
+        right: 10px;
         padding: 10px;
         background: $midnight;
         color: $snow;
         h1{
-          @include font('header');
+          @include font('header small');
         }
         p{
           @include font('link');

@@ -37,7 +37,7 @@ export default [
   {
     name: `Frank Cannava`,
     role: 'Director, Experiential Marketing & Account Services',
-    image: '//staff/frank-cannava.jpg'
+    image: '/staff/frank-cannava.jpg'
   },
   {
     name: `Geneviève Levesque-Mumford`,
