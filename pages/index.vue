@@ -40,10 +40,9 @@ import content from '@/assets/data/content'
 import staff from '@/assets/data/staff'
 import marquee from '@/components/move/marquee'
 import circleLink from '@/components/text/circleLink'
-import followCursor from '@/components/cursor/followCursor'
 import {mapState} from 'vuex'
 export default {
-  components:{marquee, circleLink,followCursor},
+  components:{marquee, circleLink},
   data(){
     return{
       data: content.home,
