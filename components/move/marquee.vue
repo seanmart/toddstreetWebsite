@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="staff-marquee" v-scroll="marqueeProps" :style="{width: `${boxWidth}px`, height: `${boxHeight}px`}">
-    <div  class="employee" v-for="(employee,i) in staff" :key="i" ref="employee" >
-      <div class="photo" :style="img(employee.image)"/>
+  <div class="marquee" v-scroll="marqueeProps">
+    <div class="marquee-items" ref="marquee">
+      <slot/>
     </div>
   </div>
 </template>
@@ -10,26 +10,29 @@
 export default {
   props:{
     staff: Array,
-    reverse: Boolean,
-    duration: {type: Number, default: 30}
+    reverse: Boolean
   },
   data(){
     return{
+      duration: 60,
       animation: null,
-      boxWidth: 300,
-      boxHeight: 300,
       play: false,
       direction: 'down',
       distance: 0,
-      backwards: false
+      width: 0,
+      backwards: false,
+      els: null
     }
   },
   mounted(){
-
-    this.distance = this.staff.length * this.boxWidth
+    this.els = this.$refs.marquee.children
+    this.distance = Array.from(this.els).reduce((a,i)=> a += i.offsetWidth,0)
     this.backwards = this.reverse
+    this.duration = this.els.length * 10
+    this.width = this.$refs.marquee.offsetWidth
 
-    this.$gsap.set(this.$refs.employee,{x: (x)=> x * this.boxWidth})
+    this.$gsap.set(this.els,{x: (x)=> x * this.width})
+
     this.addAnimation(true)
 
     this.$scrollbuddy.onScroll((e)=>{
@@ -52,7 +55,7 @@ export default {
   },
   methods:{
     addAnimation(pause){
-      this.animation = this.$gsap.to(this.$refs.employee, {
+      this.animation = this.$gsap.to(this.els, {
                         duration: this.duration,
                         ease: "none",
                         x: `+=${this.distance}`,
@@ -71,6 +74,7 @@ export default {
   computed:{
     marqueeProps(){
       return{
+        transform: false,
         offset: '-100%y',
         onEnter:()=> this.play = true,
         onLeave:()=> this.play = false
@@ -81,21 +85,22 @@ export default {
 </script>
 
 <style lang="scss">
-.staff-marquee{
+.marquee{
   position: relative;
-  transform: translateX(-300px);
 
-  .employee{
+  .marquee-items{
+    display: inline-block;
+    transform: translateX(-100%);
+  }
+
+  .marquee-item{
+    display: inline-block;
     position: absolute;
-    height: 100%;
-    width: 100%;
-    padding:5px;
+    top: 0px;
+    left: 0px;
 
-    .photo{
-      height: 100%;
-      width: 100%;
-      background-color: $snow;
-      background-size: cover;
+    &:first-child{
+      position: relative;
     }
   }
 }

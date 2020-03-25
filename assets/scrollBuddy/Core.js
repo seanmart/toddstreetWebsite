@@ -10,10 +10,11 @@ export default class {
     this.checkScroll = this.checkScroll.bind(this);
     this.checkResize = this.checkResize.bind(this);
     this.updateElements = this.updateElements.bind(this);
+    this.updateCursor = this.updateCursor.bind(this);
 
     this.windowHeight = window.innerHeight
     this.windowWidth = window.innerWidth
-    this.instance = {scroll:{x: 0,y:0}, direction: 'down'}
+    this.instance = {scroll:{x: 0,y:0}, cursor:{x:0, y:0}, direction: 'down'}
     this.isTicking = false
 
     this.shouldUpdate = null
@@ -24,6 +25,7 @@ export default class {
 
     window.addEventListener('resize', this.checkResize, false);
     window.addEventListener("load", this.updateElements)
+    window.addEventListener('mousemove',this.updateCursor)
     window.scrollTo(0,0)
 
   }
@@ -36,11 +38,8 @@ export default class {
   reinit(){
 
     this.isTicking = false
-
-    this.instance = {
-      scroll:{x: 0,y:0},
-      limit: this.el.offsetHeight - this.windowHeight,
-    }
+    this.instance.scroll = {x: 0,y:0}
+    this.instance.limit = this.el.offsetHeight - this.windowHeight
 
   }
 
@@ -49,6 +48,7 @@ export default class {
   checkScroll() {
     this.transformElements();
     this.updateScrollEvents()
+    this.update
   }
 
   checkResize(){
@@ -112,6 +112,11 @@ export default class {
     this.instance.scroll.x = window.scrollX;
   }
 
+  updateCursor(e){
+    this.instance.cursor.x = e.clientX - window.scrollX
+    this.instance.cursor.y = e.clientY - window.scrollY
+  }
+
   updateElements(){
     this.elements.forEach(current=> current.update())
   }
@@ -134,6 +139,8 @@ export default class {
 
     let scrollTop = scroll || this.instance.scroll.y
     let scrollBottom = scrollTop + this.windowHeight
+    let cursorY = this.instance.cursor.y + scrollTop
+    let cursorX = this.instance.cursor.x
 
     let count = 0
 
@@ -143,7 +150,7 @@ export default class {
 
       let top = current.offsetTop
                 ? current.top + current.offsetTop
-                : current.top
+                : Math.max(current.top,0)
 
       let bottom = current.duration
                    ? Math.max(top,0) + current.duration
@@ -160,6 +167,7 @@ export default class {
       let below = top > scrollTop
       let above = bottom < scrollTop
       let visible = top <= scrollTop && bottom >= scrollTop
+      let inside = cursorY > bottom - current.height && cursorY < bottom && cursorX > current.right - current.width && cursorX < current.right
 
       let transform = {y: 0, x: 0, scale: 1, rotate: 0, scroll: 0 }
       let scrolled = scrollTop - Math.max(top,0)
@@ -211,6 +219,10 @@ export default class {
       }
 
       // events ===============================================
+      if (current.inside !== inside){
+        if (current.onCursorEnter && inside) current.onCursorEnter()
+        if (current.onCursorLeave && !inside) current.onCursorLeave()
+      }
 
       if (current.visible !== visible){
         if (visible){
@@ -225,6 +237,7 @@ export default class {
       }
 
       current.visible = visible
+      current.inside = inside
       current.inView = inView
 
       //console.log(count)

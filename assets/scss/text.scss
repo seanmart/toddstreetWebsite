@@ -43,16 +43,18 @@
   @if $type == 'button'{
     transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
-    font-size: 1.2vw;
-    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .1vw;
+    line-height: 130%;
+    font-size: 1.1vw;
+    font-weight: 400;
 
   }
 
   @if $type == 'link'{
     transition: color $colorTransition;
     font-family: lft-etica, sans-serif;
-    font-size: .9vw;
-    letter-spacing: .05vw;
+    font-size: 1vw;
     font-weight: 500;
   }
 

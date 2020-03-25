@@ -1,5 +1,5 @@
 <template lang="html">
-  <main id="home">
+  <main id="home" v-scroll:page>
     <section class="intro" v-scroll:section>
       <p v-html="data.mission" ref="mission"/>
     </section>
@@ -7,6 +7,7 @@
       <div class="card" v-for="(item,i) in work" :key="i" ref="card">
         <div class="container">
           <div class="content" v-scroll="cardProps(i)">
+            <h1 v-html="item.title"/>
             <div class="image" :style="img(item.image)" v-scroll="{y:-.5}"/>
           </div>
         </div>
@@ -17,15 +18,18 @@
         <h1 v-html="data.staff.title"/>
         <p v-html="data.staff.description"/>
       </div>
-      <div class="rows">
-        <staff-marquee :staff="staff.slice(0,Math.ceil(staff.length / 2))" run />
-        <staff-marquee :staff="staff.slice(Math.ceil(staff.length / 2))" run reverse />
-        <follow-cursor class="link-container">
-          <circle-link class="link" :hover="false" >{{data.staff.button}}</circle-link>
-        </follow-cursor>
+      <div class="content">
+        <marquee :staff="staff" run>
+          <div class="employee marquee-item" v-for="(employee,i) in staff" :key="i">
+            <div class="image" :style="img(employee.image)"/>
+          </div>
+        </marquee>
+        <circle-link class="link" :size="150" v-scroll="staffButtonProps">
+          <span v-html="data.staff.button"/>
+        </circle-link>
       </div>
     </section>
-    <section class="process" v-scroll:section>
+    <section class="process" v-scroll:section="processProps">
 
     </section>
   </main>
@@ -34,12 +38,12 @@
 <script>
 import content from '@/assets/data/content'
 import staff from '@/assets/data/staff'
-import staffMarquee from '@/components/staff/staffMarquee'
+import marquee from '@/components/move/marquee'
 import circleLink from '@/components/text/circleLink'
 import followCursor from '@/components/cursor/followCursor'
 import {mapState} from 'vuex'
 export default {
-  components:{staffMarquee, circleLink,followCursor},
+  components:{marquee, circleLink,followCursor},
   data(){
     return{
       data: content.home,
@@ -68,7 +72,11 @@ export default {
       return array.sort(() => Math.random() - 0.5);
     },
     cardProps(i){
-      return [1,4].indexOf(i % 8 + 1) > -1 ? {y:1} : {}
+      let props = {}
+      props.onCursorEnter = ()=> console.log('entering')
+      props.onCursorLeave = ()=> console.log('leaving')
+      if ([1,4].indexOf(i % 8 + 1) > -1) props.y = 1
+      return props
     }
   },
   computed:{
@@ -85,6 +93,14 @@ export default {
     },
     staff(){
       return this.shuffle(staff)
+    },
+    staffButtonProps(){
+      return {y: 2}
+    },
+    processProps(){
+      return{
+        offset:'50vh'
+      }
     }
   }
 }
@@ -93,7 +109,7 @@ export default {
 <style lang="scss">
   main{
     .intro{
-      padding: $site-padding;
+      padding: $site-padding $site-padding $site-padding / 2;
 
       p{
         @include font('body mega');
@@ -127,11 +143,21 @@ export default {
           overflow: hidden;
         }
 
+        h1{
+          @include font('body mega');
+          position: absolute;
+          top: 5vw;
+          left: 5vw;
+          color: $snow;
+          z-index: 1;
+        }
+
         .image{
           margin-top: -20%;
           height: 120%;
           width: 100%;
           background-size: cover;
+          background-position: center center;
         }
 
         &:nth-child(8n + 1),
@@ -171,24 +197,25 @@ export default {
           flex: 1 1 auto;
         }
       }
-      .rows{
+      .content{
         position: relative;
       }
 
-      .link-container{
-        position: absolute;
-        z-index: 1;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .link{
-          flex: 0 0 auto;
+      .employee{
+        padding: 3px;
+        width: 300px;
+        height: 300px;
+        .image{
+          height: 100%;
+          background-size: cover;
+          background-position: center center;
         }
+      }
+
+      .link{
+        position: absolute;
+        top: 105%;
+        left: 25%;
       }
     }
 

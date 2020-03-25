@@ -1,107 +1,107 @@
 export default [
   {
     name: `Aimee Adams`,
-    role: 'Graphic Designer',
+    role: 'Director, Creative & Media',
     image: 'staff/aimee-adams.jpg'
   },
   {
     name: `Anchi Friedman`,
-    role: 'Graphic Designer',
+    role: 'Executive Assistant/Production Assistant',
     image: 'staff/anchi-friedman.jpg'
   },
   {
     name: `Bob Bucina`,
-    role: 'Graphic Designer',
+    role: 'VP, Content Training Strategist',
     image: 'staff/bob-bucina.jpg'
   },
   {
     name: `Craig Hettche`,
-    role: 'Graphic Designer',
+    role: 'Senior Executive Producer, Video',
     image: 'staff/craig-hettche.jpg'
   },
   {
     name: `Dan Silva`,
-    role: 'Graphic Designer',
+    role: 'Executive Producer / Account Manager',
     image: 'staff/dan-silva.jpg'
   },
   {
     name: `David Marino`,
-    role: 'Graphic Designer',
+    role: 'Staff Accountant',
     image: 'staff/david-marino.jpg'
   },
   {
     name: `Evan Street`,
-    role: 'Graphic Designer',
+    role: 'Client Engagement Manager',
     image: 'staff/evan-street.jpg'
   },
   {
     name: `Frank Cannava`,
-    role: 'Graphic Designer',
+    role: 'Director, Experiential Marketing & Account Services',
     image: 'staff/frank-cannava.jpg'
   },
   {
-    name: `Genevieve Mumford`,
+    name: `Geneviève Levesque-Mumford`,
     role: 'Graphic Designer',
     image: 'staff/genevieve-mumford.jpg'
   },
   {
     name: `Gianna Polizzotto`,
-    role: 'Graphic Designer',
+    role: 'Receptionist/Production Assistant',
     image: 'staff/gianna-polizzotto.jpg'
   },
   {
     name: `Jaleesa Francois`,
-    role: 'Graphic Designer',
+    role: 'Project Manager',
     image: 'staff/jaleesa-francois.jpg'
   },
   {
     name: `Kate Briggs`,
-    role: 'Graphic Designer',
+    role: 'Managing Director, Production & Creative Services',
     image: 'staff/kate-briggs.jpg'
   },
   {
     name: `Kyle Rose`,
-    role: 'Graphic Designer',
+    role: 'Senior Graphic Designer',
     image: 'staff/kyle-rose.jpg'
   },
   {
     name: `Laurence Bye`,
-    role: 'Graphic Designer',
+    role: 'Creative & Marketing Specialist',
     image: 'staff/laurence-bye.jpg'
   },
   {
     name: `Marge Hoppe`,
-    role: 'Graphic Designer',
+    role: 'Managing Director, Business & Financial Operations',
     image: 'staff/marge-hoppe.jpg'
   },
   {
     name: `Marta Star`,
-    role: 'Graphic Designer',
+    role: 'Manager, Finance & Business Operations',
     image: 'staff/marta-star.jpg'
   },
   {
     name: `Meaghan Pratt`,
-    role: 'Graphic Designer',
+    role: 'Senior Project Manager',
     image: 'staff/meaghan-pratt.jpg'
   },
   {
     name: `Michael Portnoy`,
-    role: 'Graphic Designer',
+    role: 'VP, Senior Executive Producer',
     image: 'staff/michael-portnoy.jpg'
   },
   {
     name: `Ronnie Litwack`,
-    role: 'Graphic Designer',
+    role: 'Senior Executive Producer, Video',
     image: 'staff/ronnie-litwack.jpg'
   },
   {
     name: `Ryan Carter`,
-    role: 'Graphic Designer',
+    role: 'IT Director',
     image: 'staff/ryan-carter.jpg'
   },
   {
     name: `Sara Goldberg`,
-    role: 'Graphic Designer',
+    role: 'Account Manager / Senior Content Producer',
     image: 'staff/sara-goldberg.jpg'
   },
   {
@@ -111,7 +111,7 @@ export default [
   },
   {
     name: `Todd Street`,
-    role: 'Graphic Designer',
+    role: 'President & CEO',
     image: 'staff/todd-street.jpg'
   }
 ]

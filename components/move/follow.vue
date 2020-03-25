@@ -4,7 +4,7 @@
     ref="container"
     @mousemove="handleMouseMove"
     @mouseleave="handleMouseLeave"
-    @mouseenter="handleMouseEnter"
+    @mouseover="handleMouseOver"
     v-scroll="{onScroll,offset: -100}"
     >
     <slot/>
@@ -16,7 +16,7 @@ export default {
   data(){
     return{
       el: null,
-      inertia: .12,
+      inertia: 0,
       inZone: false,
       ticking: false,
       animate: false,
@@ -62,6 +62,7 @@ export default {
       this.follower.limits.left = b.left - f.left
       this.follower.limits.bottom = b.bottom - f.bottom
       this.follower.limits.right = b.right - f.right
+
     },
     lerp(start, end, amt){
         return (1 - amt) * start + amt * end
@@ -70,9 +71,11 @@ export default {
       this.updateCursor(e)
       !this.ticking && this.checkMove()
     },
-    handleMouseEnter(e){
-      this.inertia = .1
+    handleMouseOver(e){
       this.inZone = true
+      this.inertia = .16
+      this.updateCursor(e)
+      !this.ticking && this.checkMove()
     },
     handleMouseLeave(e){
       this.ticking = false
@@ -85,7 +88,7 @@ export default {
     updateCursorScroll({x,y}){
       let l = this.follower.limits
       this.cursor.x = parseInt(Math.min(Math.max(x,l.left),l.right))
-      this.cursor.y = parseInt(Math.min(Math.max(y,l.left),l.right))
+      this.cursor.y = parseInt(Math.min(Math.max(y,l.top),l.bottom))
     },
     updateCursor(e){
       let l = this.follower.limits
@@ -142,15 +145,5 @@ export default {
 </script>
 
 <style lang="scss">
-  .follow-container{
-    position: relative;
 
-    .follower{
-      z-index: 1;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-    }
-  }
 </style>

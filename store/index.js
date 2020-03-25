@@ -1,11 +1,13 @@
+import vars from '@/assets/scss/variables.scss'
+
 export default{
+
   state:()=>({
     ready: false,
-    dark: false
   }),
   mutations:{
-    set(state, {key, value}){
-      state[key] = value
+    setReady(state, x){
+      state.ready = x
     }
   }
 }

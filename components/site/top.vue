@@ -1,5 +1,5 @@
 <template lang="html">
-  <header :class="{scrolling}" ref="header">
+  <header ref="header" v-scroll="headerProps">
     <div class="content">
 
       <div class="logo" ref="logo">
@@ -24,16 +24,12 @@ export default {
   data(){
     return{
       links: 3,
-      scrolling: false,
-      height: 0
+      animations:{}
     }
   },
   mounted(){
-    this.height = this.$refs.header.offsetHeight
-    this.$scrollbuddy.onScroll((e)=>{this.scrolling = e.scroll.y > this.height / 2})
-    this.$scrollbuddy.onResize(()=>{this.height = this.$refs.header.offsetHeight})
-
     this.init()
+    this.setAnimations()
   },
   watch:{
     ready(){
@@ -45,6 +41,9 @@ export default {
       this.$gsap.set(this.$refs.logo,{yPercent: 100, opacity: 0})
       this.$gsap.set(this.$refs.link,{yPercent: 100})
     },
+    setAnimations(){
+      this.animations.header = this.$gsap.to(this.$refs.header,1,{yPercent: -100}).pause()
+    },
     onReady(){
       let tl = this.$gsap.timeline()
       tl.to(this.$refs.logo,.5,{yPercent: 0, opacity: 1},0)
@@ -52,7 +51,13 @@ export default {
     }
   },
   computed:{
-    ...mapState(['ready'])
+    ...mapState(['ready']),
+    headerProps(){
+      return{
+        transform: false,
+        onScroll:(e)=> this.animations.header.progress(e.percent)
+      }
+    }
   }
 }
 </script>
@@ -64,7 +69,6 @@ header{
   left: 0px;
   right: 0px;
   padding: $site-padding / 2 $site-padding;
-  transition: transform .35s;
 
   .content{
     position: relative;

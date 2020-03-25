@@ -15,19 +15,17 @@ export default{
     this.$scrollbuddy.pause()
   },
   watch:{
-    dark(dark){
-      dark
-      ? document.documentElement.classList.add('dark')
-      : document.documentElement.classList.remove('dark')
+    color(color){
+      this.$gsap.to(document.documentElement,.5,color)
     }
   },
   methods:{
     setReady(){
       this.$scrollbuddy.resume()
-      this.$store.commit('set', {key: 'ready', value: true})
+      this.$store.commit('setReady',true)
     }
   },
-  computed: mapState(['dark'])
+  computed: mapState(['color'])
 }
 </script>
 <style lang="scss">

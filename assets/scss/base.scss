@@ -3,15 +3,7 @@ html{
   color: $midnight;
   fill: $midnight;
   border-color: $midnight;
-  transition: background $colorTransition;
   @include font('body');
-
-  &.dark{
-    background: $midnight;
-    color: $snow;
-    fill: $snow;
-    border-color: $snow;
-  }
 }
 
 .line{

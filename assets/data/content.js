@@ -9,7 +9,7 @@ export default{
                     ac urna eget, suscipit semper justo. In vitae lacinia massa.
                     Donec sit amet efficitur urna, id efficitur leo. Duis
                     molestie accumsan diam ac varius. Donec lorem augue`,
-      button: 'Learn more about us'
+      button: 'Learn more <br/> about us'
     }
   }
 }

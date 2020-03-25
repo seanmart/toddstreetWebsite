@@ -24,6 +24,8 @@ export default class{
     this.onLeaveBottom = params.onLeaveBottom || null
     this.onReady = params.onReady || null
     this.onResize = params.onResize || null
+    this.onCursorEnter = params.onCursorEnter || null
+    this.onCursorLeave = params.onCursorLeave || null
 
     //transform
     this.section = params.section || false
@@ -34,7 +36,7 @@ export default class{
     this.rotate = params.rotate ? this.getValue(params.rotate) / 10 : null
     this.scale = params.scale ? this.getValue(params.scale) / 10000 : null
     this.duration = params.duration ? this.getValue(params.duration) : null
-    
+
     if (params.offset){
       this.offsetTop = this.getValue(params.offset)
       this.offsetBottom = this.getValue(params.offset)
@@ -45,6 +47,7 @@ export default class{
 
     // state
     this.padding = params.padding ? this.getValue(params.padding) : 0
+    this.inside = false
     this.visible = this.top < 0
     this.inView = this.top - this.padding < 0
     this.bottomOffset = 0
