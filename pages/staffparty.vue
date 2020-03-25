@@ -4,7 +4,7 @@
       class="item"
       v-for="(item,i) in items"
       :key="i"
-      :style="img(item.image)"
+      :style="{backgroundImage: img(item.image), zIndex: items.length - i}"
       v-scroll="item.vscroll"
     >
     <div class="text">
@@ -29,7 +29,8 @@ export default {
         item.name = staff[this.rnd(0,staff.length - 1)].name
         item.role = staff[this.rnd(0,staff.length - 1)].role
         item.vscroll = {
-          y: Math.sin(i)
+          y: Math.sin(i),
+          rotate: Math.sin(i) / 10
         }
 
         items.push(item)
@@ -39,7 +40,7 @@ export default {
   },
   methods:{
     img(url){
-      return {backgroundImage: `url(${url})`}
+      return `url(${url})`
     },
     rnd(min, max) {
       return Math.floor(Math.random() * (max - min) ) + min;
@@ -63,7 +64,7 @@ export default {
 
       .text{
         position: absolute;
-        top: 10px;
+        bottom: 10px;
         left: 10px;
         right: 10px;
         padding: 10px;

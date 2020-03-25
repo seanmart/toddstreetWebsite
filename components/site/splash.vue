@@ -30,7 +30,7 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 100;
+  z-index: 10000;
 
   .content{
     position: absolute;
