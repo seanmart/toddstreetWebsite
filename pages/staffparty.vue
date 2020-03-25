@@ -29,9 +29,7 @@ export default {
         item.name = staff[this.rnd(0,staff.length - 1)].name
         item.role = staff[this.rnd(0,staff.length - 1)].role
         item.vscroll = {
-          y: Math.sin(i),
-          rotate: Math.sin(-i)/10,
-          scale:Math.sin(i)/8
+          y: Math.sin(i)
         }
 
         items.push(item)
@@ -65,7 +63,7 @@ export default {
 
       .text{
         position: absolute;
-        bottom: 0px;
+        top: 0px;
         left: 0px;
         right: 0px;
         padding: 10px;
