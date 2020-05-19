@@ -3,6 +3,7 @@ import Main from './main.js'
 export default class extends Main{
   constructor(){
     super()
+    window.removeEventListener('mousemove', this.handleMouseMove)
   }
 
   // -----------------------------------------------------------------------------------------------

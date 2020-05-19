@@ -22,9 +22,6 @@ export default {
       init: false,
       data: data
     }
-  },
-  mounted(){
-    console.log('mounted page')
   }
 }
 </script>

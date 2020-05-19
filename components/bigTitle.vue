@@ -4,7 +4,7 @@
 
     <template v-for="(word,i) in words">
 
-      <br v-if="word == '<br/>'" :key="i"/>
+      <br v-if="word.includes('<br')" :key="i"/>
 
       <div v-else class="word" :key="i">
         <h1 v-html="word + '&nbsp'" ref="word"/>
@@ -65,6 +65,7 @@ export default {
       letter-spacing: -1px;
       line-height: 80%;
       text-transform: uppercase;
+      will-change: transform;
     }
   }
 

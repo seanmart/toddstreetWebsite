@@ -1,5 +1,5 @@
 <template lang="html">
-  <main ref="page">
+  <main ref="page" :class="{hide: !init}">
     <navigation :init="init"/>
     <slot/>
   </main>
@@ -22,7 +22,7 @@ export default {
     setTimeout(()=> {
       this.$vb.start()
       this.init = true
-    }, 500)
+    }, 250)
   },
   watch:{
     init(){
@@ -33,5 +33,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+  main{
+    transition: opacity .25s;
+    &.hide{
+      opacity: 0
+    }
+  }
 </style>

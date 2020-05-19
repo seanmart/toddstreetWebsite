@@ -1,9 +1,6 @@
 <template lang="html">
   <section id="events" ref="section">
       <big-title :text="data.title"/>
-      <div class="test">
-
-      </div>
   </section>
 </template>
 
@@ -22,9 +19,6 @@ export default {
 
 <style lang="scss">
 #events{
-  .test{
-    height: 100vh;
-    width: 100%;
-  }
+
 }
 </style>

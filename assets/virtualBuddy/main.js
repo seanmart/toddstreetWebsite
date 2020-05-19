@@ -44,15 +44,12 @@ export default class {
     this.handleResize = this.handleResize.bind(this);
     this.handleVisibility = this.handleVisibility.bind(this);
     this.handleScroll = this.handleScroll.bind(this)
+    this.handleMouseMove = this.handleMouseMove.bind(this);
 
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('visibility', this.handleVisibility)
     window.addEventListener('scroll', this.handleScroll)
-
-    if (!this.mobile){
-      this.handleMouseMove = this.handleMouseMove.bind(this);
-      window.addEventListener('mousemove', this.handleMouseMove)
-    }
+    window.addEventListener('mousemove', this.handleMouseMove)
 
   }
 
@@ -113,10 +110,12 @@ export default class {
         onLeave: null,
         onEnter: null,
         onMouseOver: null,
+        events: false
       }
 
       this.updateOptions(s,o)
       el.setAttribute("data-section","");
+      el.style.willChange = 'transform'
       this.sections.push(s)
 
     }
@@ -145,6 +144,8 @@ export default class {
           duration: 0,
           offsetTop:0,
           offsetBottom:0,
+          events: false,
+          transform: false,
           x:null,
           y:null,
           r:null,
@@ -152,7 +153,8 @@ export default class {
         }
 
         this.updateOptions(e,o)
-        el.setAttribute("data-element","");
+        el.setAttribute("data-element","")
+        el.style.willChange = 'transform'
         this.elements.push(e)
 
     }
@@ -217,7 +219,7 @@ export default class {
       props.scrolled = this.scroll.top - s.start
       props.percent = minMax(s.scrolled / (s.distance),0,1)
 
-      this.checkEvents(s,props)
+      if (s.events) this.checkEvents(s,props)
       s.visible = props.visible
     }
   }
@@ -233,8 +235,8 @@ export default class {
         props.percent = minMax(props.scrolled / (e.distance),0,1)
         props.continue = false
 
-        this.checkEvents(e,props)
-        this.checkTransform(e, props)
+        if (e.events) this.checkEvents(e,props)
+        if (e.transform) this.checkTransform(e, props)
 
         e.visible = props.visible
         e.percent = props.percent
@@ -379,6 +381,9 @@ export default class {
 
       }
     })
+
+    e.transform = e.values.x || e.values.y || e.values.rotate || e.values.scale || e.sticky
+    e.events = e.onEnter || e.onLeave || e.onScroll || e.onMouseOver
   }
 
 
