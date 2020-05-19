@@ -1,20 +1,33 @@
 html{
-  background: $snow;
-  color: $midnight;
-  fill: $midnight;
-  border-color: $midnight;
-  @include font('body');
+  font-family: 'aleo';
+  font-weight: 500;
 }
 
-.line{
-  border-top-width: 1px;
-  border-style: solid;
-  transition: border-color $colorTransition;
-  &.space{
-    padding: $site-padding 0px;
+h1,h2,h3,h4,h5{
+  font-family: 'bebas neue';
+  font-weight: 500;
+}
+
+section{
+  padding: $v-space $h-space
+}
+
+.ts-br{display: none}
+.ms-br{display: none}
+.db-br{display: initial}
+
+@media (max-width: $tablet){
+
+  .tb-br{display: initial}
+  .ts-br{display: initial}
+  .db-br{display: none}
+
+  section{
+    padding: $v-space $mh-space
   }
 }
 
-main{
-  padding-top: $site-padding / 2;
+@media (max-width: $mobile){
+  .ms-br{display: initial}
+  .tb-br{display: none}
 }

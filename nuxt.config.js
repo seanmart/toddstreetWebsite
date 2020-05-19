@@ -26,13 +26,16 @@ export default {
     ]
   },
   css: [
+    '~assets/fonts/bebasNeue/stylesheet.css',
+    '~assets/fonts/aleo/stylesheet.css',
     '~assets/scss/reset.scss',
     '~assets/scss/transitions.scss',
     '~assets/scss/base.scss'
   ],
   plugins: [
     { src: "~/plugins/gsap", ssr: false },
-    { src: "~/plugins/scrollBuddy", ssr: false }
+    { src: "~/plugins/virtualBuddy", ssr: false },
+    { src: "~/plugins/components" }
   ],
   buildModules: [
   ],

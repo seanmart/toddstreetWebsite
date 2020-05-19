@@ -1,38 +1,42 @@
-<template>
+<template lang="html">
   <div id="site">
-    <splash class="splash" @ready="setReady"/>
-    <top/>
     <nuxt/>
   </div>
 </template>
+
 <script>
-import top from '@/components/site/top'
-import splash from '@/components/site/splash'
+import variables from '@/assets/scss/variables.scss'
 import {mapState} from 'vuex'
-export default{
-  components:{top,splash},
+export default {
   mounted(){
-    this.$scrollbuddy.pause()
+    window.addEventListener('resize',this.handleResize)
+    this.handleResize()
   },
-  watch:{
-    color(color){
-      this.$gsap.to(document.documentElement,.5,color)
-    }
-  },
+  computed: mapState(['mobile', 'tablet']),
   methods:{
-    setReady(){
-      this.$scrollbuddy.resume()
-      this.$store.commit('setReady',true)
+    handleResize(){
+      let width = window.innerWidth
+      let {mobile, tablet} = variables
+
+      mobile = parseInt(mobile)
+      tablet = parseInt(tablet)
+
+      if (width <= mobile && !this.mobile) this.$store.commit('set', {key: 'mobile', value: true})
+      if (width > mobile && this.mobile) this.$store.commit('set', {key: 'mobile', value: false})
+      if (width <= tablet && !this.tablet) this.$store.commit('set', {key: 'tablet',value: true})
+      if (width > tablet && this.tablet) this.$store.commit('set', {key: 'tablet', value: false})
     }
-  },
-  computed: mapState(['color'])
+  }
 }
 </script>
+
 <style lang="scss">
 
-  #site{
-    width: 100vw;
-    overflow: hidden;
-    @include font('body');
-  }
+.page-enter-active, .page-leave-active {
+  transition: .5s
+}
+.page-enter, .page-leave-active{
+  opacity: 0;
+}
+
 </style>
