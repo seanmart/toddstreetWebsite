@@ -66,7 +66,8 @@ export default class {
     init(){
       window.scrollTo(0,0)
 
-      this.updateWindow()
+      this.window.height = null
+      this.window.width = null
 
       this.elements = []
       this.sections = []
@@ -415,7 +416,6 @@ export default class {
   }
 
   handleMouseMove(e){
-    if (this.mobile) return
 
     this.mouse.relative.y = this.scroll.top + event.clientY;
     this.mouse.relative.x = event.clientX;

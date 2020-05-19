@@ -105,6 +105,7 @@ $navHeight: $v-space * 1.25;
 
   .menu-button{
     position: fixed;
+    z-index: 1000;
     right: 0px;
     top: 0px;
     height: $navHeight;
