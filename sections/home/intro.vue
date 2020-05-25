@@ -24,7 +24,7 @@ export default {
   },
   mounted(){
 
-    this.setHoverItems()
+    this.nextTick(()=>this.setHoverItems())
 
     let tl = this.$gsap.timeline({delay: .5, onComplete: this.initHoverEls })
     tl.from('#intro .title',2,{yPercent: -100,ease: 'power4.out'},0)
@@ -46,6 +46,8 @@ export default {
   methods:{
     setHoverItems(){
       Array.from(this.$refs.desc.getElementsByTagName('b')).map(el =>{
+
+        console.log(el)
 
         let img = el.getElementsByTagName('img')
 
