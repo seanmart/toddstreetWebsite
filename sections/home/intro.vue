@@ -24,9 +24,7 @@ export default {
   },
   mounted(){
 
-    this.$nextTick(()=>this.setHoverItems())
-
-    let tl = this.$gsap.timeline({delay: .5, onComplete: this.initHoverEls })
+    let tl = this.$gsap.timeline({delay: .5, onComplete: this.setHoverItems })
     tl.from('#intro .title',2,{yPercent: -100,ease: 'power4.out'},0)
     tl.from('#intro .word span',1,{yPercent:-140,stagger: .05, ease: 'power4.out'},.2)
     tl.from('#intro .description', 1.5,{yPercent:-50, opacity:0,ease: 'power4.out'},.4)
@@ -51,11 +49,11 @@ export default {
 
         this.$vb.addMouseElement(el,(e)=>{
           if (e.entering){
-            this.$gsap.to(img,.2,{ display: 'block',scale: 1, opacity: 1})
+            this.$gsap.to(img,.2,{scale: 1, opacity: 1})
           } else if (e.active){
             this.$gsap.to(img,.1,{x: e.x, y: e.y})
           } else if (e.leaving){
-            this.$gsap.to(img,.2,{ scale: 0, opacity: 0, display: 'none'})
+            this.$gsap.to(img,.2,{ scale: 0, opacity: 0})
           }
         })
 

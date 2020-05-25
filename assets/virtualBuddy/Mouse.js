@@ -29,8 +29,6 @@ export default class{
       active: false
     }
 
-    console.log(e)
-
     el.addEventListener('mousemove',()=> this.onMouseMove(e))
     this.elements.push(e)
   }
