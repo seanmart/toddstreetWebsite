@@ -2,9 +2,9 @@ import tools from './tools'
 
 export default class {
   constructor(){
-
+    this.mobile = tools.isMobile()
     this.ticking = false
-    this.inertia = .07
+    this.inertia = this.mobile ? .9 : .07
     this.index = 0
 
     this.elements = {}
