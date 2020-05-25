@@ -1,0 +1,64 @@
+@mixin titleFontFamily{
+  font-family: 'bebas neue';
+}
+
+@mixin bodyFontFamily{
+  font-family: 'aleo';
+}
+
+@mixin title{
+  @include titleFontFamily;
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 0;
+  letter-spacing: -1px;
+  padding: 29px 0px 42px;
+
+  @media (min-width: $desktop){
+    font-size: 100px;
+    padding: 38px 0px 52px;
+  }
+
+  @media (max-width: $mobile){
+    font-size: 14.5vw;
+    padding:5.35vw 0px 8vw;
+  }
+}
+
+@mixin body-big{
+  @include bodyFontFamily;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 140%;
+
+  @media (min-width: $desktop){
+    font-size: 40px;
+    line-height: 130%;
+  }
+
+  @media (max-width: $tablet){
+    font-size: 25px;
+  }
+  @media (max-width: $mobile){
+    font-size: 22px;
+  }
+}
+
+@mixin body-medium{
+  @include bodyFontFamily;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 140%;
+
+  @media (min-width: $desktop){
+    font-size: 35px;
+    line-height: 130%;
+  }
+
+  @media (max-width: $tablet){
+    font-size: 20px;
+  }
+  @media (max-width: $mobile){
+    font-size: 22px;
+  }
+}

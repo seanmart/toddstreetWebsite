@@ -1,5 +1,5 @@
 <template lang="html">
-  <page>
+  <page id="care" v-section>
     care
   </page>
 </template>
@@ -18,4 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
+#care{
+  height: 500vh;
+}
 </style>

@@ -1,18 +1,13 @@
 <template lang="html">
-  <section id="intro" ref="section">
+  <section id="intro" v-section>
 
-    <reveal :play="init" :delay=".2" top>
-      <h1 ref="title" v-html="title"/>
-    </reveal>
+    <div class="title" v-element="handleScroll">
+      <splitText :text="data.title"/>
+    </div>
 
-    <reveal :play="init" :delay=".3" top>
-      <div class="description" ref="description">
-        <p v-html="description"/>
-        <div class="hover" ref="hover" :class="{active: img}">
-          <img ref="hoverImg">
-        </div>
-      </div>
-    </reveal>
+    <div class="description" ref="desc">
+      <p v-html="description"/>
+    </div>
 
   </section>
 </template>
@@ -20,71 +15,54 @@
 <script>
 export default {
   props:{
-    data: {type: Object, default: ()=>({})},
-    init: {type: Boolean, default: false}
+    data: {type: Object, default: ()=>({})}
   },
   data(){
     return{
-      els:[],
-      x: 0,
-      y: 0,
-      img: null
+      animate: null
     }
   },
   mounted(){
-    this.$vb.addSection(this.$refs.section)
-    this.$vb.addElement(this.$refs.title,{y:1.5, initial: false})
-    this.$vb.addElement(this.$refs.description,{y: 1, initial: false, onMouseOver: this.handleHover})
 
-    this.els = Array.from(this.$refs.description.getElementsByTagName('b'))
+    this.setHoverItems()
 
-  },
-  watch:{
-    x(x){
-      if (x) this.$refs.hover.style.left = `${x}px`
-    },
-    y(y){
-      if (y) this.$refs.hover.style.top = `${y}px`
-    },
-    img(img){
-      if (img) this.$refs.hoverImg.src = this.img
-    }
+    let tl = this.$gsap.timeline({delay: .5, onComplete: this.initHoverEls })
+    tl.from('#intro .title',2,{yPercent: -100,ease: 'power4.out'},0)
+    tl.from('#intro .word span',1,{yPercent:-140,stagger: .05, ease: 'power4.out'},.2)
+    tl.from('#intro .description', 1.5,{yPercent:-50, opacity:0,ease: 'power4.out'},.4)
+    tl.from('#intro .description i', 1,{scaleX:0, stagger: .05, ease: 'power2.inOut'},.75)
+
+    this.animate = this.$gsap.timeline({paused: true})
+    this.animate.to('#intro .word',1,{x:(i)=>`${i * 1.5}vw`, ease: 'none'},0)
+
   },
   computed:{
-    title(){
-      return this.data.title
-    },
     description(){
-      let description = this.data.description.text
-
-      this.data.description.hover.forEach(h => {
-        description = description.replace(h.text, `<b data-gif="${h.gif}">${h.text}</b>`)
-      })
-
-      return description
+      return this.data.description.hover.reduce((a,i)=>{
+        return a.replace(i.text,`<b>${i.text}<i></i><img src="${i.gif}"/></b>`)
+      },this.data.description.text)
     }
   },
   methods:{
-    handleHover(m){
+    setHoverItems(){
+      Array.from(this.$refs.desc.getElementsByTagName('b')).map(el =>{
 
-      for (let i = 0; i < this.els.length; i++){
+        let img = el.getElementsByTagName('img')
 
-        let el = this.els[i]
-        let {top, left, bottom, right} = el.getBoundingClientRect()
+        this.$vb.addMouseElement(el,(e)=>{
+          if (e.entering){
+            this.$gsap.to(img,.2,{ display: 'block',scale: 1, opacity: 1})
+          } else if (e.active){
+            this.$gsap.to(img,.1,{x: e.x, y: e.y})
+          } else if (e.leaving){
+            this.$gsap.to(img,.2,{ scale: 0, opacity: 0, display: 'none'})
+          }
+        })
 
-        if (m.mouse.x >= left && m.mouse.x <= right && m.mouse.y >= top && m.mouse.y <= bottom){
-            this.x = m.x
-            this.y = m.y
-            this.img = el.getAttribute('data-gif')
-
-            return
-        }
-      }
-
-      this.x = null
-      this.y = null
-      this.img = null
-
+      })
+    },
+    handleScroll(e){
+      //this.animate.progress(e.percent)
     },
   }
 }
@@ -93,87 +71,84 @@ export default {
 <style lang="scss">
 #intro{
   position: relative;
-  padding-top: $v-space / 1.25;
+  padding-top: $v-space / 1.5;
 
-  h1{
-    text-transform: capitalize;
-    line-height: 80%;
-    font-size: 85px;
-    font-weight: 900;
-    color: #002E60;
-    max-width: 800px;
+  .title{
+    margin-bottom: $v-space / 3;
+
+    .word{
+      overflow: hidden;
+      span{
+        @include title;
+      }
+    }
   }
 
   .description{
-    margin-top: $v-space / 2;
     position: relative;
 
-    .hover{
+    img{
       position: absolute;
-      top: 0px;
+      display: block;
+      bottom: 200%;
       left: 0px;
-      transform: translateY(-120%);
+      max-width: 200px;
+      max-height: 200px;
+      pointer-events: none;
+      user-select: none;
+      transform: scale(0);
+      opacity: 0;
+    }
 
-      img{
-        max-width: 300px;
-        max-height: 300px;
-        transform: scale(0);
-        opacity: 0;
-        transition: opacity .25s, transform .25s;
-      }
+    i{
+      position: absolute;
+      display: block;
+      top: 95%;
+      left: 0px;
+      height: 2px;
+      width: 100%;
+      background: #0053AD;
+      transition: opacity .5s;
+      transform-origin: left;
+      border-radius: 1px;
+      opacity: .2;
+    }
 
-      &.active{
-        img{
-          transform: scale(1);
+    b{
+      font-weight: 500;
+      cursor: pointer;
+      transition: color .5s;
+      position: relative;
+      color: #0053AD;
+      &:hover{
+        i{
           opacity: 1;
         }
       }
     }
 
     p{
-      font-size: 30px;
-      font-weight: 300;
-      line-height: 150%;
+      @include body-big;
       max-width: 800px;
-
-      b{
-        color: #002E60;
-        font-weight: 700;
-        cursor: pointer;
-        display: inline-block;
-        transition: opacity .25s;
-        &:hover{
-          opacity: .5;
-        }
-      }
+      display: inline-block;
     }
   }
 
   @media (max-width: $tablet){
+    padding-top: $v-space / 3;
 
-    padding-top: $v-space / 1.5;
-
-    .description{
-      p{
-        font-size: 23px;
+    .title{
+      .word{
+        &:first-child{
+          display: block;
+          margin-bottom: 4px;
+        }
+      }
+      .break{
+        display: none;
       }
     }
   }
 
-  @media (max-width: $mobile){
-
-    padding-top: $v-space / 2;
-
-    h1{
-      font-size: 15vw;
-    }
-    .description{
-      margin-top: 8vh;
-
-      p{
-        font-size: 21px;
-      }
-    }
-  }
 }
 </style>

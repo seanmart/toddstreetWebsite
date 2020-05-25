@@ -1,16 +1,14 @@
 <template lang="html">
 
-  <div id="navigation" ref="navigation">
+  <div id="navigation">
 
-    <div class="top" ref="top">
+    <div class="top" v-section="handleScroll">
 
-      <div class="logo" ref="logo">
-        <nuxt-link to="/"><icons logo/></nuxt-link>
-      </div>
+      <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
 
       <nav>
         <template v-if="links" v-for="link in links">
-          <div class="link" ref="links">
+          <div class="link">
             <nuxt-link :to="link.to" :key="link.index">
               <h3>{{link.label}}</h3>
             </nuxt-link>
@@ -19,7 +17,7 @@
       </nav>
 
     </div>
-    <div class="menu-button" ref="button">
+    <div class="menu-button">
       <button><i/><i/></button>
     </div>
   </div>
@@ -29,40 +27,32 @@
 <script>
 import {mapState} from 'vuex'
 export default {
-  props:{
-    init: Boolean
+  data(){
+    return{
+      scrollAnimation: null
+    }
   },
   mounted(){
-    this.$gsap.set(this.$refs.links,{opacity: 0})
-    this.$gsap.set(this.$refs.logo,{opacity: 0})
-    this.$gsap.set(this.$refs.button,{opacity: 0})
 
-    this.$vb.addSection(this.$refs.top)
-    this.$vb.addElement(this.$refs.logo,{y:3})
-    this.$vb.addElement(this.$refs.links,(i)=>({
-      y: (i * 1) + 1,
-      duration: 300,
-      delay: 3
-    }))
+    let tl = this.$gsap.timeline({delay: .5})
 
-  },
-  watch:{
-    init(init){
+    tl.fromTo('#navigation .logo svg',1,{y:100},{y:0,ease: 'power2.out'},.15)
+    tl.fromTo('nav a',1,{y:100},{y:0,stagger:.1,ease: 'power2.out'},.3)
+    tl.fromTo('#navigation .menu-button',.5,{scaleX:0},{scaleX:1,ease: 'power2.out'},1)
 
-      let tl = this.$gsap.timeline()
-
-      tl.fromTo(this.$refs.logo,.75,{y:50},{y:0,opacity:1,ease: 'power2.out'},0)
-      tl.fromTo(this.$refs.links,.75,{y:50},{y:0,opacity:1,stagger:.075,ease: 'power2.out'},.25)
-      tl.fromTo(this.$refs.button,.75,{scale:.3},{scale:1,opacity:1,ease: 'power2.out'},.5)
-
-    },
+    this.scrollAnimation = this.$gsap.to('nav .link',1,{yPercent:(i)=> i * -50, paused: true})
   },
   beforeDestroy(){
-    this.$gsap.to(this.$refs.logo,.5,{y:-50,opacity:0, ease: 'power2.in'})
-    this.$gsap.to(this.$refs.links,.5,{y:-50,opacity:0, ease: 'power2.in'})
-    this.$gsap.to(this.$refs.button,.5,{y:-50,opacity:0, ease: 'power2.in'})
+    this.$gsap.to('#navigation .logo svg',.5,{y:-100, ease: 'power2.in'})
+    this.$gsap.to('nav a',.5,{y:-100, stagger:-.075, ease: 'power2.in'})
+    this.$gsap.to('#navigation .menu-button',.5,{scaleX:0,ease: 'power2.in'})
   },
-  computed: mapState(['links'])
+  computed: mapState(['links']),
+  methods:{
+    handleScroll(e){
+      this.scrollAnimation.progress(e.percent)
+    }
+  }
 }
 </script>
 
@@ -73,16 +63,22 @@ $navHeight: $v-space * 1.25;
 #navigation{
 
   .top{
-    width: 100%;
     height: $navHeight;
     padding: 0px $h-space;
+    margin: 0px auto;
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
   .logo{
-    width: 220px;
+    overflow: hidden;
+    width: 200px;
+    display: inline-block;
+
+    svg{
+      width: 100%;
+    }
   }
 
   nav{
@@ -93,6 +89,11 @@ $navHeight: $v-space * 1.25;
 
     .link{
       margin-left: 50px;
+      overflow: hidden;
+
+      a{
+        display: inline-block;
+      }
 
       h3{
         font-size: 18px;

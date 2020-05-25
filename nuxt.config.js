@@ -10,9 +10,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://use.typekit.net/dix2zza.css' }
     ],
-    script: [{ src: "https://fast.wistia.com/assets/external/E-v1.js" , body: true}]
   },
   loading: { color: '#fff' },
   modules: [

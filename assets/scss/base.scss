@@ -9,7 +9,11 @@ h1,h2,h3,h4,h5{
 }
 
 section{
-  padding: $v-space $h-space
+  position: relative;
+  box-sizing: content-box;
+  padding: $v-space $h-space;
+  max-width: $maxWidth;
+  margin: 0px auto;
 }
 
 .ts-br{display: none}

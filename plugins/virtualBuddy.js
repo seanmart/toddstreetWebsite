@@ -3,6 +3,62 @@ import Vue from "vue";
 
 const vb = new VirtualBuddy()
 
-Object.defineProperty(Vue.prototype, "$vb", {value: vb});
+Vue.directive('element',{
+  inserted: function(el,{value}){
+    let props = getProps(value)
+    vb.addScrollElement(el,props.fn,props.options)
+  },
+  unbind: function(el){
+    vb.removeScrollElement(el)
+  }
+})
 
-export default vb
+
+Vue.directive('section',{
+  inserted: function(el,{value}){
+    let props = getProps(value)
+    vb.addScrollSection(el,props.fn,props.options)
+  },
+  unbind: function(el){
+    vb.removeScrollSection(el)
+  }
+})
+
+
+Vue.directive('page',{
+  inserted: function(el){
+    vb.addScrollPage(el)
+  }
+})
+
+
+Vue.directive('mouse',{
+  inserted: function(el,{value}){
+    vb.addMouseElement(el, value)
+  },
+  unbind: function(el){
+    vb.removeMouseElement(el)
+  }
+})
+
+Object.defineProperty(Vue.prototype,'$vb',{value: vb})
+
+function getProps(v = null){
+
+  let props = {options: {}, fn: null}
+  if (!v) return props
+
+  if (Array.isArray(v)){
+    props.fn = v[0]
+    props.options = v[1]
+
+  } else if (typeof v == 'function') {
+      props.fn = v
+
+  } else if (typeof v == 'object') {
+      props.options = v
+
+  }
+
+  return props
+}

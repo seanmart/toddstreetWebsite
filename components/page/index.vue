@@ -1,7 +1,9 @@
 <template lang="html">
-  <main ref="page" :class="{hide: !init}">
-    <navigation :init="init"/>
-    <slot/>
+  <main v-page>
+    <navigation/>
+    <div class="page">
+      <slot/>
+    </div>
   </main>
 </template>
 
@@ -9,34 +11,27 @@
 import navigation from './navigation'
 export default {
   components:{navigation},
-  created(){
-    if(process.client) this.$vb.init()
-  },
-  data(){
-    return{
-      init: false
-    }
-  },
   mounted(){
-    this.$vb.addPage(this.$refs.page)
-    setTimeout(()=> {
-      this.$vb.start()
-      this.init = true
-    }, 250)
-  },
-  watch:{
-    init(){
-      this.$emit('init')
-    }
+
   }
 }
 </script>
 
 <style lang="scss">
   main{
-    transition: opacity .25s;
-    &.hide{
-      opacity: 0
-    }
+    animation: hide-on .5s backwards
+  }
+
+  .page-enter-active, .page-leave-active {
+    transition: .5s
+  }
+  .page-enter, .page-leave-active .page{
+    opacity: 0;
+  }
+
+  @keyframes hide-on{
+    0%{opacity: 0}
+    99%{opacity: 0}
+    100%{opacity: 1}
   }
 </style>

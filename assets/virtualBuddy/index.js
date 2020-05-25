@@ -1,59 +1,51 @@
-import Mobile from './mobile'
-import Smooth from './smooth'
-
-import {lerp, type, transform, minMax, getTransform, getOffset, isMobile} from './helpers'
-
+import Scroll from './Scroll'
+import Mouse from './Mouse'
+import tools from './tools'
 export default class{
   constructor(){
-
-    Object.assign(this,{},{
-      getOffset: getOffset,
-      getTransform: getTransform,
-      transform: transform,
-      minMax: minMax,
-      lerp: lerp,
-      type: type,
-      mobile: isMobile()
-    })
-
-    this.eventKey = 0
-    this.instance = this.mobile ? new Mobile() : new Smooth()
-
+    this.tools = tools
+    this.scroll = new Scroll()
+    this.mouse = new Mouse(this.scroll)
   }
 
-  init(el, s){
-    this.eventKey = 0
-    this.instance.init(el, s)
+  // SCROLL
+
+  addScrollPage(el){
+    this.scroll.addPage(el)
   }
 
-  start(){
-    this.instance.start()
+  addScrollElement(el,fn, options){
+    this.scroll.addElement(el,fn, options)
   }
 
-  addPage(el,s){
-    this.instance.addPage(el,s)
+  addScrollSection(el, fn, options){
+    this.scroll.addSection(el, fn, options)
   }
 
-  addSection(el, o){
-    this.instance.addSection(el, o)
+  addScrollEvent(fn){
+    this.scroll.addEvent(fn)
   }
 
-  addElement(el, o){
-
-    if (this.type('array', el)){
-      el.map((e,i) => this.instance.addElement(e, this.type('function',o) ? o(i) : o))
-    } else {
-      this.instance.addElement(el, this.type('function',o) ? o(0) : o)
-    }
-
+  removeScrollElement(el){
+    this.scroll.removeElement(el)
   }
 
-  onScroll(fn){
-    this.instance.addEvent('scroll',this.eventKey++,fn)
+  removeScrollSection(el){
+    this.scroll.removeSection(el)
   }
 
-  onResize(fn){
-    this.instance.addEvent('resize',this.eventKey++,fn)
+  removeScrollEvent(fn){
+    this.scroll.removeEvent(fn)
+  }
+
+  // MOUSE
+
+  addMouseElement(el,fn){
+    this.mouse.addElement(el,fn)
+  }
+
+  removeMouseElement(el){
+    this.mouse.removeElement(el)
   }
 
 }

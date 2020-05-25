@@ -1,24 +1,37 @@
 <template lang="html">
-  <section id="events" ref="section">
-      <big-title :text="data.title"/>
+  <section id="events" v-section>
+      <section-title :text="data.title"/>
+      <section-description :heading="data.heading" :body="data.body"/>
+      <big-circle/>
+      <div class="content">
+
+      </div>
   </section>
 </template>
 
 <script>
 export default {
   props:{
-    data: {type: Object, default: ()=>({})},
-    init: {type: Boolean, default: false}
+    data: {type: Object, default: ()=>({})}
   },
-  mounted(){
-    this.$vb.addSection(this.$refs.section)
-
-  }
 }
 </script>
 
 <style lang="scss">
 #events{
+  .section-description{
+    margin-left: $col5;
+  }
 
+  .big-circle{
+    position: absolute;
+    z-index: -1;
+    top:$v-space;
+    left: 50%;
+  }
+
+  .content{
+    height: 300vh;
+  }
 }
 </style>

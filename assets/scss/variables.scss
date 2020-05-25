@@ -1,14 +1,14 @@
-$maxWidth: 1400px;
+$maxWidth: 1200px;
 $v-space: 150px;
 $h-space: 150px;
 $mh-space: 7vw;
 
+$desktop: 1600px;
 $tablet: 900px;
 $mobile: 600px;
 
 $unit: 100% / 71;
 $col: $unit * 5;
-$colNext: $col + $unit;
 
 $col1: 0%;
 $col2: $col + $unit;

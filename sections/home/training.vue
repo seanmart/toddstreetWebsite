@@ -1,6 +1,6 @@
 <template lang="html">
-  <section id="comms" v-section>
-    <section-title right :text="data.title"/>
+  <section id="training" v-section>
+    <section-title :text="data.title"/>
     <section-description :heading="data.heading" :body="data.body"/>
     <big-circle/>
   </section>
@@ -15,15 +15,15 @@ export default {
 </script>
 
 <style lang="scss">
-#comms{
+#training{
   .section-description{
-    width: $col9;
+    margin-left: $col5;
   }
   .big-circle{
     position: absolute;
     z-index: -1;
     top:$v-space;
-    right: 50%;
+    left: 50%;
   }
 }
 </style>

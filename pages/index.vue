@@ -1,10 +1,11 @@
 <template lang="html">
-  <page id="home" @init="init = true" :class="{init}">
+  <page id="home">
 
-    <intro :init="init" :data="data.intro"/>
-    <sizzle :init="init" :data="data.sizzle"/>
-    <events :init="init" :data="data.events"/>
-    <comms :init="init" :data="data.comms"/>
+    <intro :data="data.intro"/>
+    <sizzle :data="data.sizzle"/>
+    <events :data="data.events"/>
+    <comms :data="data.comms"/>
+    <training :data="data.training"/>
 
   </page>
 </template>
@@ -15,11 +16,11 @@ import intro from '@/sections/home/intro'
 import sizzle from '@/sections/home/sizzle'
 import events from '@/sections/home/events'
 import comms from '@/sections/home/comms'
+import training from '@/sections/home/training'
 export default {
-  components:{intro, sizzle, events,comms},
+  components:{intro, sizzle, events,comms, training},
   data(){
     return{
-      init: false,
       data: data
     }
   }
