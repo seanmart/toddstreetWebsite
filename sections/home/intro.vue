@@ -24,7 +24,7 @@ export default {
   },
   mounted(){
 
-    this.nextTick(()=>this.setHoverItems())
+    this.$nextTick(()=>this.setHoverItems())
 
     let tl = this.$gsap.timeline({delay: .5, onComplete: this.initHoverEls })
     tl.from('#intro .title',2,{yPercent: -100,ease: 'power4.out'},0)
