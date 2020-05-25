@@ -47,8 +47,6 @@ export default {
     setHoverItems(){
       Array.from(this.$refs.desc.getElementsByTagName('b')).map(el =>{
 
-        console.log(el)
-
         let img = el.getElementsByTagName('img')
 
         this.$vb.addMouseElement(el,(e)=>{
