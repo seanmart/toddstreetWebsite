@@ -19,7 +19,9 @@ export default {
 
 <style lang="scss">
   main{
-    animation: hide-on .5s backwards
+    animation: hide-on .5s backwards;
+    width: 100vw;
+    overflow: hidden;
   }
 
   .page-enter-active, .page-leave-active {
