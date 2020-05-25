@@ -15,7 +15,7 @@ export default class{
     window.addEventListener('resize', this.onResize)
     window.addEventListener('mousemove', this.onGlobalMouse)
     window.addEventListener('visibility', this.onResize)
-    this.scroll.addEvent(this.onScroll)
+    this.scroll && this.scroll.addEvent(this.onScroll)
   }
 
   // ELEMENT

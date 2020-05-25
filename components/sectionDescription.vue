@@ -21,7 +21,7 @@ export default {
   },
   methods:{
     handleScroll(e){
-      if (e.entering && e.scroll.direction == 'down') this.animate.resume()
+      if (e.entering && e.scroll.direction == 'down' && this.animate) this.animate.resume()
     }
   }
 }
@@ -38,7 +38,6 @@ export default {
     .body{
       @include body-medium;
       font-weight: 300;
-
     }
   }
 </style>

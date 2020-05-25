@@ -26,7 +26,7 @@ export default {
   },
   methods:{
     handleScroll(e){
-      if (e.entering && e.scroll.direction == 'down') this.animate.resume()
+      if (e.entering && e.scroll.direction == 'down' && this.animate) this.animate.resume()
     }
   }
 }

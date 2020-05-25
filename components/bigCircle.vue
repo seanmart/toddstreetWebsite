@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="big-circle" ref="bc" v-element="handleScroll"/>
+  <div class="big-circle" ref="bc" v-element="[handleScroll,{mobile: true}]"/>
 </template>
 
 <script>
@@ -26,5 +26,10 @@ export default {
     height: 70vw;
     background: #eee;
     border-radius: 50%;
+
+    @media (max-width: $mobile){
+      width: 600px;
+      height: 600px;
+    }
   }
 </style>

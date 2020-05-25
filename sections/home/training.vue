@@ -25,5 +25,14 @@ export default {
     top:$v-space;
     left: 50%;
   }
+
+  @media (max-width: $mobile){
+    .section-description{
+      margin: 0px;
+    }
+    .big-circle{
+      top:$v-space * 1.5;
+    }
+  }
 }
 </style>

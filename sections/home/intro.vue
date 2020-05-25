@@ -1,7 +1,7 @@
 <template lang="html">
   <section id="intro" v-section>
 
-    <div class="title" v-element="handleScroll">
+    <div class="title" v-element="[handleScroll,{mobile:true}]">
       <splitText :text="data.title"/>
     </div>
 
@@ -24,7 +24,9 @@ export default {
   },
   mounted(){
 
-    let tl = this.$gsap.timeline({delay: .5, onComplete: this.setHoverItems })
+    this.setHoverItems()
+
+    let tl = this.$gsap.timeline({delay: .5, onComplete: this.initHoverEls })
     tl.from('#intro .title',2,{yPercent: -100,ease: 'power4.out'},0)
     tl.from('#intro .word span',1,{yPercent:-140,stagger: .05, ease: 'power4.out'},.2)
     tl.from('#intro .description', 1.5,{yPercent:-50, opacity:0,ease: 'power4.out'},.4)
@@ -49,7 +51,7 @@ export default {
 
         this.$vb.addMouseElement(el,(e)=>{
           if (e.entering){
-            this.$gsap.to(img,.2,{scale: 1, opacity: 1})
+            this.$gsap.to(img,.2,{ scale: 1, opacity: 1})
           } else if (e.active){
             this.$gsap.to(img,.1,{x: e.x, y: e.y})
           } else if (e.leaving){
@@ -60,7 +62,7 @@ export default {
       })
     },
     handleScroll(e){
-      //this.animate.progress(e.percent)
+      this.animate.progress(e.percent)
     },
   }
 }

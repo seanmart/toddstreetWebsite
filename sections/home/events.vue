@@ -33,5 +33,14 @@ export default {
   .content{
     height: 300vh;
   }
+
+  @media (max-width: $mobile){
+    .section-description{
+      margin: 0px;
+    }
+    .big-circle{
+      top:$v-space * 1.5;
+    }
+  }
 }
 </style>

@@ -1,11 +1,21 @@
 import Scroll from './Scroll'
 import Mouse from './Mouse'
+import Mobile from './Mobile'
 import tools from './tools'
 export default class{
   constructor(){
+    this.mobile = tools.isMobile()
     this.tools = tools
-    this.scroll = new Scroll()
-    this.mouse = new Mouse(this.scroll)
+    this.scroll = null
+    this.mouse = null
+
+    if (!this.mobile){
+      this.scroll = new Scroll()
+      this.mouse = new Mouse(this.scroll)
+    } else {
+      this.scroll = new Mobile()
+    }
+
   }
 
   // SCROLL
@@ -41,10 +51,12 @@ export default class{
   // MOUSE
 
   addMouseElement(el,fn){
+    if (this.mobile) return
     this.mouse.addElement(el,fn)
   }
 
   removeMouseElement(el){
+    if (this.mobile) return
     this.mouse.removeElement(el)
   }
 
