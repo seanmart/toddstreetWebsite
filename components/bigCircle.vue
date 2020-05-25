@@ -10,7 +10,7 @@ export default {
     }
   },
   mounted(){
-    this.animate = this.$gsap.to(this.$refs.bc,1,{y:-100,paused: true})
+    this.animate = this.$gsap.to(this.$refs.bc,1,{y:-200,paused: true})
   },
   methods:{
     handleScroll(e){
