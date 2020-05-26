@@ -1,0 +1,28 @@
+html{
+  font-family: 'aleo', serif;
+  font-weight: 300;
+}
+
+section{
+  padding: $space--md $space--bg;
+  max-width: $widescreen;
+  margin: 0px auto;
+}
+
+main{
+  min-height: 100vh;
+}
+
+
+@media (max-width: $tablet){
+  section{
+    padding: $space--md $space--md;
+  }
+}
+
+
+@media (max-width: $mobile){
+  section{
+    padding: $space--md $space--sm;
+  }
+}
