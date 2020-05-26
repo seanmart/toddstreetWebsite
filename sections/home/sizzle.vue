@@ -1,6 +1,6 @@
 <template lang="html">
   <section id="sizzle" v-section>
-    <video-player v-element="[handleScroll,{offsetEnter: '10vh'}]"/>
+    <video-player/>
   </section>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted(){
-    this.animate = this.$gsap.from('#sizzle .video-player',1,{yPercent: 50, scale: .5,opacity:0, ease: 'power4.out', paused: true})
+    //this.animate = this.$gsap.from('#sizzle .video-player',1,{yPercent: 50, scale: .5,opacity:0, ease: 'power4.out', paused: true})
   },
   methods:{
     handleScroll(e){

@@ -3,6 +3,9 @@
     <section-title right :text="data.title"/>
     <section-description :heading="data.heading" :body="data.body"/>
     <big-circle/>
+    <div class="content">
+
+    </div>
   </section>
 </template>
 
@@ -24,6 +27,10 @@ export default {
     z-index: -1;
     top:$v-space;
     right: 50%;
+  }
+
+  .content{
+    height: 100vh;
   }
 
   @media (max-width: $mobile){

@@ -1,7 +1,7 @@
 <template lang="html">
   <section id="intro" v-section>
 
-    <div class="title" v-element="[handleScroll,{mobile:true}]">
+    <div class="title">
       <splitText :text="data.title"/>
     </div>
 
@@ -17,11 +17,9 @@ export default {
   props:{
     data: {type: Object, default: ()=>({})}
   },
-  data(){
-    return{
-      animate: null
-    }
-  },
+  data:()=>({
+    animate: null
+  }),
   mounted(){
 
     this.setHoverItems()
@@ -48,16 +46,6 @@ export default {
       Array.from(this.$refs.desc.getElementsByTagName('b')).map(el =>{
 
         let img = el.getElementsByTagName('img')
-
-        this.$vb.addMouseElement(el,(e)=>{
-          if (e.entering){
-            this.$gsap.to(img,.2,{ scale: 1, opacity: 1})
-          } else if (e.active){
-            this.$gsap.to(img,.1,{x: e.x, y: e.y})
-          } else if (e.leaving){
-            this.$gsap.to(img,.2,{ scale: 0, opacity: 0})
-          }
-        })
 
       })
     },

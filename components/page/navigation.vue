@@ -2,7 +2,7 @@
 
   <div id="navigation">
 
-    <div class="top" v-section="handleScroll">
+    <div class="top" v-section v-element="handleScroll">
 
       <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
 

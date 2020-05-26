@@ -3,7 +3,7 @@ import tools from './tools'
 export default class {
   constructor(){
     this.ticking = false
-    this.inertia = .07
+    this.inertia = .09
     this.index = 0
 
     this.elements = {}
@@ -57,43 +57,35 @@ export default class {
     this.events.push(fn)
   }
 
-  addSection(el,fn = null, options = {}){
-
+  addSection(el){
     let section = {
       el: el,
-      fn: fn,
-      pos: {},
-      persist: options.persist || false,
-      active: false,
-      visible: false,
-      entered: false,
-      leaving: false
+      pos: tools.getPosition(el),
+      active: false
     }
 
-    this.updatePosition(section)
     let index = this.index++
     this.sections[index] = section
     section.el.dataset.index = index
     section.el.style.willChange = 'transform'
+
   }
 
   addElement(el,fn = null,options = {}){
 
+    if (options.mobile == false) return
+
     let element = {
       el: el,
       fn: fn,
-      options: options,
-      pos: {},
+      pos: tools.getPosition(el),
       visible: false,
       entered: false,
       leaving: false,
-      offsetEnter: 0,
-      offsetLeave: 0,
-      sticky: false
+      offsetEnter: options.offsetEnter ? tools.getValue(options.offsetEnter) : 0,
+      offsetLeave: options.offsetLeave ? tools.getValue(options.offsetLeave) : 0,
+      sticky: options.sticky || false
     }
-
-    this.updatePosition(element)
-    this.updateOptions(element)
 
     let index = this.index++
     this.elements[index] = element
@@ -118,18 +110,18 @@ export default class {
 
   // CHECK
 
-  checkScroll(force){
-    this.ticking = Math.abs(this.scroll.top - this.window.scroll) > .5
+  checkScroll(){
+    this.ticking = Math.abs(this.scroll.top - this.window.scroll) > .05
 
-    if (this.ticking){
-      window.requestAnimationFrame(()=>{
-        this.updateScroll()
-        this.updateSections()
-        this.updateElements()
-        this.updateEvents()
-        this.checkScroll()
-      })
-    }
+    this.updateScroll()
+    this.updateElements()
+    this.events.forEach(e => e(this.scroll))
+
+    window.requestAnimationFrame(()=>{
+      this.updateSections()
+      this.ticking && this.checkScroll()
+    })
+
   }
 
   // ON
@@ -139,12 +131,11 @@ export default class {
     this.updatePage()
 
     Object.keys(this.elements).forEach(key =>{
-      this.updatePosition(this.elements[key])
-      this.updateOptions(this.elements[key])
+      this.elements[key].pos = tools.getPosition(this.elements[key].el)
     })
 
     Object.keys(this.sections).forEach(key =>{
-      this.updatePosition(this.sections[key])
+      this.sections[key].pos = tools.getPosition(this.sections[key].el)
     })
 
     this.checkScroll(true)
@@ -156,74 +147,57 @@ export default class {
   }
 
   // UPDATE
-  update(e){
-
-    let top = e.pos.top + (e.offsetEnter || 0)
-    let bottom = e.pos.bottom - (e.offsetLeave || 0)
-    let visible = top < this.scroll.bottom && bottom > this.scroll.top
-
-    if (e.fn && (visible || e.visible)){
-
-      let entered = bottom < this.scroll.bottom
-      let leaving = top < this.scroll.top
-
-      let props = {}
-      props.scroll = this.scroll
-      props.entering = visible && !e.visible
-      props.entered = entered && !e.entered
-      props.leaving = leaving && !e.leaving
-      props.left = !visible && e.visible
-      props.scrolled = parseFloat((this.scroll.top - Math.max(top - this.window.height, 0)).toFixed(5))
-      props.percent = parseFloat(Math.min(Math.max(props.scrolled / bottom,0),1).toFixed(5))
-      props.pagePercent = parseFloat(Math.min(Math.max((this.scroll.top - top) / (this.window.height - top),0),1).toFixed(5))
-
-      e.fn(props)
-
-      e.entered = entered
-      e.leaving = leaving
-
-    }
-
-    e.visible = visible
-
-  }
 
   updateSections(){
     Object.keys(this.sections).forEach(key => {
+      let s = this.sections[key]
+      let active = s.pos.top - 500 < this.scroll.bottom && s.pos.bottom + 500 > this.scroll.top
 
-      let section = this.sections[key]
-      let top = section.pos.top - 500
-      let bottom = section.pos.bottom + 500
-      let active = top < this.scroll.bottom && bottom > this.scroll.top
-
-      if (active || section.active){
-
-        this.update(section)
-        tools.transform(section.el,0,-this.scroll.top)
-
-        if (active && !section.active){
-          section.el.style.opacity = ''
-        } else if (!active && section.active){
-          section.el.style.opacity = 0
-        }
-
+      if (active && !s.active) s.el.style.visibility = 'visible'
+      if (!active && s.active) s.el.style.visibility = 'hidden'
+      if (active || s.active){
+        let transform = `matrix(1,0,0,1,0,${-this.scroll.top})`
+        s.el.style.webkitTransform = transform;
+        s.el.style.msTransform = transform;
+        s.el.style.transform = transform;
       }
-
-      section.active = active
+      s.active = active
     })
   }
 
   updateElements(){
     Object.keys(this.elements).forEach(key => {
 
-      let element = this.elements[key]
-      this.update(element)
-      if (element.visible && element.sticky) tools.transform(element.el,0,top)
-    })
-  }
+      let e = this.elements[key]
+      let top = e.pos.top + (e.offsetEnter || 0)
+      let bottom = e.pos.bottom - (e.offsetLeave || 0)
+      let visible = top < this.scroll.bottom && bottom > this.scroll.top
 
-  updateEvents(){
-    this.events.forEach(e => e(this.scroll))
+      if (e.fn && (visible || e.visible)){
+
+        let entered = bottom < this.scroll.bottom
+        let leaving = top < this.scroll.top
+
+        let props = {}
+        props.scroll = this.scroll
+        props.entering = visible && !e.visible
+        props.entered = entered && !e.entered
+        props.leaving = leaving && !e.leaving
+        props.left = !visible && e.visible
+        props.scrolled = parseFloat((this.scroll.top - Math.max(top - this.window.height, 0)).toFixed(5))
+        props.percent = parseFloat(Math.min(Math.max(props.scrolled / bottom,0),1).toFixed(5))
+        props.pagePercent = parseFloat(Math.min(Math.max((this.scroll.top - top) / (this.window.height - top),0),1).toFixed(5))
+
+        e.fn(props)
+
+        e.entered = entered
+        e.leaving = leaving
+
+      }
+
+      e.visible = visible
+
+    })
   }
 
   updateScroll(){
@@ -232,27 +206,6 @@ export default class {
     this.scroll.delta = this.scroll.top - last
     this.scroll.bottom = this.scroll.top + this.window.height
     this.scroll.direction = this.scroll.delta > 0 ? 'down' : 'up'
-  }
-
-  updatePosition(e){
-    e.pos = tools.getPosition(e.el)
-  }
-
-  updateOptions(element){
-
-    Object.keys(element.options).forEach(key => {
-      switch(key){
-        case 'offsetEnter':
-        case 'offsetLeave':
-        element[key] = tools.getValue(element.options[key])
-        break
-
-        case 'sticky':
-        element[key] = element.options[key]
-        break
-      }
-    })
-
   }
 
   updateWindow(){

@@ -9,11 +9,14 @@
 
 <script>
 import navigation from './navigation'
+
+let scroll = {
+  y:0,
+  ticking: false
+}
+
 export default {
   components:{navigation},
-  mounted(){
-
-  }
 }
 </script>
 

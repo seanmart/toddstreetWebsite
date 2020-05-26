@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="section-title" ref="st" :class="{right}" v-element="[handleScroll,{offsetEnter: '10vh'}]">
+  <div class="section-title" ref="st" :class="{right}" v-element="[handleScroll,{offsetEnter:'10vh'}]">
     <div class="bar"/>
     <split-text :right="right" :text="text"/>
   </div>

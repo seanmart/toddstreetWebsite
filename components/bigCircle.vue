@@ -1,20 +1,23 @@
 <template lang="html">
-  <div class="big-circle" ref="bc" v-element="[handleScroll,{mobile: true}]"/>
+  <div class="big-circle" ref="bc" v-element="handleScroll"/>
 </template>
 
 <script>
 export default {
   data(){
     return{
-      animate:null
+      animate:null,
+      scroll:null
     }
   },
   mounted(){
-    this.animate = this.$gsap.to(this.$refs.bc,1,{y:-200,paused: true})
+    this.animate = this.$gsap.from(this.$refs.bc,1,{opacity:0,scale:.5, paused: true})
+    this.scroll = this.$gsap.to(this.$refs.bc,1,{y:-300,paused: true})
   },
   methods:{
     handleScroll(e){
-      this.animate.progress(e.percent)
+      e.entering && this.animate.resume()
+      this.scroll.progress(e.percent)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="section-description" ref="sd" v-element="[handleScroll,{offsetEnter: '20vh'}]">
+  <div class="section-description" ref="sd" v-element="[handleScroll,{offsetEnter:'20vh'}]">
     <p class="heading" v-if="heading" v-html="heading"/>
     <p class="body" v-if="body" v-html="body"/>
   </div>

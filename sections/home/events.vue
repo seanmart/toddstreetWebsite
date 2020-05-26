@@ -31,7 +31,7 @@ export default {
   }
 
   .content{
-    height: 300vh;
+    height: 100vh;
   }
 
   @media (max-width: $mobile){

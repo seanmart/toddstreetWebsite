@@ -15,9 +15,8 @@ Vue.directive('element',{
 
 
 Vue.directive('section',{
-  inserted: function(el,{value}){
-    let props = getProps(value)
-    vb.addScrollSection(el,props.fn,props.options)
+  inserted: function(el){
+    vb.addScrollSection(el)
   },
   unbind: function(el){
     vb.removeScrollSection(el)
@@ -28,16 +27,6 @@ Vue.directive('section',{
 Vue.directive('page',{
   inserted: function(el){
     vb.addScrollPage(el)
-  }
-})
-
-
-Vue.directive('mouse',{
-  inserted: function(el,{value}){
-    vb.addMouseElement(el, value)
-  },
-  unbind: function(el){
-    vb.removeMouseElement(el)
   }
 })
 
