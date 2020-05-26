@@ -15,6 +15,10 @@ export default class{
 
   // SCROLL
 
+  scrollTo(el){
+    this.scroll.scrollTo(el)
+  }
+
   updatePage(){
     this.scroll.updatePage()
   }

@@ -69,8 +69,8 @@ export default class{
     let y = this.mouse.clientY + e.scroll.top
     let active = element.pos.top < y && element.pos.bottom > y
     if ( active || element.active) {
-      this.runFunction(element, active)
       this.mouse.pageY = y
+      this.runFunction(element, active)
     }
   }
 

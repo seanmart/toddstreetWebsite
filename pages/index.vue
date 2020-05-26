@@ -14,9 +14,9 @@
 
       <div class="side-nav">
         <aside>
-          <div class="link"><h3 :class="{active: activeOffer == 'events'}">Events</h3></div>
-          <div class="link"><h3 :class="{active: activeOffer == 'comms'}">Communications</h3></div>
-          <div class="link"><h3 :class="{active: activeOffer == 'training'}">Training</h3></div>
+          <h3 :class="{active: activeOffer == 'events'}" @click="$vb.scrollTo('#events')">Events</h3>
+          <h3 :class="{active: activeOffer == 'comms'}" @click="$vb.scrollTo('#comms')" >Communications</h3>
+          <h3 :class="{active: activeOffer == 'training'}" @click="$vb.scrollTo('#training')">Training</h3>
         </aside>
       </div>
 
@@ -71,7 +71,7 @@ export default {
   },
   methods:{
     animateCircle(id,e){
-      this.$gsap.set(`#${id} .circle`,{y: `-=${e.scroll.delta * .15}`})
+      this.$gsap.set(`#${id} .circle`,{y: `-=${e.scroll.delta * .2}`})
     },
     handleEvents(e){
       this.activeOffer = 'events'
@@ -132,22 +132,23 @@ export default {
     aside{
       flex: 0 0 auto;
       transform: rotate(90deg);
-      width: 300px;
       display: flex;
       justify-content: space-between;
     }
 
-
     h3{
       @include headerFont;
+      cursor: pointer;
       text-transform: uppercase;
       font-weight: 400;
       letter-spacing: 1px;
       font-size: 18px;
       flex: 0 0 auto;
+      padding: 10px;
       &.active{
         font-weight: 600;
         color: #1E0FC7;
+        letter-spacing: .75px;
       }
     }
   }

@@ -4,7 +4,7 @@ export default class {
   constructor(){
     this.ticking = false
     this.inertia = .09
-    this.index = 0
+    this.interval = null
 
     this.elements = {}
     this.sections = {}
@@ -224,5 +224,31 @@ export default class {
     this.page.height = this.page.el.offsetHeight
     this.page.width = this.page.el.offsetWidth
     document.body.style.height = `${this.page.height}px`
+  }
+
+  // SCROLL
+
+  scrollTo(el){
+    if (typeof el == 'string'){
+      el = document.querySelector(el)
+    }
+
+    if (el){
+      let top = tools.getPosition(el).top
+      let i = this.scroll.top
+
+      clearInterval(this.interval)
+
+      this.interval = setInterval(()=>{
+        i = tools.lerp(i,top,.1)
+        if (Math.abs(top - i) < 1){
+          i = top
+          clearInterval(this.interval)
+          this.interval = null
+        }
+        window.scrollTo(0,i)
+      },30)
+
+    }
   }
 }

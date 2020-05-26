@@ -64,6 +64,10 @@ export default {
     align-items: center;
     transform: scale(0);
     opacity: 0;
+    @include headerFont;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
   }
 }
 </style>
