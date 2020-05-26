@@ -31,14 +31,15 @@ export default {
   },
   mounted(){
     let tl = this.$gsap.timeline({delay: .5})
+    tl.set('header', {opacity:1})
     tl.from('header button',1,{scale:.5, opacity:0, ease: 'power4.out'},0)
     tl.from('nav .link',1,{yPercent: -100, stagger: -.1, ease: 'power4.out'},0)
     tl.from('nav .logo',1,{yPercent: -100, ease: 'power4.out'},.25)
   },
   methods:{
     handleScroll(e){
-      e.left && this.$gsap.to(this.$refs.tag,.5,{xPercent: 100, ease: 'expo.inOut'})
-      e.entering && this.$gsap.to(this.$refs.tag,.5,{xPercent: 0,ease: 'expo.inOut'})
+      e.status == 'leave' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 100, ease: 'expo.inOut'})
+      e.status == 'enter' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 0,ease: 'expo.inOut'})
     }
   },
   computed:{
@@ -68,6 +69,7 @@ header{
   height: $space--bg;
   display: flex;
   align-items: center;
+  opacity: 0;
 
   nav{
     width: 100%;
@@ -128,6 +130,8 @@ header{
     justify-content: center;
     align-items: center;
     padding: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 
     svg{
       flex: 0 0 auto;

@@ -66,8 +66,8 @@ export default class {
 
     let index = tools.generateId(12)
     this.sections[index] = section
-    section.el.dataset.index = index
-    section.el.style.willChange = 'transform'
+    el.dataset['scroll'] = index
+    el.style.willChange = 'transform'
 
   }
 
@@ -94,17 +94,17 @@ export default class {
 
     let index = tools.generateId(12)
     this.elements[index] = element
-    element.el.dataset.index = index
+    el.dataset['scroll'] = index
   }
 
   // REMOVE
   removeSection(el){
-    let index = el.dataset.index
-    delete this.elements[index]
+    let index = el.dataset['scroll']
+    delete this.sections[index]
   }
 
   removeElement(el){
-    let index = el.dataset.index
+    let index = el.dataset['scroll']
     delete this.elements[index]
   }
 

@@ -1,5 +1,6 @@
 import Scroll from './Scroll'
 import Mobile from './Mobile'
+import Mouse from './Mouse'
 import tools from './tools'
 
 export default class{
@@ -9,7 +10,7 @@ export default class{
     this.mobile = tools.isMobile()
     this.tools = tools
     this.scroll = !this.mobile ? new Scroll() : new Mobile()
-    console.log(this.scroll)
+    this.mouse = !this.mobile ? new Mouse(this.scroll) : null
   }
 
   // SCROLL
@@ -34,6 +35,10 @@ export default class{
     this.scroll.addEvent(fn)
   }
 
+  addMouseElement(el,fn){
+    this.mouse && this.mouse.addElement(el,fn)
+  }
+
   removeScrollElement(el){
     this.scroll.removeElement(el)
   }
@@ -44,6 +49,10 @@ export default class{
 
   removeScrollEvent(fn){
     this.scroll.removeEvent(fn)
+  }
+
+  removeMouseElement(el){
+    this.mouse && this.mouse.removeElement(el)
   }
 
 }

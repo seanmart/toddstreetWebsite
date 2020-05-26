@@ -35,4 +35,13 @@ Vue.directive('page',{
   }
 })
 
+Vue.directive('mouse',{
+  inserted: function(el,{value}){
+    vb.addMouseElement(el, value)
+  },
+  unbind: function(el){
+    vb.removeMouseElement(el)
+  }
+})
+
 Object.defineProperty(Vue.prototype,'$vb',{value: vb})

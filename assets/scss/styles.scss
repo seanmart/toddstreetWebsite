@@ -7,6 +7,10 @@ section{
   padding: $space--md $space--bg;
   max-width: $widescreen;
   margin: 0px auto;
+  &.full-width{
+    max-width: none;
+    margin: 0px;
+  }
 }
 
 main{
