@@ -9,8 +9,8 @@ export default class{
     this.mouse = {
       pageX:0,
       pageY:0,
-      clientY:0,
-      clientX: 0
+      clientY: window.innerHeight / 2,
+      clientX: window.innerWidth / 2
     }
 
     this.elements = {}
