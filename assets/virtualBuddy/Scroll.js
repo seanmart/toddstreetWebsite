@@ -4,11 +4,16 @@ export default class {
   constructor(){
     this.ticking = false
     this.inertia = .09
-    this.interval = null
 
     this.elements = {}
     this.sections = {}
     this.events = []
+
+    this.scrollTo = {
+      ticking: false,
+      to: 0,
+      top: 0
+    }
 
     this.scroll = {
       top: 0,
@@ -232,27 +237,26 @@ export default class {
 
   // SCROLL
 
-  scrollTo(el){
-    if (typeof el == 'string'){
-      el = document.querySelector(el)
+  setScrollTo(el){
+    if (typeof el == 'string') el = document.querySelector(el)
+    if (!el) return
+
+    this.scrollTo.to = tools.getPosition(el).top
+
+    if (!this.scrollTo.ticking) {
+      this.scrollTo.top = this.scroll.top
+      this.updateScrollTo()
     }
+  }
 
-    if (el){
-      let top = tools.getPosition(el).top
-      let i = this.scroll.top
+  updateScrollTo(){
+    window.requestAnimationFrame(()=>{
 
-      clearInterval(this.interval)
+      this.scrollTo.top = tools.lerp(this.scrollTo.top,this.scrollTo.to,.1)
+      this.scrollTo.ticking = (Math.abs(this.scrollTo.to - this.scrollTo.top) > 1)
+      window.scrollTo(0,this.scrollTo.top)
 
-      this.interval = setInterval(()=>{
-        i = tools.lerp(i,top,.1)
-        if (Math.abs(top - i) < 1){
-          i = top
-          clearInterval(this.interval)
-          this.interval = null
-        }
-        window.scrollTo(0,i)
-      },30)
-
-    }
+      if (this.scrollTo.ticking) this.updateScrollTo()
+    })
   }
 }
