@@ -2,7 +2,6 @@ import Scroll from './Scroll'
 
 export default class extends Scroll{
   constructor(){
-    console.log('mobile')
     super()
   }
 
@@ -27,5 +26,10 @@ export default class extends Scroll{
   addSection(el,fn = null, options = {}){
     if (!fn) return
     this.addElement(el,fn,options)
+  }
+
+  updatePage(){
+    this.page.height = this.page.el.offsetHeight
+    this.page.width = this.page.el.offsetWidth
   }
 }

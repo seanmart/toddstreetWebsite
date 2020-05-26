@@ -3,14 +3,16 @@
     <nav v-section>
       <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
       <nuxt-link
-        class="link"
+        class="link navigation--rg"
         v-for="link in links"
         :key="link.to"
         :to="link.to"
         v-html="link.label"
         />
     </nav>
-    <button type="button"><i/><i/></button>
+    <button type="button">
+       <div class="lines"><i/><i/></div>
+     </button>
     <aside ref="tag"><icons logo/></aside>
   </header>
 </template>
@@ -90,11 +92,6 @@ header{
   .link{
     padding: 10px;
     margin-left: 20px;
-    @include headerFont;
-    text-transform: uppercase;
-    font-weight: 400;
-    letter-spacing: 1px;
-    font-size: 18px;
   }
 
   button{
@@ -110,11 +107,12 @@ header{
     right: 0px;
 
     i{
+      display: block;
       width: 30px;
       height: 2px;
       background: black;
       border-radius: 1px;
-      margin: 3px 0px;
+      margin: 4px 0px;
     }
   }
 
@@ -137,11 +135,12 @@ header{
       flex: 0 0 auto;
       fill: white;
       width: 100px;
-      transform: rotate(-90deg)
+      transform: rotate(90deg)
     }
   }
   @media (max-width: $tablet){
     padding: 0px $space--md;
+    height: $space--md;
 
     button{
       width: $space--md;
@@ -155,6 +154,24 @@ header{
 
   @media (max-width: $mobile){
     padding: 0px $space--sm;
+
+    button{
+      width: $space--sm;
+      height: $space--md;
+      
+      .lines{
+        transform: rotate(90deg)
+      }
+    }
+
+    aside{
+      height: 100px;
+      width: 30px;
+
+      svg{
+        width: 70px;
+      }
+    }
   }
 }
 

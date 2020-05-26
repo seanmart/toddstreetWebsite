@@ -17,16 +17,77 @@ main{
   min-height: 100vh;
 }
 
+.header--bg{
+  @include headerFont;
+  font-size: 80px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  line-height: 95%;
+}
+
+.body--bg{
+  @include bodyFont;
+  font-size: 30px;
+  line-height: 140%;
+}
+
+.body--md{
+  @include bodyFont;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 140%;
+}
+
+.navigation--rg{
+  @include headerFont;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
 
 @media (max-width: $tablet){
   section{
     padding: $space--md $space--md;
+  }
+
+  .header--bg{
+    font-size: 70px;
+  }
+
+  .body--bg{
+    font-size: 27px;
+  }
+
+  .body--md{
+    font-size: 22px;
+  }
+
+  .navigation--rg{
+    font-size: 16px;
   }
 }
 
 
 @media (max-width: $mobile){
   section{
-    padding: $space--md $space--sm;
+    padding: $space--md * .75 $space--sm;
+  }
+
+  .header--bg{
+    font-size: 50px;
+  }
+
+  .body--bg{
+    font-size: 25px;
+  }
+
+  .body--md{
+    font-size: 20px;
+  }
+
+  .navigation--rg{
+    font-size: 14px;
   }
 }

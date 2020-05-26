@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="section-title">
-    <h1 ref="title" v-html="title"/>
+    <h1 ref="title" class="header--bg" v-html="title"/>
     <hr ref="rule"/>
   </div>
 </template>
@@ -27,26 +27,6 @@ export default {
     top: 10px;
     bottom: 10px;
     left: 0px;
-  }
-
-  h1{
-    @include headerFont;
-    font-size: 80px;
-    font-weight: 500;
-    letter-spacing: -2px;
-    line-height: 95%;
-  }
-
-  @media (max-width: $tablet){
-    h1{
-      font-size: 75px;
-    }
-  }
-
-  @media (max-width: $mobile){
-    h1{
-      font-size: 60px;
-    }
   }
 
 }

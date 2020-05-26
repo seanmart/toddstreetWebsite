@@ -37,7 +37,7 @@ export default class {
     window.addEventListener('visibility', this.onResize)
 
     document.body.style.overscrollBehavior = 'none'
-    document.body.scrollTop = 0
+    window.scrollTo(0,0)
 
     this.updateWindow()
   }
@@ -120,7 +120,7 @@ export default class {
 
     this.updateScroll()
     this.updateElements()
-    this.events.forEach(e => e(this.scroll))
+    this.updateEvents()
 
     window.requestAnimationFrame(()=>{
       this.updateSections()
@@ -224,6 +224,10 @@ export default class {
     this.page.height = this.page.el.offsetHeight
     this.page.width = this.page.el.offsetWidth
     document.body.style.height = `${this.page.height}px`
+  }
+
+  updateEvents(){
+    this.events.forEach(e => e(this.scroll))
   }
 
   // SCROLL

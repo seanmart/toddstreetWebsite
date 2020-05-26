@@ -2,8 +2,8 @@
   <main id="home">
 
     <section id="intro" v-section>
-      <h1 v-html="intro.title"/>
-      <p v-html="intro.description"/>
+      <h1 class="header--bg" v-html="intro.title"/>
+      <p class="body--bg" v-html="intro.description"/>
     </section>
 
     <section id="sizzle" v-section>
@@ -13,7 +13,7 @@
     <div id="offerings" v-element="[handleOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
 
       <div class="side-nav">
-        <aside>
+        <aside class="navigation--rg">
           <h3 :class="{active: activeOffer == 'events'}" @click="$vb.scrollTo('#events')">Events</h3>
           <h3 :class="{active: activeOffer == 'comms'}" @click="$vb.scrollTo('#comms')" >Communications</h3>
           <h3 :class="{active: activeOffer == 'training'}" @click="$vb.scrollTo('#training')">Training</h3>
@@ -24,8 +24,8 @@
         <section-title :title="events.title"/>
         <div class="circle" v-element="(e)=> animateCircle('events',e)"/>
         <div class="description">
-          <h3 v-html="events.heading"/>
-          <p v-html="events.description"/>
+          <h3 class="body--bg" v-html="events.heading"/>
+          <p class="body--md" v-html="events.description"/>
         </div>
       </section>
 
@@ -33,8 +33,8 @@
         <section-title :title="comms.title"/>
         <div class="circle" v-element="(e)=> animateCircle('comms',e)"/>
         <div class="description">
-          <h3 v-html="comms.heading"/>
-          <p v-html="comms.description"/>
+          <h3 class="body--bg" v-html="comms.heading"/>
+          <p class="body--md" v-html="comms.description"/>
         </div>
       </section>
 
@@ -42,8 +42,8 @@
         <section-title :title="training.title"/>
         <div class="circle" v-element="(e)=> animateCircle('training',e)"/>
         <div class="description">
-          <h3 v-html="training.heading"/>
-          <p v-html="training.description"/>
+          <h3 class="body--bg" v-html="training.heading"/>
+          <p class="body--md" v-html="training.description"/>
         </div>
       </section>
     </div>
@@ -102,15 +102,8 @@ export default {
 #intro{
   h1{
     margin-bottom: 50px;
-    @include headerFont;
-    font-size: 80px;
-    font-weight: 500;
-    letter-spacing: -2px;
-    line-height: 90%;
   }
   p{
-    font-size: 30px;
-    line-height: 140%;
     max-width: 800px;
     color: #555;
   }
@@ -137,12 +130,7 @@ export default {
     }
 
     h3{
-      @include headerFont;
       cursor: pointer;
-      text-transform: uppercase;
-      font-weight: 400;
-      letter-spacing: 1px;
-      font-size: 18px;
       flex: 0 0 auto;
       padding: 10px;
       &.active{
@@ -176,18 +164,10 @@ export default {
     }
 
     h3{
-      @include bodyFont;
-      font-size: 32px;
-      font-weight: 500;
-      line-height: 130%;
       margin-bottom: 30px;
     }
 
     p{
-      @include bodyFont;
-      font-size: 25px;
-      font-weight: 300;
-      line-height: 140%;
       color: #555;
     }
 
@@ -224,19 +204,21 @@ export default {
           margin-right: $col4;
         }
       }
-      h3{
-        font-size: 25px;
-      }
-      p{
-        font-size: 20px;
-      }
     }
   }
 }
 
 @media (max-width: $mobile){
 
+  #sizzle{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   #offerings{
+    .side-nav{
+      width: $space--sm;
+    }
     .offering{
       .description{
         margin-left: 0px;

@@ -7,10 +7,10 @@ export default class{
     this.scroll = scroll
 
     this.mouse = {
-      pageX:0,
-      pageY:0,
+      pageX: window.innerWidth / 2,
+      pageY: window.innerHeight / 2,
+      clientX: window.innerWidth / 2,
       clientY: window.innerHeight / 2,
-      clientX: window.innerWidth / 2
     }
 
     this.elements = {}

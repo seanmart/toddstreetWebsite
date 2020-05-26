@@ -1,5 +1,5 @@
 <template>
-  <div v-page>
+  <div id="page" v-page>
     <site-header/>
     <nuxt />
     <site-footer/>
@@ -18,6 +18,12 @@ export default{
 }
 </script>
 <style>
+
+#page{
+  overflow: hidden;
+  width: 100vw;
+}
+
 .page-enter-active, .page-leave-active {
   transition: 1s
 }
