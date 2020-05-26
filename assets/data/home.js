@@ -12,7 +12,7 @@ export default{
   },
   events:{
     title: `Meaningful <br/> Live & Virtual Events`,
-    heading: `Create immersive experiences with your audience at the core.`,
+    heading: `Create immersive experiences with your audience at the center.`,
     description: `toddstreet produces meaningful events that engage minds across the globe.
                   Our events span from large-scale conferences and blockbuster product launches
                   to intimate and exclusive press launches, influencer activations and more. `

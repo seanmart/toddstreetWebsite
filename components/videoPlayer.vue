@@ -34,6 +34,7 @@ export default {
 <style lang="scss">
 .video-player{
   position: relative;
+  overflow: hidden;
   .video{
     width: 100%;
     padding-bottom: 56.25%;

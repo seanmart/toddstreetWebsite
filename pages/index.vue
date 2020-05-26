@@ -24,7 +24,7 @@
         <section-title :title="events.title"/>
         <div class="circle" v-element="(e)=> animateCircle('events',e)"/>
         <div class="description">
-          <h3 class="body--bg" v-html="events.heading"/>
+          <h3 class="body--md" v-html="events.heading"/>
           <p class="body--md" v-html="events.description"/>
         </div>
       </section>
@@ -33,7 +33,7 @@
         <section-title :title="comms.title"/>
         <div class="circle" v-element="(e)=> animateCircle('comms',e)"/>
         <div class="description">
-          <h3 class="body--bg" v-html="comms.heading"/>
+          <h3 class="body--md" v-html="comms.heading"/>
           <p class="body--md" v-html="comms.description"/>
         </div>
       </section>
@@ -42,7 +42,7 @@
         <section-title :title="training.title"/>
         <div class="circle" v-element="(e)=> animateCircle('training',e)"/>
         <div class="description">
-          <h3 class="body--bg" v-html="training.heading"/>
+          <h3 class="body--md" v-html="training.heading"/>
           <p class="body--md" v-html="training.description"/>
         </div>
       </section>
@@ -149,7 +149,7 @@ export default {
     }
 
     .description{
-      margin-left: $col5;
+      margin-left: $col6;
     }
 
     .circle{
@@ -165,6 +165,7 @@ export default {
 
     h3{
       margin-bottom: 30px;
+      font-weight: 500;
     }
 
     p{
@@ -174,7 +175,7 @@ export default {
     &.right{
       .description{
         margin-left: 0px;
-        margin-right: $col5;
+        margin-right: $col6;
       }
       .circle{
         left: -300px;
@@ -222,6 +223,10 @@ export default {
     .offering{
       .description{
         margin-left: 0px;
+      }
+
+      h3 br{
+        display: none;
       }
       &.right{
         .description{
