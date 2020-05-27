@@ -11,6 +11,7 @@ export default class{
     this.tools = tools
     this.scroll = !this.mobile ? new Scroll() : new Mobile()
     this.mouse = !this.mobile ? new Mouse(this.scroll) : null
+
   }
 
   // SCROLL

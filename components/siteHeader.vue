@@ -14,6 +14,10 @@
        <div class="lines"><i/><i/><i/></div>
      </button>
     <aside ref="tag"><icons logo/></aside>
+
+    <menu>
+      this is the menu
+    </menu>
   </header>
 </template>
 
@@ -117,7 +121,7 @@ header{
   }
 
   aside{
-    z-index: 100;
+    z-index: 98;
     position: fixed;
     right: 100%;
     top: $space--bg * .45;
@@ -138,6 +142,17 @@ header{
       transform: rotate(90deg)
     }
   }
+
+  menu{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: black;
+    top: 0px;
+    right: 100%;
+    z-index: 99;
+  }
+
   @media (max-width: $tablet){
     padding: 0px $space--md;
     height: $space--md;

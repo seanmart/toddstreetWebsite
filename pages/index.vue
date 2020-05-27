@@ -7,7 +7,7 @@
     </section>
 
     <section id="sizzle" v-section>
-      <video-player/>
+      <video-player v-onEnter:scale/>
     </section>
 
     <div id="offerings" v-element="[handleOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
@@ -22,28 +22,28 @@
 
       <section id="events" class="offering" v-section v-element="[handleEvents,{offset: '50vh'}]">
         <section-title :title="events.title"/>
-        <div class="circle" v-element="(e)=> animateCircle('events',e)"/>
+        <div class="circle" v-element="(e)=> animateCircle('events',e)" v-onEnter:scale/>
         <div class="description">
-          <p class="bold body--md" v-html="events.heading"/>
-          <p class="body--md" v-html="events.description"/>
+          <p class="bold body--rg" v-html="events.heading" v-onEnter:slideDown/>
+          <p class="body--rg" v-html="events.description" v-onEnter:slideDown/>
         </div>
       </section>
 
       <section id="comms" class="offering" v-section v-element="[handleComms,{offset: '50vh'}]">
         <section-title :title="comms.title"/>
-        <div class="circle" v-element="(e)=> animateCircle('comms',e)"/>
+        <div class="circle" v-element="(e)=> animateCircle('comms',e)" v-onEnter:scale/>
         <div class="description">
-          <p class="bold body--md" v-html="comms.heading"/>
-          <p class="body--md" v-html="comms.description"/>
+          <p class="bold body--rg" v-html="comms.heading" v-onEnter:slideDown/>
+          <p class="body--rg" v-html="comms.description" v-onEnter:slideDown/>
         </div>
       </section>
 
       <section id="training" class="offering" v-section v-element="[handleTraining,{offset: '50vh'}]">
         <section-title :title="training.title"/>
-        <div class="circle" v-element="(e)=> animateCircle('training',e)"/>
+        <div class="circle" v-element="(e)=> animateCircle('training',e)" v-onEnter:scale/>
         <div class="description">
-          <p class="bold body--md" v-html="training.heading"/>
-          <p class="body--md" v-html="training.description"/>
+          <p class="bold body--rg" v-html="training.heading" v-onEnter:slideDown/>
+          <p class="body--rg" v-html="training.description" v-onEnter:slideDown/>
         </div>
       </section>
     </div>
@@ -73,8 +73,8 @@ export default {
     this.$gsap.set('#intro p',{opacity:0,yPercent: -50})
 
     let tl = this.$gsap.timeline({delay: 1})
-    tl.to('#intro h1',1,{yPercent: 0, stagger: .07, ease: 'power4.out'},0)
-    tl.to('#intro p',1.5,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
+    tl.to('#intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
+    tl.to('#intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
     tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
   },
   methods:{
@@ -150,7 +150,6 @@ export default {
   p{
     margin: 50px 0px 0px;
     max-width: 800px;
-    color: #777;
     b{
       color: #1E0FC7;
       position: relative;
@@ -159,7 +158,7 @@ export default {
       &::after{
         content: '';
         position: absolute;
-        top: 90%;
+        top: 95%;
         left: 0px;
         right: 0px;
         height: 3px;

@@ -1,5 +1,6 @@
 import VirtualBuddy from "@/assets/virtualBuddy";
 import Vue from "vue";
+import gsap from 'gsap'
 
 const vb = new VirtualBuddy()
 
@@ -41,6 +42,36 @@ Vue.directive('mouse',{
   },
   unbind: function(el){
     vb.removeMouseElement(el)
+  }
+})
+
+Vue.directive('onEnter',{
+  inserted: function(el,{arg}){
+
+    let anim = ''
+
+    switch(arg){
+
+      case 'scale':
+      gsap.set(el,{scale: .5})
+      anim = gsap.to(el,1,{scale: 1, ease:'power4.out', paused: true})
+      break
+
+      case 'slideDown':
+      gsap.set(el,{y:150, opacity:0})
+      anim = gsap.to(el,1,{y:0, opacity:1, ease:'power4.out', paused: true})
+      break
+    }
+
+    vb.addScrollElement(el,(e)=>{
+      if (e.status == 'enter' && e.scroll.direction == 'down'){
+        anim.resume();
+        vb.removeScrollElement(el)
+      }
+    },{offsetEnter:'10vh'})
+  },
+  unbind: function(el){
+    vb.removeScrollElement(el)
   }
 })
 
