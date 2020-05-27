@@ -29,7 +29,7 @@
         </div>
       </section>
 
-      <section id="comms" class="offering right" v-section v-element="[handleComms,{offset: '50vh'}]">
+      <section id="comms" class="offering" v-section v-element="[handleComms,{offset: '50vh'}]">
         <section-title :title="comms.title"/>
         <div class="circle" v-element="(e)=> animateCircle('comms',e)"/>
         <div class="description">
@@ -48,7 +48,7 @@
       </section>
     </div>
 
-    <section class="test full-width" v-section/>
+    <section id="cares-overview" class="full-width" v-section/>
 
   </main>
 </template>
@@ -132,7 +132,7 @@ export default {
     h3{
       cursor: pointer;
       flex: 0 0 auto;
-      padding: 10px;
+      padding: 10px 15px;
       &.active{
         font-weight: 600;
         color: #1E0FC7;
@@ -158,6 +158,8 @@ export default {
       right: -300px;
       width: 800px;
       height: 800px;
+      max-width: 110vw;
+      max-height: 110vw;
       border-radius: 50%;
       background-image: url('../static/texture.jpg');
       z-index: -1;
@@ -172,20 +174,10 @@ export default {
       color: #555;
     }
 
-    &.right{
-      .description{
-        margin-left: 0px;
-        margin-right: $col6;
-      }
-      .circle{
-        left: -300px;
-        right: auto;
-      }
-    }
   }
 }
 
-.test{
+#cares-overview{
   background: #1E0FC7;
   height: 100vh;
 }
@@ -227,11 +219,6 @@ export default {
 
       h3 br{
         display: none;
-      }
-      &.right{
-        .description{
-          margin-right: 0px;
-        }
       }
     }
   }

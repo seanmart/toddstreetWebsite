@@ -1,15 +1,22 @@
 <template lang="html">
   <div class="video-player">
-    <div class="video"/>
-    <div class="mouse-zone" v-mouse="handleMouse"/>
-    <button type="button" name="play" ref="button" >Play</button>
+    <div class="video" v-mouse="handleMouse"/>
+    <button type="button" name="play" ref="button" >
+      <div class="content">
+        <transition name="button">
+          <span class="button--rg" :key="status">{{status}}</span>
+        </transition>
+        <div class="circle" ref="circle"/>
+      </div>
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   data:()=>({
-    active: false
+    active: false,
+    status: 'play'
   }),
   methods:{
     handleMouse(e){
@@ -24,7 +31,7 @@ export default {
         this.$gsap.set(this.$refs.button,{x:e.mouse.x - 50,y:e.mouse.y - 50})
       }
       if (e.click){
-        this.$gsap.to(this.$refs.button,.15,{scale: .9, yoyo: true, repeat: 1})
+        this.status = this.status == 'play' ? 'pause' : 'play'
       }
     }
   }
@@ -35,40 +42,60 @@ export default {
 .video-player{
   position: relative;
   overflow: hidden;
-  .video{
-    width: 100%;
-    padding-bottom: 56.25%;
-    background: #1E0FC7;
-  }
+  padding-bottom: 56.25%;
+  background: #1E0FC7;
 
-  .mouse-zone{
+  .video{
     position: absolute;
-    z-index: 1;
     top: 0px;
     left: 0px;
-    right: 0px;
-    bottom: 0px;
-    cursor: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
 
   button{
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 0;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transform: scale(0);
     opacity: 0;
-    @include headerFont;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: 500;
+
+    .content{
+      position: relative;
+      width: 100px;
+      height: 100px;
+    }
+
+    span, .circle{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+
+    span{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .circle{
+      border-radius: 50%;
+      background: white;
+    }
+
+    .button-enter-active, .button-leave-active {
+      transition: .25s
+    }
+    .button-enter{
+      transform: translateY(-30%);
+      opacity: 0;
+    }
+    .button-leave-active{
+      transform: translateY(30%);
+      opacity: 0;
+    }
   }
 }
 </style>

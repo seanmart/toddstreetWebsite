@@ -11,7 +11,7 @@
         />
     </nav>
     <button type="button">
-       <div class="lines"><i/><i/></div>
+       <div class="lines"><i/><i/><i/></div>
      </button>
     <aside ref="tag"><icons logo/></aside>
   </header>
@@ -108,7 +108,7 @@ header{
 
     i{
       display: block;
-      width: 30px;
+      width: 20px;
       height: 2px;
       background: black;
       border-radius: 1px;
@@ -144,6 +144,7 @@ header{
 
     button{
       width: $space--md;
+      height: $space--md;
     }
 
     .link{
@@ -155,12 +156,16 @@ header{
   @media (max-width: $mobile){
     padding: 0px $space--sm;
 
+    .logo{
+      width: 175px;
+    }
+
     button{
       width: $space--sm;
       height: $space--md;
-      
+
       .lines{
-        transform: rotate(90deg)
+        transform: rotate(90deg);
       }
     }
 

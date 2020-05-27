@@ -46,6 +46,13 @@ main{
   font-size: 18px;
 }
 
+.button--rg{
+  @include headerFont;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 
 @media (max-width: $tablet){
   section{
@@ -80,7 +87,7 @@ main{
   }
 
   .body--bg{
-    font-size: 23px;
+    font-size: 22px;
   }
 
   .body--md{
