@@ -1,11 +1,12 @@
 <template lang="html">
-  <div class="video-player">
-    <div class="video" v-mouse="handleMouse"/>
+  <div class="video-player" v-mouse="handleMouse" :class="{play}" @click=" play=!play ">
+    <div class="video"/>
     <button type="button" name="play" ref="button" >
       <div class="content">
-        <transition name="button">
-          <span class="button--rg" :key="status">{{status}}</span>
-        </transition>
+        <div class="text">
+          <span class="button--rg">play</span>
+          <span class="button--rg">pause</span>
+        </div>
         <div class="circle" ref="circle"/>
       </div>
     </button>
@@ -16,9 +17,30 @@
 export default {
   data:()=>({
     active: false,
-    status: 'play'
+    play: false,
+    hidden: false,
+    timeout: null
   }),
+  watch:{
+    play(play){
+      if (play) this.hideButton()
+      if (!play) this.showButton()
+    }
+  },
   methods:{
+    showButton(){
+      this.hidden = false
+      clearTimeout(this.timeout)
+      this.$gsap.to(this.$refs.button,.25,{opacity:1})
+    },
+    hideButton(){
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(()=> {
+        this.$gsap.to(this.$refs.button,.25,{opacity:0})
+        this.timeout = null
+        this.hidden = true
+      },500)
+    },
     handleMouse(e){
 
       if (e.entering){
@@ -28,10 +50,11 @@ export default {
         this.$gsap.to(this.$refs.button,.25,{scale: 0,opacity:0})
       }
       if (e.active){
-        this.$gsap.set(this.$refs.button,{x:e.mouse.x - 50,y:e.mouse.y - 50})
-      }
-      if (e.click){
-        this.status = this.status == 'play' ? 'pause' : 'play'
+        if (this.play) {
+          if (this.hidden) this.showButton()
+          this.hideButton()
+        }
+        this.$gsap.set(this.$refs.button,{x:e.x - 50,y:e.y - 50})
       }
     }
   }
@@ -51,10 +74,11 @@ export default {
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    transition: background .25s;
   }
 
   button{
+    z-index: 1;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -67,34 +91,55 @@ export default {
       height: 100px;
     }
 
-    span, .circle{
+    .text, .circle{
       position: absolute;
       height: 100%;
       width: 100%;
     }
 
+    .text{
+      overflow: hidden;
+    }
+
     span{
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1;
+      transition: transform .25s;
     }
 
     .circle{
+      z-index: -1;
       border-radius: 50%;
       background: white;
+      transition: transform .25s
     }
 
-    .button-enter-active, .button-leave-active {
-      transition: .25s
+    &:active{
+      .circle{
+        transform: scale(1.2)
+      }
     }
-    .button-enter{
-      transform: translateY(-30%);
-      opacity: 0;
+  }
+  &.play{
+    .video{
+      background: black;
     }
-    .button-leave-active{
-      transform: translateY(30%);
-      opacity: 0;
+    button span{
+      transform: translateY(-100%);
+    }
+  }
+}
+
+.mobile{
+  .video-player{
+    button{
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform .25s, opacity .25s;
+      opacity: 1;
     }
   }
 }

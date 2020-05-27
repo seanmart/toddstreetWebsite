@@ -120,7 +120,7 @@ header{
     z-index: 100;
     position: fixed;
     right: 100%;
-    bottom: 50px;
+    top: $space--bg * .45;
     height: 150px;
     width: 50px;
     background: black;
@@ -147,6 +147,15 @@ header{
       height: $space--md;
     }
 
+    aside{
+      height: 120px;
+      width: 40px;
+
+      svg{
+        width: 80px;
+      }
+    }
+
     .link{
       display: none;
     }
@@ -163,18 +172,15 @@ header{
     button{
       width: $space--sm;
       height: $space--md;
-
-      .lines{
-        transform: rotate(90deg);
-      }
     }
 
     aside{
-      height: 100px;
+      height: 90px;
       width: 30px;
+      top: $space--md * .45;
 
       svg{
-        width: 70px;
+        width: 60px;
       }
     }
   }

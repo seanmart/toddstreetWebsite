@@ -1,5 +1,5 @@
 <template>
-  <div id="page" v-page>
+  <div id="page" v-page :class="{mobile}">
     <site-header/>
     <nuxt />
     <site-footer/>
@@ -10,6 +10,12 @@ import siteHeader from '@/components/siteHeader'
 import siteFooter from '@/components/siteFooter'
 export default{
   components:{siteHeader,siteFooter},
+  data:()=>({
+    mobile: false
+  }),
+  mounted(){
+    this.mobile = this.$vb.mobile
+  },
   watch:{
     $route(){
       setTimeout(this.$vb.updatePage,1250)

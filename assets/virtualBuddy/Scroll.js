@@ -17,7 +17,7 @@ export default class {
 
     this.scroll = {
       top: 0,
-      bottom: 0,
+      bottom: window.innerHeight,
       delta: 0,
       direction: 'down'
     }
@@ -74,6 +74,8 @@ export default class {
     el.dataset['scroll'] = index
     el.style.willChange = 'transform'
 
+    this.updateSection(section)
+
   }
 
   addElement(el,fn = null,options = {}){
@@ -100,6 +102,8 @@ export default class {
     let index = tools.generateId(12)
     this.elements[index] = element
     el.dataset['scroll'] = index
+
+    this.updateElement(element)
   }
 
   // REMOVE
@@ -124,11 +128,11 @@ export default class {
     this.ticking = Math.abs(this.scroll.top - this.window.scroll) > .05
 
     this.updateScroll()
-    this.updateElements()
-    this.updateEvents()
+    Object.keys(this.elements).forEach(key => this.updateElement(this.elements[key]))
+    this.events.forEach(e => e(this.scroll))
 
     window.requestAnimationFrame(()=>{
-      this.updateSections()
+      Object.keys(this.sections).forEach(key => this.updateSection(this.sections[key]))
       this.ticking && this.checkScroll()
     })
 
@@ -161,9 +165,8 @@ export default class {
 
   // UPDATE
 
-  updateSections(){
-    Object.keys(this.sections).forEach(key => {
-      let s = this.sections[key]
+  updateSection(s){
+
       let active = s.pos.top - 500 < this.scroll.bottom && s.pos.bottom + 500 > this.scroll.top
 
       if (active && !s.active) s.el.style.visibility = 'visible'
@@ -175,13 +178,10 @@ export default class {
         s.el.style.transform = transform;
       }
       s.active = active
-    })
   }
 
-  updateElements(){
-    Object.keys(this.elements).forEach(key => {
+  updateElement(e){
 
-      let e = this.elements[key]
       let top = e.pos.top + (e.offsetEnter || 0)
       let bottom = e.pos.bottom - (e.offsetLeave || 0)
       let visible = top < this.scroll.bottom && bottom > this.scroll.top
@@ -190,12 +190,12 @@ export default class {
 
         let props = {}
 
-        props.element = e
         props.scroll = this.scroll
         props.scrolled = parseFloat((this.scroll.top - Math.max(top - this.window.height, 0)).toFixed(5))
         props.duration = bottom - Math.max(top - this.window.height,0)
         props.percent = parseFloat(Math.min(Math.max(props.scrolled / props.duration,0),1).toFixed(5))
         props.pagePercent = parseFloat(Math.min(Math.max((this.scroll.top - top) / (this.window.height - top),0),1).toFixed(5))
+        props.visible = visible
 
         let percent = this.scroll.direction == 'down' ? props.percent : 1 - props.percent
         let status = visible && !e.visible ? `enter` : e.visible && !visible ? `leave` : `${Math.round(percent * 100)}%`
@@ -209,7 +209,6 @@ export default class {
 
       e.visible = visible
 
-    })
   }
 
   updateScroll(){
@@ -229,10 +228,6 @@ export default class {
     this.page.height = this.page.el.offsetHeight
     this.page.width = this.page.el.offsetWidth
     document.body.style.height = `${this.page.height}px`
-  }
-
-  updateEvents(){
-    this.events.forEach(e => e(this.scroll))
   }
 
   // SCROLL

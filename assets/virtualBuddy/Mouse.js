@@ -1,41 +1,31 @@
 import tools from './tools'
+
 export default class{
   constructor(scroll){
-
-    this.runFunction = this.runFunction.bind(this)
-
     this.scroll = scroll
+    this.elements = {}
+    this.inView = []
+    this.scrollY = 0
+
+    this.updateElementsPosition = this.updateElementsPosition.bind(this)
+    this.updateMouseOnScroll = this.updateMouseOnScroll.bind(this)
+    this.checkActive = this.checkActive.bind(this)
+    this.updateMouse = this.updateMouse.bind(this)
+
+    this.scroll.addEvent(this.updateMouseOnScroll)
+    window.addEventListener('mousemove',this.updateMouse)
+    window.addEventListener('resize',this.updateElementsPosition)
 
     this.mouse = {
-      pageX: window.innerWidth / 2,
-      pageY: window.innerHeight / 2,
-      clientX: window.innerWidth / 2,
-      clientY: window.innerHeight / 2,
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2
     }
-
-    this.elements = {}
-
-    window.addEventListener('mousemove', (e)=> {
-      this.mouse = {
-        pageX: e.pageX,
-        pageY: e.pageY,
-        clientX: e.clientX,
-        clientY: e.clientY
-      }
-    })
-
-    window.addEventListener('resize',()=>{
-      Object.keys(this.elements).forEach(key => {
-        let element = this.elements[key]
-        element.pos = tools.getPosition(element.el)
-      })
-    })
-
   }
 
-  addElement(el,fn = null){
+  // ADD
 
-    if (!fn) return
+  addElement(el,fn){
+    let id = tools.generateId(12)
 
     let element = {
       el: el,
@@ -44,49 +34,88 @@ export default class{
       pos: tools.getPosition(el)
     }
 
-    this.scroll.addElement(el,(e)=> this.handleScroll(element,e))
-    el.addEventListener('mousemove',()=> this.runFunction(element, true))
-    el.addEventListener('mouseleave',()=> this.runFunction(element,false))
-    el.addEventListener('click',()=> element.fn({click: true}))
+    this.scroll.addElement(el,(e)=> {
+      if (e.status == 'enter') this.addInView(id)
+      if (e.status == 'leave') this.removeInView(id)
+      if (e.visible) this.checkActive(element)
+    })
 
-    let id = tools.generateId(12)
     this.elements[id] = element
     el.dataset['mouse'] = id
   }
 
+  addInView(id){
+    this.inView.push(id)
+  }
+
+  // REMOVE
+
   removeElement(el){
     let id = el.dataset['mouse']
-    let element = this.elements[id]
-
+    el.removeAttribute('data-mouse')
     this.scroll.removeElement(el)
-    el.removeEventListener('mousemove',()=> this.runFunction(element, true))
-    el.removeEventListener('mouseleave',()=> this.runFunction(element,false))
-
+    this.removeInView(id)
     delete this.elements[id]
   }
 
-  handleScroll(element,e){
-    let y = this.mouse.clientY + e.scroll.top
-    let active = element.pos.top < y && element.pos.bottom > y
-    if ( active || element.active) {
-      this.mouse.pageY = y
-      this.runFunction(element, active)
-    }
+  removeInView(id){
+    let index = this.inView.findIndex(a => a == id)
+    if (index > -1) this.inView.splice(index,1)
   }
 
-  runFunction(element, active){
+  // UPDATE
 
-    element.fn({
-      entering: !element.active && active,
-      active: element.active && active,
-      leaving: element.active && !active,
-      mouse: {
-        ...this.mouse,
-        x: this.mouse.pageX - element.pos.left,
-        y: this.mouse.pageY - element.pos.top
-      }
+  updateMouseOnScroll(e){
+    this.scrollY = e.top
+  }
+
+  updateMouse(e){
+    this.busy = true
+    this.mouse = {
+      x: e.clientX,
+      y: e.clientY
+    }
+    if (this.inView.length > 0) this.checkInview()
+    this.busy = false
+  }
+
+  updateElementsPosition(){
+    Object.keys(this.elements).forEach(id => {
+      let e = this.elements[id]
+      e.pos = tools.getPosition(e.el)
     })
+  }
 
-    element.active = active
+
+  // CHECK
+
+  checkInview(){
+    this.inView.forEach( id => this.checkActive(this.elements[id]))
+  }
+
+  checkActive(e){
+    let y = this.mouse.y + this.scrollY
+
+    let active = e.pos.top < y
+              && e.pos.bottom > y
+              && e.pos.left < this.mouse.x
+              && e.pos.right > this.mouse.x
+
+    if (active || e.active) this.run(e,active)
+  }
+
+  // RUN
+
+  run(e,active){
+    e.fn({
+      entering: !e.active && active,
+      active: e.active && active,
+      leaving: e.active && !active,
+      pageX: this.mouse.x,
+      pageY: this.mouse.y + this.scrollY,
+      x: this.mouse.x - e.pos.left,
+      y: this.mouse.y + this.scrollY - e.pos.top
+    })
+    e.active = active
   }
 }

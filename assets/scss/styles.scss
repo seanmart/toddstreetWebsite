@@ -1,6 +1,7 @@
 html{
   font-family: 'aleo', serif;
   font-weight: 300;
+  -webkit-tap-highlight-color: transparent;
 }
 
 section{
@@ -28,14 +29,19 @@ main{
 .body--bg{
   @include bodyFont;
   font-size: 30px;
+  font-weight: 500;
   line-height: 140%;
+  color: #777;
+  margin-bottom: 30px;
 }
 
 .body--md{
   @include bodyFont;
   font-size: 25px;
-  font-weight: 300;
+  font-weight: 500;
   line-height: 135%;
+  color: #777;
+  margin-bottom: 30px;
 }
 
 .navigation--rg{
@@ -51,6 +57,11 @@ main{
   text-transform: uppercase;
   font-size: 16px;
   font-weight: 500;
+}
+
+.bold{
+  color: #000;
+  font-weight: 700;
 }
 
 
@@ -88,6 +99,7 @@ main{
 
   .body--bg{
     font-size: 22px;
+    font-weight: 500;
   }
 
   .body--md{
