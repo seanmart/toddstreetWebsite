@@ -116,11 +116,6 @@ export default {
       transition: transform .25s
     }
 
-    &:active{
-      .circle{
-        transform: scale(1.2)
-      }
-    }
   }
   &.play{
     .video{

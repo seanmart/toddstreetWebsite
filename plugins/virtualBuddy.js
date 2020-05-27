@@ -53,8 +53,8 @@ Vue.directive('onEnter',{
     switch(arg){
 
       case 'scale':
-      gsap.set(el,{scale: .5})
-      anim = gsap.to(el,1,{scale: 1, ease:'power4.out', paused: true})
+      gsap.set(el,{scale: .5, opacity:0})
+      anim = gsap.to(el,1,{scale: 1, opacity: 1, ease:'power4.out', paused: true})
       break
 
       case 'slideDown':
