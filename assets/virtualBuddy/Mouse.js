@@ -25,7 +25,7 @@ export default class{
   // ADD
 
   addElement(el,fn){
-    let id = tools.generateId(12)
+    let id = tools.generateId(5)
 
     let element = {
       el: el,
@@ -38,7 +38,7 @@ export default class{
       if (e.status == 'enter') this.addInView(id)
       if (e.status == 'leave') this.removeInView(id)
       if (e.visible) this.checkActive(element)
-    })
+    },{immediate: true})
 
     this.elements[id] = element
     el.dataset['mouse'] = id

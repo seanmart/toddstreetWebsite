@@ -14,11 +14,11 @@ export default class extends Scroll{
     this.ticking = true
 
     this.updateScroll()
-    Object.keys(this.elements).forEach(key => this.updateElement(this.elements[key]))
+    Object.keys(this.elements).forEach(key => this.checkElement(this.elements[key]))
     this.events.forEach(e => e(this.scroll))
 
     window.requestAnimationFrame(()=>{
-      Object.keys(this.sections).forEach(key => this.updateSection(this.sections[key]))
+      Object.keys(this.sections).forEach(key => this.checkSection(this.sections[key]))
       this.ticking = false
     })
 

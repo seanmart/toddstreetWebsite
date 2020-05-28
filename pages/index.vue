@@ -2,49 +2,75 @@
   <main id="home">
 
     <section id="intro" v-section>
-      <split :text="intro.title" tag="h1" textClass="header--bg"/>
+      <split :text="intro.title" tag="h1" textClass="header--bg reveal"/>
       <p class="body--bg" v-html="introDescription"/>
     </section>
 
     <section id="sizzle" v-section>
-      <video-player v-onEnter:scale/>
+      <video-player v-element:scale/>
     </section>
 
     <div id="offerings" v-element="[handleOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
 
       <div class="side-nav">
         <aside class="navigation--rg">
-          <h3 class="link" :class="{active: activeOffer == 'events'}" @click="$vb.scrollTo('#events')">Events</h3>
-          <h3 class="link" :class="{active: activeOffer == 'comms'}" @click="$vb.scrollTo('#comms')" >Communications</h3>
-          <h3 class="link" :class="{active: activeOffer == 'training'}" @click="$vb.scrollTo('#training')">Training</h3>
+          <h3
+            v-for="(link,i) in navLinks"
+            :key="i"
+            class="link"
+            :class="{active: link.active}"
+            @click="$vb.scrollTo(link.el)"
+            v-html="link.label"
+          />
         </aside>
       </div>
 
-      <section id="events" class="offering" v-section v-element="[handleEvents,{offset: '50vh'}]">
-        <section-title :title="events.title"/>
-        <div class="circle" v-element="(e)=> animateCircle('events',e)" v-onEnter:scale/>
-        <div class="description">
-          <p class="bold body--rg" v-html="events.heading" v-onEnter:slideDown/>
-          <p class="body--rg" v-html="events.description" v-onEnter:slideDown/>
-        </div>
+      <section id="events" class="offering" v-section v-element="[()=> nav = 'events',{offset: '50vh'}]">
+          <section-title :title="events.title"/>
+          <div class="circle" v-element:scale="speed2"/>
+          <div class="description">
+            <p class="bold body--rg" v-html="events.heading" v-element:slide/>
+            <p class="body--rg" v-html="events.description" v-element:slide/>
+          </div>
+          <div class="gallery">
+            <template v-for="(item,i) in events.gallery">
+              <card :key="i" :fn="(i + 1) % 2 == 0 ? speed1 : null">
+                {{item.label}}
+              </card>
+          </template>
+          </div>
       </section>
 
-      <section id="comms" class="offering" v-section v-element="[handleComms,{offset: '50vh'}]">
-        <section-title :title="comms.title"/>
-        <div class="circle" v-element="(e)=> animateCircle('comms',e)" v-onEnter:scale/>
-        <div class="description">
-          <p class="bold body--rg" v-html="comms.heading" v-onEnter:slideDown/>
-          <p class="body--rg" v-html="comms.description" v-onEnter:slideDown/>
-        </div>
+      <section id="comms" class="offering" v-section v-element="[()=> nav = 'comms',{offset: '50vh'}]">
+          <section-title :title="comms.title"/>
+          <div class="circle" v-element:scale="speed2"/>
+          <div class="description">
+            <p class="bold body--rg" v-html="comms.heading" v-element:slide/>
+            <p class="body--rg" v-html="comms.description" v-element:slide/>
+          </div>
+          <div class="gallery">
+            <template v-for="(item,i) in comms.gallery">
+              <card :key="i">
+                {{item.label}}
+              </card>
+          </template>
+          </div>
       </section>
 
-      <section id="training" class="offering" v-section v-element="[handleTraining,{offset: '50vh'}]">
-        <section-title :title="training.title"/>
-        <div class="circle" v-element="(e)=> animateCircle('training',e)" v-onEnter:scale/>
-        <div class="description">
-          <p class="bold body--rg" v-html="training.heading" v-onEnter:slideDown/>
-          <p class="body--rg" v-html="training.description" v-onEnter:slideDown/>
-        </div>
+      <section id="training" class="offering" v-section v-element="[()=> nav = 'training',{offset: '50vh'}]">
+          <section-title :title="training.title"/>
+          <div class="circle" v-element:scale="speed2"/>
+          <div class="description">
+            <p class="bold body--rg" v-html="training.heading" v-element:slide/>
+            <p class="body--rg" v-html="training.description" v-element:slide/>
+          </div>
+          <div class="gallery">
+            <template v-for="(item,i) in training.gallery">
+              <card :key="i">
+                {{item.label}}
+              </card>
+          </template>
+          </div>
       </section>
     </div>
 
@@ -54,17 +80,18 @@
 </template>
 
 <script>
+import card from '@/components/card'
 import videoPlayer from '@/components/videoPlayer'
 import sectionTitle from '@/components/sectionTitle'
 import data from '@/assets/data/home'
 export default {
-  components:{videoPlayer,sectionTitle},
+  components:{videoPlayer,sectionTitle, card},
   data:()=>({
     intro: data.intro,
     events: data.events,
     comms: data.comms,
     training: data.training,
-    activeOffer: null
+    nav: null
   }),
   mounted(){
     this.handleIntroHover()
@@ -78,17 +105,11 @@ export default {
     tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
   },
   methods:{
-    animateCircle(id,e){
-      this.$gsap.set(`#${id} .circle`,{y: `-=${e.scroll.delta * .2}`})
+    speed1(e){
+      this.$gsap.set(e.el,{y: `-=${e.delta * .15}`})
     },
-    handleEvents(e){
-      this.activeOffer = 'events'
-    },
-    handleComms(e){
-      this.activeOffer = 'comms'
-    },
-    handleTraining(e){
-      this.activeOffer = 'training'
+    speed2(e){
+      this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
     },
     handleOfferings(e){
 
@@ -121,9 +142,16 @@ export default {
           }
         })
       })
-    },
+    }
   },
   computed:{
+    navLinks(){
+      return [
+        {label:'Training', el: '#training',active: this.nav == 'training'},
+        {label:'Communications', el: '#comms',active: this.nav == 'comms'},
+        {label:'Events', el: '#events', active: this.nav == 'events'}
+      ]
+    },
     introDescription(){
       let text = this.intro.description
       this.intro.hover.forEach(h => {
@@ -142,16 +170,13 @@ export default {
 
   .word{
     overflow: hidden;
-    h1{
-      line-height: 73%;
-      padding-bottom: 12px;
-    }
   }
   p{
     margin: 50px 0px 0px;
     max-width: 800px;
     b{
       color: #1E0FC7;
+      font-weight: 400;
       position: relative;
       cursor: pointer;
 
@@ -202,7 +227,7 @@ export default {
 
     aside{
       flex: 0 0 auto;
-      transform: rotate(90deg);
+      transform: rotate(-90deg);
       display: flex;
       justify-content: space-between;
     }
@@ -218,33 +243,128 @@ export default {
       }
     }
   }
-  .offering{
-    position: relative;
-    padding-bottom: 100vh;
-  }
   .section-title{
     margin-bottom: $space--md;
   }
 
   .description{
-    margin-left: $col6;
+    margin-left: $col4 + $gutter;
+    margin-bottom: $space--md * 2;
   }
 
   .circle{
     position: absolute;
     top: $space--bg;
-    right: -300px;
-    width: 800px;
-    height: 800px;
+    right: -20%;
+    width: 60vw;
+    height: 60vw;
     border-radius: 50%;
     background-image: url('../static/texture.jpg');
     z-index: -1;
   }
 }
 
+#events{
+  .gallery{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .card{
+      flex: 0 0 $col4;
+      margin-bottom: $gutter;
+      .card-container{
+        padding-bottom: 110%;
+      }
+    }
+
+    .card:nth-child(8n + 1){
+      flex: 0 0 $col8;
+      margin-right: $col4 + $gutter;
+    }
+
+    .card:nth-child(8n + 2),
+    .card:nth-child(8n + 8){
+      .card-content{
+        margin-top: 50%
+      }
+    }
+
+    .card:nth-child(8n + 4),
+    .card:nth-child(8n + 6){
+      .card-content{
+        margin-top: -50%
+      }
+    }
+
+    .card:nth-child(8n + 3),
+    .card:nth-child(8n + 7){
+      margin-right: $gutter;
+      margin-left: $gutter;
+    }
+
+    .card:nth-child(8n + 5){
+      flex: 0 0 $col8;
+      margin-left: $col4 + $gutter;
+    }
+  }
+}
+
+#comms{
+  .gallery{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .card{
+      flex: 0 0 $col6;
+      margin-bottom: $gutter;
+    }
+
+    .card:nth-child(odd){
+      margin-right: $gutter;
+    }
+  }
+}
+
+#training{
+  .gallery{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .card{
+      flex: 0 0 $col10;
+      margin-bottom: $gutter;
+      .card-container{
+        padding-bottom: 50%;
+      }
+    }
+    .card:nth-child(even){
+      margin-left: auto;
+    }
+  }
+}
+
 #cares-overview{
   background: #1E0FC7;
   height: 100vh;
+  margin-top: -$space--bg * 2;
+  z-index: -1;
+}
+
+@media (min-width: $widescreen + 100){
+  #intro{
+    p{
+      max-width: 1000px;
+      b{
+        img{
+          max-width: 300px;
+          max-height: 300px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: $tablet){

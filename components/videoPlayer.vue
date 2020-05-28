@@ -18,42 +18,38 @@ export default {
   data:()=>({
     active: false,
     play: false,
+    timeout: null,
     hidden: false,
-    timeout: null
   }),
   watch:{
     play(play){
-      if (play) this.hideButton()
-      if (!play) this.showButton()
+      clearTimeout(this.timeout)
+      if (play) this.hidden = true
+      if (!play) this.hidden = false
+    },
+    hidden(hidden){
+      clearTimeout(this.timeout)
+      if (!hidden) this.showButton()
+      if (hidden) this.timeout = setTimeout(this.hideButton,300)
+      if (!hidden && this.play) this.hidden = true
     }
   },
   methods:{
     showButton(){
-      this.hidden = false
-      clearTimeout(this.timeout)
-      this.$gsap.to(this.$refs.button,.25,{opacity:1})
+      this.$gsap.to(this.$refs.button,.25,{opacity:1, scale: 1})
     },
     hideButton(){
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(()=> {
-        this.$gsap.to(this.$refs.button,.25,{opacity:0})
-        this.timeout = null
-        this.hidden = true
-      },500)
+      this.$gsap.to(this.$refs.button,.25,{opacity:0,scale:0})
     },
     handleMouse(e){
-
       if (e.entering){
-        this.$gsap.to(this.$refs.button,.25,{scale: 1,opacity:1})
+        this.showButton()
       }
       if (e.leaving){
-        this.$gsap.to(this.$refs.button,.25,{scale: 0,opacity:0})
+        this.hideButton()
       }
       if (e.active){
-        if (this.play) {
-          if (this.hidden) this.showButton()
-          this.hideButton()
-        }
+        if (this.play) this.hidden = false
         this.$gsap.set(this.$refs.button,{x:e.x - 50,y:e.y - 50})
       }
     }

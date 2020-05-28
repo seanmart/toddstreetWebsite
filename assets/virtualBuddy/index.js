@@ -24,6 +24,10 @@ export default class{
     this.scroll.updatePage()
   }
 
+  updateScrollElement(el,options){
+    this.scroll.updateElement(el, options)
+  }
+
   addScrollPage(el){
     this.scroll.addPage(el)
   }

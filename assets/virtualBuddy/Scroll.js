@@ -3,7 +3,8 @@ import tools from './tools'
 export default class {
   constructor(){
     this.ticking = false
-    this.inertia = .09
+    this.keepTicking = false
+    this.inertia = .08
 
     this.elements = {}
     this.sections = {}
@@ -69,18 +70,19 @@ export default class {
       active: false
     }
 
-    let index = tools.generateId(12)
+    let index
+    do { index = tools.generateId(5) } while (this.sections[index])
     this.sections[index] = section
     el.dataset['scroll'] = index
     el.style.willChange = 'transform'
 
-    this.updateSection(section)
+    this.checkSection(section)
 
   }
 
-  addElement(el,fn = null,options = {}){
+  addElement(el,fn = null,options = null){
 
-    if (options.mobile == false) return
+    if (!options) options = {}
 
     if (options.offset){
       options.offsetEnter = options.offset
@@ -92,6 +94,7 @@ export default class {
       fn: fn,
       pos: tools.getPosition(el),
       visible: false,
+      scrolled: 0,
       status: '',
       options: options,
       offsetEnter: options.offsetEnter ? tools.getValue(options.offsetEnter) : 0,
@@ -99,22 +102,24 @@ export default class {
       sticky: options.sticky ? tools.getValue(options.sticky) : null
     }
 
-    let index = tools.generateId(12)
+    let index
+    do { index = tools.generateId(5) } while (this.elements[index])
     this.elements[index] = element
     el.dataset['scroll'] = index
 
-    this.updateElement(element)
+    if (options.immediate) this.checkElement(element)
+
   }
 
   // REMOVE
   removeSection(el){
-    let index = el.dataset['scroll']
-    delete this.sections[index]
+    let id = el.dataset['scroll']
+    delete this.sections[id]
   }
 
   removeElement(el){
-    let index = el.dataset['scroll']
-    delete this.elements[index]
+    let id = el.dataset['scroll']
+    delete this.elements[id]
   }
 
   removeEvent(fn){
@@ -126,15 +131,65 @@ export default class {
 
   checkScroll(){
     this.ticking = Math.abs(this.scroll.top - this.window.scroll) > .05
+    this.keepTicking = false
 
     this.updateScroll()
-    Object.keys(this.elements).forEach(key => this.updateElement(this.elements[key]))
+    Object.keys(this.elements).forEach(key => this.checkElement(this.elements[key]))
     this.events.forEach(e => e(this.scroll))
 
     window.requestAnimationFrame(()=>{
-      Object.keys(this.sections).forEach(key => this.updateSection(this.sections[key]))
-      this.ticking && this.checkScroll()
+      Object.keys(this.sections).forEach(key => this.checkSection(this.sections[key]))
+      if (this.ticking || this.keepTicking) this.checkScroll()
     })
+
+  }
+
+  checkSection(s){
+
+      let active = s.pos.top - 500 < this.scroll.bottom && s.pos.bottom + 500 > this.scroll.top
+
+      if (active && !s.active) s.el.style.visibility = ''
+      if (!active && s.active) s.el.style.visibility = 'hidden'
+      if (active || s.active){
+        let transform = `matrix(1,0,0,1,0,${-this.scroll.top})`
+        s.el.style.webkitTransform = transform;
+        s.el.style.msTransform = transform;
+        s.el.style.transform = transform;
+      }
+      s.active = active
+  }
+
+  checkElement(e){
+
+      let top = e.pos.top + (e.offsetEnter || 0)
+      let bottom = e.pos.bottom - (e.offsetLeave || 0)
+      let visible = top < this.scroll.bottom && bottom > this.scroll.top
+
+      if (e.fn && (visible || e.visible)){
+
+        let props = {}
+
+        props.el = e.el
+        props.visible = visible
+        props.scroll = this.scroll
+        props.duration = this.window.height + e.pos.height
+        props.offset = this.scroll.bottom - e.pos.top
+        props.percent = Math.min(Math.max((props.offset / props.duration),0),1)
+        props.scrolled = this.scroll.top - Math.max(top - this.window.height, 0)
+        props.delta = props.scrolled - e.scrolled
+
+        let percent = this.scroll.direction == 'down' ? props.percent : 1 - props.percent
+        let status = visible && !e.visible ? `enter` : e.visible && !visible ? `leave` : `${Math.round(percent * 100)}%`
+
+        props.status = e.status !== status ? status : null
+        e.status = status
+
+        e.fn(props)
+        e.scrolled = props.scrolled
+
+      }
+
+      e.visible = visible
 
   }
 
@@ -165,49 +220,28 @@ export default class {
 
   // UPDATE
 
-  updateSection(s){
+  updateElement(el,fn = null,options = {}){
 
-      let active = s.pos.top - 500 < this.scroll.bottom && s.pos.bottom + 500 > this.scroll.top
+    if (!options) options = {}
+    if (options.mobile == false) return
 
-      if (active && !s.active) s.el.style.visibility = 'visible'
-      if (!active && s.active) s.el.style.visibility = 'hidden'
-      if (active || s.active){
-        let transform = `matrix(1,0,0,1,0,${-this.scroll.top})`
-        s.el.style.webkitTransform = transform;
-        s.el.style.msTransform = transform;
-        s.el.style.transform = transform;
-      }
-      s.active = active
-  }
+    if (options.hasOwnProperty('offset')){
+      options.offsetEnter = options.offset
+      options.offsetLeave = options.offset
+    }
 
-  updateElement(e){
+    let id = el.dataset['scroll']
+    let element = this.elements[id]
 
-      let top = e.pos.top + (e.offsetEnter || 0)
-      let bottom = e.pos.bottom - (e.offsetLeave || 0)
-      let visible = top < this.scroll.bottom && bottom > this.scroll.top
+    if (fn) element.fn = fn
 
-      if (e.fn && (visible || e.visible)){
+    if (options.hasOwnProperty('offsetEnter')){
+      element.offsetEnter = tools.getValue(options.offsetEnter)
+    }
 
-        let props = {}
-
-        props.scroll = this.scroll
-        props.scrolled = parseFloat((this.scroll.top - Math.max(top - this.window.height, 0)).toFixed(5))
-        props.duration = bottom - Math.max(top - this.window.height,0)
-        props.percent = parseFloat(Math.min(Math.max(props.scrolled / props.duration,0),1).toFixed(5))
-        props.pagePercent = parseFloat(Math.min(Math.max((this.scroll.top - top) / (this.window.height - top),0),1).toFixed(5))
-        props.visible = visible
-
-        let percent = this.scroll.direction == 'down' ? props.percent : 1 - props.percent
-        let status = visible && !e.visible ? `enter` : e.visible && !visible ? `leave` : `${Math.round(percent * 100)}%`
-
-        props.status = e.status !== status ? status : ''
-        e.status = status
-
-        e.fn(props)
-
-      }
-
-      e.visible = visible
+    if (options.hasOwnProperty('offsetLeave')){
+      element.offsetEnter = tools.getValue(options.offsetEnter)
+    }
 
   }
 
@@ -247,7 +281,7 @@ export default class {
   updateScrollTo(){
     window.requestAnimationFrame(()=>{
 
-      this.scrollTo.top = tools.lerp(this.scrollTo.top,this.scrollTo.to,.1)
+      this.scrollTo.top = tools.lerp(this.scrollTo.top,this.scrollTo.to,.05)
       this.scrollTo.ticking = (Math.abs(this.scrollTo.to - this.scrollTo.top) > 1)
       window.scrollTo(0,this.scrollTo.top)
 

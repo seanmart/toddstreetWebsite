@@ -5,6 +5,7 @@ html{
 }
 
 section{
+  position: relative;
   padding: $space--md $space--bg;
   max-width: $widescreen;
   margin: 0px auto;
@@ -21,9 +22,14 @@ main{
 .header--bg{
   @include headerFont;
   font-size: 80px;
-  font-weight: 500;
-  letter-spacing: -2px;
+  font-weight: 600;
+  letter-spacing: -1px;
   line-height: 95%;
+  &.reveal{
+    padding-top: 2px;
+    padding-bottom: 14px;
+    line-height: 70%;
+  }
 }
 
 .body--bg{
@@ -57,6 +63,23 @@ main{
   font-weight: 500;
 }
 
+@media (min-width: $widescreen + 100){
+  .header--bg{
+    font-size: 90px;
+    &.reveal{
+      padding-top: 3px;
+      padding-bottom: 15px;
+    }
+  }
+
+  .body--bg{
+    font-size: 37px;
+  }
+
+  .body--rg{
+    font-size: 32px;
+  }
+}
 
 @media (max-width: $tablet){
   section{
@@ -86,8 +109,17 @@ main{
     padding: $space--md * .75 $space--sm;
   }
 
+  br{
+    display: none;
+  }
+
   .header--bg{
     font-size: 50px;
+    &.reveal{
+      padding-top: 1px;
+      padding-bottom: 9px;
+      line-height: 70%;
+    }
   }
 
   .body--bg{
