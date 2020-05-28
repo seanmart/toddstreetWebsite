@@ -410,6 +410,21 @@ export default {
       display: none;
     }
   }
+
+  .card{
+    margin: 0px 0px $gutter !important;
+    flex: 0 0 100% !important;
+    .card-container{
+      padding-bottom: 100% !important;
+      .card-content{
+        margin: 0px 0px $gutter !important;
+      }
+    }
+  }
+
+  #cares-overview{
+    margin-top: -$space--sm * 3.3
+  }
 }
 
 .mobile{

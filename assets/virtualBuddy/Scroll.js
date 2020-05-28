@@ -170,6 +170,7 @@ export default class {
         let props = {}
 
         props.el = e.el
+        props.window = this.window
         props.visible = visible
         props.scroll = this.scroll
         props.duration = this.window.height + e.pos.height
