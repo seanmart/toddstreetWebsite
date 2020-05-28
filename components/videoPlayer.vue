@@ -129,6 +129,7 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      transform-origin: center center;
       transition: transform .25s, opacity .25s;
       opacity: 1;
     }
