@@ -106,7 +106,7 @@ main{
 
 @media (max-width: $mobile){
   section{
-    padding: $space--md * .75 $space--sm;
+    padding: $space--md $space--sm;
   }
 
   br{

@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-container">
       <div class="card-wrapper">
-        <div class="card-content" v-element:slide="cardFunction">
+        <div class="card-content" v-entrance:slide>
           <div class="card-ribbon"/>
           <slot/>
         </div>
@@ -13,15 +13,6 @@
 
 <script>
 export default {
-  props:{
-    fn: {type: [Function, String], default: null},
-  },
-  methods:{
-    cardFunction(e){
-      if(e.window.width < 600 || !this.fn) return
-      this.fn(e)
-    }
-  }
 }
 </script>
 
@@ -48,6 +39,7 @@ export default {
     overflow: hidden;
   }
   .card-ribbon{
+    transform: scaleX(0);
     position: absolute;
     top: 0px;
     left: 0px;

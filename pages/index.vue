@@ -7,7 +7,7 @@
     </section>
 
     <section id="sizzle" v-section>
-      <video-player v-element:scale/>
+      <video-player v-entrance:scale/>
     </section>
 
     <div id="offerings" v-element="[handleOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
@@ -27,15 +27,14 @@
 
       <section id="events" class="offering" v-section v-element="[()=> nav = 'events',{offset: '50vh'}]">
           <section-title :title="events.title"/>
-          <div class="circle" v-element:scale="speed2"/>
+          <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
           <div class="description">
-            <p class="bold body--rg" v-html="events.heading" v-element:slide/>
-            <p class="body--rg" v-html="events.description" v-element:slide/>
+            <p class="bold body--rg" v-html="events.heading" v-entrance:slide/>
+            <p class="body--rg" v-html="events.description" v-entrance:slide/>
           </div>
           <div class="gallery">
             <template v-for="(item,i) in events.gallery">
-              <card :key="i" :fn="(i + 1) % 2 == 0 ? speed1 : null">
-                {{item.label}}
+              <card :key="i" v-element="(i + 1) % 2 == 0 ? parallaxEvents : null">
               </card>
           </template>
           </div>
@@ -43,15 +42,14 @@
 
       <section id="comms" class="offering" v-section v-element="[()=> nav = 'comms',{offset: '50vh'}]">
           <section-title :title="comms.title"/>
-          <div class="circle" v-element:scale="speed2"/>
+          <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
           <div class="description">
-            <p class="bold body--rg" v-html="comms.heading" v-element:slide/>
-            <p class="body--rg" v-html="comms.description" v-element:slide/>
+            <p class="bold body--rg" v-html="comms.heading" v-entrance:slide/>
+            <p class="body--rg" v-html="comms.description" v-entrance:slide/>
           </div>
           <div class="gallery">
             <template v-for="(item,i) in comms.gallery">
               <card :key="i">
-                {{item.label}}
               </card>
           </template>
           </div>
@@ -59,15 +57,14 @@
 
       <section id="training" class="offering" v-section v-element="[()=> nav = 'training',{offset: '50vh'}]">
           <section-title :title="training.title"/>
-          <div class="circle" v-element:scale="speed2"/>
+          <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
           <div class="description">
-            <p class="bold body--rg" v-html="training.heading" v-element:slide/>
-            <p class="body--rg" v-html="training.description" v-element:slide/>
+            <p class="bold body--rg" v-html="training.heading" v-entrance:slide/>
+            <p class="body--rg" v-html="training.description" v-entrance:slide/>
           </div>
           <div class="gallery">
             <template v-for="(item,i) in training.gallery">
-              <card :key="i">
-                {{item.label}}
+              <card :key="i" v-element="(i + 1) % 2 == 0 ? parallaxTrainingRight : parallaxTrainingLeft">
               </card>
           </template>
           </div>
@@ -105,11 +102,21 @@ export default {
     tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
   },
   methods:{
-    speed1(e){
+    parallaxCircle(e){
+      if (e.window.width < 600) return
+      this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
+    },
+    parallaxEvents(e){
+      if (e.window.width < 600) return
       this.$gsap.set(e.el,{y: `-=${e.delta * .15}`})
     },
-    speed2(e){
-      this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
+    parallaxTrainingLeft(e){
+      if (e.window.width < 600) return
+      this.$gsap.set(e.el,{x: `+=${e.delta * .05}`})
+    },
+    parallaxTrainingRight(e){
+      if (e.window.width < 600) return
+      this.$gsap.set(e.el,{x: `-=${e.delta * .05}`})
     },
     handleOfferings(e){
 
@@ -286,7 +293,7 @@ export default {
     .card:nth-child(8n + 2),
     .card:nth-child(8n + 8){
       .card-content{
-        margin-top: 50%
+        margin-top: 70%
       }
     }
 
@@ -319,6 +326,9 @@ export default {
     .card{
       flex: 0 0 $col6;
       margin-bottom: $gutter;
+      .card-container{
+        padding-bottom: 70%;
+      }
     }
 
     .card:nth-child(odd){
@@ -404,6 +414,7 @@ export default {
       width: 110vw;
       height: 110vw;
       right: -40vw;
+      transform: none !important;
     }
 
     br{
@@ -414,16 +425,13 @@ export default {
   .card{
     margin: 0px 0px $gutter !important;
     flex: 0 0 100% !important;
+    transform: none !important;
     .card-container{
-      padding-bottom: 100% !important;
+      padding-bottom: 150% !important;
       .card-content{
         margin: 0px 0px $gutter !important;
       }
     }
-  }
-
-  #cares-overview{
-    margin-top: -$space--sm * 3.3
   }
 }
 

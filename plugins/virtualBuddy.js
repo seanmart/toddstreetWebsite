@@ -4,58 +4,57 @@ import gsap from 'gsap'
 
 const vb = new VirtualBuddy()
 
-Vue.directive('element',{
-  inserted: function(el,{value, arg}){
+Vue.directive('entrance',{
+  inserted: function(el,{arg}){
 
-    let array = Array.isArray(value)
-    let fn = array ? value[0] : value
-    let options = array ? value[1] : null
-    let anim = null
+    let animation = null
 
-    if (arg){
+    switch(arg){
+      case 'scale':
+      gsap.set(el,{scale: .25, opacity:0})
+      animation = gsap.to(el,1,{scale: 1, opacity: 1, ease:'power4.out', paused: true})
+      break
 
-      let onComplete = ()=>{
-        anim = null
-        if (!fn) vb.removeScrollElement(el)
-      }
-
-      switch(arg){
-        case 'scale':
-        gsap.set(el,{scale: .25, opacity:0})
-        anim = gsap.to(el,1,{scale: 1, opacity: 1, ease:'power4.out', paused: true, onComplete})
-        break
-        case 'slide':
-        gsap.set(el,{y:200, opacity:0})
-        anim = gsap.to(el,1,{y:'-=200', opacity:1, ease:'power4.out', paused: true, onComplete})
-        break
-      }
-
-      if (anim){
-        vb.addScrollElement(el,(e)=> {
-          e.percent > .1 && anim && anim.resume()
-          if (fn) fn(e)
-        })
-      }
-
-      return
+      case 'slide':
+      gsap.set(el,{y:200, opacity:0})
+      animation = gsap.to(el,1,{y:'-=200', opacity:1, ease:'power4.out', paused: true})
+      break
 
     }
 
-    vb.addScrollElement(el,fn,options)
+    if (animation){
+      el.dataset.entrance = vb.addScrollElement(el,(e)=>{
+        if (e.percent > .1) {
+          animation.play()
+          remove(el,'entrance')
+        }
+      })
+    }
+  }
+})
+
+Vue.directive('element',{
+  inserted: function(el,{value}){
+
+    let isArray = Array.isArray(value)
+    let fn = isArray ? value[0] : value
+    let options = isArray ? value[1] : null
+
+    el.dataset.element = vb.addScrollElement(el,fn,options)
 
   },
   unbind: function(el){
-    vb.removeScrollElement(el)
+    remove(el, 'element')
   }
 })
 
 
 Vue.directive('section',{
   inserted: function(el){
-    vb.addScrollSection(el)
+    el.dataset.section = vb.addScrollSection(el)
   },
   unbind: function(el){
-    vb.removeScrollSection(el)
+    remove(el,'section')
   }
 })
 
@@ -68,12 +67,21 @@ Vue.directive('page',{
 
 Vue.directive('mouse',{
   inserted: function(el,{value}){
-    vb.addMouseElement(el, value)
+    el.dataset.mouse = vb.addMouseElement(el, value)
   },
   unbind: function(el){
-    vb.removeMouseElement(el)
+    remove(el, 'mouse')
   }
 })
 
-
 Object.defineProperty(Vue.prototype,'$vb',{value: vb})
+
+// FUNCTIONS
+
+function remove(el, name){
+  let id = el.dataset[name]
+  if (id){
+    vb.removeScrollElement(id)
+    el.removeAttribute(`data-${name}`)
+  }
+}

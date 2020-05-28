@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="video-player" :class="{play}" @click=" play=!play ">
-    <div class="video" v-mouse="handleMouse"/>
+  <div class="video-player" :class="{play}" @click="play=!play" v-mouse="handleMouse">
+    <div class="video"/>
     <button type="button" name="play" ref="button" >
       <div class="content">
         <div class="text">

@@ -24,20 +24,16 @@ export default class{
     this.scroll.updatePage()
   }
 
-  updateScrollElement(el,options){
-    this.scroll.updateElement(el, options)
-  }
-
   addScrollPage(el){
     this.scroll.addPage(el)
   }
 
   addScrollElement(el,fn, options){
-    this.scroll.addElement(el,fn, options)
+    return this.scroll.addElement(el,fn, options)
   }
 
   addScrollSection(el){
-    this.scroll.addSection(el)
+    return this.scroll.addSection(el)
   }
 
   addScrollEvent(fn){
@@ -45,23 +41,23 @@ export default class{
   }
 
   addMouseElement(el,fn){
-    this.mouse && this.mouse.addElement(el,fn)
+    return this.mouse && this.mouse.addElement(el,fn)
   }
 
-  removeScrollElement(el){
-    this.scroll.removeElement(el)
+  removeScrollElement(id){
+    this.scroll.removeElement(id)
   }
 
-  removeScrollSection(el){
-    this.scroll.removeSection(el)
+  removeScrollSection(id){
+    this.scroll.removeSection(id)
   }
 
   removeScrollEvent(fn){
     this.scroll.removeEvent(fn)
   }
 
-  removeMouseElement(el){
-    this.mouse && this.mouse.removeElement(el)
+  removeMouseElement(id){
+    this.mouse && this.mouse.removeElement(id)
   }
 
 }

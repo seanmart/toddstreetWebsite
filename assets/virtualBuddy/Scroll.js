@@ -70,14 +70,10 @@ export default class {
       active: false
     }
 
-    let index
-    do { index = tools.generateId(5) } while (this.sections[index])
-    this.sections[index] = section
-    el.dataset['scroll'] = index
+    let id = tools.generateId(7)
+    this.sections[id] = section
     el.style.willChange = 'transform'
-
-    this.checkSection(section)
-
+    return id
   }
 
   addElement(el,fn = null,options = null){
@@ -102,25 +98,20 @@ export default class {
       sticky: options.sticky ? tools.getValue(options.sticky) : null
     }
 
-    let index
-    do { index = tools.generateId(5) } while (this.elements[index])
-    this.elements[index] = element
-    el.dataset['scroll'] = index
-
+    let id = tools.generateId(7)
+    this.elements[id] = element
     if (options.immediate) this.checkElement(element)
+
+    return id
 
   }
 
   // REMOVE
-  removeSection(el){
-    let id = el.dataset['scroll']
-    el.removeAttribute('data-scroll')
+  removeSection(id){
     delete this.sections[id]
   }
 
-  removeElement(el){
-    let id = el.dataset['scroll']
-    el.removeAttribute('data-scroll')
+  removeElement(id){
     delete this.elements[id]
   }
 

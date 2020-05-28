@@ -25,6 +25,7 @@ export default class{
   // ADD
 
   addElement(el,fn){
+
     let id = tools.generateId(5)
 
     let element = {
@@ -34,14 +35,16 @@ export default class{
       pos: tools.getPosition(el)
     }
 
-    this.scroll.addElement(el,(e)=> {
+    let scrollFunction = (e)=>{
       if (e.status == 'enter') this.addInView(id)
       if (e.status == 'leave') this.removeInView(id)
       if (e.visible) this.checkActive(element)
-    },{immediate: true})
+    }
 
+    element.scrollId = this.scroll.addElement(el,scrollFunction,{immediate: true})
     this.elements[id] = element
-    el.dataset['mouse'] = id
+
+    return id
   }
 
   addInView(id){
@@ -50,10 +53,8 @@ export default class{
 
   // REMOVE
 
-  removeElement(el){
-    let id = el.dataset['mouse']
-    el.removeAttribute('data-mouse')
-    this.scroll.removeElement(el)
+  removeElement(id){
+    this.scroll.removeElement(this.elements[id].scrollId)
     this.removeInView(id)
     delete this.elements[id]
   }
