@@ -114,11 +114,13 @@ export default class {
   // REMOVE
   removeSection(el){
     let id = el.dataset['scroll']
+    el.removeAttribute('data-scroll')
     delete this.sections[id]
   }
 
   removeElement(el){
     let id = el.dataset['scroll']
+    el.removeAttribute('data-scroll')
     delete this.elements[id]
   }
 

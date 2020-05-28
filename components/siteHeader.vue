@@ -30,9 +30,9 @@ export default {
       tl.to('nav .link',.5,{yPercent: -100, stagger: -.1, ease: 'power4.in'},0)
       tl.to('nav .logo',.5,{yPercent: -100, ease: 'power4.in'},.25)
       tl.set(['nav .link','nav .logo'],{yPercent: 100})
-      tl.to('nav .logo',.5,{yPercent: 0,ease: 'power4.out'},1)
-      tl.to('nav .link',.5,{yPercent: 0, stagger: .1,ease: 'power4.out'},1.25)
-      tl.to('header button',.5,{scale:1, opacity:1,ease: 'power4.out'},1.25)
+      tl.to('nav .logo',.5,{yPercent: 0,ease: 'power4.out'},1.5)
+      tl.to('nav .link',.5,{yPercent: 0, stagger: .1,ease: 'power4.out'},1.75)
+      tl.to('header button',.5,{scale:1, opacity:1,ease: 'power4.out'},1.75)
     }
   },
   mounted(){

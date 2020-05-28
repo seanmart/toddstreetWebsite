@@ -42,8 +42,8 @@ export default {
     position: absolute;
     width: $gutter;
     margin: 0px;
-    top: 0px;
-    bottom: 11%;
+    top: 2px;
+    bottom: 18px;
     left: 0px;
   }
 
@@ -51,15 +51,26 @@ export default {
     overflow: hidden;
   }
 
-}
-
-.right .section-title{
-  padding-left: 0px;
-  padding-right: $col2;
-  text-align: right;
-  hr{
-    left: auto;
-    right: 0px;
+  @media (min-width: $widescreen){
+    hr{
+      top: 2px;
+      bottom: 19px;
+    }
   }
+
+  @media (max-width: $tablet){
+    hr{
+      top: 2px;
+      bottom: 18px;
+    }
+  }
+
+  @media (max-width: $mobile){
+    hr{
+      top: 1px;
+      bottom: 13px;
+    }
+  }
+
 }
 </style>
