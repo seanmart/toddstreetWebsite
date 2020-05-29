@@ -5,6 +5,7 @@ export default class extends Core{
   constructor(){
     super()
     this.inertia = .08
+    document.body.style.overscrollBehavior = 'none'
   }
 
 
