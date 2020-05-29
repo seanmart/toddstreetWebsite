@@ -1,5 +1,5 @@
+import Smooth from './Smooth'
 import Scroll from './Scroll'
-import Mobile from './Mobile'
 import Mouse from './Mouse'
 import tools from './tools'
 
@@ -7,10 +7,10 @@ export default class{
   constructor(){
     this.updatePage = this.updatePage.bind(this)
 
-    this.mobile = tools.isMobile()
+    this.touch = tools.isTouch()
     this.tools = tools
-    this.scroll = !this.mobile ? new Scroll() : new Mobile()
-    this.mouse = !this.mobile ? new Mouse(this.scroll) : null
+    this.scroll = !this.touch ? new Smooth() : new Scroll()
+    this.mouse = !this.touch ? new Mouse(this.scroll) : null
 
   }
 

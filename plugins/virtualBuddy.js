@@ -51,7 +51,8 @@ Vue.directive('element',{
 
 Vue.directive('section',{
   inserted: function(el){
-    el.dataset.section = vb.addScrollSection(el)
+    let id = vb.addScrollSection(el)
+    if (id) el.dataset.section = id
   },
   unbind: function(el){
     remove(el,'section')

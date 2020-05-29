@@ -1,5 +1,5 @@
 export default{
-  isMobile(){
+  isTouch(){
     return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
   },
   lerp(start, end, amt){
@@ -7,7 +7,7 @@ export default{
   },
   generateId(length){
     let id = ''
-    let char = ('abcdefghijklmnopqrstuvwxyz123456789').split('')
+    let char = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789').split('')
     for (let i = 1; i <= length; i++){
       id += char[Math.floor(Math.random() * char.length)]
     }

@@ -41,7 +41,7 @@ export default class{
       if (e.visible) this.checkActive(element)
     }
 
-    element.scrollId = this.scroll.addElement(el,scrollFunction,{immediate: true})
+    element.scrollId = this.scroll.addElement(el,scrollFunction)
     this.elements[id] = element
 
     return id

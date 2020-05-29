@@ -1,5 +1,5 @@
 <template>
-  <div id="page" v-page :class="{mobile}">
+  <div id="page" v-page :class="{touch}">
     <site-header/>
     <nuxt />
     <site-footer/>
@@ -11,10 +11,10 @@ import siteFooter from '@/components/siteFooter'
 export default{
   components:{siteHeader,siteFooter},
   data:()=>({
-    mobile: false
+    touch: false
   }),
   mounted(){
-    this.mobile = this.$vb.mobile
+    this.touch = this.$vb.touch
   },
   watch:{
     $route(){

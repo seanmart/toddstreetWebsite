@@ -293,14 +293,14 @@ export default {
     .card:nth-child(8n + 2),
     .card:nth-child(8n + 8){
       .card-content{
-        margin-top: 70%
+        margin-top: 100%
       }
     }
 
     .card:nth-child(8n + 4),
     .card:nth-child(8n + 6){
       .card-content{
-        margin-top: -50%
+        margin-top: 0%
       }
     }
 
@@ -435,7 +435,7 @@ export default {
   }
 }
 
-.mobile{
+.touch{
 
   #intro {
     p{
