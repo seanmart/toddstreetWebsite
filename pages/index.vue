@@ -346,7 +346,12 @@ export default {
       flex: 0 0 $col6;
       margin-bottom: $gutter;
       .card-container{
-        padding-bottom: 70%;
+        padding-bottom: 80%;
+      }
+      &:nth-child(even){
+        .card-content{
+          margin-top: 20%;
+        }
       }
     }
 
@@ -360,12 +365,14 @@ export default {
   .gallery{
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     .card{
       flex: 0 0 auto;
       width: $col10;
       margin-bottom: $gutter;
+      &:nth-child(even){
+        margin-left: $col2 + $gutter;
+      }
       .card-container{
         padding-bottom: 40%;
       }
