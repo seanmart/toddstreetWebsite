@@ -1,16 +1,16 @@
 <template lang="html">
   <main id="home">
 
-    <section id="intro" v-section>
+    <section class="intro" v-section>
       <split :text="intro.title" tag="h1" textClass="header--bg reveal"/>
       <p class="body--bg" v-html="introDescription"/>
     </section>
 
-    <section id="sizzle" v-section>
+    <section class="sizzle" v-section>
       <video-player v-entrance:scale/>
     </section>
 
-    <div id="offerings" v-element="[handleOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
+    <div class="offerings" v-element="[animateOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
 
       <div class="side-nav">
         <aside class="navigation--rg">
@@ -34,9 +34,9 @@
           </div>
           <div class="gallery">
             <template v-for="(item,i) in events.gallery">
-              <card :key="i" v-element="(i + 1) % 2 == 0 ? parallaxEvents : null">
+              <card :key="i">
               </card>
-          </template>
+            </template>
           </div>
       </section>
 
@@ -51,7 +51,7 @@
             <template v-for="(item,i) in comms.gallery">
               <card :key="i">
               </card>
-          </template>
+            </template>
           </div>
       </section>
 
@@ -64,14 +64,14 @@
           </div>
           <div class="gallery">
             <template v-for="(item,i) in training.gallery">
-              <card :key="i" v-element="(i + 1) % 2 == 0 ? parallaxTrainingRight : parallaxTrainingLeft">
+              <card :key="i">
               </card>
-          </template>
+            </template>
           </div>
       </section>
     </div>
 
-    <section id="cares-overview" class="full-width" v-section/>
+    <section class="cares full-width" v-section/>
 
   </main>
 </template>
@@ -96,16 +96,16 @@ export default {
     ready(ready){
       if (ready){
         let tl = this.$gsap.timeline({delay: .25})
-        tl.to('#intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
-        tl.to('#intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
-        tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
+        tl.to('.intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
+        tl.to('.intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
+        tl.set(['.intro h1','.intro p'],{clearProps: 'all'})
       }
     }
   },
   mounted(){
-    this.handleIntroHover()
-    this.$gsap.set('#intro h1',{yPercent: 100})
-    this.$gsap.set('#intro p',{opacity:0,yPercent: -50})
+    this.setIntroHover()
+    this.$gsap.set('.intro h1',{yPercent: 100})
+    this.$gsap.set('.intro p',{opacity:0,yPercent: -50})
   },
   methods:{
     parallaxCircle(e){
@@ -124,19 +124,12 @@ export default {
       if (e.window.width < 600) return
       this.$gsap.set(e.el,{x: `-=${e.delta * .05}`})
     },
-    handleOfferings(e){
-
-      switch(e.status){
-        case 'enter':
-        this.$gsap.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'})
-        break
-
-        case 'leave':
-        this.$gsap.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'})
-      }
+    animateOfferings(e){
+      if (e.status == 'enter') this.$gsap.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'})
+      if (e.status == 'leave') this.$gsap.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'})
     },
-    handleIntroHover(){
-      let els = document.querySelectorAll('#intro p b')
+    setIntroHover(){
+      let els = document.querySelectorAll('.intro p b')
       els.forEach(el => {
         this.$vb.addMouseElement(el,(e)=>{
 
@@ -157,7 +150,7 @@ export default {
       })
     },
     setScrollTo(id, el){
-      this.setNav(id)
+      this.nav = id
       this.scrollTo = id
       this.$vb.scrollTo(el)
     },
@@ -189,15 +182,19 @@ export default {
 
 <style lang="scss">
 
-#intro{
-  position: relative;
+#home{
 
-  .word{
-    overflow: hidden;
-  }
-  p{
-    margin: 50px 0px 0px;
-    max-width: 800px;
+  .intro{
+    position: relative;
+
+    .word{
+      overflow: hidden;
+    }
+    p{
+      margin: 50px 0px 0px;
+      max-width: 800px;
+    }
+
     b{
       color: #1E0FC7;
       font-weight: 400;
@@ -216,74 +213,79 @@ export default {
         opacity: .2;
         transition: opacity .25s, transform .25s;
       }
-
       &:hover{
         &::after{
           opacity: 1;
           transform: translateY(2px);
         }
       }
+    }
 
-      img{
-        max-height: 200px;
-        max-width: 200px;
-        position: absolute;
-        bottom: 150%;
-        right: 0px;
-        display: none;
-      }
+    img{
+      max-height: 200px;
+      max-width: 200px;
+      position: absolute;
+      bottom: 150%;
+      right: 0px;
+      display: none;
     }
   }
-}
 
-#offerings{
-
-  .side-nav{
-    position: fixed;
-    z-index: 100;
-    left: 100%;
-    top: 25%;
-    bottom: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: $space--bg;
-
-    aside{
-      flex: 0 0 auto;
-      transform: rotate(-90deg);
+  .offerings{
+    .side-nav{
+      position: fixed;
+      z-index: 100;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
-      justify-content: space-between;
-    }
+      justify-content: center;
+      align-items: center;
+      width: $space--bg;
 
-    .link{
-      cursor: pointer;
-      flex: 0 0 auto;
-      padding: 10px 15px;
-      &.active{
-        font-weight: 600;
-        color: #1E0FC7;
-        letter-spacing: .75px;
+      aside{
+        flex: 0 0 auto;
+        transform: rotate(-90deg);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .link{
+        cursor: pointer;
+        flex: 0 0 auto;
+        padding: 10px 15px;
+        &.active{
+          font-weight: 600;
+          color: #1E0FC7;
+          letter-spacing: .75px;
+        }
       }
     }
-  }
-  .section-title{
-    margin-bottom: $space--md;
+    .section-title{
+      margin-bottom: $space--md;
+    }
+
+    .description{
+      margin-left: $col4 + $gutter;
+      margin-bottom: $space--md * 2;
+    }
+
+    .circle{
+      position: absolute;
+      top: $space--bg;
+      right: -20%;
+      width: 60vw;
+      height: 60vw;
+      border-radius: 50%;
+      background-image: url('../static/texture.jpg');
+      z-index: -1;
+    }
   }
 
-  .description{
-    margin-left: $col4 + $gutter;
-    margin-bottom: $space--md * 2;
-  }
-
-  .circle{
-    position: absolute;
-    top: $space--bg;
-    right: -20%;
-    width: 60vw;
-    height: 60vw;
-    border-radius: 50%;
-    background-image: url('../static/texture.jpg');
+  .cares{
+    background: #1E0FC7;
+    height: 100vh;
+    margin-top: -$space--bg * 2;
     z-index: -1;
   }
 }
@@ -310,14 +312,14 @@ export default {
     .card:nth-child(8n + 2),
     .card:nth-child(8n + 8){
       .card-content{
-        margin-top: 100%
+        margin-top: 50%
       }
     }
 
     .card:nth-child(8n + 4),
     .card:nth-child(8n + 6){
       .card-content{
-        margin-top: 0%
+        margin-top: -50%
       }
     }
 
@@ -357,111 +359,104 @@ export default {
 #training{
   .gallery{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 
     .card{
-      flex: 0 0 $col10;
+      flex: 0 0 auto;
+      width: $col10;
       margin-bottom: $gutter;
       .card-container{
-        padding-bottom: 50%;
+        padding-bottom: 40%;
       }
-    }
-    .card:nth-child(even){
-      margin-left: auto;
     }
   }
 }
 
-#cares-overview{
-  background: #1E0FC7;
-  height: 100vh;
-  margin-top: -$space--bg * 2;
-  z-index: -1;
-}
+
 
 @media (min-width: $widescreen + 100){
-  #intro{
-    p{
-      max-width: 1000px;
-      b{
-        img{
-          max-width: 300px;
-          max-height: 300px;
-        }
+  #home{
+    .intro{
+      p{
+        max-width: 1000px;
+      }
+      img{
+        max-width: 300px;
+        max-height: 300px;
       }
     }
   }
 }
 
 @media (max-width: $tablet){
-
-  #sizzle{
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  #offerings{
-    .side-nav{
-      width: $space--md;
+  #home{
+    .sizzle{
+      padding-left: 0px;
+      padding-right: 0px;
     }
-    .description{
-      margin-left: $col4;
+
+    .offerings{
+      .side-nav{
+        width: $space--md;
+      }
+      .description{
+        margin-left: $col4;
+      }
     }
   }
 }
 
 @media (max-width: $mobile){
+  #home{
+    .intro{
+      img{
+        max-height: 100px;
+        max-width: 100px;
+      }
+    }
 
-  #intro {
-    p b img{
-      max-height: 100px;
-      max-width: 100px;
-    }
-  }
+    .offerings{
+      .side-nav{
+        width: $space--sm;
+      }
+      .description{
+        margin-left: 0px;
+      }
+      .circle{
+        width: 110vw;
+        height: 110vw;
+        right: -40vw;
+        transform: none !important;
+      }
 
-  #offerings{
-    .side-nav{
-      width: $space--sm;
+      br{
+        display: none;
+      }
     }
-    .description{
-      margin-left: 0px;
-    }
-    .circle{
-      width: 110vw;
-      height: 110vw;
-      right: -40vw;
+
+    .card{
+      margin: 0px 0px $gutter !important;
+      flex: 0 0 100% !important;
+      width: 100% !important;
       transform: none !important;
-    }
-
-    br{
-      display: none;
-    }
-  }
-
-  .card{
-    margin: 0px 0px $gutter !important;
-    flex: 0 0 100% !important;
-    transform: none !important;
-    .card-container{
-      padding-bottom: 150% !important;
-      .card-content{
-        margin: 0px 0px $gutter !important;
+      .card-container{
+        padding-bottom: 70vh !important;
+        .card-content{
+          margin: 0px 0px $gutter !important;
+        }
       }
     }
   }
 }
 
 .touch{
-
-  #intro {
-    p{
-      b{
-        color: inherit;
-        cursor: inherit;
-        &::after{
-          content: none;
-        }
+  .intro{
+    b{
+      color: inherit;
+      cursor: inherit;
+      &::after{
+        content: none;
       }
     }
   }
