@@ -1,5 +1,5 @@
 import Smooth from './Smooth'
-import Scroll from './Scroll'
+import Native from './Native'
 import Mouse from './Mouse'
 import tools from './tools'
 
@@ -9,9 +9,14 @@ export default class{
 
     this.touch = tools.isTouch()
     this.tools = tools
-    this.scroll = !this.touch ? new Smooth() : new Scroll()
+    this.scroll = !this.touch ? new Smooth() : new Native()
     this.mouse = !this.touch ? new Mouse(this.scroll) : null
 
+  }
+
+  // INIT
+  init(){
+    this.scroll.init()
   }
 
   // SCROLL

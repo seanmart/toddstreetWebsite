@@ -24,7 +24,7 @@ Vue.directive('entrance',{
 
     if (animation){
       el.dataset.entrance = vb.addScrollElement(el,(e)=>{
-        if (e.percent > .1) {
+        if (e.percent > 0) {
           animation.play()
           remove(el,'entrance')
         }

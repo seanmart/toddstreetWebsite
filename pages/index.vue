@@ -18,14 +18,14 @@
             v-for="(link,i) in navLinks"
             :key="i"
             class="link"
-            :class="{active: link.active}"
-            @click="$vb.scrollTo(link.el)"
+            :class="{active: nav == link.id}"
+            @click="setScrollTo(link.id,link.el)"
             v-html="link.label"
           />
         </aside>
       </div>
 
-      <section id="events" class="offering" v-section v-element="[()=> nav = 'events',{offset: '50vh'}]">
+      <section id="events" class="offering" v-section v-element="[()=> setNav('events'),{offset: '50vh'}]">
           <section-title :title="events.title"/>
           <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
           <div class="description">
@@ -40,7 +40,7 @@
           </div>
       </section>
 
-      <section id="comms" class="offering" v-section v-element="[()=> nav = 'comms',{offset: '50vh'}]">
+      <section id="comms" class="offering" v-section v-element="[()=> setNav('comms'),{offset: '50vh'}]">
           <section-title :title="comms.title"/>
           <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
           <div class="description">
@@ -55,7 +55,7 @@
           </div>
       </section>
 
-      <section id="training" class="offering" v-section v-element="[()=> nav = 'training',{offset: '50vh'}]">
+      <section id="training" class="offering" v-section v-element="[()=> setNav('training'),{offset: '50vh'}]">
           <section-title :title="training.title"/>
           <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
           <div class="description">
@@ -81,6 +81,7 @@ import card from '@/components/card'
 import videoPlayer from '@/components/videoPlayer'
 import sectionTitle from '@/components/sectionTitle'
 import data from '@/assets/data/home'
+import {mapState} from 'vuex'
 export default {
   components:{videoPlayer,sectionTitle, card},
   data:()=>({
@@ -88,18 +89,23 @@ export default {
     events: data.events,
     comms: data.comms,
     training: data.training,
-    nav: null
+    nav: null,
+    scrollTo: null
   }),
+  watch:{
+    ready(ready){
+      if (ready){
+        let tl = this.$gsap.timeline({delay: .25})
+        tl.to('#intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
+        tl.to('#intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
+        tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
+      }
+    }
+  },
   mounted(){
     this.handleIntroHover()
-
     this.$gsap.set('#intro h1',{yPercent: 100})
     this.$gsap.set('#intro p',{opacity:0,yPercent: -50})
-
-    let tl = this.$gsap.timeline({delay: 1})
-    tl.to('#intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
-    tl.to('#intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
-    tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
   },
   methods:{
     parallaxCircle(e){
@@ -149,14 +155,25 @@ export default {
           }
         })
       })
+    },
+    setScrollTo(id, el){
+      this.setNav(id)
+      this.scrollTo = id
+      this.$vb.scrollTo(el)
+    },
+    setNav(id){
+      if (this.scrollTo && id !== this.scrollTo) return
+      this.scrollTo = null
+      this.nav = id
     }
   },
   computed:{
+    ...mapState(['ready']),
     navLinks(){
       return [
-        {label:'Training', el: '#training',active: this.nav == 'training'},
-        {label:'Communications', el: '#comms',active: this.nav == 'comms'},
-        {label:'Events', el: '#events', active: this.nav == 'events'}
+        {label:'Training', el: '#training',id:'training'},
+        {label:'Communications', el: '#comms',id:'comms'},
+        {label:'Events', el: '#events', id:'events'}
       ]
     },
     introDescription(){

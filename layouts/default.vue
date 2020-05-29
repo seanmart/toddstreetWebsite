@@ -1,6 +1,6 @@
 <template>
   <div id="page" v-page :class="{touch}">
-    <site-header/>
+    <site-header @ready="ready"/>
     <nuxt />
     <site-footer/>
   </div>
@@ -8,26 +8,34 @@
 <script>
 import siteHeader from '@/components/siteHeader'
 import siteFooter from '@/components/siteFooter'
+import {mapState} from 'vuex'
 export default{
   components:{siteHeader,siteFooter},
-  data:()=>({
-    touch: false
-  }),
   mounted(){
-    this.touch = this.$vb.touch
+    this.$store.commit('touch', this.$vb.touch)
   },
   watch:{
     $route(){
-      setTimeout(this.$vb.updatePage,1250)
+      this.$store.commit('ready', false)
     }
-  }
+  },
+  methods:{
+    ready(){
+      this.$store.commit('ready', true)
+      setTimeout(() => this.$vb.init(),250)
+    }
+  },
+  computed: mapState(['touch'])
 }
 </script>
-<style>
+<style lang="scss">
 
 #page{
   overflow: hidden;
   width: 100vw;
+  &.hide{
+    opacity: 0;
+  }
 }
 
 .page-enter-active, .page-leave-active {

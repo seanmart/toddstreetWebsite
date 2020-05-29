@@ -23,26 +23,35 @@
 
 <script>
 export default {
+  data:()=>({
+    headerAnimation: null
+  }),
   watch:{
     $route(){
-      let tl = this.$gsap.timeline()
-      tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
-      tl.to('nav .link',.5,{yPercent: -100, stagger: -.1, ease: 'power4.in'},0)
-      tl.to('nav .logo',.5,{yPercent: -100, ease: 'power4.in'},.25)
-      tl.set(['nav .link','nav .logo'],{yPercent: 100})
-      tl.to('nav .logo',.5,{yPercent: 0,ease: 'power4.out'},1.5)
-      tl.to('nav .link',.5,{yPercent: 0, stagger: .1,ease: 'power4.out'},1.75)
-      tl.to('header button',.5,{scale:1, opacity:1,ease: 'power4.out'},1.75)
+      this.hideHeader()
+      setTimeout(this.showHeader,1500)
     }
   },
   mounted(){
-    let tl = this.$gsap.timeline({delay: .5})
-    tl.set('header', {opacity:1})
-    tl.from('header button',1,{scale:.5, opacity:0, ease: 'power4.out'},0)
-    tl.from('nav .link',1,{yPercent: -100, stagger: -.1, ease: 'power4.out'},0)
-    tl.from('nav .logo',1,{yPercent: -100, ease: 'power4.out'},.25)
+    setTimeout(this.showHeader,500)
   },
   methods:{
+    showHeader(){
+      setTimeout(()=> this.$emit('ready'), 250)
+      let tl = this.$gsap.timeline()
+      tl.set('header',{opacity:1},0)
+      tl.fromTo('nav .logo',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
+      tl.fromTo('nav .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
+      tl.fromTo('header button',1,{scale:.5, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.5)
+    },
+    hideHeader(){
+      let tl = this.$gsap.timeline()
+
+      tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
+      tl.to('nav .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
+      tl.to('nav .logo',.5,{yPercent:-100, ease: 'power4.in'},.5)
+      tl.set('header',{opacity:0})
+    },
     handleScroll(e){
       e.status == 'leave' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 100, ease: 'expo.inOut'})
       e.status == 'enter' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 0,ease: 'expo.inOut'})

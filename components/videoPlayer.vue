@@ -1,6 +1,8 @@
 <template lang="html">
   <div class="video-player" :class="{play}" @click="play=!play" v-mouse="handleMouse">
+
     <div class="video"/>
+
     <button type="button" name="play" ref="button" >
       <div class="content">
         <div class="text">
@@ -10,6 +12,7 @@
         <div class="circle" ref="circle"/>
       </div>
     </button>
+
   </div>
 </template>
 
@@ -126,12 +129,17 @@ export default {
 .touch{
   .video-player{
     button{
-      left: 0px;
-      right: 0px;
       top: 50%;
-      transform: translateY(-50%);
-      margin: 0px auto;
+      left: 50%;
+      transform: translate(-50%,-50%);
       opacity: 1;
+      
+      @media (max-width: $mobile){
+        .content{
+          width: 75px;
+          height: 75px;
+        }
+      }
     }
   }
 }
