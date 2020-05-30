@@ -28,13 +28,16 @@ export default class{
     }
 
     this.scrollTo = {
-      destination: 0,
-      current: 0,
-      ticking: false
+      wheel: null,
+      destination: null,
+      current: null,
+      ticking: false,
+      cancel: false
     }
 
     this.onResize = this.onResize.bind(this);
     this.onScroll = this.onScroll.bind(this)
+    this.cancelScrollTo = this.cancelScrollTo.bind(this)
 
     window.addEventListener('resize', this.onResize)
     window.addEventListener('scroll', this.onScroll)
@@ -217,6 +220,7 @@ export default class{
     this.scrollTo.destination = tools.getPosition(el).top
 
     if (!this.scrollTo.ticking) {
+      this.scrollTo.wheel = window.addEventListener('wheel', this.cancelScrollTo)
       this.scrollTo.current = this.scroll.top
       this.runScrollTo()
     }
@@ -228,12 +232,24 @@ export default class{
 
     window.requestAnimationFrame(()=>{
       window.scrollTo(0,this.scrollTo.current)
-      if (this.scrollTo.ticking) {
+      if (this.scrollTo.ticking && !this.scrollTo.cancel) {
         this.runScrollTo()
       } else {
+        window.removeEventListener('wheel', this.cancelScrollTo)
+        this.scrollTo = {
+          ticking: false,
+          current: null,
+          destiation: null,
+          cancel: false,
+          wheel: null
+        }
 
       }
     })
+  }
+
+  cancelScrollTo(){
+    this.scrollTo.cancel = true
   }
 
 }

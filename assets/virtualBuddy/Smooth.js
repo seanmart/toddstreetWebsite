@@ -29,10 +29,10 @@ export default class extends Core{
   // CHECK
 
   checkScroll(){
-    this.ticking = Math.abs(this.scroll.top - this.window.scroll) > .05
+    this.ticking = Math.abs(this.scroll.top - this.window.scroll) > .1
 
     let last = this.scroll.top
-    this.scroll.top = tools.lerp(this.scroll.top,this.window.scroll,this.inertia)
+    this.scroll.top = parseFloat(tools.lerp(this.scroll.top,this.window.scroll,this.inertia).toFixed(3))
     this.scroll.delta = this.scroll.top - last
     this.scroll.bottom = this.scroll.top + this.window.height
     this.scroll.direction = this.scroll.delta > 0 ? 'down' : 'up'
@@ -42,7 +42,7 @@ export default class extends Core{
 
     window.requestAnimationFrame(()=>{
       Object.keys(this.sections).forEach(key => this.checkSection(this.sections[key]))
-      if (this.ticking) this.checkScroll()
+      if(this.ticking) {this.checkScroll()} else {this.scroll.top = this.window.scroll}
     })
   }
 
