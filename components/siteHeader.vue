@@ -1,6 +1,6 @@
 <template lang="html">
-  <header v-element="handleScroll">
-    <div class="top" v-section>
+  <header v-element="toggleTag">
+    <section class="top" v-section>
 
       <div class="logo">
         <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
@@ -16,21 +16,21 @@
           />
       </nav>
 
-    </div>
+    </section>
 
     <button type="button" @click="toggleMenu">
        <div class="lines"><i/><i/><i/></div>
      </button>
 
-    <aside ref="tag"><icons logo/></aside>
+    <aside :class="{show: showTag}"><icons logo/></aside>
 
     <menu>
       <div class="content">
-        <div class="top">
+        <section class="top">
           <div class="logo">
             <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
           </div>
-        </div>
+        </section>
       </div>
     </menu>
   </header>
@@ -39,8 +39,8 @@
 <script>
 export default {
   data:()=>({
-    menu: false,
-    tag: false
+    menuOpen: false,
+    showTag: false
   }),
   watch:{
     $route(){
@@ -49,11 +49,14 @@ export default {
     }
   },
   mounted(){
-    setTimeout(this.showHeader,500)
+    setTimeout(this.showHeader,750)
   },
   methods:{
     toggleMenu(){
-      this.menu ? this.closeMenu() : this.openMenu()
+      this.menuOpen ? this.closeMenu() : this.openMenu()
+    },
+    toggleTag(e){
+      this.showTag = !e.visible
     },
     showHeader(){
       setTimeout(()=> this.$emit('ready'), 250)
@@ -72,21 +75,17 @@ export default {
       tl.set('header',{opacity:0})
     },
     openMenu(){
-      this.menu = true
+      this.menuOpen = true
       let tl = this.$gsap.timeline()
       tl.to('header menu',1,{width: '100vw', ease: 'power4.out'},0)
       tl.to('header .lines i',.25,{background: 'white'},.4)
       tl.to('header menu svg',1,{yPercent: -100, ease: 'power4.out'},.2)
     },
     closeMenu(){
-      let tl = this.$gsap.timeline({onComplete: ()=> this.menu = false})
+      let tl = this.$gsap.timeline({onComplete: ()=> this.menuOpen = false})
       tl.to('header menu svg',.5,{yPercent: 0,clearProps: 'all', ease: 'power4.in'},0)
       tl.to('header .lines i',.25,{clearProps: 'all'},0)
       tl.to('header menu',.4,{width: 0, clearProps: 'all', ease: 'power1.in'},.2)
-    },
-    handleScroll(e){
-      e.status == 'leave' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 100, ease: 'expo.inOut'})
-      e.status == 'enter' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 0,ease: 'expo.inOut'})
     }
   },
   computed:{
@@ -117,7 +116,9 @@ header{
   .top{
     width: 100%;
     height: $desktop-nav-height;
-    padding: 0px $desktop-margins;
+    margin: 0px -10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     display: flex;
     align-items: center;
   }
@@ -125,9 +126,12 @@ header{
   .logo{
     overflow: hidden;
     flex: 0 0 auto;
+    a{
+      display: block;
+    }
     svg{
-      width: 200px;
       padding: 10px;
+      width: 200px;
       fill: inherit;
     }
   }
@@ -147,6 +151,7 @@ header{
   button{
     z-index: 101;
     position: fixed;
+    padding: 0px;
     width: $desktop-margins;
     height: $desktop-nav-height;
     display: flex;
@@ -169,6 +174,7 @@ header{
   aside{
     z-index: 98;
     position: fixed;
+    padding: 0px;
     right: 100%;
     top: 70px;
     height: 150px;
@@ -177,9 +183,10 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    transition: transform .25s;
+    &.show{
+      transform: translateX(100%);
+    }
 
     svg{
       flex: 0 0 auto;
@@ -215,7 +222,6 @@ header{
   @media (max-width: $tablet){
     .top{
       height: $tablet-nav-height;
-      padding: 0px $tablet-margins;
     }
 
     button{
@@ -242,7 +248,6 @@ header{
   @media (max-width: $mobile){
     .top{
       height: $mobile-nav-height;
-      padding: 0px $mobile-margins;
     }
 
     .logo svg{
@@ -250,19 +255,15 @@ header{
     }
 
     button{
-      width: $mobile-margins;
+      width: $mobile-margin-right;
       height: $mobile-nav-height;
+      i{
+        width: 25px;
+      }
     }
 
     aside{
-      height: 80px;
-      width: 30px;
-      border-radius: 0px;
-      top: 34px;
-
-      svg{
-        width: 60px;
-      }
+      display: none;
     }
   }
 }

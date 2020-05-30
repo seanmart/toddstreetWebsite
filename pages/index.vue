@@ -15,10 +15,10 @@
       <div class="side-nav">
         <aside class="navigation--rg">
           <h3
-            v-for="(link,i) in navLinks"
+            v-for="(link,i) in sideNavLinks"
             :key="i"
             class="link"
-            :class="{active: nav == link.id}"
+            :class="{active: sideNav == link.id}"
             @click="setScrollTo(link.id,link.el)"
             v-html="link.label"
           />
@@ -97,7 +97,7 @@ export default {
     training: data.training,
     cares: data.cares,
     about: data.about,
-    nav: null,
+    sideNav: null,
     scrollTo: null,
     animations: {}
   }),
@@ -126,21 +126,13 @@ export default {
       if (e.window.width < 600) return
       this.$gsap.set(e.el,{y: `-=${e.delta * .15}`})
     },
-    parallaxTrainingLeft(e){
-      if (e.window.width < 600) return
-      this.$gsap.set(e.el,{x: `+=${e.delta * .05}`})
-    },
-    parallaxTrainingRight(e){
-      if (e.window.width < 600) return
-      this.$gsap.set(e.el,{x: `-=${e.delta * .05}`})
-    },
     animateNav(e){
-      this.animations.nav.progress(e.percent)
+      this.animations.sideNav.progress(e.percent)
     },
     setNavAnimation(){
-      this.animations.nav = this.$gsap.timeline({paused: true})
-      this.animations.nav.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'},0)
-      this.animations.nav.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'},10)
+      this.animations.sideNav = this.$gsap.timeline({paused: true})
+      this.animations.sideNav.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'},0)
+      this.animations.sideNav.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'},10)
     },
     setIntroHover(){
       let els = document.querySelectorAll('#intro p b')
@@ -164,19 +156,19 @@ export default {
       })
     },
     setScrollTo(id, el){
-      this.nav = id
+      this.sideNav = id
       this.scrollTo = id
       this.$vb.scrollTo(el)
     },
     setNav(id){
       if (this.scrollTo && id !== this.scrollTo) return
       this.scrollTo = null
-      this.nav = id
+      this.sideNav = id
     }
   },
   computed:{
     ...mapState(['ready']),
-    navLinks(){
+    sideNavLinks(){
       return [
         {label:'Training', el: '#training',id:'training'},
         {label:'Communications', el: '#comms',id:'comms'},
@@ -432,7 +424,7 @@ export default {
 
 @media (max-width: $tablet){
   #home{
-    .sizzle{
+    #sizzle{
       padding-left: 0px;
       padding-right: 0px;
     }
@@ -459,7 +451,7 @@ export default {
 
     .offerings{
       .side-nav{
-        width: $mobile-margins;
+        width: $mobile-margin-right;
       }
       .description{
         margin-left: 0px;

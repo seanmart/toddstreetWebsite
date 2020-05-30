@@ -16,13 +16,15 @@ $col10: $col * 10 + $gutter * 9;
 $col11: $col * 11 + $gutter * 10;
 $col12: $col * 12 + $gutter * 11;
 
-$mobile-margins: 9.5vw;
-$tablet-margins: 80px;
 $desktop-margins: 150px;
+$tablet-margins: 80px;
+$mobile-margin-right: 15vw;
+$mobile-margin-left: 5vw;
+
 
 $desktop-nav-height: 150px;
 $tablet-nav-height: 120px;
-$mobile-nav-height: 80px;
+$mobile-nav-height: 100px;
 
 $desktop-section-space: 200px;
 $tablet-section-space: 150px;
