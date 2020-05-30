@@ -1,22 +1,37 @@
 <template lang="html">
   <header v-element="handleScroll">
-    <nav v-section>
-      <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
-      <nuxt-link
-        class="link navigation--rg"
-        v-for="link in links"
-        :key="link.to"
-        :to="link.to"
-        v-html="link.label"
-        />
-    </nav>
-    <button type="button">
+    <div class="top" v-section>
+
+      <div class="logo">
+        <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
+      </div>
+
+      <nav>
+        <nuxt-link
+          class="link navigation--rg"
+          v-for="link in links"
+          :key="link.to"
+          :to="link.to"
+          v-html="link.label"
+          />
+      </nav>
+
+    </div>
+
+    <button type="button" @click="toggleMenu">
        <div class="lines"><i/><i/><i/></div>
      </button>
+
     <aside ref="tag"><icons logo/></aside>
 
     <menu>
-      this is the menu
+      <div class="content">
+        <div class="top">
+          <div class="logo">
+            <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
+          </div>
+        </div>
+      </div>
     </menu>
   </header>
 </template>
@@ -24,7 +39,8 @@
 <script>
 export default {
   data:()=>({
-    headerAnimation: null
+    menu: false,
+    tag: false
   }),
   watch:{
     $route(){
@@ -36,21 +52,37 @@ export default {
     setTimeout(this.showHeader,500)
   },
   methods:{
+    toggleMenu(){
+      this.menu ? this.closeMenu() : this.openMenu()
+    },
     showHeader(){
       setTimeout(()=> this.$emit('ready'), 250)
       let tl = this.$gsap.timeline()
       tl.set('header',{opacity:1},0)
-      tl.fromTo('nav .logo',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
-      tl.fromTo('nav .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
+      tl.fromTo('header .top svg',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
+      tl.fromTo('header .top .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
       tl.fromTo('header button',1,{scale:.5, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.5)
     },
     hideHeader(){
       let tl = this.$gsap.timeline()
 
       tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
-      tl.to('nav .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
-      tl.to('nav .logo',.5,{yPercent:-100, ease: 'power4.in'},.5)
+      tl.to('header .top .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
+      tl.to('header .top svg',.5,{yPercent:-100, ease: 'power4.in'},.5)
       tl.set('header',{opacity:0})
+    },
+    openMenu(){
+      this.menu = true
+      let tl = this.$gsap.timeline()
+      tl.to('header menu',1,{width: '100vw', ease: 'power4.out'},0)
+      tl.to('header .lines i',.25,{background: 'white'},.4)
+      tl.to('header menu svg',1,{yPercent: -100, ease: 'power4.out'},.2)
+    },
+    closeMenu(){
+      let tl = this.$gsap.timeline({onComplete: ()=> this.menu = false})
+      tl.to('header menu svg',.5,{yPercent: 0,clearProps: 'all', ease: 'power4.in'},0)
+      tl.to('header .lines i',.25,{clearProps: 'all'},0)
+      tl.to('header menu',.4,{width: 0, clearProps: 'all', ease: 'power1.in'},.2)
     },
     handleScroll(e){
       e.status == 'leave' && this.$gsap.to(this.$refs.tag,.5,{xPercent: 100, ease: 'expo.inOut'})
@@ -80,38 +112,43 @@ export default {
 <style lang="scss">
 
 header{
-  padding: 0px $space--bg;
-  height: $space--bg;
-  display: flex;
-  align-items: center;
   opacity: 0;
 
-  nav{
+  .top{
     width: 100%;
+    height: $desktop-nav-height;
+    padding: 0px $desktop-margins;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin: 0px -10px;
-    overflow: hidden;
   }
 
   .logo{
+    overflow: hidden;
     flex: 0 0 auto;
-    width: 200px;
-    margin-right: auto;
-    padding: 10px;
+    svg{
+      width: 200px;
+      padding: 10px;
+      fill: inherit;
+    }
   }
 
-  .link{
-    padding: 10px;
-    margin-left: 20px;
+  nav{
+    overflow: hidden;
+    flex: 0 0 auto;
+    margin-left: auto;
+
+    .link{
+      display: inline-block;
+      padding: 10px;
+      margin-left: 20px;
+    }
   }
 
   button{
-    z-index: 100;
+    z-index: 101;
     position: fixed;
-    width: $space--bg;
-    height: $space--bg;
+    width: $desktop-margins;
+    height: $desktop-nav-height;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,7 +158,7 @@ header{
 
     i{
       display: block;
-      width: 20px;
+      width: 38px;
       height: 2px;
       background: black;
       border-radius: 1px;
@@ -133,7 +170,7 @@ header{
     z-index: 98;
     position: fixed;
     right: 100%;
-    top: $space--bg * .45;
+    top: 70px;
     height: 150px;
     width: 50px;
     background: black;
@@ -155,53 +192,73 @@ header{
   menu{
     position: fixed;
     height: 100vh;
-    width: 100vw;
+    width: 0px;
     background: black;
     top: 0px;
-    right: 100%;
-    z-index: 99;
+    left: 0px;
+    overflow: hidden;
+    z-index: 100;
+
+    .content{
+      width: 100vw
+    }
+
+    .logo{
+      svg{
+        fill: white;
+        transform: translateY(100%);
+      }
+    }
   }
 
+
   @media (max-width: $tablet){
-    padding: 0px $space--md;
-    height: $space--md;
+    .top{
+      height: $tablet-nav-height;
+      padding: 0px $tablet-margins;
+    }
 
     button{
-      width: $space--md;
-      height: $space--md;
+      width: $tablet-margins;
+      height: $tablet-nav-height;
     }
 
     aside{
       height: 120px;
       width: 40px;
+      top: 55px;
 
       svg{
         width: 80px;
       }
     }
 
-    .link{
+    nav{
       display: none;
     }
   }
 
 
   @media (max-width: $mobile){
-    padding: 0px $space--sm;
+    .top{
+      height: $mobile-nav-height;
+      padding: 0px $mobile-margins;
+    }
 
-    .logo{
+    .logo svg{
       width: 175px;
     }
 
     button{
-      width: $space--sm;
-      height: $space--md;
+      width: $mobile-margins;
+      height: $mobile-nav-height;
     }
 
     aside{
-      height: 90px;
+      height: 80px;
       width: 30px;
-      top: $space--md * .45;
+      border-radius: 0px;
+      top: 34px;
 
       svg{
         width: 60px;

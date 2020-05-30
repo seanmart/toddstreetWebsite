@@ -60,20 +60,32 @@ export default{
     if (value == undefined || value == null) return value
     if (typeof value == 'number' || typeof value == 'function') return value
 
-    let parsedValue = parseFloat(value)
+    let parseValue = (string)=>{
+      let val = parseFloat(string)
+      return string.includes('%y') ? val * (el.offsetHeight/100)
+           : string.includes('%x') ? val * (el.offsetWidth/100)
+           : string.includes('vh') ? val * (window.innerHeight / 100)
+           : string.includes('vw') ? val * (window.innerWidth / 100)
+           : string.includes('px') ? val
+           : string.includes('deg') ? val
+           : val
+    }
 
-    return value.indexOf('%y') !== -1
-             ? parsedValue * (el.offsetHeight/100)
-        : value.indexOf('%x') !== -1
-             ? parsedValue * (el.offsetWidth/100)
-        : value.indexOf('vh') !== -1
-             ? parsedValue * (window.innerHeight / 100)
-        : value.indexOf('vw') !== -1
-            ? parsedValue * (window.innerWidth / 100)
-        : value.indexOf('px') !== -1
-            ? parsedValue
-        : value.indexOf('deg') !== -1
-            ? parsedValue
-        : 0
+    if (value.includes(' + ')){
+      let total = 0
+      value.split(' + ').forEach(v => {
+        total += parseValue(v)
+      })
+      return total
+    }
+
+    if (value.includes(' - ')){
+      let total = 0
+      value.split(' - ').forEach(v => total = !total ? parseValue(v) : total -= parseValue(v))
+      return total
+    }
+
+    return parseValue(value)
+
    }
 }

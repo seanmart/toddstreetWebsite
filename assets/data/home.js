@@ -57,5 +57,11 @@ export default{
       {label: 'this is item 1'},
       {label: 'this is item 1'}
     ]
+  },
+  cares:{
+    title: `How <br/> We Care`
+  },
+  about:{
+    title: `What We've <br/> Been Up To`
   }
 }

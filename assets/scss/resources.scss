@@ -1,5 +1,5 @@
-$mobile: 600px;
-$tablet: 1000px;
+$mobile: 750px;
+$tablet: 1100px;
 $widescreen: 1500px;
 
 $gutter: 100% / 71;
@@ -16,10 +16,18 @@ $col10: $col * 10 + $gutter * 9;
 $col11: $col * 11 + $gutter * 10;
 $col12: $col * 12 + $gutter * 11;
 
-$space: 10px;
-$space--bg: $space * 15;
-$space--md: $space * 10;
-$space--sm: $space * 5;
+$mobile-margins: 9.5vw;
+$tablet-margins: 80px;
+$desktop-margins: 150px;
+
+$desktop-nav-height: 150px;
+$tablet-nav-height: 120px;
+$mobile-nav-height: 80px;
+
+$desktop-section-space: 200px;
+$tablet-section-space: 150px;
+$mobile-section-space: 120px;
+
 
 @mixin bodyFont{
   font-family: 'Roboto Slab', serif;

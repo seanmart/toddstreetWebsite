@@ -6,7 +6,7 @@ html{
 
 section{
   position: relative;
-  padding: $space--md $space--bg;
+  padding: $desktop-section-space $desktop-margins;
   max-width: $widescreen;
   margin: 0px auto;
   &.full-width{
@@ -51,8 +51,8 @@ main{
 .navigation--rg{
   @include headerFont;
   text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
   font-size: 18px;
 }
 
@@ -83,7 +83,7 @@ main{
 
 @media (max-width: $tablet){
   section{
-    padding: $space--md $space--md;
+    padding: $tablet-section-space $tablet-margins;
   }
 
   .header--bg{
@@ -106,7 +106,7 @@ main{
 
 @media (max-width: $mobile){
   section{
-    padding: $space--md $space--sm;
+    padding: $mobile-section-space $mobile-margins;
   }
 
   br{

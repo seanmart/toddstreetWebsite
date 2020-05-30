@@ -1,16 +1,16 @@
 <template lang="html">
   <main id="home">
 
-    <section class="intro" v-section>
+    <section id="intro" v-section>
       <split :text="intro.title" tag="h1" textClass="header--bg reveal"/>
       <p class="body--bg" v-html="introDescription"/>
     </section>
 
-    <section class="sizzle" v-section>
+    <section id="sizzle" v-section>
       <video-player v-entrance:scale/>
     </section>
 
-    <div class="offerings" v-element="[animateOfferings, {offsetEnter: '50vh', offsetLeave: '100vh'}]">
+    <div class="offerings" v-element="[animateNav, {offsetEnter: '50vh', offsetLeave: '100vh + 100'}]">
 
       <div class="side-nav">
         <aside class="navigation--rg">
@@ -71,7 +71,13 @@
       </section>
     </div>
 
-    <section class="cares full-width" v-section/>
+    <section id="cares" class="full-width" v-section>
+      <section-title :title="cares.title"/>
+    </section>
+
+    <section id="about" class="full-width" v-section>
+      <section-title :title="about.title"/>
+    </section>
 
   </main>
 </template>
@@ -89,23 +95,27 @@ export default {
     events: data.events,
     comms: data.comms,
     training: data.training,
+    cares: data.cares,
+    about: data.about,
     nav: null,
-    scrollTo: null
+    scrollTo: null,
+    animations: {}
   }),
   watch:{
     ready(ready){
       if (ready){
         let tl = this.$gsap.timeline({delay: .25})
-        tl.to('.intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
-        tl.to('.intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
-        tl.set(['.intro h1','.intro p'],{clearProps: 'all'})
+        tl.to('#intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
+        tl.to('#intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
+        tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
       }
     }
   },
   mounted(){
     this.setIntroHover()
-    this.$gsap.set('.intro h1',{yPercent: 100})
-    this.$gsap.set('.intro p',{opacity:0,yPercent: -50})
+    this.setNavAnimation()
+    this.$gsap.set('#intro h1',{yPercent: 100})
+    this.$gsap.set('#intro p',{opacity:0,yPercent: -50})
   },
   methods:{
     parallaxCircle(e){
@@ -124,12 +134,16 @@ export default {
       if (e.window.width < 600) return
       this.$gsap.set(e.el,{x: `-=${e.delta * .05}`})
     },
-    animateOfferings(e){
-      if (e.status == 'enter') this.$gsap.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'})
-      if (e.status == 'leave') this.$gsap.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'})
+    animateNav(e){
+      this.animations.nav.progress(e.percent)
+    },
+    setNavAnimation(){
+      this.animations.nav = this.$gsap.timeline({paused: true})
+      this.animations.nav.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'},0)
+      this.animations.nav.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'},10)
     },
     setIntroHover(){
-      let els = document.querySelectorAll('.intro p b')
+      let els = document.querySelectorAll('#intro p b')
       els.forEach(el => {
         this.$vb.addMouseElement(el,(e)=>{
 
@@ -184,8 +198,9 @@ export default {
 
 #home{
 
-  .intro{
+  #intro{
     position: relative;
+    padding-top: $desktop-section-space / 2;
 
     .word{
       overflow: hidden;
@@ -209,7 +224,7 @@ export default {
         right: 0px;
         height: 3px;
         border-radius: 1.5px;
-        background: #1E0FC7;
+        background: #865be8;
         opacity: .2;
         transition: opacity .25s, transform .25s;
       }
@@ -234,14 +249,14 @@ export default {
   .offerings{
     .side-nav{
       position: fixed;
-      z-index: 100;
+      z-index: 50;
       left: 100%;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
       justify-content: center;
       align-items: center;
-      width: $space--bg;
+      width: $desktop-margins;
 
       aside{
         flex: 0 0 auto;
@@ -252,27 +267,26 @@ export default {
 
       .link{
         cursor: pointer;
-        flex: 0 0 auto;
+        flex: 1 1 auto;
         padding: 10px 15px;
+        position: relative;
         &.active{
-          font-weight: 600;
           color: #1E0FC7;
-          letter-spacing: .75px;
         }
       }
     }
     .section-title{
-      margin-bottom: $space--md;
+      margin-bottom: 50px;
     }
 
     .description{
       margin-left: $col4 + $gutter;
-      margin-bottom: $space--md * 2;
+      margin-bottom: $desktop-section-space;
     }
 
     .circle{
       position: absolute;
-      top: $space--bg;
+      top: $desktop-section-space;
       right: -20%;
       width: 60vw;
       height: 60vw;
@@ -281,13 +295,6 @@ export default {
       z-index: -1;
     }
   }
-
-  .cares{
-    background: #1E0FC7;
-    height: 100vh;
-    margin-top: -$space--bg * 2;
-    z-index: -1;
-  }
 }
 
 #events{
@@ -295,43 +302,48 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
-    .card{
-      flex: 0 0 $col4;
-      margin-bottom: $gutter;
-      .card-container{
-        padding-bottom: 110%;
-      }
+  }
+  .card{
+    flex: 0 0 $col4;
+    margin-bottom: $gutter;
+    .card-container{
+      padding-bottom: 130%;
     }
+  }
 
-    .card:nth-child(8n + 1){
-      flex: 0 0 $col8;
-      margin-right: $col4 + $gutter;
+  .card:nth-child(8n + 1){
+    flex: 0 0 $col8;
+    margin-right: $col4 + $gutter;
+    .card-container{
+      padding-bottom: 110%;
     }
+  }
 
-    .card:nth-child(8n + 2),
-    .card:nth-child(8n + 8){
-      .card-content{
-        margin-top: 50%
-      }
+  .card:nth-child(8n + 2),
+  .card:nth-child(8n + 8){
+    .card-content{
+      margin-top: 50%
     }
+  }
 
-    .card:nth-child(8n + 4),
-    .card:nth-child(8n + 6){
-      .card-content{
-        margin-top: -50%
-      }
+  .card:nth-child(8n + 4),
+  .card:nth-child(8n + 6){
+    .card-content{
+      margin-top: -50%
     }
+  }
 
-    .card:nth-child(8n + 3),
-    .card:nth-child(8n + 7){
-      margin-right: $gutter;
-      margin-left: $gutter;
-    }
+  .card:nth-child(8n + 3),
+  .card:nth-child(8n + 7){
+    margin-right: $gutter;
+    margin-left: $gutter;
+  }
 
-    .card:nth-child(8n + 5){
-      flex: 0 0 $col8;
-      margin-left: $col4 + $gutter;
+  .card:nth-child(8n + 5){
+    flex: 0 0 $col8;
+    margin-left: $col4 + $gutter;
+    .card-container{
+      padding-bottom: 110%;
     }
   }
 }
@@ -341,50 +353,72 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
-    .card{
-      flex: 0 0 $col6;
-      margin-bottom: $gutter;
-      .card-container{
-        padding-bottom: 80%;
-      }
-      &:nth-child(even){
-        .card-content{
-          margin-top: 20%;
-        }
+  }
+  .card{
+    flex: 0 0 $col6;
+    margin-bottom: $gutter;
+    .card-container{
+      padding-bottom: 90%;
+    }
+    &:nth-child(even){
+      .card-content{
+        margin-top: 20%;
       }
     }
+  }
 
-    .card:nth-child(odd){
-      margin-right: $gutter;
-    }
+  .card:nth-child(odd){
+    margin-right: $gutter;
   }
 }
 
 #training{
+  padding-bottom: 0px;
+
   .gallery{
     display: flex;
     flex-direction: column;
-
-    .card{
-      flex: 0 0 auto;
-      width: $col10;
-      margin-bottom: $gutter;
-      &:nth-child(even){
-        margin-left: $col2 + $gutter;
-      }
-      .card-container{
-        padding-bottom: 40%;
-      }
+  }
+  .card{
+    flex: 0 0 auto;
+    width: $col10;
+    margin-bottom: $gutter;
+    &:nth-child(even){
+      margin-left: $col2 + $gutter;
+    }
+    &:last-child{
+      margin-bottom: 0px;
+    }
+    .card-container{
+      padding-bottom: 50%;
     }
   }
 }
+
+#cares{
+  margin-top: -200px;
+  padding-top: 200 + $desktop-margins;
+  background: #1E0FC7;
+  z-index: -1;
+  hr{
+    background: #7b74c7;
+  }
+  .word{
+    color: white;
+  }
+}
+
+#about{
+  background-image: url('../static/texture.jpg');
+}
+
+
 
 
 
 @media (min-width: $widescreen + 100){
   #home{
-    .intro{
+    #intro{
       p{
         max-width: 1000px;
       }
@@ -405,7 +439,7 @@ export default {
 
     .offerings{
       .side-nav{
-        width: $space--md;
+        width: $tablet-margins;
       }
       .description{
         margin-left: $col4;
@@ -416,7 +450,7 @@ export default {
 
 @media (max-width: $mobile){
   #home{
-    .intro{
+    #intro{
       img{
         max-height: 100px;
         max-width: 100px;
@@ -425,7 +459,7 @@ export default {
 
     .offerings{
       .side-nav{
-        width: $space--sm;
+        width: $mobile-margins;
       }
       .description{
         margin-left: 0px;
@@ -443,22 +477,26 @@ export default {
     }
 
     .card{
-      margin: 0px 0px $gutter !important;
+      margin: 0px 0px 20px !important;
       flex: 0 0 100% !important;
       width: 100% !important;
       transform: none !important;
       .card-container{
-        padding-bottom: 70vh !important;
+        padding-bottom: 60vh !important;
         .card-content{
-          margin: 0px 0px $gutter !important;
+          margin: 0px !important;
         }
       }
+    }
+
+    .cares{
+      padding-top: 200 + $tablet-margins;
     }
   }
 }
 
 .touch{
-  .intro{
+  #intro{
     b{
       color: inherit;
       cursor: inherit;

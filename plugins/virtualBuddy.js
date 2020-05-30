@@ -16,15 +16,15 @@ Vue.directive('entrance',{
       break
 
       case 'slide':
-      gsap.set(el,{y:200, opacity:0})
-      animation = gsap.to(el,1,{y:'-=200', opacity:1, ease:'power4.out', paused: true})
+      gsap.set(el,{y:300, opacity:0})
+      animation = gsap.to(el,1,{y:'-=300', opacity:1, ease:'power4.out', paused: true})
       break
 
     }
 
     if (animation){
       el.dataset.entrance = vb.addScrollElement(el,(e)=>{
-        if (e.percent > 0) {
+        if (e.percent > .1) {
           animation.play()
           remove(el,'entrance')
         }

@@ -37,12 +37,11 @@ export default class extends Core{
     this.scroll.bottom = this.scroll.top + this.window.height
     this.scroll.direction = this.scroll.delta > 0 ? 'down' : 'up'
 
+    Object.keys(this.elements).forEach(key => this.checkElement(this.elements[key]))
+    this.events.forEach(e => e(this.scroll))
+
     window.requestAnimationFrame(()=>{
-
-      Object.keys(this.elements).forEach(key => this.checkElement(this.elements[key]))
       Object.keys(this.sections).forEach(key => this.checkSection(this.sections[key]))
-      this.events.forEach(e => e(this.scroll))
-
       if (this.ticking) this.checkScroll()
     })
   }

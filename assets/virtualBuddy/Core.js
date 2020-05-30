@@ -149,8 +149,8 @@ export default class{
         props.window = this.window
         props.visible = visible
         props.scroll = this.scroll
-        props.duration = this.window.height + e.pos.height
-        props.offset = this.scroll.bottom - e.pos.top
+        props.duration = this.window.height + (bottom - top)
+        props.offset = this.scroll.bottom - top
         props.percent = Math.min(Math.max((props.offset / props.duration),0),1)
         props.scrolled = this.scroll.top - Math.max(top - this.window.height, 0)
         props.delta = props.scrolled - e.scrolled
@@ -223,7 +223,7 @@ export default class{
   }
 
   runScrollTo(){
-    this.scrollTo.current = tools.lerp(this.scrollTo.current, this.scrollTo.destination,.07)
+    this.scrollTo.current = tools.lerp(this.scrollTo.current, this.scrollTo.destination,.05)
     this.scrollTo.ticking = Math.abs(this.scrollTo.destination - this.scrollTo.current) > .5
 
     window.requestAnimationFrame(()=>{
