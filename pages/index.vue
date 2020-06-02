@@ -25,7 +25,7 @@
 
     <div v-scroll="[animateSideNav, '50vh', '100vh']">
 
-    <section id="events" v-section v-scroll="()=> sideNav ='events'">
+    <section id="events" v-section v-scroll="()=> setNav('events')">
         <section-title :title="events.title"/>
         <section-circle/>
         <section-description :heading="events.heading" :description="events.description"/>
@@ -36,7 +36,7 @@
         </div>
     </section>
 
-    <section id="comms" v-section v-scroll="()=> sideNav ='comms'">
+    <section id="comms" v-section v-scroll="()=> setNav('comms')">
         <section-title :title="comms.title"/>
         <section-circle/>
         <section-description :heading="comms.heading" :description="comms.description"/>
@@ -47,7 +47,7 @@
         </div>
     </section>
 
-    <section id="training" v-section v-scroll="()=> sideNav ='training'">
+    <section id="training" v-section v-scroll="()=> setNav('training')">
         <section-title :title="training.title"/>
         <section-circle/>
         <section-description :heading="training.heading" :description="training.description"/>
@@ -118,8 +118,8 @@ export default {
     this.$gsap.set('.intro p',{opacity:0,yPercent: -50})
 
     let tl = this.$gsap.timeline({paused: true})
-    tl.to('.side-nav', 1,{xPercent: -100, ease: 'expo.out'},0)
-    tl.to('.side-nav', 1,{xPercent: 0, ease: 'expo.in'},10)
+    tl.to('.side-nav', .75,{xPercent: -100, ease: 'expo.out'},0)
+    tl.to('.side-nav', .75,{xPercent: 0, ease: 'expo.in'},10)
     this.animations.sideNav = tl
 
   },
