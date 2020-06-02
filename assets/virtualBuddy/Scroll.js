@@ -30,6 +30,8 @@ export default class{
     this.cancelScrollTo = this.cancelScrollTo.bind(this)
 
     window.addEventListener('scroll',this.handleScroll)
+    resize.addEvent(this.handleScroll)
+
 
     if (!this.touch){
       resize.addEvent(this.handleResize)
@@ -40,12 +42,13 @@ export default class{
       this.body.style.overscrollBehavior = 'none'
     }
 
-    this.handleResize()
-    this.handleScroll()
+    this.html.style.height = `${this.body.offsetHeight}px`
+
   }
 
   init(){
     if (!this.touch) this.html.style.height = `${this.body.offsetHeight}px`
+    this.handleScroll()
   }
 
   // EVENT

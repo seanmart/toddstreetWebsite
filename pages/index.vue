@@ -10,7 +10,7 @@
       <video-player v-enter:pop/>
     </section>
 
-    <div class="side-nav">
+    <div class="side-nav" v-resize="setSideNavPosition">
       <aside class="navigation--rg">
         <h3
           v-for="(link,i) in sideNavLinks"
@@ -122,6 +122,8 @@ export default {
     tl.to('.side-nav', .75,{xPercent: 0, ease: 'expo.in'},10)
     this.animations.sideNav = tl
 
+    this.setSideNavPosition()
+
   },
   methods:{
     animateCircle(e){
@@ -140,6 +142,9 @@ export default {
       if (this.scrollTo && id !== this.scrollTo) return
       this.scrollTo = null
       this.sideNav = id
+    },
+    setSideNavPosition(){
+      this.$gsap.set('.side-nav',{top: window.innerHeight * .4})
     }
   },
   computed:{
@@ -184,7 +189,7 @@ export default {
     }
 
     b{
-      color: #1E0FC7;
+      color: $blue;
       font-weight: 400;
       position: relative;
       cursor: pointer;
@@ -197,7 +202,7 @@ export default {
         right: 0px;
         height: 3px;
         border-radius: 1.5px;
-        background: #865be8;
+        background: $blue;
         opacity: .2;
         transition: opacity .25s, transform .25s;
       }
@@ -222,7 +227,6 @@ export default {
   .side-nav{
     position: fixed;
     top: 50%;
-    transform: translateY(-50%);
     z-index: 50;
     left: 100%;
     display: flex;
@@ -243,7 +247,7 @@ export default {
       padding: 10px 15px;
       position: relative;
       &.active{
-        color: #1E0FC7;
+        color: $blue;
       }
     }
   }
@@ -353,10 +357,10 @@ export default {
   .cares{
     margin-top: -200px;
     padding-top: 200 + $desktop-margins;
-    background: #1E0FC7;
+    background: $blue;
     z-index: -1;
     hr{
-      background: #7b74c7;
+      background: $lightBlue;
     }
     .word{
       color: white;

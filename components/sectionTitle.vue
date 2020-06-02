@@ -31,7 +31,7 @@ export default {
   margin-bottom: 50px;
 
   hr{
-    background: #1E0FC7;
+    background: $blue;
     transform-origin: bottom;
     border: none;
     position: absolute;

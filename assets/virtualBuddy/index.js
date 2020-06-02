@@ -200,7 +200,7 @@ export default class{
   onResize(){
 
     clearTimeout(this.resizeTimeout)
-    
+
     for (let i = 0; i < this.sections.length; i++){
       this.sections[i].pos = tools.getPosition(this.sections[i].el)
     }
@@ -212,10 +212,15 @@ export default class{
       element.start = element.offsetTop ? element.pos.top + tools.getValue(element.offsetTop) : element.pos.top
       element.end = element.offsetBottom ? element.pos.bottom - tools.getValue(element.offsetBottom) : element.pos.bottom
 
-      if (element.resize) this.elements[i].resize(element.pos)
+      if (element.resize) this.elements[i].resize({
+        el: element.el,
+        position: element.pos,
+        window: {
+          height: this.resize.height,
+          width: this.resize.width
+        }
+      })
     }
-
-    this.resizeTimeout = setTimeout(this.onScroll,200)
 
   }
 

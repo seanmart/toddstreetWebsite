@@ -6,6 +6,7 @@
 
       <h3 v-if="title" v-html="title" class="title header--sm" ref="title"/>
 
+      <!--
       <div class="title-side" v-if="title" v-resize="initSideTitle">
         <div class="side-title" ref="sideTitle">
           <div class="side-title-text" ref="sideTitleText">
@@ -13,6 +14,7 @@
           </div>
         </div>
       </div>
+    -->
 
       <div class="link" ref="link">
         <fancy-link v-if="link" :to="link">check it out</fancy-link>
@@ -38,18 +40,13 @@ export default {
 
 
 
-    if (this.title){
-      this.initSideTitle()
-      this.$gsap.set(this.$refs.sideTitle,{opacity:0})
-    }
-
-    if (this.link) this.$gsap.set(this.$refs.link,{opacity:0,yPercent: 100})
+    //if (this.title) this.initSideTitle()
 
     if (this.link || this.image || this.title){
       let tl = this.$gsap.timeline({paused: true})
       if (this.link) tl.to(this.$refs.link,.5,{opacity:1,yPercent: 0,ease:'sine.inOut'},0)
       if (this.image) tl.to(this.$refs.image,.5,{scale:1.05,ease:'sine.inOut'},0)
-      if (this.title) tl.to(this.$refs.sideTitle,.5,{opacity:1,ease:'sine.inOut'},0)
+      //if (this.title) tl.to(this.$refs.sideTitle,.5,{opacity:1,ease:'sine.inOut'},0)
       this.hoverAnimation = tl
     }
 
@@ -73,15 +70,15 @@ export default {
     handleMouse(e){
 
       if (e.enter) {
-        clearTimeout(this.timeout)
-        if (this.sideTextAnimation) this.sideTextAnimation.resume()
+        //clearTimeout(this.timeout)
+        //if (this.sideTextAnimation) this.sideTextAnimation.resume()
         if (this.hoverAnimation) this.hoverAnimation.reversed(false).play()
 
       }
       if (e.leave){
-        clearTimeout(this.timeout)
+        //clearTimeout(this.timeout)
         if (this.hoverAnimation) this.hoverAnimation.reversed(true)
-        if (this.sideTextAnimation) this.timeout = setTimeout(()=> this.sideTextAnimation.pause(),750)
+        //if (this.sideTextAnimation) this.timeout = setTimeout(()=> this.sideTextAnimation.pause(),750)
       }
     }
   }
@@ -121,6 +118,7 @@ export default {
     position: absolute;
     bottom: 30px;
     left: 30px;
+    opacity: 0;
   }
   .side-title{
     user-select: none;
@@ -132,9 +130,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
 
     .side-title-text{
-      opacity: .5;
+      opacity: .2;
       flex: 0 0 auto;
       transform: rotate(90deg);
       display: flex;

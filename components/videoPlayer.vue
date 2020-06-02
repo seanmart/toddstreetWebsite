@@ -65,7 +65,7 @@ export default {
   position: relative;
   overflow: hidden;
   padding-bottom: 56.25%;
-  background: #1E0FC7;
+  background: $blue;
 
   .video{
     position: absolute;

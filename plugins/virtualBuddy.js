@@ -96,7 +96,7 @@ Vue.directive('enter',{
     if (anim){
       el.dataset['enter'] = vb.addElement(el,{
         scroll: (e)=>{
-          if (e.scrolled > e.window.height * .1){
+          if (e.offset > e.window.height * .1){
             anim.play()
             vb.removeElement(el.dataset['enter'])
           }
@@ -106,6 +106,7 @@ Vue.directive('enter',{
   },
   unbind: function(el){
     vb.removeElement(el.dataset['enter'])
+    console.log(vb)
   }
 })
 
