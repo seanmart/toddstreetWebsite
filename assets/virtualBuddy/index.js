@@ -1,68 +1,222 @@
-import Smooth from './Smooth'
-import Native from './Native'
-import Mouse from './Mouse'
 import tools from './tools'
+import Scroll from './Scroll'
+import Mouse from './Mouse'
+import Resize from './Resize'
+
 
 export default class{
   constructor(){
-    this.updatePage = this.updatePage.bind(this)
 
     this.touch = tools.isTouch()
-    this.tools = tools
-    this.scroll = !this.touch ? new Smooth() : new Native()
-    this.mouse = !this.touch ? new Mouse(this.scroll) : null
+    this.onScroll = this.onScroll.bind(this)
+    this.onMouse = this.onMouse.bind(this)
+    this.onResize = this.onResize.bind(this)
+
+    this.resize = new Resize(this.onResize)
+    this.scroll = new Scroll(this.onScroll, this.touch,this.resize)
+    this.mouse = new Mouse(this.onMouse, this.scroll, this.resize)
+
+    this.sections = []
+    this.elements = []
+    this.mouseElements = []
+
+    this.resizeTimeout = null
 
   }
 
   // INIT
+
   init(){
     this.scroll.init()
   }
 
+  // SECTION
+
+  addSection(el){
+    let id = tools.generateId(6)
+
+    this.sections.push({
+      el: el,
+      id: id,
+      pos: tools.getPosition(el),
+      active: false
+    })
+
+    return id
+  }
+
+  removeSection(id){
+    let index = this.sections.findIndex(section => section.id == id)
+    if (index > -1) this.sections.splice(index,1)
+  }
+
+  checkSections(scroll){
+    for (let i = 0; i < this.sections.length; i++){
+
+      let section = this.sections[i]
+      let active = section.pos.top - this.resize.height < scroll.bottom && section.pos.bottom + this.resize.height > scroll.top
+
+      if (active && !section.active) section.el.style.visibility = ''
+      if (!active && section.active) section.el.style.visibility = 'hidden'
+
+      if (active){
+        let transform = `matrix(1,0,0,1,0,${-scroll.top})`
+        section.el.style.webkitTransform = transform;
+        section.el.style.msTransform = transform;
+        section.el.style.transform = transform;
+      }
+
+      section.active = active
+    }
+  }
+
+
+  // ELEMENT
+
+  addElement(el,props = {}){
+
+    let id = tools.generateId(6)
+
+    let element = {
+      id: id,
+      el: el,
+      pos: tools.getPosition(el),
+      scroll: props.scroll || null,
+      resize: props.resize || null,
+      mouse: props.mouse || null,
+      offsetTop: props.offsetTop || null,
+      offsetBottom: props.offsetBottom || null,
+      visible: false,
+      mouseover: false
+    }
+
+    element.start = element.offsetTop ? element.pos.top + tools.getValue(element.offsetTop) : element.pos.top
+    element.end = element.offsetBottom ? element.pos.bottom - tools.getValue(element.offsetBottom) : element.pos.bottom
+
+    this.elements.push(element)
+
+    return id
+  }
+
+  removeElement(id){
+    let index = this.elements.findIndex(e => e.id == id)
+    if (index > -1) this.elements.splice(index,1)
+
+    index = this.mouseElements.findIndex(e => e.id == id)
+    if (index > -1) this.mouseElements.splice(index,1)
+  }
+
+  checkElements(scroll){
+
+    for (let i = 0; i < this.elements.length; i++){
+
+      let element = this.elements[i]
+      let visible = element.start < scroll.bottom && element.end > scroll.top
+
+      if (element.visible || visible){
+
+        if (element.scroll){
+
+          let duration = this.resize.height + (element.end - element.start)
+          let offset = Math.min(Math.max(scroll.bottom - element.start,0),duration)
+          let scrolled = scroll.top - Math.max(element.start - this.resize.height, 0)
+
+          element.scroll({
+            scroll,
+            window:{
+              width: this.resize.width,
+              height: this.resize.height
+            },
+            el: element.el,
+            position: element.pos,
+            offset: offset,
+            scrolled: scrolled,
+            enter: visible && !element.visible,
+            leave: !visible && element.visible,
+            percent: Math.min(Math.max(offset / duration,0),1),
+          })
+        }
+
+        if (element.mouse && !this.touch){
+          visible && !element.visible && this.addMouseElement(element)
+          !visible && element.visible && this.removeMouseElement(element)
+        }
+
+        element.visible = visible
+      }
+    }
+  }
+
+
   // SCROLL
 
-  scrollTo(el){
-    this.scroll.setScrollTo(el)
+  onScroll(scroll){
+    if (!this.touch) this.checkSections(scroll)
+    this.checkElements(scroll)
   }
 
-  updatePage(){
-    this.scroll.updatePage()
+  // MOUSE
+
+  onMouse(mouse){
+    this.mouseElements.forEach(element => {
+
+      let mouseover = element.pos.left < mouse.pageX
+                   && element.pos.right > mouse.pageX
+                   && element.pos.top < mouse.pageY
+                   && element.pos.bottom > mouse.pageY
+
+      if (mouseover || element.mouseover){
+
+        let x = Math.min(Math.max(mouse.pageX - element.pos.left,0),element.pos.width)
+        let y = Math.min(Math.max(mouse.pageY - element.pos.top,0),element.pos.width)
+
+        element.mouse({
+          ...mouse,
+          enter: mouseover && !element.mouseover,
+          leave: !mouseover && element.mouseover,
+          active: mouseover && element.mouseover,
+          el: element.el,
+          pos: element.pos,
+          x: x,
+          y: y
+        })
+
+        element.mouseover = mouseover
+      }
+    })
   }
 
-  addScrollPage(el){
-    this.scroll.addPage(el)
+  addMouseElement(element){
+    this.mouseElements.push(element)
   }
 
-  addScrollElement(el,fn, options){
-    return this.scroll.addElement(el,fn, options)
+  removeMouseElement(element){
+    let index = this.mouseElements.findIndex(e => e.id == element.id)
+    if (index > -1) this.mouseElements.splice(index,1)
   }
 
-  addScrollSection(el){
-    return this.scroll.addSection(el)
-  }
+  // RESIZE
 
-  addScrollEvent(fn){
-    this.scroll.addEvent(fn)
-  }
+  onResize(){
 
-  addMouseElement(el,fn){
-    return this.mouse && this.mouse.addElement(el,fn)
-  }
+    clearTimeout(this.resizeTimeout)
+    
+    for (let i = 0; i < this.sections.length; i++){
+      this.sections[i].pos = tools.getPosition(this.sections[i].el)
+    }
 
-  removeScrollElement(id){
-    this.scroll.removeElement(id)
-  }
+    for (let i = 0; i < this.elements.length; i++){
+      let element = this.elements[i]
+      element.pos = tools.getPosition(element.el)
 
-  removeScrollSection(id){
-    this.scroll.removeSection(id)
-  }
+      element.start = element.offsetTop ? element.pos.top + tools.getValue(element.offsetTop) : element.pos.top
+      element.end = element.offsetBottom ? element.pos.bottom - tools.getValue(element.offsetBottom) : element.pos.bottom
 
-  removeScrollEvent(fn){
-    this.scroll.removeEvent(fn)
-  }
+      if (element.resize) this.elements[i].resize(element.pos)
+    }
 
-  removeMouseElement(id){
-    this.mouse && this.mouse.removeElement(id)
+    this.resizeTimeout = setTimeout(this.onScroll,200)
+
   }
 
 }

@@ -17,13 +17,13 @@ export default{
                   Our events span from large-scale conferences and blockbuster product launches
                   to intimate and exclusive press launches, influencer activations and more. `,
     gallery:[
-      {label: 'this is item 1'},
-      {label: 'this is item 1'},
-      {label: 'this is item 1'},
-      {label: 'this is item 1'},
-      {label: 'this is item 1'},
-      {label: 'this is item 1'},
-      {label: 'this is item 1'}
+      {link: '/', title: 'Product Launches', image: 'productLaunch/cover.jpg'},
+      {link: '/', title: `National Sales Meetings`, image: 'nsm/cover.jpg'},
+      {link: '/', title: 'Influencer Events', image: 'influencer/cover.jpg'},
+      {link: '/', title: 'Virtual Events', image: 'virtual/cover.jpg'},
+      {link: '/', title: 'Incentive Events', image: 'incentive/cover.jpg'},
+      {link: '/', title: 'Leadership Summits', image: null},
+      {link: '/', title: 'Tradeshows', image: null}
     ]
   },
   comms:{

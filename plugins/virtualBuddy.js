@@ -4,85 +4,131 @@ import gsap from 'gsap'
 
 const vb = new VirtualBuddy()
 
-Vue.directive('entrance',{
-  inserted: function(el,{arg}){
-
-    let animation = null
-
-    switch(arg){
-      case 'scale':
-      gsap.set(el,{scale: .25, opacity:0})
-      animation = gsap.to(el,1,{scale: 1, opacity: 1, ease:'power4.out', paused: true})
-      break
-
-      case 'slide':
-      gsap.set(el,{y:300, opacity:0})
-      animation = gsap.to(el,1,{y:'-=300', opacity:1, ease:'power4.out', paused: true})
-      break
-
-    }
-
-    if (animation){
-      el.dataset.entrance = vb.addScrollElement(el,(e)=>{
-        if (e.percent > .1) {
-          animation.play()
-          remove(el,'entrance')
-        }
-      })
-    }
-  }
-})
-
-Vue.directive('element',{
-  inserted: function(el,{value}){
-
-    let isArray = Array.isArray(value)
-    let fn = isArray ? value[0] : value
-    let options = isArray ? value[1] : null
-
-    el.dataset.element = vb.addScrollElement(el,fn,options)
-
-  },
-  unbind: function(el){
-    remove(el, 'element')
-  }
-})
-
+console.log(vb)
 
 Vue.directive('section',{
   inserted: function(el){
-    let id = vb.addScrollSection(el)
-    if (id) el.dataset.section = id
+    el.dataset['section'] = vb.addSection(el)
   },
   unbind: function(el){
-    remove(el,'section')
+    vb.removeSection(el.dataset['section'])
   }
 })
 
+Vue.directive('scroll',{
+  inserted: function(el,{value}){
+    let props = getProps(value, 'scroll')
+    if (props.scroll) el.dataset['scroll'] = vb.addElement(el,props)
+  },
+  unbind: function(el){
+    if (el.dataset && el.dataset['scroll']){
+      vb.removeElement(el.dataset['scroll'])
+    }
+  }
+})
 
-Vue.directive('page',{
-  inserted: function(el){
-    vb.addScrollPage(el)
+Vue.directive('resize',{
+  inserted: function(el,{value}){
+    let props = getProps(value, 'resize')
+    if (props.resize) el.dataset['resize'] = vb.addElement(el,props)
+  },
+  unbind: function(el){
+    if (el.dataset && el.dataset['resize']){
+      vb.removeElement(el.dataset['resize'])
+    }
   }
 })
 
 Vue.directive('mouse',{
   inserted: function(el,{value}){
-    el.dataset.mouse = vb.addMouseElement(el, value)
+    let props = getProps(value, 'mouse')
+    if (props.mouse) el.dataset['mouse'] = vb.addElement(el,props)
   },
   unbind: function(el){
-    remove(el, 'mouse')
+    if (el.dataset && el.dataset['mouse']){
+      vb.removeElement(el.dataset['mouse'])
+    }
+  }
+})
+
+Vue.directive('element',{
+  inserted: function(el,{value = {}}){
+    if (value.scroll || value.resize || value.mouse){
+      el.dataset['mouse'] = vb.addElement(el,value)
+    }
+
+  },
+  unbind: function(el){
+    if (el.dataset && el.dataset['element']){
+      vb.removeElement(el.dataset['element'])
+    }
+  }
+})
+
+Vue.directive('enter',{
+  inserted: function(el,{arg, value}){
+
+    let anim = null
+
+    switch(arg){
+      case 'slideup':
+      anim = gsap.from(el,1,{yPercent: 100, opacity:0, ease: 'power4.out', paused: true})
+      break
+
+      case 'slideleft':
+      anim = gsap.from(el,1,{x:'-=200', opacity:0, ease: 'power4.out', paused: true})
+      break
+
+      case 'slideright':
+      anim = gsap.from(el,1,{x:'+=200', opacity:0, ease: 'power4.out', paused: true})
+      break
+
+      case 'pop':
+      anim = gsap.from(el,1,{scale: .25, opacity:0, ease: 'power2.out', paused: true})
+      break
+
+      case 'custom':
+      anim = value()
+      break
+
+    }
+
+    if (anim){
+      el.dataset['enter'] = vb.addElement(el,{
+        scroll: (e)=>{
+          if (e.scrolled > e.window.height * .1){
+            anim.play()
+            vb.removeElement(el.dataset['enter'])
+          }
+        }
+      })
+    }
+  },
+  unbind: function(el){
+    vb.removeElement(el.dataset['enter'])
   }
 })
 
 Object.defineProperty(Vue.prototype,'$vb',{value: vb})
 
-// FUNCTIONS
+function getProps(value, type){
 
-function remove(el, name){
-  let id = el.dataset[name]
-  if (id){
-    vb.removeScrollElement(id)
-    el.removeAttribute(`data-${name}`)
+  let fn = null
+  let offsetTop = null
+  let offsetBottom = null
+
+  if (Array.isArray(value)){
+    if (value.length > 0) fn = value[0]
+    if (value.length > 1) offsetTop = value[1]
+    if (value.length > 2) offsetBottom = value[2]
+  } else {
+    fn = value
   }
+
+  let props = {}
+  if (fn) props[type] = fn
+  if (offsetTop) props.offsetTop = offsetTop
+  if (offsetBottom) props.offsetBottom = offsetBottom
+
+  return props
 }

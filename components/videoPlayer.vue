@@ -45,10 +45,10 @@ export default {
       this.$gsap.to(this.$refs.button,.25,{opacity:0,scale:0})
     },
     handleMouse(e){
-      if (e.entering){
+      if (e.enter){
         this.showButton()
       }
-      if (e.leaving){
+      if (e.leave){
         this.hideButton()
       }
       if (e.active){
@@ -133,7 +133,7 @@ export default {
       left: 50%;
       transform: translate(-50%,-50%);
       opacity: 1;
-      
+
       @media (max-width: $mobile){
         .content{
           width: 75px;

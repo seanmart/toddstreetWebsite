@@ -1,81 +1,70 @@
 <template lang="html">
   <main id="home">
 
-    <section id="intro" v-section>
+    <section class="intro" v-section>
       <split :text="intro.title" tag="h1" textClass="header--bg reveal"/>
       <p class="body--bg" v-html="introDescription"/>
     </section>
 
-    <section id="sizzle" v-section>
-      <video-player v-entrance:scale/>
+    <section class="sizzle" v-section>
+      <video-player v-enter:pop/>
     </section>
 
-    <div class="offerings" v-element="[animateNav, {offsetEnter: '50vh', offsetLeave: '100vh + 100'}]">
-
-      <div class="side-nav">
-        <aside class="navigation--rg">
-          <h3
-            v-for="(link,i) in sideNavLinks"
-            :key="i"
-            class="link"
-            :class="{active: sideNav == link.id}"
-            @click="setScrollTo(link.id,link.el)"
-            v-html="link.label"
-          />
-        </aside>
-      </div>
-
-      <section id="events" class="offering" v-section v-element="[()=> setNav('events'),{offset: '50vh'}]">
-          <section-title :title="events.title"/>
-          <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
-          <div class="description">
-            <p class="bold body--rg" v-html="events.heading" v-entrance:slide/>
-            <p class="body--rg" v-html="events.description" v-entrance:slide/>
-          </div>
-          <div class="gallery">
-            <template v-for="(item,i) in events.gallery">
-              <card :key="i">
-              </card>
-            </template>
-          </div>
-      </section>
-
-      <section id="comms" class="offering" v-section v-element="[()=> setNav('comms'),{offset: '50vh'}]">
-          <section-title :title="comms.title"/>
-          <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
-          <div class="description">
-            <p class="bold body--rg" v-html="comms.heading" v-entrance:slide/>
-            <p class="body--rg" v-html="comms.description" v-entrance:slide/>
-          </div>
-          <div class="gallery">
-            <template v-for="(item,i) in comms.gallery">
-              <card :key="i">
-              </card>
-            </template>
-          </div>
-      </section>
-
-      <section id="training" class="offering" v-section v-element="[()=> setNav('training'),{offset: '50vh'}]">
-          <section-title :title="training.title"/>
-          <div class="circle" v-entrance:scale v-element="parallaxCircle"/>
-          <div class="description">
-            <p class="bold body--rg" v-html="training.heading" v-entrance:slide/>
-            <p class="body--rg" v-html="training.description" v-entrance:slide/>
-          </div>
-          <div class="gallery">
-            <template v-for="(item,i) in training.gallery">
-              <card :key="i">
-              </card>
-            </template>
-          </div>
-      </section>
+    <div class="side-nav">
+      <aside class="navigation--rg">
+        <h3
+          v-for="(link,i) in sideNavLinks"
+          :key="i"
+          class="link"
+          :class="{active: sideNav == link.id}"
+          @click="setScrollTo(link.id,link.el)"
+          v-html="link.label"
+        />
+      </aside>
     </div>
 
-    <section id="cares" class="full-width" v-section>
+    <div v-scroll="[animateSideNav, '50vh', '100vh']">
+
+    <section id="events" v-section v-scroll="()=> sideNav ='events'">
+        <section-title :title="events.title"/>
+        <section-circle/>
+        <section-description :heading="events.heading" :description="events.description"/>
+        <div class="gallery">
+          <template v-for="(item,i) in events.gallery">
+            <case-study :key="i" :title="item.title" :image="item.image" :link="item.link"/>
+          </template>
+        </div>
+    </section>
+
+    <section id="comms" v-section v-scroll="()=> sideNav ='comms'">
+        <section-title :title="comms.title"/>
+        <section-circle/>
+        <section-description :heading="comms.heading" :description="comms.description"/>
+        <div class="gallery">
+          <template v-for="(item,i) in comms.gallery">
+            <case-study :key="i"/>
+          </template>
+        </div>
+    </section>
+
+    <section id="training" v-section v-scroll="()=> sideNav ='training'">
+        <section-title :title="training.title"/>
+        <section-circle/>
+        <section-description :heading="training.heading" :description="training.description"/>
+        <div class="gallery">
+          <template v-for="(item,i) in training.gallery">
+            <case-study :key="i"/>
+          </template>
+        </div>
+    </section>
+
+    </div>
+
+    <section class="cares full-width" v-section>
       <section-title :title="cares.title"/>
     </section>
 
-    <section id="about" class="full-width" v-section>
+    <section class="about full-width" v-section>
       <section-title :title="about.title"/>
     </section>
 
@@ -83,13 +72,21 @@
 </template>
 
 <script>
-import card from '@/components/card'
+import caseStudy from '@/components/card/caseStudy'
 import videoPlayer from '@/components/videoPlayer'
 import sectionTitle from '@/components/sectionTitle'
+import sectionDescription from '@/components/sectionDescription'
+import sectionCircle from '@/components/sectionCircle'
 import data from '@/assets/data/home'
 import {mapState} from 'vuex'
 export default {
-  components:{videoPlayer,sectionTitle, card},
+  components:{
+    videoPlayer,
+    sectionTitle,
+    sectionDescription,
+    sectionCircle,
+    caseStudy
+  },
   data:()=>({
     intro: data.intro,
     events: data.events,
@@ -99,66 +96,45 @@ export default {
     about: data.about,
     sideNav: null,
     scrollTo: null,
-    animations: {}
+    animations: {},
+    sideNavLinks:[
+      {label:'Training', el: '#training',id:'training'},
+      {label:'Communications', el: '#comms',id:'comms'},
+      {label:'Events', el: '#events', id:'events'}
+    ]
   }),
   watch:{
     ready(ready){
       if (ready){
         let tl = this.$gsap.timeline({delay: .25})
-        tl.to('#intro h1',.7,{yPercent: 0,ease: 'power4.out'},0)
-        tl.to('#intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
-        tl.set(['#intro h1','#intro p'],{clearProps: 'all'})
+        tl.to('.intro h1',.7,{yPercent: 0,ease: 'power4.out',stagger:.05},0)
+        tl.to('.intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
+        tl.set(['.intro h1','.intro p'],{clearProps: 'all'})
       }
     }
   },
   mounted(){
-    this.setIntroHover()
-    this.setNavAnimation()
-    this.$gsap.set('#intro h1',{yPercent: 100})
-    this.$gsap.set('#intro p',{opacity:0,yPercent: -50})
+    this.$gsap.set('.intro h1',{yPercent: 100})
+    this.$gsap.set('.intro p',{opacity:0,yPercent: -50})
+
+    let tl = this.$gsap.timeline({paused: true})
+    tl.to('.side-nav', 1,{xPercent: -100, ease: 'expo.out'},0)
+    tl.to('.side-nav', 1,{xPercent: 0, ease: 'expo.in'},10)
+    this.animations.sideNav = tl
+
   },
   methods:{
-    parallaxCircle(e){
+    animateCircle(e){
       if (e.window.width < 600) return
       this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
     },
-    parallaxEvents(e){
-      if (e.window.width < 600) return
-      this.$gsap.set(e.el,{y: `-=${e.delta * .15}`})
-    },
-    animateNav(e){
+    animateSideNav(e){
       this.animations.sideNav.progress(e.percent)
-    },
-    setNavAnimation(){
-      this.animations.sideNav = this.$gsap.timeline({paused: true})
-      this.animations.sideNav.to('.side-nav',.5,{xPercent: -100, ease: 'expo.out'},0)
-      this.animations.sideNav.to('.side-nav',.5,{xPercent: 0, ease: 'expo.in'},10)
-    },
-    setIntroHover(){
-      let els = document.querySelectorAll('#intro p b')
-      els.forEach(el => {
-        this.$vb.addMouseElement(el,(e)=>{
-
-          let gif = el.querySelector('img')
-
-          if (e.entering){
-            this.$gsap.set(gif,{display: 'block'})
-            this.$gsap.from(gif,.25,{scale:0, opacity:0})
-          }
-          if (e.active){
-            this.$gsap.set(gif,{x:e.x, y: e.y})
-          }
-          if (e.leaving){
-            this.$gsap.to(gif,.25,{scale:0, opacity:0})
-            this.$gsap.set(gif,{clearProps:'all', display: 'none', delay: .25})
-          }
-        })
-      })
     },
     setScrollTo(id, el){
       this.sideNav = id
       this.scrollTo = id
-      this.$vb.scrollTo(el)
+      this.$vb.scroll.scrollTo(el)
     },
     setNav(id){
       if (this.scrollTo && id !== this.scrollTo) return
@@ -168,31 +144,36 @@ export default {
   },
   computed:{
     ...mapState(['ready']),
-    sideNavLinks(){
-      return [
-        {label:'Training', el: '#training',id:'training'},
-        {label:'Communications', el: '#comms',id:'comms'},
-        {label:'Events', el: '#events', id:'events'}
-      ]
-    },
     introDescription(){
       let text = this.intro.description
       this.intro.hover.forEach(h => {
         text = text.replace(h.text,`<b>${h.text}<img src="${h.gif}"/></b>`)
       })
       return text
+    },
+    animate(){
+      let sideNav = this.$gsap.timeline({paused: true})
+      sideNav.to('.side-nav',1,{xPercent: -100, ease: 'expo.out'},0)
+      sideNav.to('.side-nav',1,{xPercent: 0, ease: 'expo.in'},10)
+
+      return{
+        circle: (e) => {
+          if (e.scroll.width < 600) return
+          this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
+        },
+        sideNav: (e)=> sideNav.progress(e.percent)
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-
 #home{
 
-  #intro{
+  .intro{
     position: relative;
-    padding-top: $desktop-section-space / 2;
+    padding-top: $desktop-section-space / 1.5;
 
     .word{
       overflow: hidden;
@@ -238,53 +219,32 @@ export default {
     }
   }
 
-  .offerings{
-    .side-nav{
-      position: fixed;
-      z-index: 50;
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
+  .side-nav{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    left: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $desktop-margins;
+
+    aside{
+      flex: 0 0 auto;
+      transform: rotate(-90deg);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      width: $desktop-margins;
+      justify-content: space-between;
+    }
 
-      aside{
-        flex: 0 0 auto;
-        transform: rotate(-90deg);
-        display: flex;
-        justify-content: space-between;
+    .link{
+      cursor: pointer;
+      flex: 1 1 auto;
+      padding: 10px 15px;
+      position: relative;
+      &.active{
+        color: #1E0FC7;
       }
-
-      .link{
-        cursor: pointer;
-        flex: 1 1 auto;
-        padding: 10px 15px;
-        position: relative;
-        &.active{
-          color: #1E0FC7;
-        }
-      }
-    }
-    .section-title{
-      margin-bottom: 50px;
-    }
-
-    .description{
-      margin-left: $col4 + $gutter;
-      margin-bottom: $desktop-section-space;
-    }
-
-    .circle{
-      position: absolute;
-      top: $desktop-section-space;
-      right: -20%;
-      width: 60vw;
-      height: 60vw;
-      border-radius: 50%;
-      background-image: url('../static/texture.jpg');
-      z-index: -1;
     }
   }
 }
@@ -303,24 +263,28 @@ export default {
     }
   }
 
-  .card:nth-child(8n + 1){
+  .card:nth-child(8n + 1),
+  .card:nth-child(8n + 5){
     flex: 0 0 $col8;
-    margin-right: $col4 + $gutter;
     .card-container{
-      padding-bottom: 110%;
+      padding-bottom: 62%;
     }
+  }
+
+  .card:nth-child(8n + 1){
+    margin-right: $col4 + $gutter;
   }
 
   .card:nth-child(8n + 2),
   .card:nth-child(8n + 8){
-    .card-content{
+    .case-study{
       margin-top: 50%
     }
   }
 
   .card:nth-child(8n + 4),
   .card:nth-child(8n + 6){
-    .card-content{
+    .case-study{
       margin-top: -50%
     }
   }
@@ -332,11 +296,7 @@ export default {
   }
 
   .card:nth-child(8n + 5){
-    flex: 0 0 $col8;
     margin-left: $col4 + $gutter;
-    .card-container{
-      padding-bottom: 110%;
-    }
   }
 }
 
@@ -352,8 +312,9 @@ export default {
     .card-container{
       padding-bottom: 90%;
     }
+
     &:nth-child(even){
-      .card-content{
+      .case-study{
         margin-top: 20%;
       }
     }
@@ -375,33 +336,36 @@ export default {
     flex: 0 0 auto;
     width: $col10;
     margin-bottom: $gutter;
+    .card-container{
+      padding-bottom: 50%;
+    }
+
     &:nth-child(even){
       margin-left: $col2 + $gutter;
     }
     &:last-child{
       margin-bottom: 0px;
     }
-    .card-container{
-      padding-bottom: 50%;
+  }
+}
+
+#home{
+  .cares{
+    margin-top: -200px;
+    padding-top: 200 + $desktop-margins;
+    background: #1E0FC7;
+    z-index: -1;
+    hr{
+      background: #7b74c7;
+    }
+    .word{
+      color: white;
     }
   }
-}
 
-#cares{
-  margin-top: -200px;
-  padding-top: 200 + $desktop-margins;
-  background: #1E0FC7;
-  z-index: -1;
-  hr{
-    background: #7b74c7;
+  .about{
+    background-image: url('../static/texture.jpg');
   }
-  .word{
-    color: white;
-  }
-}
-
-#about{
-  background-image: url('../static/texture.jpg');
 }
 
 
@@ -410,7 +374,7 @@ export default {
 
 @media (min-width: $widescreen + 100){
   #home{
-    #intro{
+    .intro{
       p{
         max-width: 1000px;
       }
@@ -424,48 +388,29 @@ export default {
 
 @media (max-width: $tablet){
   #home{
-    #sizzle{
+    .sizzle{
       padding-left: 0px;
       padding-right: 0px;
     }
 
-    .offerings{
-      .side-nav{
-        width: $tablet-margins;
-      }
-      .description{
-        margin-left: $col4;
-      }
+    .side-nav{
+      width: $tablet-margins;
     }
   }
 }
 
 @media (max-width: $mobile){
+
   #home{
-    #intro{
+    .intro{
       img{
         max-height: 100px;
         max-width: 100px;
       }
     }
 
-    .offerings{
-      .side-nav{
-        width: $mobile-margin-right;
-      }
-      .description{
-        margin-left: 0px;
-      }
-      .circle{
-        width: 110vw;
-        height: 110vw;
-        right: -40vw;
-        transform: none !important;
-      }
-
-      br{
-        display: none;
-      }
+    .side-nav{
+      width: $mobile-margin-right;
     }
 
     .card{
@@ -475,25 +420,27 @@ export default {
       transform: none !important;
       .card-container{
         padding-bottom: 60vh !important;
-        .card-content{
+        .case-study{
           margin: 0px !important;
         }
       }
     }
-
     .cares{
       padding-top: 200 + $tablet-margins;
     }
   }
+
 }
 
 .touch{
-  #intro{
-    b{
-      color: inherit;
-      cursor: inherit;
-      &::after{
-        content: none;
+  #home{
+    .intro{
+      b{
+        color: inherit;
+        cursor: inherit;
+        &::after{
+          content: none;
+        }
       }
     }
   }

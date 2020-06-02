@@ -1,5 +1,5 @@
 <template>
-  <div id="page" v-page :class="{touch}">
+  <div id="page" :class="{touch}">
     <site-header @ready="ready"/>
     <nuxt />
     <site-footer/>
@@ -22,7 +22,7 @@ export default{
   methods:{
     ready(){
       this.$store.commit('ready', true)
-      setTimeout(() => this.$vb.init(),250)
+      this.$vb.init()
     }
   },
   computed: mapState(['touch'])

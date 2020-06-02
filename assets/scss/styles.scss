@@ -32,6 +32,13 @@ main{
   }
 }
 
+.header--sm{
+  @include headerFont;
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 95%;
+}
+
 .body--bg{
   @include bodyFont;
   font-size: 29px;
@@ -63,24 +70,6 @@ main{
   font-weight: 500;
 }
 
-@media (min-width: $widescreen + 100){
-  .header--bg{
-    font-size: 90px;
-    &.reveal{
-      padding-top: 3px;
-      padding-bottom: 15px;
-    }
-  }
-
-  .body--bg{
-    font-size: 37px;
-  }
-
-  .body--rg{
-    font-size: 32px;
-  }
-}
-
 @media (max-width: $tablet){
   section{
     padding: $tablet-section-space $tablet-margins;
@@ -88,6 +77,10 @@ main{
 
   .header--bg{
     font-size: 70px;
+  }
+
+  .header--sm{
+    font-size: 30px;
   }
 
   .body--bg{
@@ -108,10 +101,6 @@ main{
   section{
     padding: $mobile-section-space $mobile-margin-right;
     padding-left: $mobile-margin-left;
-  }
-
-  br{
-    display: none;
   }
 
   .header--bg{

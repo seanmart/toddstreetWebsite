@@ -2,10 +2,7 @@
   <div class="card">
     <div class="card-container">
       <div class="card-wrapper">
-        <div class="card-content" v-entrance:slide>
-          <div class="card-ribbon"/>
-          <slot/>
-        </div>
+        <slot/>
       </div>
     </div>
   </div>
@@ -34,7 +31,6 @@ export default {
   .card-content{
     height: 100%;
     width: 100%;
-    background: #eee;
     position: relative;
     overflow: hidden;
   }

@@ -1,5 +1,5 @@
 <template lang="html">
-  <header v-element="toggleTag">
+  <header v-scroll="toggleTag">
     <section class="top" v-section>
 
       <div class="logo">
@@ -56,7 +56,7 @@ export default {
       this.menuOpen ? this.closeMenu() : this.openMenu()
     },
     toggleTag(e){
-      this.showTag = !e.visible
+      this.showTag = e.leave
     },
     showHeader(){
       setTimeout(()=> this.$emit('ready'), 250)
@@ -263,7 +263,18 @@ header{
     }
 
     aside{
-      display: none;
+      left: 100%;
+      right: auto;
+      bottom: 40px;
+      top: auto;
+      max-width: 40px;
+      width: $mobile-margin-right / 1.5;
+      svg{
+        transform: rotate(-90deg)
+      }
+      &.show{
+        transform: translateX(-100%);
+      }
     }
   }
 }

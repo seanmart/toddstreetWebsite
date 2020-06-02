@@ -105,6 +105,10 @@
     	c-5.4,2.6-11,4.2-16.8,4.2c-8.2,0-12.1-3.7-12.1-12.6v-42.7H1179.3z"/>
   </svg>
 
+  <svg v-else-if="plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1450 1450">
+    <polygon points="1450,550 900,550 900,0 550,0 550,550 0,550 0,900 550,900 550,1450 900,1450 900,900 1450,900 "/>
+  </svg>
+
 
 </template>
 
@@ -116,7 +120,8 @@ export default {
     facebook: {type: Boolean, default: false},
     twitter: {type: Boolean, default: false},
     instagram: {type: Boolean, default: false},
-    linkedin: {type: Boolean, default: false}
+    linkedin: {type: Boolean, default: false},
+    plus: {type: Boolean, default: false}
   }
 }
 </script>

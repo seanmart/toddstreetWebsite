@@ -28,7 +28,6 @@ export default class{
     }
 
     this.scrollTo = {
-      wheel: null,
       destination: null,
       current: null,
       ticking: false,
@@ -220,7 +219,8 @@ export default class{
     this.scrollTo.destination = tools.getPosition(el).top
 
     if (!this.scrollTo.ticking) {
-      this.scrollTo.wheel = window.addEventListener('wheel', this.cancelScrollTo)
+      window.addEventListener('wheel', this.cancelScrollTo)
+      window.addEventListener('touchmove', this.cancelScrollTo)
       this.scrollTo.current = this.scroll.top
       this.runScrollTo()
     }
@@ -236,6 +236,8 @@ export default class{
         this.runScrollTo()
       } else {
         window.removeEventListener('wheel', this.cancelScrollTo)
+        window.removeEventListener('touchmove', this.cancelScrollTo)
+
         this.scrollTo = {
           ticking: false,
           current: null,

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="section-title" ref="st">
+  <div class="section-title" ref="st" v-enter:custom="animation">
     <split textClass="header--bg reveal" :text="title" tag="h1"/>
     <hr ref="rule"/>
   </div>
@@ -10,24 +10,17 @@ export default {
   props:{
     title: {type:String,default:''}
   },
-  mounted(){
+  methods:{
+    animation(){
+      let wordEls = this.$refs.st.querySelectorAll('h1')
 
-    let wordEls = this.$refs.st.querySelectorAll('h1')
-    this.$gsap.set(wordEls,{yPercent: 100})
-    this.$gsap.set(this.$refs.rule,{scaleY:0, transformOrigin: 'bottom'})
+      let tl = this.$gsap.timeline({paused: true})
+      tl.from(this.$refs.rule,1,{scaleY:0, ease: 'power4.out', clearProps: 'all'},0)
+      tl.from(wordEls,1,{yPercent:100, ease: 'power4.out', stagger: .07, clearProps:'all'},.3)
 
-    let tl = this.$gsap.timeline({paused: true})
-    tl.to(this.$refs.rule,1,{scaleY:1,ease: 'power4.out', clearProps: 'all'},0)
-    tl.to(wordEls,1,{yPercent:0, ease: 'power4.out', stagger: .07, clearProps:'all'},.3)
-
-    this.$vb.addScrollElement(this.$refs.st,(e)=>{
-      if (e.percent > .1){
-        tl.play()
-        this.$vb.removeScrollElement(this.$refs.st)
-      }
-    })
-
-  },
+      return tl
+    }
+  }
 }
 </script>
 
@@ -35,9 +28,11 @@ export default {
 .section-title{
   position: relative;
   padding-left: $col + $gutter;
+  margin-bottom: 50px;
 
   hr{
     background: #1E0FC7;
+    transform-origin: bottom;
     border: none;
     position: absolute;
     width: $gutter;
