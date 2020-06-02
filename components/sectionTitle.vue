@@ -38,7 +38,7 @@ export default {
     width: $gutter;
     margin: 0px;
     top: 2px;
-    bottom: 18px;
+    bottom: 14px;
     left: 0px;
   }
 

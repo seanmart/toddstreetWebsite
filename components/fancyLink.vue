@@ -50,6 +50,15 @@ export default {
       transform: rotate(90deg);
     }
   }
+
+  @media (max-width: $tablet){
+    .fancy-link-text{
+      font-size: 18px;
+    }
+    .plus svg{
+      width: 13px;
+    }
+  }
 }
 
 </style>

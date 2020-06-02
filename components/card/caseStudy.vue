@@ -1,12 +1,17 @@
 <template lang="html">
   <card>
-    <div ref="caseStudy" class="case-study" v-mouse="handleMouse" v-enter:custom="enterAnimation">
+    <div
+    ref="caseStudy"
+    class="case-study"
+    :class="{show}"
+    v-mouse="handleMouse"
+    v-enter:custom="enterAnimation"
+    >
 
       <div v-if="image" class="image" ref="image" :style="{backgroundImage:`url(${image})`}"/>
 
       <h3 v-if="title" v-html="title" class="title header--sm" ref="title"/>
 
-      <!--
       <div class="title-side" v-if="title" v-resize="initSideTitle">
         <div class="side-title" ref="sideTitle">
           <div class="side-title-text" ref="sideTitleText">
@@ -14,7 +19,6 @@
           </div>
         </div>
       </div>
-    -->
 
       <div class="link" ref="link">
         <fancy-link v-if="link" :to="link">check it out</fancy-link>
@@ -33,22 +37,13 @@ export default {
     link: {type: String, default: null}
   },
   data:()=>({
+    show: false,
     sideTextAnimation: null,
-    hoverAnimation: null
+    timeout: null
   }),
   mounted(){
 
-
-
-    //if (this.title) this.initSideTitle()
-
-    if (this.link || this.image || this.title){
-      let tl = this.$gsap.timeline({paused: true})
-      if (this.link) tl.to(this.$refs.link,.5,{opacity:1,yPercent: 0,ease:'sine.inOut'},0)
-      if (this.image) tl.to(this.$refs.image,.5,{scale:1.05,ease:'sine.inOut'},0)
-      //if (this.title) tl.to(this.$refs.sideTitle,.5,{opacity:1,ease:'sine.inOut'},0)
-      this.hoverAnimation = tl
-    }
+    if (this.title) this.initSideTitle()
 
   },
   methods:{
@@ -70,15 +65,16 @@ export default {
     handleMouse(e){
 
       if (e.enter) {
-        //clearTimeout(this.timeout)
-        //if (this.sideTextAnimation) this.sideTextAnimation.resume()
-        if (this.hoverAnimation) this.hoverAnimation.reversed(false).play()
+        this.show = true
+        clearTimeout(this.timeout)
+        if (this.sideTextAnimation) this.sideTextAnimation.resume()
+
 
       }
       if (e.leave){
-        //clearTimeout(this.timeout)
-        if (this.hoverAnimation) this.hoverAnimation.reversed(true)
-        //if (this.sideTextAnimation) this.timeout = setTimeout(()=> this.sideTextAnimation.pause(),750)
+        this.show = false
+        clearTimeout(this.timeout)
+        if (this.sideTextAnimation) this.timeout = setTimeout(()=> this.sideTextAnimation.pause(),750)
       }
     }
   }
@@ -102,6 +98,7 @@ export default {
     z-index: -1;
     background-size: cover;
     background-position: center center;
+    transition: transform .5s;
   }
 
 
@@ -119,6 +116,8 @@ export default {
     bottom: 30px;
     left: 30px;
     opacity: 0;
+    transform: translateY(50%);
+    transition: transform .5s, opacity .5s;
   }
   .side-title{
     user-select: none;
@@ -130,10 +129,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: opacity .5s;
     opacity: 0;
 
     .side-title-text{
-      opacity: .2;
+      opacity: .3;
       flex: 0 0 auto;
       transform: rotate(90deg);
       display: flex;
@@ -146,10 +146,23 @@ export default {
       flex: 0 0 auto;
       @include headerFont;
       padding: 0px 1vw;
-      font-weight: 700;
+      font-weight: 900;
       text-transform: uppercase;
       color: white;
       white-space: nowrap;
+    }
+  }
+
+  &.show{
+    .link{
+      opacity: 1;
+      transform: translateY(0px);
+    }
+    .image{
+      transform: scale(1.05);
+    }
+    .side-title{
+      opacity: 1;
     }
   }
 
@@ -159,6 +172,8 @@ export default {
       top: 20px;
     }
     .link{
+      opacity: 1;
+      transform: translateY(0px);
       left: 20px;
       bottom: 20px;
     }

@@ -107,15 +107,14 @@ export default {
     ready(ready){
       if (ready){
         let tl = this.$gsap.timeline({delay: .25})
-        tl.to('.intro h1',.7,{yPercent: 0,ease: 'power4.out',stagger:.05},0)
-        tl.to('.intro p',1,{yPercent: 0, opacity: 1, ease: 'power4.out'},0)
-        tl.set(['.intro h1','.intro p'],{clearProps: 'all'})
+        tl.set('.intro',{opacity:1})
+        tl.from('.intro h1',.7,{yPercent: 100,ease: 'power4.out',stagger:.05},0)
+        tl.from('.intro p',1,{yPercent:-50, opacity: 0, ease: 'power4.out'},0)
+        tl.set(['.intro h1, .intro p'],{clearProps:'all'})
       }
     }
   },
   mounted(){
-    this.$gsap.set('.intro h1',{yPercent: 100})
-    this.$gsap.set('.intro p',{opacity:0,yPercent: -50})
 
     let tl = this.$gsap.timeline({paused: true})
     tl.to('.side-nav', .75,{xPercent: -100, ease: 'expo.out'},0)
@@ -144,7 +143,7 @@ export default {
       this.sideNav = id
     },
     setSideNavPosition(){
-      this.$gsap.set('.side-nav',{top: window.innerHeight * .4})
+      this.$gsap.set('.side-nav',{top: window.innerHeight * .5})
     }
   },
   computed:{
@@ -177,6 +176,7 @@ export default {
 #home{
 
   .intro{
+    opacity: 0;
     position: relative;
     padding-top: $desktop-section-space / 1.5;
 
@@ -271,7 +271,7 @@ export default {
   .card:nth-child(8n + 5){
     flex: 0 0 $col8;
     .card-container{
-      padding-bottom: 62%;
+      padding-bottom: 80%;
     }
   }
 
