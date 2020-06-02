@@ -3,7 +3,6 @@ import Vue from "vue";
 import gsap from 'gsap'
 
 const vb = new VirtualBuddy()
-
 console.log(vb)
 
 Vue.directive('section',{
@@ -106,7 +105,6 @@ Vue.directive('enter',{
   },
   unbind: function(el){
     vb.removeElement(el.dataset['enter'])
-    console.log(vb)
   }
 })
 

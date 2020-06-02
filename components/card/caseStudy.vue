@@ -3,9 +3,10 @@
     <div
     ref="caseStudy"
     class="case-study"
-    :class="{show}"
+    :class="{show,scroll}"
     v-mouse="handleMouse"
     v-enter:custom="enterAnimation"
+    :style="{background: color || '#ccc'}"
     >
 
       <div v-if="image" class="image" ref="image" :style="{backgroundImage:`url(${image})`}"/>
@@ -15,9 +16,19 @@
       <div class="title-side" v-if="title" v-resize="initSideTitle">
         <div class="side-title" ref="sideTitle">
           <div class="side-title-text" ref="sideTitleText">
-            <h1 v-for="i in 3" :key="i" v-html="title" ref="text"/>
+            <h1
+              v-for="i in 3"
+              :key="i"
+              v-html="title"
+              ref="text"
+              :style="{animationDuration: setSpeed(title)}"
+              />
           </div>
         </div>
+      </div>
+
+      <div v-if="$slots.default && $slots.default.length > 0" class="slot" ref="slot">
+        <slot/>
       </div>
 
       <div class="link" ref="link">
@@ -34,11 +45,12 @@ export default {
   props:{
     image:{type: String, default: null},
     title:{type: String, default: null},
-    link: {type: String, default: null}
+    link: {type: String, default: null},
+    color: {type: String, default: null},
   },
   data:()=>({
     show: false,
-    sideTextAnimation: null,
+    scroll: false,
     timeout: null
   }),
   mounted(){
@@ -47,34 +59,33 @@ export default {
 
   },
   methods:{
+    setSpeed(text){
+      return (text.split('').length * .25) + 5 + 's'
+    },
     enterAnimation(){
+      let hasSlot = this.$slots.default && this.$slots.default.length > 0
       let tl = this.$gsap.timeline({paused: true})
       tl.from(this.$refs.caseStudy,1,{yPercent: 50, opacity: 0, ease: 'power4.out'},0)
       if (this.title) tl.from(this.$refs.title,1,{yPercent: 100, opacity: 0,ease: 'power4.out'},.4)
+      if (hasSlot) tl.from(this.$refs.slot, 1,{yPercent: 100, opacity: 0, ease: 'power4.out'},.6)
       return tl
     },
     initSideTitle(){
       let width = this.$refs.sideTitle.offsetWidth
       let height = this.$refs.sideTitle.offsetHeight
-      let speed = this.title.split('').length * .5 + 5
-
-      this.$gsap.set(this.$refs.text,{clearProps: 'all'})
       this.$gsap.set(this.$refs.sideTitleText,{height:width, width: height,fontSize: width })
-      this.sideTextAnimation = this.$gsap.to(this.$refs.text,speed,{xPercent: 100, repeat: -1, ease: 'none', paused: true})
     },
     handleMouse(e){
 
       if (e.enter) {
-        this.show = true
         clearTimeout(this.timeout)
-        if (this.sideTextAnimation) this.sideTextAnimation.resume()
-
-
+        this.show = true
+        this.scroll = true
       }
       if (e.leave){
-        this.show = false
         clearTimeout(this.timeout)
-        if (this.sideTextAnimation) this.timeout = setTimeout(()=> this.sideTextAnimation.pause(),750)
+        this.show = false
+        this.timeout = setTimeout(()=> this.scroll = false,500)
       }
     }
   }
@@ -86,7 +97,6 @@ export default {
 .case-study{
   height: 100%;
   position: relative;
-  background: #ccc;
   overflow: hidden;
 
   .image{
@@ -101,6 +111,20 @@ export default {
     transition: transform .5s;
   }
 
+  .slot{
+    position: absolute;
+    top: 10%;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      transition: transform .5s;
+    }
+  }
 
   .title{
     position: absolute;
@@ -129,17 +153,22 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: opacity .5s;
+    transition: opacity .5s, transform .5s;
+    transform: translateX(20%);
     opacity: 0;
 
     .side-title-text{
       opacity: .3;
       flex: 0 0 auto;
-      transform: rotate(90deg);
+      transform: rotate(-90deg);
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
+    }
+
+    br{
+      display: none;
     }
 
     h1{
@@ -162,7 +191,19 @@ export default {
       transform: scale(1.05);
     }
     .side-title{
+      transform: translateX(0px);
       opacity: 1;
+    }
+    .slot img{
+      transform: scale(.95);
+    }
+  }
+
+  &.scroll{
+    .side-title-text h1{
+      animation-name: marquee;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
     }
   }
 
@@ -177,6 +218,15 @@ export default {
       left: 20px;
       bottom: 20px;
     }
+  }
+}
+
+@keyframes marquee{
+  0%{
+    transform: translateX(0px);
+  }
+  100%{
+    transform: translateX(-100%);
   }
 }
 </style>

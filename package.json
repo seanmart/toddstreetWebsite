@@ -1,5 +1,5 @@
 {
-  "name": "website2",
+  "name": "toddstreet",
   "version": "1.0.0",
   "description": "My cool Nuxt.js project",
   "author": "Sean Metcalf",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
     "gsap": "^3.2.6",
+    "imagesloaded": "^4.1.4",
     "node-sass": "^4.14.1",
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.2"

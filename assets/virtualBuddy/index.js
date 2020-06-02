@@ -27,6 +27,17 @@ export default class{
   // INIT
 
   init(){
+    for (let i = 0; i < this.sections.length; i++){
+      this.sections[i].pos = tools.getPosition(this.sections[i].el)
+    }
+
+    for (let i = 0; i < this.elements.length; i++){
+      let element = this.elements[i]
+      element.pos = tools.getPosition(element.el)
+      element.start = element.offsetTop ? element.pos.top + tools.getValue(element.offsetTop) : element.pos.top
+      element.end = element.offsetBottom ? element.pos.bottom - tools.getValue(element.offsetBottom) : element.pos.bottom
+    }
+
     this.scroll.init()
   }
 
@@ -38,7 +49,7 @@ export default class{
     this.sections.push({
       el: el,
       id: id,
-      pos: tools.getPosition(el),
+      pos: {},
       active: false
     })
 
@@ -80,7 +91,7 @@ export default class{
     let element = {
       id: id,
       el: el,
-      pos: tools.getPosition(el),
+      pos: {},
       scroll: props.scroll || null,
       resize: props.resize || null,
       mouse: props.mouse || null,
@@ -89,9 +100,6 @@ export default class{
       visible: false,
       mouseover: false
     }
-
-    element.start = element.offsetTop ? element.pos.top + tools.getValue(element.offsetTop) : element.pos.top
-    element.end = element.offsetBottom ? element.pos.bottom - tools.getValue(element.offsetBottom) : element.pos.bottom
 
     this.elements.push(element)
 
@@ -198,8 +206,6 @@ export default class{
   // RESIZE
 
   onResize(){
-
-    clearTimeout(this.resizeTimeout)
 
     for (let i = 0; i < this.sections.length; i++){
       this.sections[i].pos = tools.getPosition(this.sections[i].el)

@@ -1,6 +1,6 @@
 <template lang="html">
   <header v-scroll="toggleTag">
-    <section class="top" v-section>
+    <section class="top full-width" v-section>
 
       <div class="logo">
         <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
@@ -37,19 +37,28 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   data:()=>({
     menuOpen: false,
     showTag: false
   }),
   watch:{
+    ready(ready){
+      if (ready){
+        let tl = this.$gsap.timeline()
+        tl.set('header',{opacity:1},0)
+        tl.fromTo('header .top svg',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
+        tl.fromTo('header .top .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
+        tl.fromTo('header button',1,{scale:.5, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.5)
+      }
+    },
     $route(){
-      this.hideHeader()
-      setTimeout(this.showHeader,1500)
+      let tl = this.$gsap.timeline()
+      tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
+      tl.to('header .top .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
+      tl.to('header .top svg',.5,{yPercent:-100, ease: 'power4.in'},.5)
     }
-  },
-  mounted(){
-    setTimeout(this.showHeader,750)
   },
   methods:{
     toggleMenu(){
@@ -57,22 +66,6 @@ export default {
     },
     toggleTag(e){
       this.showTag = e.leave
-    },
-    showHeader(){
-      setTimeout(()=> this.$emit('ready'), 250)
-      let tl = this.$gsap.timeline()
-      tl.set('header',{opacity:1},0)
-      tl.fromTo('header .top svg',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
-      tl.fromTo('header .top .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
-      tl.fromTo('header button',1,{scale:.5, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.5)
-    },
-    hideHeader(){
-      let tl = this.$gsap.timeline()
-
-      tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
-      tl.to('header .top .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
-      tl.to('header .top svg',.5,{yPercent:-100, ease: 'power4.in'},.5)
-      tl.set('header',{opacity:0})
     },
     openMenu(){
       this.menuOpen = true
@@ -89,6 +82,7 @@ export default {
     }
   },
   computed:{
+    ...mapState(['ready']),
     links(){
       let links = []
       let files = require.context('../pages', true, /.vue$/)

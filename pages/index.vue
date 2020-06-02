@@ -7,7 +7,7 @@
     </section>
 
     <section class="sizzle" v-section>
-      <video-player v-enter:pop/>
+      <video-player :videoId="sizzle.videoId" v-enter:pop/>
     </section>
 
     <div class="side-nav" v-resize="setSideNavPosition">
@@ -42,7 +42,9 @@
         <section-description :heading="comms.heading" :description="comms.description"/>
         <div class="gallery">
           <template v-for="(item,i) in comms.gallery">
-            <case-study :key="i"/>
+            <case-study :key="i" :title="item.title" :color="item.color" :link="item.link">
+              <img v-if="item.image" :src="item.image"/>
+            </case-study>
           </template>
         </div>
     </section>
@@ -53,7 +55,7 @@
         <section-description :heading="training.heading" :description="training.description"/>
         <div class="gallery">
           <template v-for="(item,i) in training.gallery">
-            <case-study :key="i"/>
+            <case-study :key="i" :title="item.title" :image="item.image" :link="item.link"/>
           </template>
         </div>
     </section>
@@ -89,6 +91,7 @@ export default {
   },
   data:()=>({
     intro: data.intro,
+    sizzle: data.sizzle,
     events: data.events,
     comms: data.comms,
     training: data.training,
@@ -103,10 +106,15 @@ export default {
       {label:'Events', el: '#events', id:'events'}
     ]
   }),
+  head(){
+    return{
+      title: 'home – toddstreet'
+    }
+  },
   watch:{
     ready(ready){
       if (ready){
-        let tl = this.$gsap.timeline({delay: .25})
+        let tl = this.$gsap.timeline({delay: .5})
         tl.set('.intro',{opacity:1})
         tl.from('.intro h1',.7,{yPercent: 100,ease: 'power4.out',stagger:.05},0)
         tl.from('.intro p',1,{yPercent:-50, opacity: 0, ease: 'power4.out'},0)
@@ -175,6 +183,11 @@ export default {
 <style lang="scss">
 #home{
 
+  .box{
+    height: 50px;
+    width: 50px;
+    background: blue;
+  }
   .intro{
     opacity: 0;
     position: relative;
@@ -315,6 +328,11 @@ export default {
     margin-bottom: $gutter;
     .card-container{
       padding-bottom: 90%;
+    }
+
+    img{
+      flex: 0 0 auto;
+      width: 80%;
     }
 
     &:nth-child(even){

@@ -42,8 +42,6 @@ export default class{
       this.body.style.overscrollBehavior = 'none'
     }
 
-    this.html.style.height = `${this.body.offsetHeight}px`
-
   }
 
   init(){
