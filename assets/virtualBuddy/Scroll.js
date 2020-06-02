@@ -1,4 +1,5 @@
 import tools from './tools'
+import './polyfills/requestAnimationFrame.polyfill.js';
 
 export default class{
   constructor(scrollFunction,touch,resize){
