@@ -36,6 +36,15 @@ export default class{
       element.pos = tools.getPosition(element.el)
       element.start = element.offsetTop ? element.pos.top + tools.getValue(element.offsetTop) : element.pos.top
       element.end = element.offsetBottom ? element.pos.bottom - tools.getValue(element.offsetBottom) : element.pos.bottom
+
+      if (element.immediate){
+        this.checkElement(element,{
+          top: this.scroll.top,
+          bottom: this.scroll.bottom,
+          direction: this.scroll.direction,
+          delta: this.scroll.delta
+        })
+      }
     }
 
     this.scroll.init()
@@ -84,7 +93,7 @@ export default class{
 
   // ELEMENT
 
-  addElement(el,props = {}){
+  addElement(el,props = {},immediate = false){
 
     let id = tools.generateId(6)
 
@@ -98,7 +107,8 @@ export default class{
       offsetTop: props.offsetTop || null,
       offsetBottom: props.offsetBottom || null,
       visible: false,
-      mouseover: false
+      mouseover: false,
+      immediate: immediate
     }
 
     this.elements.push(element)
@@ -114,11 +124,10 @@ export default class{
     if (index > -1) this.mouseElements.splice(index,1)
   }
 
-  checkElements(scroll){
+  checkElement(element,scroll){
 
     for (let i = 0; i < this.elements.length; i++){
 
-      let element = this.elements[i]
       let visible = element.start < scroll.bottom && element.end > scroll.top
 
       if (element.visible || visible){
@@ -160,7 +169,9 @@ export default class{
 
   onScroll(scroll){
     if (!this.touch) this.checkSections(scroll)
-    this.checkElements(scroll)
+    for (let i = 0; i < this.elements.length; i++){
+      this.checkElement(this.elements[i], scroll)
+    }
   }
 
   // MOUSE

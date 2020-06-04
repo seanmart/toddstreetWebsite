@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="section-circle" v-enter:pop>
-    <div class="circle" ref="circle" v-scroll="handleScroll"/>
+    <div class="circle texture" ref="circle" v-scroll="handleScroll"/>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
     animation: null
   }),
   mounted(){
-    this.animation = this.$gsap.to(this.$refs.circle,1,{y:'-30vh', ease: 'none', paused: true})
+    this.animation = gsap.to(this.$refs.circle,1,{y:'-30vh', ease: 'none', paused: true})
   },
   methods:{
     handleScroll(e){
@@ -31,7 +31,6 @@ export default {
     width: 60vw;
     height: 60vw;
     border-radius: 50%;
-    background-image: url('../static/texture.jpg');
   }
 
   @media (max-width: $mobile){

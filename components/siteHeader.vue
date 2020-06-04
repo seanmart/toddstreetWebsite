@@ -1,6 +1,6 @@
 <template lang="html">
   <header v-scroll="toggleTag">
-    <section class="top full-width" v-section>
+    <section class="top" v-section>
 
       <div class="logo">
         <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>
@@ -46,7 +46,7 @@ export default {
   watch:{
     ready(ready){
       if (ready){
-        let tl = this.$gsap.timeline()
+        let tl = gsap.timeline()
         tl.set('header',{opacity:1},0)
         tl.fromTo('header .top svg',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
         tl.fromTo('header .top .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
@@ -54,7 +54,7 @@ export default {
       }
     },
     $route(){
-      let tl = this.$gsap.timeline()
+      let tl = gsap.timeline()
       tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
       tl.to('header .top .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
       tl.to('header .top svg',.5,{yPercent:-100, ease: 'power4.in'},.5)
@@ -69,13 +69,13 @@ export default {
     },
     openMenu(){
       this.menuOpen = true
-      let tl = this.$gsap.timeline()
+      let tl = gsap.timeline()
       tl.to('header menu',1,{width: '100vw', ease: 'power4.out'},0)
       tl.to('header .lines i',.25,{background: 'white'},.4)
       tl.to('header menu svg',1,{yPercent: -100, ease: 'power4.out'},.2)
     },
     closeMenu(){
-      let tl = this.$gsap.timeline({onComplete: ()=> this.menuOpen = false})
+      let tl = gsap.timeline({onComplete: ()=> this.menuOpen = false})
       tl.to('header menu svg',.5,{yPercent: 0,clearProps: 'all', ease: 'power4.in'},0)
       tl.to('header .lines i',.25,{clearProps: 'all'},0)
       tl.to('header menu',.4,{width: 0, clearProps: 'all', ease: 'power1.in'},.2)
@@ -90,9 +90,9 @@ export default {
         let dataFn = files(page).default.data
         if (dataFn) {
           let data = dataFn()
-          if (data.nav){
+          if (data.navbar){
             let url = page.replace('.','').replace('.vue','')
-            links.push({...data.nav, to: url})
+            links.push({...data.navbar, to: url})
           }
         }
       })
@@ -108,9 +108,7 @@ header{
   opacity: 0;
 
   .top{
-    width: 100%;
     height: $desktop-nav-height;
-    margin: 0px -10px;
     padding-top: 0px;
     padding-bottom: 0px;
     display: flex;
@@ -118,15 +116,17 @@ header{
   }
 
   .logo{
-    overflow: hidden;
     flex: 0 0 auto;
+    overflow: hidden;
+
     a{
       display: block;
+      margin-left: -10px;
     }
     svg{
-      padding: 10px;
       width: 200px;
       fill: inherit;
+      padding: 10px;
     }
   }
 
@@ -134,6 +134,7 @@ header{
     overflow: hidden;
     flex: 0 0 auto;
     margin-left: auto;
+    margin-right: -10px;
 
     .link{
       display: inline-block;

@@ -54,10 +54,10 @@ export default {
   },
   methods:{
     showButton(){
-      this.$gsap.to(this.$refs.button,.25,{opacity:1, scale: 1})
+      gsap.to(this.$refs.button,.25,{opacity:1, scale: 1})
     },
     hideButton(){
-      this.$gsap.to(this.$refs.button,.25,{opacity:0,scale:0})
+      gsap.to(this.$refs.button,.25,{opacity:0,scale:0})
     },
     handleScroll(e){
       if (e.leave) this.play = false
@@ -71,7 +71,7 @@ export default {
       }
       if (e.active){
         if (this.play) this.hidden = false
-        this.$gsap.set(this.$refs.button,{x:e.x - 50,y:e.y - 50})
+        gsap.set(this.$refs.button,{x:e.x - 50,y:e.y - 50})
       }
     },
     setVideo() {

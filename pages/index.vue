@@ -1,47 +1,70 @@
 <template lang="html">
   <main id="home">
 
-    <section class="intro" v-section>
-      <split :text="intro.title" tag="h1" textClass="header--bg reveal"/>
-      <p class="body--bg" v-html="introDescription"/>
+    <section class="intro full-width" v-section v-scroll="toggleIntro">
+
+        <div class="header-container" :class="{play: intro.play}">
+          <div class="header-wrapper">
+            <transition name="intro-header">
+              <div class="header header--hg" :key="intro.index">
+                <h1 v-for="i in 4" :key="i" :style="{animationDuration: intro.speed + 's'}">
+                  {{data.intro[intro.index].header}}
+                </h1>
+              </div>
+            </transition>
+          </div>
+        </div>
+
+        <div class="box texture">
+            <div class="bar"/>
+        </div>
+
+        <div class="inner-section">
+          <div class="message">
+            <transition name="intro-message">
+              <p class="body--bg" :key="intro.index" v-html="data.intro[intro.index].message"/>
+            </transition>
+          </div>
+        </div>
+
     </section>
 
     <section class="sizzle" v-section>
-      <video-player :videoId="sizzle.videoId" v-enter:pop/>
+      <video-player :videoId="data.sizzle.videoId" v-enter:pop/>
     </section>
 
-    <div class="side-nav" v-resize="setSideNavPosition">
+    <div class="side-nav">
       <aside class="navigation--rg">
         <h3
-          v-for="(link,i) in sideNavLinks"
+          v-for="(link,i) in nav.links"
           :key="i"
           class="link"
-          :class="{active: sideNav == link.id}"
-          @click="setScrollTo(link.id,link.el)"
+          :class="{active: nav.active == link.id}"
+          @click="setNavScroll(link.id,link.el)"
           v-html="link.label"
         />
       </aside>
     </div>
 
-    <div v-scroll="[animateSideNav, '50vh', '100vh']">
+    <div v-scroll="[animateNav, '50vh', '100vh']">
 
-    <section id="events" v-section v-scroll="()=> setNav('events')">
-        <section-title :title="events.title"/>
+    <section id="events" v-section v-scroll="()=> setNavActive('events')">
+        <section-title :title="data.events.title"/>
         <section-circle/>
-        <section-description :heading="events.heading" :description="events.description"/>
+        <section-description :heading="data.events.heading" :description="data.events.description"/>
         <div class="gallery">
-          <template v-for="(item,i) in events.gallery">
+          <template v-for="(item,i) in data.events.gallery">
             <case-study :key="i" :title="item.title" :image="item.image" :link="item.link"/>
           </template>
         </div>
     </section>
 
-    <section id="comms" v-section v-scroll="()=> setNav('comms')">
-        <section-title :title="comms.title"/>
+    <section id="comms" v-section v-scroll="()=> setNavActive('comms')">
+        <section-title :title="data.comms.title"/>
         <section-circle/>
-        <section-description :heading="comms.heading" :description="comms.description"/>
+        <section-description :heading="data.comms.heading" :description="data.comms.description"/>
         <div class="gallery">
-          <template v-for="(item,i) in comms.gallery">
+          <template v-for="(item,i) in data.comms.gallery">
             <case-study :key="i" :title="item.title" :color="item.color" :link="item.link">
               <img v-if="item.image" :src="item.image"/>
             </case-study>
@@ -49,12 +72,12 @@
         </div>
     </section>
 
-    <section id="training" v-section v-scroll="()=> setNav('training')">
-        <section-title :title="training.title"/>
+    <section id="training" v-section v-scroll="()=> setNavActive('training')">
+        <section-title :title="data.training.title"/>
         <section-circle/>
-        <section-description :heading="training.heading" :description="training.description"/>
+        <section-description :heading="data.training.heading" :description="data.training.description"/>
         <div class="gallery">
-          <template v-for="(item,i) in training.gallery">
+          <template v-for="(item,i) in data.training.gallery">
             <case-study :key="i" :title="item.title" :image="item.image" :link="item.link"/>
           </template>
         </div>
@@ -63,11 +86,11 @@
     </div>
 
     <section class="cares full-width" v-section>
-      <section-title :title="cares.title"/>
+      <section-title :title="data.cares.title"/>
     </section>
 
     <section class="about full-width" v-section>
-      <section-title :title="about.title"/>
+      <section-title :title="data.about.title"/>
     </section>
 
   </main>
@@ -90,21 +113,23 @@ export default {
     caseStudy
   },
   data:()=>({
-    intro: data.intro,
-    sizzle: data.sizzle,
-    events: data.events,
-    comms: data.comms,
-    training: data.training,
-    cares: data.cares,
-    about: data.about,
-    sideNav: null,
-    scrollTo: null,
-    animations: {},
-    sideNavLinks:[
-      {label:'Training', el: '#training',id:'training'},
-      {label:'Communications', el: '#comms',id:'comms'},
-      {label:'Events', el: '#events', id:'events'}
-    ]
+    data: data,
+    intro:{
+      animation: null,
+      play: false,
+      speed: data.intro[0].header.split('').length * .4,
+      index: 0
+    },
+    nav:{
+      scroll: null,
+      active: null,
+      animation: null,
+      links:[
+        {label:'Training', el: '#training',id:'training'},
+        {label:'Communications', el: '#comms',id:'comms'},
+        {label:'Events', el: '#events', id:'events'}
+      ]
+    }
   }),
   head(){
     return{
@@ -114,127 +139,193 @@ export default {
   watch:{
     ready(ready){
       if (ready){
-        let tl = this.$gsap.timeline({delay: .5})
-        tl.set('.intro',{opacity:1})
-        tl.from('.intro h1',.7,{yPercent: 100,ease: 'power4.out',stagger:.05},0)
-        tl.from('.intro p',1,{yPercent:-50, opacity: 0, ease: 'power4.out'},0)
-        tl.set(['.intro h1, .intro p'],{clearProps:'all'})
+        this.initIntro()
       }
     }
   },
   mounted(){
-
-    let tl = this.$gsap.timeline({paused: true})
-    tl.to('.side-nav', .75,{xPercent: -100, ease: 'expo.out'},0)
-    tl.to('.side-nav', .75,{xPercent: 0, ease: 'expo.in'},10)
-    this.animations.sideNav = tl
-
-    this.setSideNavPosition()
-
+    this.initNav()
+  },
+  destroyed(){
+    this.intro.animation.kill()
   },
   methods:{
-    animateCircle(e){
-      if (e.window.width < 600) return
-      this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
+
+    // INTRO
+    initIntro(){
+
+      if (this.$vb.touch) gsap.set('#home .intro',{height: window.innerHeight - 200})
+
+      let tl = gsap.timeline()
+      this.intro.play = true
+      tl.set('#home .intro',{opacity:1})
+      tl.set('#home .intro .bar',{scaleX: 0})
+      tl.fromTo('#home .intro .box',2,{xPercent: -100},{xPercent: 0, ease: 'power4.out'})
+      tl.fromTo('#home .intro p',.5,{scale:.5,opacity:0},{scale:1,opacity:1, clearProps: 'all'},.25)
+      tl.fromTo('#home .intro .header-wrapper',.5,{yPercent:100},{yPercent: 0,clearProps: 'all'},.25)
+
+      this.startIntroAnimation()
+
     },
-    animateSideNav(e){
-      this.animations.sideNav.progress(e.percent)
+    nextIntro(){
+      this.intro.index = this.intro.index < data.intro.length - 1 ? this.intro.index + 1 : 0
+      this.intro.speed = data.intro[this.intro.index].header.split('').length * .4
+      if (this.intro.play) this.startIntroAnimation()
     },
-    setScrollTo(id, el){
-      this.sideNav = id
-      this.scrollTo = id
+    toggleIntro(e){
+      if (e.leave) {
+        this.intro.play = false
+        this.intro.animation.pause()
+      }
+      if (e.enter) {
+        this.intro.play = true
+        this.intro.animation.play()
+      }
+    },
+    startIntroAnimation(){
+      this.intro.animation = gsap.fromTo('#home .intro .bar',10,{scaleX:0},{scaleX:1,ease: 'none',onComplete:this.nextIntro})
+    },
+
+    //NAV
+    initNav(){
+      let tl = gsap.timeline({paused: true})
+      tl.to('.side-nav', .75,{xPercent: -100, ease: 'expo.out'},0)
+      tl.to('.side-nav', .75,{xPercent: 0, ease: 'expo.in'},10)
+      this.nav.animation = tl
+
+      if (this.$vb.touch){
+        let percent = window.innerWidth < 600 ? .4 : .5
+        gsap.set('.side-nav',{top: window.innerHeight * percent})
+      }
+    },
+    setNavActive(id){
+      if (this.nav.scroll && id !== this.nav.active) return
+      this.nav.scroll = null
+      this.nav.active = id
+    },
+    setNavScroll(id, el){
+      this.nav.active = id
+      this.nav.scroll = id
       this.$vb.scroll.scrollTo(el)
     },
-    setNav(id){
-      if (this.scrollTo && id !== this.scrollTo) return
-      this.scrollTo = null
-      this.sideNav = id
+    animateNav(e){
+      this.nav.animation.progress(e.percent)
     },
-    setSideNavPosition(){
-      this.$gsap.set('.side-nav',{top: window.innerHeight * .5})
+    animateCircle(e){
+      if (e.window.width < 600) return
+      gsap.set(e.el,{y: `-=${e.delta * .2}`})
     }
   },
-  computed:{
-    ...mapState(['ready']),
-    introDescription(){
-      let text = this.intro.description
-      this.intro.hover.forEach(h => {
-        text = text.replace(h.text,`<b>${h.text}<img src="${h.gif}"/></b>`)
-      })
-      return text
-    },
-    animate(){
-      let sideNav = this.$gsap.timeline({paused: true})
-      sideNav.to('.side-nav',1,{xPercent: -100, ease: 'expo.out'},0)
-      sideNav.to('.side-nav',1,{xPercent: 0, ease: 'expo.in'},10)
-
-      return{
-        circle: (e) => {
-          if (e.scroll.width < 600) return
-          this.$gsap.set(e.el,{y: `-=${e.delta * .2}`})
-        },
-        sideNav: (e)=> sideNav.progress(e.percent)
-      }
-    }
-  }
+  computed:mapState(['ready'])
 }
 </script>
 
 <style lang="scss">
 #home{
 
-  .box{
-    height: 50px;
-    width: 50px;
-    background: blue;
-  }
   .intro{
-    opacity: 0;
     position: relative;
-    padding-top: $desktop-section-space / 1.5;
+    padding-top: 0px;
+    height: 550px;
+    opacity: 0;
 
-    .word{
+    .header-container{
+      top: 75px;
+      left: 0px;
+      width: 100vw;
+      position: absolute;
+      z-index: 1;
       overflow: hidden;
-    }
-    p{
-      margin: 50px 0px 0px;
-      max-width: 800px;
-    }
-
-    b{
-      color: $blue;
-      font-weight: 400;
-      position: relative;
-      cursor: pointer;
-
-      &::after{
-        content: '';
-        position: absolute;
-        top: 95%;
-        left: 0px;
-        right: 0px;
-        height: 3px;
-        border-radius: 1.5px;
-        background: $blue;
-        opacity: .2;
-        transition: opacity .25s, transform .25s;
-      }
-      &:hover{
-        &::after{
-          opacity: 1;
-          transform: translateY(2px);
+      &.play{
+        h1{
+          animation-name: marquee;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
         }
       }
+
+      .header-wrapper{
+        position: relative;
+        height: 120px;
+      }
+
+      .header{
+        height: 120px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: flex;
+        justify-content: flex-start;
+        padding: 0px 100px;
+      }
+
+      h1{
+        padding-left: 50px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
     }
 
-    img{
-      max-height: 200px;
-      max-width: 200px;
+    .box{
+      transform-origin: left;
       position: absolute;
-      bottom: 150%;
-      right: 0px;
-      display: none;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      width: 550px;
+      max-width: 70vw;
+
+      .bar{
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        background: $blue;
+        height: 15px;
+        transform-origin: left;
+      }
     }
+
+    .message{
+      position: relative;
+      width: 100%;
+
+      p{
+        position: absolute;
+        top: 100px;
+        width: 700px;
+        max-width: 80vw;
+      }
+    }
+  }
+
+  .intro-header-enter{
+    transform: translateY(100%);
+  }
+
+  .intro-header-leave-to{
+    transform: translateY(-100%);
+  }
+
+  .intro-message-enter{
+    transform: translateX(-50px);
+  }
+
+  .intro-message-leave-to{
+    transform: translateX(50px);
+  }
+
+
+  .intro-message-enter,
+  .intro-message-leave-to{
+    opacity: 0;
+  }
+
+  .intro-message-enter-active, .intro-message-leave-active{
+    transition: .6s;
+  }
+  .intro-header-enter-active, .intro-header-leave-active {
+    transition: .6s;
   }
 
   .side-nav{
@@ -424,12 +515,6 @@ export default {
 @media (max-width: $mobile){
 
   #home{
-    .intro{
-      img{
-        max-height: 100px;
-        max-width: 100px;
-      }
-    }
 
     .side-nav{
       width: $mobile-margin-right;
@@ -465,6 +550,13 @@ export default {
         }
       }
     }
+  }
+}
+
+@media screen and (orientation:landscape)
+and (max-device-width: $mobile) {
+  .side-nav{
+    display: none;
   }
 }
 

@@ -46,7 +46,6 @@ export default class{
 
   init(){
     if (!this.touch) this.html.style.height = `${this.body.offsetHeight}px`
-    this.handleScroll()
   }
 
   // EVENT

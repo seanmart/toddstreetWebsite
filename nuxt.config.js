@@ -13,7 +13,10 @@ export default {
       { rel: 'stylesheet',href: 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&display=swap'},
     ],
     script:[
-      { src: '//fast.wistia.com/assets/external/E-v1.js', body: true}
+      { src: '//fast.wistia.com/assets/external/E-v1.js', body: true},
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/gsap.min.js', body: true},
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/CSSRulePlugin.min.js', body: true},
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/TextPlugin.min.js', body: true}
     ]
   },
   loading: {
@@ -32,7 +35,7 @@ export default {
     '~assets/scss/styles.scss'
   ],
   plugins: [
-    { src: "~/plugins/gsap", ssr: false },
+    //{ src: "~/plugins/gsap", ssr: false },
     { src: "~/plugins/virtualBuddy", ssr: false },
     { src: "~/plugins/components"},
   ],

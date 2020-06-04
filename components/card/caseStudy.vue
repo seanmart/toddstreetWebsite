@@ -64,7 +64,7 @@ export default {
     },
     enterAnimation(){
       let hasSlot = this.$slots.default && this.$slots.default.length > 0
-      let tl = this.$gsap.timeline({paused: true})
+      let tl = gsap.timeline({paused: true})
       tl.from(this.$refs.caseStudy,1,{yPercent: 50, opacity: 0, ease: 'power4.out'},0)
       if (this.title) tl.from(this.$refs.title,1,{yPercent: 100, opacity: 0,ease: 'power4.out'},.4)
       if (hasSlot) tl.from(this.$refs.slot, 1,{yPercent: 100, opacity: 0, ease: 'power4.out'},.6)
@@ -73,7 +73,7 @@ export default {
     initSideTitle(){
       let width = this.$refs.sideTitle.offsetWidth
       let height = this.$refs.sideTitle.offsetHeight
-      this.$gsap.set(this.$refs.sideTitleText,{height:width, width: height,fontSize: width })
+      gsap.set(this.$refs.sideTitleText,{height:width, width: height,fontSize: width })
     },
     handleMouse(e){
 
@@ -218,15 +218,6 @@ export default {
       left: 20px;
       bottom: 20px;
     }
-  }
-}
-
-@keyframes marquee{
-  0%{
-    transform: translateX(0px);
-  }
-  100%{
-    transform: translateX(-100%);
   }
 }
 </style>

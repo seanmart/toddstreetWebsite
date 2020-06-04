@@ -1,15 +1,22 @@
 export default{
-  intro:{
-    title: `We're All <br/> About Engagement.`,
-    description: `True engagement is what transforms an audience into something bigger,
-                  motivating them to think, feel and act. The catalyst to accomplish
-                  enduring results.`,
-    hover:[
-      {text: 'think', gif: 'test.gif' },
-      {text: 'feel', gif: 'test2.gif' },
-      {text: 'act', gif: 'test3.gif' }
-    ]
-  },
+  intro:[
+    {
+      header: `We're All About Engagement.`,
+      message: `True engagement is what transforms an audience into something bigger,
+                motivating them to think, feel and act. The catalyst to accomplish
+                enduring results.`
+    },
+    {
+      header: `We're A Marketing Communications Agency.`,
+      message: `We create compelling content and design innovative solutions to
+                engage audiences authentically across live and virtual platforms.`
+    },
+    {
+      header: `We're Creative Storytellers.`,
+      message: `We deliver meaningful live and virtual events, impactful communication campaigns,
+                and training that elevates your team. Let us tell your story bigger, bolder and better than ever before.`
+    }
+  ],
   sizzle:{
     videoId: 'u674jkvpb4'
   },

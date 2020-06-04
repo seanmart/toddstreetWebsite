@@ -14,7 +14,7 @@ export default {
     animation(){
       let wordEls = this.$refs.st.querySelectorAll('h1')
 
-      let tl = this.$gsap.timeline({paused: true})
+      let tl = gsap.timeline({paused: true})
       tl.from(this.$refs.rule,1,{scaleY:0, ease: 'power4.out', clearProps: 'all'},0)
       tl.from(wordEls,1,{yPercent:100, ease: 'power4.out', stagger: .07, clearProps:'all'},.3)
 

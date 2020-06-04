@@ -7,7 +7,7 @@
 <script>
 export default {
   data:()=>({
-    nav:{
+    navbar:{
       label: 'About',
       order: 1
     }

@@ -4,19 +4,40 @@ html{
   -webkit-tap-highlight-color: transparent;
 }
 
+.inner-section,
 section{
   position: relative;
   padding: $desktop-section-space $desktop-margins;
   max-width: $widescreen;
   margin: 0px auto;
-  &.full-width{
-    max-width: none;
-    margin: 0px;
-  }
+}
+
+section.full-width{
+  padding-left: 0px;
+  padding-right: 0px;
+  max-width: none;
+  margin: 0px;
+}
+
+.site-width{
+  max-width: $widescreen;
+  margin: 0px auto;
 }
 
 main{
   min-height: 100vh;
+}
+
+.texture{
+  background-image: url('../../static/texture.jpg');
+}
+
+.header--hg{
+  @include headerFont;
+  font-size: 100px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 95%;
 }
 
 .header--bg{
@@ -44,7 +65,7 @@ main{
   @include bodyFont;
   font-size: 29px;
   font-weight: 300;
-  line-height: 145%;
+  line-height: 160%;
   margin-bottom: 30px;
 }
 
@@ -72,8 +93,13 @@ main{
 }
 
 @media (max-width: $tablet){
+  .inner-section,
   section{
     padding: $tablet-section-space $tablet-margins;
+  }
+
+  .header--hg{
+    font-size: 80px;
   }
 
   .header--bg{
@@ -99,9 +125,14 @@ main{
 
 
 @media (max-width: $mobile){
+  .inner-section,
   section{
     padding: $mobile-section-space $mobile-margin-right;
     padding-left: $mobile-margin-left;
+  }
+
+  .header--hg{
+    font-size: 60px;
   }
 
   .header--bg{
@@ -128,4 +159,13 @@ main{
 
 .bold{
   font-weight: 400;
+}
+
+@keyframes marquee{
+  0%{
+    transform: translateX(0px);
+  }
+  100%{
+    transform: translateX(-100%);
+  }
 }

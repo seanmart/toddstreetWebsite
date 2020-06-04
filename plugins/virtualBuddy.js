@@ -1,6 +1,5 @@
 import VirtualBuddy from "@/assets/virtualBuddy";
 import Vue from "vue";
-import gsap from 'gsap'
 
 const vb = new VirtualBuddy()
 console.log(vb)
@@ -100,7 +99,7 @@ Vue.directive('enter',{
             vb.removeElement(el.dataset['enter'])
           }
         }
-      })
+      },true)
     }
   },
   unbind: function(el){

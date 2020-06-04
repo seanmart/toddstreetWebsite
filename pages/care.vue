@@ -7,7 +7,7 @@
 <script>
 export default {
   data:()=>({
-    nav:{
+    navbar:{
       label: 'We Care',
       order: 2
     }
