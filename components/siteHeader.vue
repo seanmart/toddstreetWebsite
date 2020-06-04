@@ -260,6 +260,7 @@ header{
     aside{
       left: 100%;
       right: auto;
+      height: 110px;
       bottom: 40px;
       top: auto;
       max-width: 40px;
