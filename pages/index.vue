@@ -273,7 +273,7 @@ export default {
       left: 0px;
       bottom: 0px;
       width: 550px;
-      max-width: 70vw;
+      max-width: 80vw;
 
       .bar{
         position: absolute;
@@ -487,15 +487,7 @@ export default {
 
 @media (min-width: $widescreen + 100){
   #home{
-    .intro{
-      p{
-        max-width: 1000px;
-      }
-      img{
-        max-width: 300px;
-        max-height: 300px;
-      }
-    }
+
   }
 }
 
@@ -515,6 +507,18 @@ export default {
 @media (max-width: $mobile){
 
   #home{
+
+    .intro{
+      .message{
+        p{
+          top: 70px;
+        }
+      }
+      .box{
+        width: auto;
+        right: 100px;
+      }
+    }
 
     .side-nav{
       width: $mobile-margin-right;
