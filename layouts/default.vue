@@ -72,7 +72,7 @@ export default{
   align-items: center;
   .logo{
     width: 400px;
-    max-width: 80vw;
+    max-width: 50vw;
     fill: white;
     animation: slideup 1s backwards;
     animation-delay: .25;

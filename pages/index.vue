@@ -511,6 +511,12 @@ export default {
     .intro{
       .header-container{
         top: 50px;
+        .header{
+          padding: 0px 30px;
+        }
+        h1{
+          padding-left: 30px;
+        }
       }
       .message{
         p{
