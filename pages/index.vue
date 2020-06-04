@@ -194,7 +194,7 @@ export default {
       this.nav.animation = tl
 
       if (this.$vb.touch){
-        let percent = window.innerWidth < 600 ? .4 : .5
+        let percent = window.innerWidth < 600 ? .45 : .5
         gsap.set('.side-nav',{top: window.innerHeight * percent})
       }
     },
