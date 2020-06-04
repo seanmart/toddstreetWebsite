@@ -509,9 +509,12 @@ export default {
   #home{
 
     .intro{
+      .header-container{
+        top: 50px;
+      }
       .message{
         p{
-          top: 70px;
+          top: 50px;
         }
       }
       .box{
