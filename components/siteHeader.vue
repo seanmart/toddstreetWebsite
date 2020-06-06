@@ -95,7 +95,7 @@ header{
   opacity: 0;
 
   .top{
-    height: $desktop-nav-height;
+    height: $desktop-section-space;
     padding-top: 0px;
     padding-bottom: 0px;
     display: flex;
@@ -135,7 +135,7 @@ header{
     position: fixed;
     padding: 0px;
     width: $desktop-margins;
-    height: $desktop-nav-height;
+    height: $desktop-section-space;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -202,12 +202,12 @@ header{
 
   @media (max-width: $tablet){
     .top{
-      height: $tablet-nav-height;
+      height: $tablet-section-space;
     }
 
     button{
       width: $tablet-margins;
-      height: $tablet-nav-height;
+      height: $tablet-section-space;
     }
 
     aside{
@@ -228,7 +228,7 @@ header{
 
   @media (max-width: $mobile){
     .top{
-      height: $mobile-nav-height;
+      height: $mobile-section-space;
     }
 
     .logo svg{
@@ -237,7 +237,7 @@ header{
 
     button{
       width: $mobile-margin-right;
-      height: $mobile-nav-height;
+      height: $mobile-section-space;
       i{
         width: 25px;
       }

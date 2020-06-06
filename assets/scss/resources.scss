@@ -24,14 +24,9 @@ $tablet-margins: 80px;
 $mobile-margin-right: 15vw;
 $mobile-margin-left: 6vw;
 
-
-$desktop-nav-height: 150px;
-$tablet-nav-height: 120px;
-$mobile-nav-height: 100px;
-
 $desktop-section-space: 150px;
-$tablet-section-space: 150px;
-$mobile-section-space: 120px;
+$tablet-section-space: 120px;
+$mobile-section-space: 100px;
 
 
 @mixin bodyFont{
