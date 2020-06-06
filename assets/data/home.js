@@ -10,14 +10,14 @@ export default{
     },
     {
       header: `We're A Marketing Communications Agency.`,
-      image: 'test/test.gif',
+      image: 'test/test2.gif',
       color: '#fff',
       message: `We create compelling content and design innovative solutions to
                 engage audiences authentically across live and virtual platforms.`
     },
     {
       header: `We're Creative Storytellers.`,
-      image: 'test/test.gif',
+      image: 'test/test2.gif',
       color: '#fff',
       message: `We deliver meaningful live and virtual events, impactful communication campaigns,
                 and training that elevates your team. Let us tell your story bigger, bolder and better than ever before.`
@@ -38,8 +38,8 @@ export default{
       {link: '/', title: 'Influencer <br/> Events', image: 'influencer/cover.jpg'},
       {link: '/', title: 'Virtual <br/> Events', image: 'virtual/cover.jpg'},
       {link: '/', title: 'Incentive <br/> Events', image: 'incentive/cover.jpg'},
-      {link: '/', title: 'Leadership <br/> Summits', image: null},
-      {link: '/', title: 'Tradeshows', image: null}
+      {link: '/', title: 'Leadership <br/> Summits', image: 'summit/cover.jpg'},
+      {link: '/', title: 'Tradeshows', image: 'tradeshows/cover.jpg'}
     ]
   },
   comms:{

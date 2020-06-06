@@ -43,7 +43,7 @@ export default {
   }),
   mounted(){
     let length = this.title.split('').length
-    this.count = length < 10 ? 6 : length < 15 ? 4 : 3
+    this.count = length < 10 ? 6 : length < 15 ? 5 : 4
 
     gsap.set(this.$refs.sidetext,{animationDuration: length * .5 + 's'})
   },
@@ -160,7 +160,7 @@ export default {
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    opacity: .9;
+    opacity: .85;
     transform: rotate(-90deg);
 
     br{

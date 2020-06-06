@@ -111,7 +111,7 @@ export default {
     },
     next(){
       this.index = this.index < this.data.length - 1 ? this.index + 1 : 0
-      this.speed = this.data[this.index].header.split('').length * .5
+      this.speed = this.data[this.index].header.split('').length * (this.$vb.touch ? .25 : .5)
       this.timer = gsap.fromTo('#intro .bar',10,{scaleX:0},{scaleX:1, ease: 'none', onComplete: this.next})
     }
   }
@@ -122,6 +122,7 @@ export default {
 
 #intro{
   height: 550px;
+  min-height: 500px;
   position: relative;
   padding-top: 0px;
   padding-left: 0px;
@@ -278,8 +279,8 @@ export default {
   .slideleft-enter{transform: translateX(-100%)}
   .slideleft-leave-to{transform: translateX(100%)}
 
-  .fade-enter{transform: translateY(-20%); opacity: 0}
-  .fade-leave-to{transform: translateY(20%); opacity: 0}
+  .fade-enter{transform: translateX(-20%); opacity: 0}
+  .fade-leave-to{transform: translateX(20%); opacity: 0}
 
   @media (max-width: $tablet){
     .content{
@@ -324,9 +325,8 @@ export default {
 
 .touch{
   #intro{
-
     @media (max-width: $mobile){
-      height: calc(100vh - #{$mobile-nav-height * 2});
+      height: calc(100vh - #{$mobile-nav-height * 2.5});
       max-height: none;
     }
   }

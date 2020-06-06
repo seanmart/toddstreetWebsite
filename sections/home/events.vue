@@ -45,7 +45,7 @@ export default {
     &:nth-child(8n + 5){
       flex: 0 0 $col8;
       .height{
-        padding-bottom: 80%;
+        padding-bottom: 90%;
       }
     }
 
