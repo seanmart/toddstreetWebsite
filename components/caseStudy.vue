@@ -249,6 +249,12 @@ export default {
     .content{
       margin: 0px !important;
     }
+  }
+
+}
+
+.touch{
+  .case-study{
     .side-text-container{
       display: none;
     }
@@ -257,7 +263,6 @@ export default {
       opacity: 1;
     }
   }
-
 }
 
 </style>

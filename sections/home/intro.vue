@@ -320,6 +320,19 @@ export default {
       }
     }
   }
+}
 
+.touch{
+  #intro{
+    height: calc(100vh - #{$desktop-nav-height});
+
+    @media (max-width: $tablet){
+      height: calc(100vh - #{$tablet-nav-height});
+    }
+
+    @media (max-width: $mobile){
+      height: calc(100vh - #{$mobile-nav-height});
+    }
+  }
 }
 </style>
