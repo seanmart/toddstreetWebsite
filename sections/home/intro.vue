@@ -324,14 +324,10 @@ export default {
 
 .touch{
   #intro{
-    height: calc(100vh - #{$desktop-nav-height * 2});
-
-    @media (max-width: $tablet){
-      height: calc(100vh - #{$tablet-nav-height * 2});
-    }
 
     @media (max-width: $mobile){
       height: calc(100vh - #{$mobile-nav-height * 2});
+      max-height: none;
     }
   }
 }
