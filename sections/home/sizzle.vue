@@ -15,7 +15,8 @@ export default {
 <style lang="scss">
 @media (max-width: $tablet){
 #sizzle{
-    padding:0px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }
 

@@ -284,6 +284,8 @@ export default {
 
   @media (max-width: $tablet){
 
+    padding-bottom: 0px;
+
     .header{
       top: 60px;
       height: 70px;
