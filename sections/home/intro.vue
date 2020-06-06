@@ -303,7 +303,7 @@ export default {
       flex-direction: column-reverse;
     }
     .texture{
-      padding-top: 140px;
+      padding-top: 6vw;
       padding-right: $mobile-margin-left
     }
     .timer{
