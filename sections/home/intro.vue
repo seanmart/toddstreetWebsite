@@ -283,6 +283,14 @@ export default {
   .fade-leave-to{transform: translateX(20%); opacity: 0}
 
   @media (max-width: $tablet){
+
+    .header{
+      top: 60px;
+      height: 70px;
+    }
+    .texture{
+      padding-top: 170px;
+    }
     .content{
       padding-right: $tablet-margins;
     }
@@ -294,7 +302,9 @@ export default {
   }
 
   @media (max-width: $mobile){
+
     height: 80vh;
+
     .header{
       top: 72px;
       height: 54px;
@@ -304,7 +314,7 @@ export default {
       flex-direction: column-reverse;
     }
     .texture{
-      padding-top: 6vw;
+      padding-top: $mobile-margin-right;
       padding-right: $mobile-margin-left
     }
     .timer{
@@ -326,7 +336,7 @@ export default {
 .touch{
   #intro{
     @media (max-width: $mobile){
-      height: calc(100vh - #{$mobile-nav-height * 2.5});
+      height: calc(100vh - #{$mobile-nav-height * 3});
       max-height: none;
     }
   }
