@@ -31,17 +31,14 @@ export default{
 
     imagesLoaded('#site',{background: true},()=> {
       let timeDiff = Date.now() - this.time
-      setTimeout(()=> this.loaded = true, Math.max(1000 - timeDiff,0))
+      setTimeout(()=> this.loaded = true, Math.max(1500 - timeDiff,0))
     })
 
   },
   watch:{
     $route(){
       this.$store.commit('ready', false)
-      setTimeout(()=> {
-        this.$store.commit('ready', true)
-        this.$vb.init()
-      },1500)
+      setTimeout(this.init,1500)
     }
   },
   methods:{

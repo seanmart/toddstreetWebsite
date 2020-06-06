@@ -25,7 +25,7 @@ export default {
 
   .fancy-link-text{
     flex: 0 0 auto;
-    font-size: 20px;
+    font-size: 18px;
     text-transform: uppercase;
     font-weight: 500;
     padding-left: 5px;
@@ -38,7 +38,7 @@ export default {
     line-height: 0;
     svg{
       transition: transform .25s;
-      width: 14px;
+      width: 13px;
     }
   }
 
@@ -51,14 +51,6 @@ export default {
     }
   }
 
-  @media (max-width: $tablet){
-    .fancy-link-text{
-      font-size: 18px;
-    }
-    .plus svg{
-      width: 13px;
-    }
-  }
 }
 
 </style>

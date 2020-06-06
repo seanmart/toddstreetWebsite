@@ -2,17 +2,23 @@ export default{
   intro:[
     {
       header: `We're All About Engagement.`,
+      image: 'test/test2.gif',
+      color: '#fff',
       message: `True engagement is what transforms an audience into something bigger,
                 motivating them to think, feel and act. The catalyst to accomplish
                 enduring results.`
     },
     {
       header: `We're A Marketing Communications Agency.`,
+      image: 'test/test.gif',
+      color: '#fff',
       message: `We create compelling content and design innovative solutions to
                 engage audiences authentically across live and virtual platforms.`
     },
     {
       header: `We're Creative Storytellers.`,
+      image: 'test/test.gif',
+      color: '#fff',
       message: `We deliver meaningful live and virtual events, impactful communication campaigns,
                 and training that elevates your team. Let us tell your story bigger, bolder and better than ever before.`
     }
@@ -47,9 +53,7 @@ export default{
       {link: '/', title: 'Integrated <br/> Campaigns', color: '#eab22c', image: 'test/test.png'},
       {link: '/', title: 'Video', color: '#c0e1e8', image: 'test/test.png'},
       {link: '/', title: 'Digital', color: '#5734c8', image: 'test/test.png'},
-      {link: '/', title: 'Podcasts', color: '#51615b',image: 'test/test.png'},
-      {link: '/', title: 'Print Design <br/> & Infographics',image: 'test/test.png'},
-      {link: '/', title: 'Branding', color: '#2a77d7',image: 'test/test.png'}
+      {link: '/', title: 'Print Design <br/> & Branding',image: 'test/test.png'}
     ]
   },
   training:{
@@ -69,9 +73,16 @@ export default{
     ]
   },
   cares:{
-    title: `How <br/> We Care`
+    title: `How <br/> We Care`,
+    description:`toddstreet produces meaningful events that engage minds across the globe.
+                 Our events span from large-scale conferences and blockbuster product launches
+                 to intimate and exclusive press launches, influencer activations and more.`,
+    postCount: 3
   },
   about:{
-    title: `What We've <br/> Been Up To`
+    title: `What We've <br/> Been Up To`,
+    description:`toddstreet produces meaningful events that engage minds across the globe.
+                 Our events span from large-scale conferences and blockbuster product launches
+                 to intimate and exclusive press launches, influencer activations and more.`
   }
 }

@@ -82,12 +82,12 @@ export default class{
   }
 
   checkSmooth(){
-    this.ticking = Math.abs(this.scrollY - this.top) > .01
+    this.ticking = Math.abs(this.scrollY - this.top) > 1
     this.updateScroll(tools.lerp(this.top,window.scrollY,.075))
 
     window.requestAnimationFrame(()=>{
       this.updateFunctions()
-      if (this.ticking) this.checkSmooth()
+      this.ticking ? this.checkSmooth() : this.updateScroll(this.scrollY)
     })
   }
 
@@ -97,7 +97,7 @@ export default class{
     this.delta = top - this.top
     this.top = top
     this.bottom = top + this.window.height
-    this.direction = this.last < this.top ? 'down' : 'up'
+    this.direction = this.delta > 0 ? 'down' : 'up'
   }
 
   updateFunctions(){

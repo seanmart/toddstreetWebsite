@@ -19,7 +19,11 @@
     </section>
 
     <button type="button" @click="toggleMenu">
-       <div class="lines"><i/><i/><i/></div>
+       <div class="lines">
+         <i :style="{backgroundColor: navColor}"/>
+         <i :style="{backgroundColor: navColor}"/>
+         <i :style="{backgroundColor: navColor}"/>
+       </div>
      </button>
 
     <aside :class="{show: showTag}"><icons logo/></aside>
@@ -77,28 +81,11 @@ export default {
     closeMenu(){
       let tl = gsap.timeline({onComplete: ()=> this.menuOpen = false})
       tl.to('header menu svg',.5,{yPercent: 0,clearProps: 'all', ease: 'power4.in'},0)
-      tl.to('header .lines i',.25,{clearProps: 'all'},0)
+      tl.to('header .lines i',.25,{background: this.navColor},.15)
       tl.to('header menu',.4,{width: 0, clearProps: 'all', ease: 'power1.in'},.2)
     }
   },
-  computed:{
-    ...mapState(['ready']),
-    links(){
-      let links = []
-      let files = require.context('../pages', true, /.vue$/)
-      files.keys().forEach(page => {
-        let dataFn = files(page).default.data
-        if (dataFn) {
-          let data = dataFn()
-          if (data.navbar){
-            let url = page.replace('.','').replace('.vue','')
-            links.push({...data.navbar, to: url})
-          }
-        }
-      })
-      return links.sort((a,b) => a.order < b.order)
-    }
-  }
+  computed:mapState(['ready', 'navColor','links'])
 }
 </script>
 
@@ -160,7 +147,6 @@ header{
       display: block;
       width: 38px;
       height: 2px;
-      background: black;
       border-radius: 1px;
       margin: 4px 0px;
     }

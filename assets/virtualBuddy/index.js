@@ -70,10 +70,8 @@ export default class{
     if (index > -1) this.sections.splice(index,1)
   }
 
-  checkSections(scroll){
-    for (let i = 0; i < this.sections.length; i++){
+  checkSections(section, scroll){
 
-      let section = this.sections[i]
       let active = section.pos.top - this.resize.height < scroll.bottom && section.pos.bottom + this.resize.height > scroll.top
 
       if (active && !section.active) section.el.style.visibility = ''
@@ -87,7 +85,7 @@ export default class{
       }
 
       section.active = active
-    }
+
   }
 
 
@@ -126,8 +124,6 @@ export default class{
 
   checkElement(element,scroll){
 
-    for (let i = 0; i < this.elements.length; i++){
-
       let visible = element.start < scroll.bottom && element.end > scroll.top
 
       if (element.visible || visible){
@@ -145,6 +141,7 @@ export default class{
               height: this.resize.height
             },
             el: element.el,
+            id: element.id,
             position: element.pos,
             offset: offset,
             scrolled: scrolled,
@@ -161,14 +158,18 @@ export default class{
 
         element.visible = visible
       }
-    }
   }
 
 
   // SCROLL
 
   onScroll(scroll){
-    if (!this.touch) this.checkSections(scroll)
+    if (!this.touch){
+      for (let i = 0; i < this.sections.length; i++){
+        this.checkSections(this.sections[i],scroll)
+      }
+    }
+
     for (let i = 0; i < this.elements.length; i++){
       this.checkElement(this.elements[i], scroll)
     }

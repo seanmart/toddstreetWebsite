@@ -1,3 +1,4 @@
+import FMMode from "frontmatter-markdown-loader/mode";
 
 export default {
   mode: 'universal',
@@ -36,7 +37,7 @@ export default {
   ],
   plugins: [
     //{ src: "~/plugins/gsap", ssr: false },
-    { src: "~/plugins/virtualBuddy", ssr: false },
+    { src: "~/plugins/directives", ssr: false },
     { src: "~/plugins/components"},
   ],
   buildModules: [
@@ -44,6 +45,15 @@ export default {
   build: {
     extend (config, ctx) {
       config.resolve.alias['vue'] = 'vue/dist/vue.common'
+      config.module.rules.push(
+        {
+          test: /\.md$/,
+          loader: "frontmatter-markdown-loader",
+          options: {
+            mode: [FMMode.HTML]
+          }
+        }
+      )
     }
   }
 }
