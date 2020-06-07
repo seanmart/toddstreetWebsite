@@ -10,14 +10,14 @@ export default{
     },
     {
       header: `We're A Marketing Communications Agency.`,
-      image: 'test/test2.gif',
+      image: 'nsm/cover.jpg',
       color: '#fff',
       message: `We create compelling content and design innovative solutions to
                 engage audiences authentically across live and virtual platforms.`
     },
     {
       header: `We're Creative Storytellers.`,
-      image: 'test/test2.gif',
+      image: 'incentive/cover.jpg',
       color: '#fff',
       message: `We deliver meaningful live and virtual events, impactful communication campaigns,
                 and training that elevates your team. Let us tell your story bigger, bolder and better than ever before.`

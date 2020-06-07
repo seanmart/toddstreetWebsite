@@ -5,8 +5,8 @@ $widescreen: 1400px;
 $blue: #0b2b9d;
 $lightBlue: #02c6cd;
 
-$gutter: 100% / 71;
-$col: $gutter * 5;
+$gutter: 2%;
+$col: (100% - ($gutter * 11)) / 12;
 $col2: $col * 2 + $gutter;
 $col3: $col * 3 + $gutter * 2;
 $col4: $col * 4 + $gutter * 3;
