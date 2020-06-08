@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="side-posts">
     <template v-for="(post, i) in posts">
-      <nuxt-link :to="post.to" class="side-post" :key="i" v-enter:slideup>
+      <nuxt-link :to="post.to" class="side-post" :key="i">
         <p v-if="date" class="date">{{getDate(post.date)}}</p>
         <h3 class="header--sm title">{{post.title}}</h3>
         <fancyLink :to="post.to">Check It Out</fancyLink>

@@ -26,13 +26,10 @@ export default {
     }
   },
   mounted(){
+    let id = 0
     this.links = Array.from(document.querySelectorAll('[data-nav]')).map(el =>{
-      let id = this.$vb.addElement(el,{scroll: this.onScroll, offsetTop:'50vh', offsetBottom: '50vh'})
-      return {label: el.getAttribute('data-nav'), el, id }
+      return {label: el.getAttribute('data-nav'), el, id: id++ }
     }).reverse()
-  },
-  destroyed(){
-    this.links.forEach(link => this.$vb.removeElement(link.id))
   },
   methods:{
     onScroll(e){

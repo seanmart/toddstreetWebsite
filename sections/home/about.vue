@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="about" class="texture" v-section>
+  <section id="about" class="texture">
     <div class="inner-section">
       <section-title :title="data.title"/>
     </div>

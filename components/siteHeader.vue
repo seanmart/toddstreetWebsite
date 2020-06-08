@@ -1,6 +1,6 @@
 <template lang="html">
-  <header v-scroll="toggleTag">
-    <section class="top" v-section>
+  <header>
+    <section class="top">
 
       <div class="logo">
         <nuxt-link to="/" class="logo"><icons logo/></nuxt-link>

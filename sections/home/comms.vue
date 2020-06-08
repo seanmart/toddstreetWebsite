@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="comms" v-section>
+  <section id="comms">
       <section-title :title="data.title"/>
       <section-circle/>
       <section-description :heading="data.heading" :description="data.description"/>

@@ -26,8 +26,7 @@ export default{
   }),
   mounted(){
     this.time = Date.now()
-    this.touch = this.$vb.touch
-    if (this.touch) gsap.set('#loader', {height: window.innerHeight})
+    gsap.set('#loader', {height: window.innerHeight})
 
     imagesLoaded('#site',{background: true},()=> {
       let timeDiff = Date.now() - this.time
@@ -44,7 +43,6 @@ export default{
   methods:{
     init(){
       this.$store.commit('ready', true)
-      this.$vb.init()
     }
   }
 }

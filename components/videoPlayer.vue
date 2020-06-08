@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="video-player" :class="{play}" @click="play=!play" v-mouse="handleMouse">
+  <div class="video-player" :class="{play}" @click="play=!play">
 
-    <div class="video-container" v-if="videoId" v-scroll="handleScroll">
+    <div class="video-container" v-if="videoId">
       <div :id="videoId" :class="`video wistia_embed wistia_async_${videoId}`"/>
     </div>
 

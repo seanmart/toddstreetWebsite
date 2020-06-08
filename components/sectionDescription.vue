@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="section-description">
-    <p class="bold body--rg" v-html="heading" v-enter:slideup/>
-    <p class="body--rg" v-html="description" v-enter:slideup/>
+    <p class="bold body--rg" v-html="heading"/>
+    <p class="body--rg" v-html="description"/>
   </div>
 </template>
 

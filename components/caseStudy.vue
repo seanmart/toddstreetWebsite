@@ -2,7 +2,7 @@
   <div class="case-study" :class="{hover, scroll}">
       <div class="height">
         <div class="wrapper">
-          <div class="content" ref="content" v-mouse="handleMouse" v-enter:custom="handleEnter">
+          <div class="content" ref="content">
 
             <h3 class="title header--md" ref="title" v-html="title"/>
             <div class="bg" v-image="image" v-bg="color"/>

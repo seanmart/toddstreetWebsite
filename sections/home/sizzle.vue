@@ -1,6 +1,6 @@
 <template lang="html">
-  <section id="sizzle" v-section>
-    <video-player :videoId="data.videoId" v-enter:slideup/>
+  <section id="sizzle">
+    <video-player :videoId="data.videoId"/>
   </section>
 </template>
 

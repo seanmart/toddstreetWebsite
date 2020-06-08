@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="section-circle" v-enter:pop>
-    <div class="circle texture" ref="circle" v-scroll="handleScroll"/>
+  <div class="section-circle">
+    <div class="circle texture" ref="circle"/>
   </div>
 </template>
 

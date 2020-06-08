@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="intro" v-section>
+  <section id="intro">
 
     <div class="header-container">
       <div class="wrapper">
@@ -80,7 +80,7 @@ export default {
     gsap.set('#intro p',{opacity:0,yPercent: 10})
     gsap.set('#intro .bar',{scaleX:0})
 
-    if (this.$vb.touch && window.innerWidth < 600){
+    if (window.innerWidth < 600){
       let header = document.querySelector('header').offsetHeight
       gsap.set('#intro', {height: window.innerHeight - header * 2})
     }

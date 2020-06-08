@@ -4,7 +4,7 @@
     <intro :data="data.intro" :ready="ready"/>
     <sizzle :data="data.sizzle"/>
     <side-nav/>
-    <div class="capabilities" v-scroll="[(e)=> navAnimation.progress(e.percent), '50vh', '100vh']">
+    <div class="capabilities">
       <events :data="data.events" data-nav="Events"/>
       <comms :data="data.comms" data-nav="Communications"/>
       <training :data="data.training" data-nav="Training"/>

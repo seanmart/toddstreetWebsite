@@ -1,5 +1,5 @@
 <template lang="html">
-  <footer v-section>
+  <footer>
     <section>
       footer
     </section>

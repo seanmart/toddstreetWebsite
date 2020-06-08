@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="cares" v-section v-scroll="[handleScroll,'100vh - 70','70']">
+  <section id="cares">
       <section-title :title="data.title"/>
       <section-description :description="data.description"/>
       <div class="blog">

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="section-title" ref="st" v-enter:custom="animation">
+  <div class="section-title" ref="st">
     <split textClass="header--bg reveal" :text="title" tag="h1"/>
     <hr ref="rule"/>
   </div>
