@@ -2,6 +2,7 @@ export default class{
   constructor(mouseFunction, scroll,resize){
 
     this.mouseFunction = mouseFunction
+    this.ready = false
 
     this.pageX = resize.width / 2
     this.pageY = resize.height / 2
@@ -27,6 +28,7 @@ export default class{
   }
 
   handleMouse(e){
+    this.ready = true
     this.pageX = e.pageX
     this.pageY = e.pageY
     this.clientX = e.clientX
@@ -36,6 +38,7 @@ export default class{
   }
 
   handleScroll(scroll){
+    if (!this.ready) return
     this.pageY = this.clientY + scroll.top
     this.runFunctions()
   }

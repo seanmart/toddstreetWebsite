@@ -11,6 +11,7 @@ export default class{
     this.onScroll = this.onScroll.bind(this)
     this.onMouse = this.onMouse.bind(this)
     this.onResize = this.onResize.bind(this)
+    this.getPosition = tools.getPosition
 
     this.resize = new Resize(this.onResize)
     this.scroll = new Scroll(this.onScroll, this.touch,this.resize)
@@ -27,6 +28,11 @@ export default class{
   // INIT
 
   init(){
+    this.update()
+    this.scroll.init()
+  }
+
+  update(){
     for (let i = 0; i < this.sections.length; i++){
       this.sections[i].pos = tools.getPosition(this.sections[i].el)
     }
@@ -46,8 +52,6 @@ export default class{
         })
       }
     }
-
-    this.scroll.init()
   }
 
   // SECTION

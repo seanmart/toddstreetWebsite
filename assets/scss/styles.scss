@@ -53,16 +53,16 @@ main{
 
 .header--md{
   @include headerFont;
-  font-size: 30px;
-  line-height: 95%;
-  font-weight: 400;
+  font-size: 35px;
+  line-height: 100%;
+  font-weight: 600;
 }
 
 .header--sm{
   @include headerFont;
-  font-size: 27px;
+  font-size: 30px;
   font-weight: 500;
-  line-height: 95%;
+  line-height: 100%;
 }
 
 .body--bg{
@@ -81,6 +81,14 @@ main{
   margin-bottom: 30px;
 }
 
+.body--sm{
+  @include bodyFont;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 150%;
+  margin-bottom: 20px;
+}
+
 .navigation--rg{
   @include headerFont;
   text-transform: uppercase;
@@ -92,7 +100,7 @@ main{
 .button--rg{
   @include headerFont;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -111,7 +119,11 @@ main{
   }
 
   .header--md{
-    font-size: 25px;
+    font-size: 30px;
+  }
+
+  .header--sm{
+    font-size: 27px;
   }
 
   .body--bg{
@@ -121,6 +133,11 @@ main{
   .body--rg{
     font-size: 22px;
   }
+
+  .body--sm{
+    font-size: 18px;
+  }
+
 
   .navigation--rg{
     font-size: 16px;

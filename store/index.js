@@ -4,8 +4,7 @@ export default {
     loaded: false,
     navColor: '#000',
     navColorPrevious:null,
-    posts: [],
-    links:[]
+    care: []
   }),
   mutations:{
     ready(state, x){
@@ -23,44 +22,25 @@ export default {
         state.navColorPrevious = null
       }
     },
-    posts(state,x){
-      state.posts = x
-    },
-    links(state,x){
-      state.links = x
+    posts(state,{type, posts}){
+      state[type] = posts
     }
   },
   actions:{
-    nuxtServerInit({dispatch}){
-      dispatch('addPosts')
-      dispatch('addLinks')
-    },
-    addPosts({commit}){
+    nuxtServerInit({commit}){
       let files = require.context('../assets/data/posts', true, /.md/)
       let posts = files.keys().map(key => {
+        let id = key.replace('.md','').replace('./','')
         return {
           ...files(key).attributes,
+          id: id,
           html:files(key).html,
-          to: `/posts/${key.replace('.md','')}`
+          body: files(key).body,
+          link: {path: files(key).attributes.category, query:{id}}
         }
       })
-      commit('posts',posts)
-    },
-    addLinks({commit}){
-      let links = []
-      let files = require.context('../pages', true, /.vue$/)
-      files.keys().forEach(page => {
-        let dataFn = files(page).default.data
-        if (dataFn) {
-          let data = dataFn()
-          if (data.navbar){
-            let url = page.replace('.','').replace('.vue','')
-            links.push({...data.navbar, to: url})
-          }
-        }
-      })
-      links = links.sort((a,b) => a.order < b.order)
-      commit('links',links)
+
+      commit('posts',{type: 'care', posts: posts.filter(p => p.category == 'care')})
     }
   }
 }

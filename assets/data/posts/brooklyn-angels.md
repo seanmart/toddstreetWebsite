@@ -2,7 +2,7 @@
 date: 2018-11-15
 title: North Brooklyn Angels
 image: 'posts/north-brooklyn-angels.jpg'
-category: cares
+category: care
 ---
 
 This November 2018, a number of toddstreet employees rolled up their sleeves to volunteer for the North Brooklyn Angels, a mobile soup kitchen serving hot meals to residents of North Brooklyn in need (spanning Greenpoint, Bushwick and Williamsburg).
@@ -19,4 +19,4 @@ What started as a few people cooking meals for a homeless shelter has flourished
 
 We are humbled by the work the organization does everyday to serve members of the community and were grateful to participate. toddstreet looks forward to partnering again soon!
 
-[Donation Link](https://northbrooklynangels.nationbuilder.com/donate){:target="\_blank"}
+[Donation Link](https://northbrooklynangels.nationbuilder.com/donate)

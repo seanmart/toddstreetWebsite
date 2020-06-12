@@ -17,17 +17,9 @@ export default class{
     this.direction = 'down'
     this.delta = 0
 
-    this.scrollToProps = {
-      destination: null,
-      current: null,
-      ticking: false,
-      cancel: false
-    }
-
     this.checkScroll = touch ? this.checkNative : this.checkSmooth
     this.handleScroll = this.handleScroll.bind(this)
     this.handleResize = this.handleResize.bind(this)
-    this.cancelScrollTo = this.cancelScrollTo.bind(this)
 
     window.addEventListener('scroll',this.handleScroll)
     resize.addEvent(this.handleScroll)
@@ -111,49 +103,5 @@ export default class{
 
     this.scrollFunction(props)
     this.events.forEach(fn => fn(props))
-  }
-
-  // SCROLLTO
-
-  scrollTo(el){
-    if (typeof el == 'string') el = document.querySelector(el)
-    if (!el) return
-
-    this.scrollToProps.destination = tools.getPosition(el).top
-
-    if (!this.scrollToProps.ticking) {
-      window.addEventListener('wheel', this.cancelScrollTo)
-      window.addEventListener('touchmove', this.cancelScrollTo)
-      this.scrollToProps.current = this.top
-      this.runScrollTo()
-    }
-  }
-
-  runScrollTo(){
-    this.scrollToProps.current = tools.lerp(this.scrollToProps.current, this.scrollToProps.destination,.05)
-    this.scrollToProps.ticking = Math.abs(this.scrollToProps.destination - this.scrollToProps.current) > .5
-
-    window.requestAnimationFrame(()=>{
-      window.scrollTo(0,this.scrollToProps.current)
-      if (this.scrollToProps.ticking && !this.scrollToProps.cancel) {
-        this.runScrollTo()
-      } else {
-        window.removeEventListener('wheel', this.cancelScrollTo)
-        window.removeEventListener('touchmove', this.cancelScrollTo)
-
-        this.scrollToProps = {
-          ticking: false,
-          current: null,
-          destiation: null,
-          cancel: false,
-          wheel: null
-        }
-
-      }
-    })
-  }
-
-  cancelScrollTo(){
-    this.scrollToProps.cancel = true
   }
 }

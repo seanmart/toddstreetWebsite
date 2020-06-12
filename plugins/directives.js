@@ -2,7 +2,6 @@ import VirtualBuddy from "@/assets/virtualBuddy";
 import Vue from "vue";
 
 const vb = new VirtualBuddy()
-console.log(vb)
 
 Vue.directive('section',{
   inserted: function(el){

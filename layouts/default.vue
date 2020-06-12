@@ -36,9 +36,12 @@ export default{
 
   },
   watch:{
-    $route(){
-      this.$store.commit('ready', false)
-      setTimeout(this.init,1500)
+    $route(to,from){
+      if (to.matched[0].path !== from.matched[0].path){
+        this.$store.commit('ready', false)
+        setTimeout(this.init,1750)
+      }
+      window.scrollTo(0,0)
     }
   },
   methods:{

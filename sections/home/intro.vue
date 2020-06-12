@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="intro" v-section>
+  <section id="intro" v-section v-scroll="handleScroll">
 
     <div class="header-container">
       <div class="wrapper">
@@ -68,7 +68,7 @@ export default {
   props:['data', 'ready'],
   data:()=>({
     timerDuration: 10,
-    transitionDuration: 1.2,
+    transitionDuration: 1,
     marqueeSpeed: .32,
     index: 0,
     timer: null,
@@ -76,7 +76,7 @@ export default {
   }),
   mounted(){
     gsap.set('#intro',{opacity:0})
-    gsap.set('#intro .header',{yPercent: 100})
+    gsap.set('#intro h1',{yPercent: 100})
     gsap.set('#intro p',{opacity:0,yPercent: 10})
     gsap.set('#intro .bar',{scaleX:0})
 
@@ -97,13 +97,24 @@ export default {
       tl.set('#intro',{opacity:1},0)
       tl.from('#intro .texture',1,{xPercent:-100, ease:'power4.out'},0)
       tl.to('#intro .image-0',1,{xPercent: 100, ease:'power4.out'},0)
-      tl.to('#intro .header',1,{yPercent: 0, ease:'power3.out'},.4)
-      tl.to('#intro p',1,{yPercent:0, opacity:1, ease:'power3.out' },"<.15")
+      tl.to('#intro .unmasked h1',1,{yPercent: 0, stagger: .1,ease:'power3.out'},.4)
+      tl.to('#intro .masked h1',1,{yPercent: 0, stagger: .1,ease:'power3.out'},.4)
+      tl.to('#intro p',1,{yPercent:0, opacity:1,ease:'power3.out' },"<.15")
       tl.from('#intro .timer',1,{yPercent:100, opacity:0, ease: 'power3.out'},"<.15")
 
     }
   },
   methods:{
+    handleScroll(e){
+      if (e.leave){
+        this.timer.pause()
+        this.headers.forEach(m => m.gsap.pause())
+      }
+      if (e.enter && e.scroll.direction == 'up'){
+        this.timer.play()
+        this.headers.forEach(m => m.gsap.play())
+      }
+    },
     removeHeader(el){
       gsap.fromTo(el,this.transitionDuration,{yPercent:0},{yPercent: -100, ease:'power2.out', onComplete:()=>{
         this.removeMarquee(el)

@@ -45,7 +45,12 @@ import {mapState} from 'vuex'
 export default {
   data:()=>({
     menuOpen: false,
-    showTag: false
+    showTag: false,
+    links:[
+      {label: 'About', to:'/about'},
+      {label: 'We Care', to:'/care'},
+      {label: 'Contact', to:'/contact'}
+    ]
   }),
   watch:{
     ready(ready){
@@ -55,13 +60,12 @@ export default {
         tl.fromTo('header .top svg',1,{yPercent: 100},{yPercent:0, ease: 'power4.out'},0)
         tl.fromTo('header .top .link',1,{yPercent: 100},{yPercent:0, stagger:.1, ease: 'power4.out'},.25)
         tl.fromTo('header button',1,{scale:.5, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.5)
+      } else {
+        let tl = gsap.timeline()
+        tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
+        tl.to('header .top .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
+        tl.to('header .top svg',.5,{yPercent:-100, ease: 'power4.in'},.5)
       }
-    },
-    $route(){
-      let tl = gsap.timeline()
-      tl.to('header button',.5,{scale:.5, opacity:0, ease: 'power4.in'},0)
-      tl.to('header .top .link',.5,{yPercent:-100, stagger:-.1, ease: 'power4.in'},.25)
-      tl.to('header .top svg',.5,{yPercent:-100, ease: 'power4.in'},.5)
     }
   },
   methods:{
@@ -85,7 +89,7 @@ export default {
       tl.to('header menu',.4,{width: 0, clearProps: 'all', ease: 'power1.in'},.2)
     }
   },
-  computed:mapState(['ready', 'navColor','links'])
+  computed:mapState(['ready', 'navColor'])
 }
 </script>
 

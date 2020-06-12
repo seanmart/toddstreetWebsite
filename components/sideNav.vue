@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import tools from '@/assets/virtualBuddy/tools'
 export default {
   data:()=>({
     active: null,
@@ -44,7 +45,7 @@ export default {
     setScroll(el, id){
       this.active = id
       this.scrolling = true
-      this.$vb.scroll.scrollTo(el)
+      gsap.to(window,2,{scrollTo: tools.getPosition(el).top, ease: 'power4.out'})
     }
   }
 }

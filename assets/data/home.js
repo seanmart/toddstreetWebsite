@@ -77,12 +77,12 @@ export default{
     description:`toddstreet produces meaningful events that engage minds across the globe.
                  Our events span from large-scale conferences and blockbuster product launches
                  to intimate and exclusive press launches, influencer activations and more.`,
-    postCount: 3
+    postCount: 4
   },
   about:{
-    title: `What We've <br/> Been Up To`,
-    description:`toddstreet produces meaningful events that engage minds across the globe.
-                 Our events span from large-scale conferences and blockbuster product launches
-                 to intimate and exclusive press launches, influencer activations and more.`
+    title: `Learn More <br/> About Us`,
+    gallery:[
+      
+    ]
   }
 }

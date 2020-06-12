@@ -34,6 +34,16 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
   }
+  /*
+  .case-study{
+    flex: 0 0 100%;
+    margin-bottom: $gutter;
+
+    .height{
+      padding-bottom: 70%;
+    }
+  }
+  */
   .case-study{
     flex: 0 0 $col4;
     margin-bottom: $gutter;

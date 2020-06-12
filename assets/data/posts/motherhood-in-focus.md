@@ -1,8 +1,8 @@
 ---
 date: 2017-01-01
 title: Partnering with Motherhood in Focus
-image: '/uploads/motherhood_in_focus.jpg'
-category: cares
+image: 'posts/motherhood_in_focus.jpg'
+category: care
 ---
 
 When the managing editor of Babble.com, a Disney Interactive parenting website, reached out to us about supporting a pro-bono initiative for Mother’s Day, we jumped on the opportunity. Babble’s Motherhood in Focus campaign honors hard-working, single moms from low-income NYC communities who are rarely in photos with their kids; instead, they are always the ones taking the photos.

@@ -1,8 +1,7 @@
 ---
 date: 2018-05-08
 title: 'SAVE, A Friend to Homeless Animals'
-image: '/uploads/SAVE_video.jpg'
-category: cares
+category: care
 ---
 
 Recently, we were asked if we could donate our services to produce a video for a fundraising Gala for SAVE, A Friend to Homeless Animals Shelter.
@@ -14,4 +13,4 @@ We managed to produce the shoot in between many video projects, several snow sto
 Craig, our Video Producer, saved the day and was able to get the shoot finalized before SAVE's major fundraising Gala.
 
 For more information about SAVE, click
-[here](https://savehomelessanimals.org/){:target="\_blank"}.
+[here](https://savehomelessanimals.org/).

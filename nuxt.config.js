@@ -17,7 +17,8 @@ export default {
       { src: '//fast.wistia.com/assets/external/E-v1.js', body: true},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/gsap.min.js', body: true},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/CSSRulePlugin.min.js', body: true},
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/TextPlugin.min.js', body: true}
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/TextPlugin.min.js', body: true},
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollToPlugin.min.js', body: true}
     ]
   },
   loading: {
@@ -50,7 +51,7 @@ export default {
           test: /\.md$/,
           loader: "frontmatter-markdown-loader",
           options: {
-            mode: [FMMode.HTML]
+            mode: [FMMode.HTML, FMMode.BODY]
           }
         }
       )

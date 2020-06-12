@@ -4,10 +4,10 @@
         <div class="wrapper">
           <div class="content" ref="content" v-mouse="handleMouse" v-enter:custom="handleEnter">
 
-            <h3 class="title header--md" ref="title" v-html="title"/>
+            <h3 class="title header--sm" ref="title" v-html="title"/>
             <div class="bg" v-image="image" v-bg="color"/>
             <nuxt-link v-if="link" class="big-link" :to="link"/>
-            <fancy-link v-if="link" class="link" :to="link">Check It Out</fancy-link>
+            <fancy-link v-if="link" class="link" :to="link"/>
 
             <div class="side-text-container">
               <div class="side-text" ref="sidetext">

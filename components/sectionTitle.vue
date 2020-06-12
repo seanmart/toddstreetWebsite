@@ -1,14 +1,19 @@
 <template lang="html">
-  <div class="section-title" ref="st" v-enter:custom="animation">
+  <div v-if="animate" class="section-title" ref="st" v-enter:custom="animation">
     <split textClass="header--bg reveal" :text="title" tag="h1"/>
     <hr ref="rule"/>
+  </div>
+  <div v-else class="section-title">
+    <split textClass="header--bg reveal" :text="title" tag="h1"/>
+    <hr/>
   </div>
 </template>
 
 <script>
 export default {
   props:{
-    title: {type:String,default:''}
+    title: {type:String,default:''},
+    animate: {type: Boolean, default: true}
   },
   methods:{
     animation(){
@@ -16,7 +21,7 @@ export default {
 
       let tl = gsap.timeline({paused: true})
       tl.from(this.$refs.rule,1,{scaleY:0, ease: 'power4.out', clearProps: 'all'},0)
-      tl.from(wordEls,1,{yPercent:100, ease: 'power4.out', stagger: .07, clearProps:'all'},.3)
+      tl.from(wordEls,1,{yPercent:100, ease: 'power4.out', stagger: .05, clearProps:'all'},.3)
 
       return tl
     }
@@ -31,7 +36,7 @@ export default {
   margin-bottom: 50px;
 
   hr{
-    background: $blue;
+    background: $lightBlue;
     transform-origin: bottom;
     border: none;
     position: absolute;
