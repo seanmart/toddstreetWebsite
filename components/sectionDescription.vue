@@ -21,10 +21,12 @@ export default {
 
   @media (max-width: $tablet){
     margin-left: $col4;
+    margin-bottom: $tablet-section-space;
   }
 
   @media (max-width: $mobile){
     margin-left: 0px;
+    margin-bottom: $mobile-section-space;
     br{
       display: none;
     }

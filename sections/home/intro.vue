@@ -18,7 +18,6 @@
         <div class="content">
 
           <div class="texture"/>
-
           <div class="wrapper">
 
             <transition :duration="transitionDuration * 1000" v-on:before-enter="setMessage" v-on:before-leave="removeMessage">
@@ -96,7 +95,7 @@ export default {
 
       tl.set('#intro',{opacity:1},0)
       tl.from('#intro .texture',1,{xPercent:-100, ease:'power4.out'},0)
-      tl.to('#intro .image-0',1,{xPercent: 100, ease:'power4.out'},0)
+      tl.to('#intro .image-0',1,{xPercent: 100, ease:'power4.out'},.2)
       tl.to('#intro .unmasked h1',1,{yPercent: 0, stagger: .1,ease:'power3.out'},.4)
       tl.to('#intro .masked h1',1,{yPercent: 0, stagger: .1,ease:'power3.out'},.4)
       tl.to('#intro p',1,{yPercent:0, opacity:1,ease:'power3.out' },"<.15")
