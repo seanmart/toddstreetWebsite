@@ -1,0 +1,39 @@
+$margin--dk: 150px;
+$margin--tb: 100px;
+$margin--mb-left: 40px;
+$margin--mb-right: 75px;
+
+$space--dk: 150px;
+$space--tb: 120px;
+$space--mb: 100px;
+
+$desktop: 1400px;
+$tablet: 1100px;
+$mobile: 800px;
+
+$blue: #13306C;
+$lightBlue: #0053AD;
+$yellow:#FFD273;
+
+$gutter: 2%;
+$col: (100% - ($gutter * 11)) / 12;
+$col2: $col * 2 + $gutter;
+$col3: $col * 3 + $gutter * 2;
+$col4: $col * 4 + $gutter * 3;
+$col5: $col * 5 + $gutter * 4;
+$col6: $col * 6 + $gutter * 5;
+$col7: $col * 7 + $gutter * 6;
+$col8: $col * 8 + $gutter * 7;
+$col9: $col * 9 + $gutter * 8;
+$col10: $col * 10 + $gutter * 9;
+$col11: $col * 11 + $gutter * 10;
+$col12: $col * 12 + $gutter * 11;
+
+:export{
+  mobile: $mobile;
+  tablet: $tablet;
+  desktop: $desktop;
+  blue: $blue;
+  lightBlue: $lightBlue;
+  yellow: $yellow;
+}

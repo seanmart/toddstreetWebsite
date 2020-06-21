@@ -1,0 +1,23 @@
+{
+  "name": "website2",
+  "version": "1.0.0",
+  "description": "My divine Nuxt.js project",
+  "author": "Sean Metcalf",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
+    "imagesloaded": "^4.1.4",
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.0.0",
+    "sass-loader": "^8.0.2"
+  },
+  "devDependencies": {
+    "frontmatter-markdown-loader": "^3.5.0"
+  }
+}
