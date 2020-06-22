@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="intro" ref="intro" class="space--r space--b" data-section>
+  <section id="intro" ref="intro" class="space--r space--b">
 
     <div class="marquee-container">
       <div class="marquee">
@@ -93,7 +93,7 @@ export default {
                      .add(()=> items[0].play(),.4)
 
     ScrollBuddy.create(this.$refs.intro,{
-      //onEnter:()=> items[this.index].play(),
+      onEnter:()=> items[this.index].play(),
       onLeave: ()=> items[this.index].pause()
     })
 

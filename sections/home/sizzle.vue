@@ -1,6 +1,6 @@
 <template lang="html">
-  <section id="sizzle" class="space--all" data-section>
-    <video-player v-enter:zoomout/>
+  <section id="sizzle" class="space--all">
+    <video-player v-enter:zoomout :videoId="data.videoId"/>
   </section>
 </template>
 

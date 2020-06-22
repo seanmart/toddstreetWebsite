@@ -35,6 +35,7 @@ export class ScrollBuddy{
   }
 
   update({height, width}){
+
     this.position = getPosition(this.el)
     this.start = this.position.top + getValue(this.offsetStart)
     this.end = this.position.bottom - getValue(this.offsetEnd)
@@ -84,7 +85,7 @@ export class ScrollBuddy{
       props.percent = props.scrolled / this.duration
       props.id = this.id
 
-      if (this.onScroll && visible && this.visible) this.onScroll(props)
+      if (this.onScroll) this.onScroll(props)
       if (this.onEnter && visible && !this.visible) this.onEnter(props)
       if (this.onLeave && !visible && this.visible) this.onLeave(props)
 
@@ -103,6 +104,7 @@ export default {
   create:(e,o)=> {
     let id = generateId(5)
     instances[id] = new ScrollBuddy(e,o, id)
+
     return instances[id]
   },
   killAll:()=> Object.keys(instances).forEach(id => instances[id].kill()),

@@ -56,8 +56,8 @@ export class MouseBuddy{
   }
 
   _run(e){
-    if (this.position.top > scroller.bottom) return
-    if (this.position.bottom < scroller.top) return
+    if (this.position.top > scroller.bottom && !this.active) return
+    if (this.position.bottom < scroller.top && !this.active) return
 
     let active = e.pageY >= this.position.top && e.pageY <= this.position.bottom
               && e.pageX >= this.position.left && e.pageX <= this.position.right
@@ -66,6 +66,7 @@ export class MouseBuddy{
 
       let props = {
         ...e,
+        id: this.id,
         offsetY: e.pageY - this.position.top,
         offsetX: e.pageX - this.position.left
       }

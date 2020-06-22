@@ -22,7 +22,8 @@ export default {
     links:[],
     container:null,
     timeline: null,
-    timeout: null
+    timeout: null,
+    resizeId: null
   }),
   watch:{
     ready(ready){
@@ -38,7 +39,7 @@ export default {
       this.addLinks()
       this.setContainer()
       if (this.links.length > 0 && this.container){
-        window.addEventListener('resize',this.handleResize)
+      this.resizeId = resizer.add(this.handleResize)
       }
     },
     reset(){
@@ -47,7 +48,7 @@ export default {
       this.container = null
 
       if (this.links.length > 0 && this.container){
-        window.removeEventListener('resize',this.handleResize)
+        resizer.add(this.resizeId)
         this.timeline.kill()
         this.timeline = null
       }
@@ -73,11 +74,13 @@ export default {
       let container = document.querySelector('[data-nav-container]')
       if (container){
         this.container = container
+        let offsets = container.getAttribute('data-nav-container').replace('[','').replace(']','').split(',')
+
         this.setTimeline()
 
         ScrollBuddy.create(this.container,{
-          offsetStart:'50vh',
-          offsetEnd: '75vh',
+          offsetStart:offsets.length > 0 ? `${offsets[0]}vh` : 0,
+          offsetEnd: offsets.length > 1 ? `${offsets[1]}vh` : 0,
           onScroll:(e)=> this.timeline.progress(e.percent)
         })
       }
@@ -86,8 +89,8 @@ export default {
       if (this.timeline) this.timeline.kill()
       let duration = 500 / (this.container.offsetHeight / 10)
       this.timeline = gsap.timeline({paused: true})
-                          .to('#side-nav',duration,{x: '-100%', ease: 'power4.out'},0)
-                          .to('#side-nav',duration,{x: '0%', ease: 'power4.in'},10)
+                          .to('#side-nav',duration,{x: '-100%', opacity: 1, ease: 'power4.out'},0)
+                          .to('#side-nav',duration,{x: '0%', opacity: 0, ease: 'power4.in'},10)
     },
     setScroll(el, index){
       this.active = index
@@ -109,6 +112,7 @@ export default {
   top: 50%;
   z-index: 50;
   left: 100%;
+  opacity: 0;
   display: flex;
   justify-content: center;
   align-items: center;

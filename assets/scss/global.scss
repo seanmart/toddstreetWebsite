@@ -29,6 +29,9 @@ section{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  &.gallery--b{
+    align-items: flex-end;
+  }
 }
 
 @media (max-width: $mobile){

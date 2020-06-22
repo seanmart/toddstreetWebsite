@@ -35,10 +35,10 @@ export default{
                   to intimate and exclusive press launches, influencer activations and more. `,
     caseStudies:[
       {link: '/', title: 'Product Launches', image: 'productLaunch/cover.jpg'},
+      {link: '/', title: 'Virtual Events', image: 'virtual/cover.jpg'},
       {link: '/', title: `National Sales Meetings`, image: 'nsm/cover.jpg'},
       {link: '/', title: 'Influencer Events', image: 'influencer/cover.jpg'},
       {link: '/', title: 'Incentive Events', image: 'incentive/cover.jpg'},
-      {link: '/', title: 'Virtual Events', image: 'virtual/cover.jpg'},
       {link: '/', title: 'Leadership Summits', image: 'summit/cover.jpg'},
       {link: '/', title: 'Tradeshows', image: 'tradeshows/cover.jpg'}
     ]
@@ -52,10 +52,10 @@ export default{
                   leveraging our marketing and strategic expertise to fuel your vision with
                   creativity and clarity.`,
     caseStudies:[
-      {link: '/', title: 'Integrated Campaigns', color: '#eab22c', image: 'test/test.png'},
-      {link: '/', title: 'Video', color: '#c0e1e8', image: 'test/test.png'},
-      {link: '/', title: 'Digital', color: '#5734c8', image: 'test/test.png'},
-      {link: '/', title: 'Print Design <br/> & Branding',image: 'test/test.png'}
+      {link: '/', title: 'Integrated Campaigns', color: '#eab22c'},
+      {link: '/', title: 'Video', color: '#c0e1e8'},
+      {link: '/', title: 'Digital', color: '#5734c8'},
+      {link: '/', title: 'Print Design & Branding'}
     ]
   },
   training:{
@@ -69,10 +69,10 @@ export default{
                   building on top of what’s already been done and leveraging live and
                   virtual platforms to facilitate learning and the application of knowledge. `,
     caseStudies:[
-      {link: '/', title: 'Integrated Design & Strategy'},
-      {link: '/', title: 'Digital Learning'},
-      {link: '/', title: 'Immersive'},
-      {link: '/', title: 'Analogue'}
+      {link: '/', title: 'Integrated Design & Strategy', color: '#555'},
+      {link: '/', title: 'Digital Learning', color: '#555'},
+      {link: '/', title: 'Immersive', color: '#555'},
+      {link: '/', title: 'Analogue', color: '#555'}
     ]
   },
   cares:{

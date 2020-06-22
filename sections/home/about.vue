@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="about" class="space--all texture" data-section>
+  <section id="about" class="space--all texture">
     <section-title :text="data.title"/>
   </section>
 </template>

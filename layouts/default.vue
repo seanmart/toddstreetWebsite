@@ -6,9 +6,9 @@
     <nav-button/>
 
     <div id="scroll">
-        <top-nav data-section/>
+        <top-nav/>
         <nuxt />
-        <bottom-nav data-section/>
+        <bottom-nav/>
     </div>
 
   </div>
@@ -56,6 +56,7 @@ export default{
     },
     afterLoad(){
       gsap.timeline()
+          .set('#site', {clearProps:"height, auto"})
           .to('#loading',.5,{height:0,display:'none', ease: 'power2.in'},0)
           .add(()=> this.$store.commit('ready', true),.75)
     },

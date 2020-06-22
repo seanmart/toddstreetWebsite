@@ -12,6 +12,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script:[
+      { src: '//fast.wistia.com/assets/external/E-v1.js', body: true},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/gsap.min.js', body: true},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/CSSRulePlugin.min.js', body: true},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/TextPlugin.min.js', body: true},

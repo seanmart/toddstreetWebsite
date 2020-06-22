@@ -1,8 +1,8 @@
 <template lang="html">
-  <main>
+  <main id="home">
     <intro :data="data.intro"/>
     <sizzle :data="data.sizzle"/>
-    <div class="capabilities" data-nav-container>
+    <div class="capabilities" data-nav-container="[50,120]">
       <events :data="data.events" data-nav="events"/>
       <comms :data="data.comms" data-nav="communications"/>
       <training :data="data.training" data-nav="training"/>
@@ -28,5 +28,14 @@ export default {
 </script>
 
 <style lang="scss">
-  
+  #home{
+    .capabilities{
+      position: relative;
+      z-index: 1;
+      margin-bottom: -$space--dk * 2;
+    }
+    #cares{
+      padding-top: $space--dk * 2;
+    }
+  }
 </style>

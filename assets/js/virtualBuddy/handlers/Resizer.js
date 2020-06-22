@@ -3,7 +3,7 @@ import {isTouch, generateId, debounce} from '../tools'
 let resizer, callbacks, sizes, debouncedHandleResize
 
 function handleResize(){
-  updateRsizer()
+  updateResizer()
   callbacks.forEach(c => c.callback({
     height: resizer.height,
     width: resizer.width,
@@ -12,7 +12,7 @@ function handleResize(){
   }, c.id))
 }
 
-function updateRsizer(){
+function updateResizer(){
   resizer.height = window.innerHeight
   resizer.width = window.innerWidth
   let found = false
@@ -45,9 +45,9 @@ resizer = {
     options = Object.assign({},defaults,options)
     sizes = Object.keys(options).map(key => ({key, width: options[key]})).sort((a,b) => a.width - b.width)
     callbacks = []
-    updateRsizer()
+    updateResizer()
 
-    window.addEventListener('resize', ()=>debounce(handleResize,250))
+    window.addEventListener('resize', handleResize)
   },
   add:(callback)=>{
     let id = generateId(5)

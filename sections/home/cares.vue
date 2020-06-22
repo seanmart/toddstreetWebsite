@@ -1,5 +1,5 @@
 <template lang="html">
-  <section id="cares" class="space--all" data-section>
+  <section id="cares" class="space--all" data-button-color="#fff">
     <section-title :text="data.title"/>
   </section>
 </template>

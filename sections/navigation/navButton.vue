@@ -1,9 +1,41 @@
 <template lang="html">
-  <button type="button" id="nav-button"><i/><i/><i/></button>
+  <button type="button" id="nav-button">
+    <i :style="{background: color}"/>
+    <i :style="{background: color}"/>
+    <i :style="{background: color}"/>
+  </button>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
+  data:()=>({
+    els: [],
+    color: '#000',
+    last: '#000'
+  }),
+  watch:{
+    color(to,from){this.last = from},
+    ready(ready){ ready ? this.addEls() : this.reset()}
+  },
+  computed:mapState(['ready']),
+  methods:{
+    reset(){
+      this.ids.forEach(id => ScrollBuddy.killById(id))
+    },
+    addEls(){
+      this.ids = Array.from(document.querySelectorAll('[data-button-color]')).map(el => {
+        let color = el.getAttribute('data-button-color')
+        let id = ScrollBuddy.create(el,{
+          offsetStart: '90vh',
+          offsetEnd: '10vh',
+          onEnter: ()=> this.color = color,
+          onLeave: ()=> this.color = this.last
+        }).id
+        return id
+      })
+    }
+  }
 }
 </script>
 

@@ -63,21 +63,23 @@ Vue.directive('enter',{
 })
 
 Vue.directive('parallax',{
-  inserted: function(el,{value}){
+  inserted: function(el,{arg,value}){
+    
+    let min = arg == 'no-min' ? 0 : mobile
 
     if (typeof value == 'string'){
 
       let animation = gsap.to(el,1,{y:value, paused: true, ease: 'none'})
 
       ScrollBuddy.create(el,{
-        minWidth: mobile,
+        minWidth: min,
         onScroll:(e)=> animation.progress(e.percent)
       })
 
     } else {
 
       ScrollBuddy.create(el,{
-        minWidth: mobile,
+        minWidth: min,
         onScroll:(e)=> gsap.set(el,{y: (-value/10) * e.scrolled })
       })
     }
