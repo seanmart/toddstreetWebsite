@@ -12,11 +12,14 @@ export default {
   data:()=>({
     els: [],
     color: '#000',
-    last: '#000'
+    last: '#000',
+    first: true
   }),
   watch:{
     color(to,from){this.last = from},
-    ready(ready){ ready ? this.addEls() : this.reset()}
+    ready(ready){
+      ready ? this.addEls() : this.reset()
+    }
   },
   computed:mapState(['ready']),
   methods:{

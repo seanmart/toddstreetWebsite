@@ -50,9 +50,10 @@ export function getValue(value,el){
   if (typeof value == 'number' || typeof value == 'function') return value
 
   let parseValue = (string)=>{
+    console.log(el, window.innerHeight)
     let val = parseFloat(string)
-    return string.includes('%y') ? val * (el.offsetHeight/100)
-         : string.includes('%x') ? val * (el.offsetWidth/100)
+    return string.includes('%y') ? val * (el.offsetHeight / 100)
+         : string.includes('%x') ? val * (el.offsetWidth / 100)
          : string.includes('vh') ? val * (window.innerHeight / 100)
          : string.includes('vw') ? val * (window.innerWidth / 100)
          : string.includes('px') ? val

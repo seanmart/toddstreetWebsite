@@ -37,8 +37,8 @@ export class ScrollBuddy{
   update({height, width}){
 
     this.position = getPosition(this.el)
-    this.start = this.position.top + getValue(this.offsetStart)
-    this.end = this.position.bottom - getValue(this.offsetEnd)
+    this.start = this.position.top + getValue(this.offsetStart,this.el)
+    this.end = this.position.bottom - getValue(this.offsetEnd, this.el)
     this.duration = Math.min(this.start, height) + (this.end - this.start)
     this.scrolledOffset = Math.max(this.start - height,0)
 

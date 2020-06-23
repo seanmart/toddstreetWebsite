@@ -1,10 +1,10 @@
 <template lang="html">
   <div id="side-nav" ref="sideNav">
-    <aside class="link--font">
-      <h3
+    <aside>
+      <button
         v-for="(link,i) in links"
         :key="i"
-        class="link"
+        class="link link--font"
         :class="{active: active == link.index}"
         @click="setScroll(link.el, link.index)"
         v-html="link.label"
@@ -23,7 +23,8 @@ export default {
     container:null,
     timeline: null,
     timeout: null,
-    resizeId: null
+    resizeId: null,
+    first: true
   }),
   watch:{
     ready(ready){
@@ -43,7 +44,6 @@ export default {
       }
     },
     reset(){
-
       this.links = []
       this.container = null
 

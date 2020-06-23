@@ -1,7 +1,7 @@
 <template lang="html">
   <header class="space--lr">
     <nav class="link--font">
-      <nuxt-link to="/"><icon logo/></nuxt-link>
+      <nuxt-link to="/" class="logo"><icon logo/></nuxt-link>
       <nuxt-link to="/about">about</nuxt-link>
       <nuxt-link to="/care">we care</nuxt-link>
       <nuxt-link to="/contact">contact</nuxt-link>
@@ -37,14 +37,15 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-
-    &:first-child{
-      display: block;
-      margin: 0px;
-      width: 200px;
-      margin-right: auto;
-    }
   }
+
+  .logo{
+    display: block;
+    margin: 0px;
+    width: 200px;
+    margin-right: auto;
+  }
+
   @media (max-width: $tablet){
     height: $space--tb;
 
@@ -58,6 +59,10 @@ header{
 
   @media (max-width: $mobile){
     height: $space--mb;
+
+    .logo{
+      width: 170px;
+    }
   }
 }
 </style>

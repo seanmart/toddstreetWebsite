@@ -6,6 +6,9 @@
 
 <script>
 export default {
+  mounted(){
+    if (scroller.touch()) gsap.set('#loading', {height: window.innerHeight})
+  }
 }
 </script>
 

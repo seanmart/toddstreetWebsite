@@ -1,5 +1,5 @@
 import {lerp, generateId, getPosition, isTouch} from '../tools'
-let scroller, container, smooth, inertia, sections, callbacks, resizeId, update, ticking, props
+let scroller, container, touch, smooth, inertia, sections, callbacks, resizeId, update, ticking, props
 
 
   function updateNative(){
@@ -60,7 +60,6 @@ let scroller, container, smooth, inertia, sections, callbacks, resizeId, update,
     init:(options)=> {
 
       let defaults = {
-        smooth: !isTouch(),
         container: document.body,
         inertia: .09
       }
@@ -68,7 +67,8 @@ let scroller, container, smooth, inertia, sections, callbacks, resizeId, update,
       options = Object.assign({},defaults,options)
       container = options.container
       inertia = options.inertia
-      smooth = options.smooth
+      touch = isTouch()
+      smooth = !touch
       resizeId = null
       callbacks = []
       update = smooth ? updateSmooth : updateNative
@@ -88,7 +88,8 @@ let scroller, container, smooth, inertia, sections, callbacks, resizeId, update,
     refresh:()=> {
       smooth && handleResize()
     },
-    sections:()=> sections
+    sections:()=> sections,
+    touch: ()=> touch
   }
 
   export default scroller
