@@ -4,12 +4,8 @@ let resizer, callbacks, sizes, debouncedHandleResize
 
 function handleResize(){
   updateResizer()
-  callbacks.forEach(c => c.callback({
-    height: resizer.height,
-    width: resizer.width,
-    touch: resizer.touch,
-    sizes: resizer.sizes
-  }, c.id))
+  let props = resizer.props()
+  callbacks.forEach(c => c.callback(props, c.id))
 }
 
 function updateResizer(){
@@ -58,6 +54,14 @@ resizer = {
     let index = callbacks.findIndex(c => c.id == id)
     if (index > -1) callbacks.splice(index, 1)
   },
+  props:()=>{
+    return{
+      height: resizer.height,
+      width: resizer.width,
+      touch: resizer.touch,
+      sizes: resizer.sizes
+    }
+  }
 }
 
 export default resizer

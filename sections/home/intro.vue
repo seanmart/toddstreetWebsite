@@ -27,7 +27,7 @@
 
       <div class="image-container">
 
-        <div v-for="item,i in data" :key="i" class="image" :data-image="i" v-image="item.image" v-parallax="-2"/>
+        <div v-for="item,i in data" :key="i" class="image" :data-image="i" v-image="item.image" v-parallax:no-min="-2"/>
 
         <div class="marquee-container">
           <div class="marquee">
@@ -266,7 +266,7 @@ export default {
 
     .wrapper{
       flex-direction: column-reverse;
-      height: calc(100vh - #{$space--mb * 2});
+      height: calc(100vh - #{$space--mb * 3});
       min-height: 500px;
     }
 

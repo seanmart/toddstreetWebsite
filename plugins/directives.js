@@ -64,7 +64,7 @@ Vue.directive('enter',{
 
 Vue.directive('parallax',{
   inserted: function(el,{arg,value}){
-    
+
     let min = arg == 'no-min' ? 0 : mobile
 
     if (typeof value == 'string'){

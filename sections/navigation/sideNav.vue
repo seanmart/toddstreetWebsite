@@ -109,7 +109,8 @@ export default {
 
 #side-nav{
   position: fixed;
-  top: 50%;
+  top: 0px;
+  height: 100vh;
   z-index: 50;
   left: 100%;
   opacity: 0;

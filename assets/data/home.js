@@ -52,10 +52,10 @@ export default{
                   leveraging our marketing and strategic expertise to fuel your vision with
                   creativity and clarity.`,
     caseStudies:[
-      {link: '/', title: 'Integrated Campaigns', color: '#eab22c'},
-      {link: '/', title: 'Video', color: '#c0e1e8'},
-      {link: '/', title: 'Digital', color: '#5734c8'},
-      {link: '/', title: 'Print Design & Branding'}
+      {link: '/', title: 'Integrated Campaigns', color: '#eab22c', image: 'test/test.png'},
+      {link: '/', title: 'Video', color: '#c0e1e8', image: 'test/test.png'},
+      {link: '/', title: 'Digital', color: '#5734c8', image: 'test/test.png'},
+      {link: '/', title: 'Print Design & Branding', image: 'test/test.png'}
     ]
   },
   training:{

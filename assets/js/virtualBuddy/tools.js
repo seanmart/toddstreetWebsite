@@ -47,10 +47,10 @@ export function lerp(start, end, amt){
 export function getValue(value,el){
 
   if (value == undefined || value == null) return value
-  if (typeof value == 'number' || typeof value == 'function') return value
+  if (typeof value == 'number') return value
+  if (typeof value == 'function') return value()
 
   let parseValue = (string)=>{
-    console.log(el, window.innerHeight)
     let val = parseFloat(string)
     return string.includes('%y') ? val * (el.offsetHeight / 100)
          : string.includes('%x') ? val * (el.offsetWidth / 100)

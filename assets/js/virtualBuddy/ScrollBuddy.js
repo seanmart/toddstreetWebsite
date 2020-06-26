@@ -13,6 +13,7 @@ export class ScrollBuddy{
       onEnter: null,
       onLeave: null,
       onScroll: null,
+      immediate: false
     },options)
 
     this.update = this.update.bind(this)
@@ -31,7 +32,8 @@ export class ScrollBuddy{
     this.duration = 0
     this.scrolledOffset = 0
 
-    this.update({height: resizer.height, width: resizer.width})
+    this.update(resizer.props())
+
   }
 
   update({height, width}){

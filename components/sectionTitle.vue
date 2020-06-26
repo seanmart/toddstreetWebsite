@@ -39,7 +39,7 @@ export default {
     width: 10px;
     background: $lightBlue;
     margin-right: 40px;
-    margin-bottom: 18px;
+    margin-bottom: 17px;
     transform-origin: bottom;
   }
 

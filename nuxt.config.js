@@ -1,3 +1,4 @@
+import FMMode from "frontmatter-markdown-loader/mode";
 
 export default {
   mode: 'universal',
@@ -18,6 +19,11 @@ export default {
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/TextPlugin.min.js', body: true},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollToPlugin.min.js', body: true}
     ]
+  },
+  router:{
+    scrollBehavior: function (to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    }
   },
   loading: { color: '#fff' },
   styleResources: {
@@ -43,6 +49,15 @@ export default {
   ],
   build: {
     extend (config, ctx) {
+      config.module.rules.push(
+        {
+          test: /\.md$/,
+          loader: "frontmatter-markdown-loader",
+          options: {
+            mode: [FMMode.HTML, FMMode.BODY]
+          }
+        }
+      )
     }
   }
 }

@@ -9,6 +9,9 @@
     <div class="gallery margin--t">
       <div v-for="(caseStudy,i) in data.caseStudies" :key="i" class="gallery-item">
         <case-study :title="caseStudy.title" v-bg="caseStudy.color">
+          <div class="comm">
+            <img class="image" :src="caseStudy.image"/>
+          </div>
         </case-study>
       </div>
     </div>
@@ -29,6 +32,20 @@ export default {
 #comms{
   .gallery-item{
     flex: 0 0 100%;
+  }
+
+  .comm{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image{
+    flex: 0 0 auto;
+    padding: 0px 30px;
+    max-height: 60%;
+    max-width: 100%;
   }
 }
 </style>

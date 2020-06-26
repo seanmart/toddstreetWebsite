@@ -1,5 +1,5 @@
 <template lang="html">
-  <footer>
+  <footer class="space--all title--font">
     footer
   </footer>
 </template>

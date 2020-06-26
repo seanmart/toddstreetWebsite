@@ -11,6 +11,7 @@ let scroller, container, touch, smooth, inertia, sections, callbacks, resizeId, 
     let scrollY = window.scrollY
     let top = lerp(scroller.top, scrollY,inertia)
     ticking = !force && Math.abs(top - scrollY) > .5
+    if (!ticking) top = Math.floor(top)
 
     updateScroller(top);
 
@@ -39,12 +40,8 @@ let scroller, container, touch, smooth, inertia, sections, callbacks, resizeId, 
   }
 
   function runCallbacks(){
-    callbacks.forEach(c => c.callback({
-      top: scroller.top,
-      bottom: scroller.bottom,
-      delta: scroller.delta,
-      direction: scroller.direction
-    }, c.id))
+    let props = scroller.props()
+    callbacks.forEach(c => c.callback(props, c.id))
   }
 
   // -----------------------------------------------------------------------------------------------
@@ -67,14 +64,15 @@ let scroller, container, touch, smooth, inertia, sections, callbacks, resizeId, 
       options = Object.assign({},defaults,options)
       container = options.container
       inertia = options.inertia
-      touch = isTouch()
-      smooth = !touch
+      smooth = !resizer.touch
       resizeId = null
       callbacks = []
       update = smooth ? updateSmooth : updateNative
       smooth && (container.style.cssText = `position: fixed; top: 0px; left: 0px; right: 0px;`)
       smooth && (resizeId = resizer.add(handleResize))
       window.addEventListener('scroll', ()=> !ticking && update())
+
+      updateScroller(0)
     },
     add:(callback)=> {
       let id = generateId(5);
@@ -86,10 +84,21 @@ let scroller, container, touch, smooth, inertia, sections, callbacks, resizeId, 
       if (index > -1) callbacks.splice(index, 1)
     },
     refresh:()=> {
+      scroller.top = 0
+      scroller.bottom = 0
+      scroller.delta = 0
       smooth && handleResize()
+      runCallbacks()
     },
     sections:()=> sections,
-    touch: ()=> touch
+    props:()=>{
+      return{
+        top: scroller.top,
+        bottom: scroller.bottom,
+        delta: scroller.delta,
+        direction: scroller.direction
+      }
+    }
   }
 
   export default scroller

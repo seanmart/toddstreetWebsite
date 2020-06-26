@@ -11,11 +11,12 @@ export default {
     offsetTop: 0,
     offsetLeft: 0,
     height: 0,
-    width: 0,
+    width: 0
   }),
   mounted(){
 
     if (!this.$slots.default) return
+
     this.initEl()
 
     resizer.add(this.getOffset)

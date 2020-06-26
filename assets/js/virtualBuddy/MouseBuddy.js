@@ -8,7 +8,8 @@ export class MouseBuddy{
     Object.assign(this,{
       onEnter:null,
       onActive: null,
-      onLeave: null
+      onLeave: null,
+      onFirstMove: null
     },options)
 
 
@@ -18,16 +19,17 @@ export class MouseBuddy{
     this.mouseId = null
     this.active = false
     this.id = id || null
+    this.moved = false
 
     this.update = this.update.bind(this)
     this._run = this._run.bind(this)
 
     this.update()
-    this.resume()
   }
 
   update(){
     this.position = getPosition(this.el)
+    resizer.touch ? this.pause() : this.resume()
   }
 
   resume(){
@@ -71,12 +73,12 @@ export class MouseBuddy{
         offsetX: e.pageX - this.position.left
       }
 
-
-      if (this.onEnter && active && !this.active) this.onEnter(props)
-      if (this.onActive && active && this.active) this.onActive(props)
-      if (this.onEnter && !active && this.active) this.onLeave(props)
+      if (this.onEnter && ((active && !this.active) || !this.moved)) this.onEnter(props)
+      if (this.onActive && active && this.active && this.moved) this.onActive(props)
+      if (this.onLeave && !active && this.active && this.moved) this.onLeave(props)
 
       this.active = active
+      this.moved = true
     }
 
   }

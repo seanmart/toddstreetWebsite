@@ -1,7 +1,8 @@
 <template>
   <div id="site" >
 
-    <loading/>
+    <loading @done="checkLoaded" :hide="hideLoading" @hidden="afterLoad" />
+
     <side-nav/>
     <nav-button/>
 
@@ -26,14 +27,13 @@ import imagesLoaded from 'imagesloaded'
 
 export default{
   components:{topNav,sideNav,bottomNav,loading,navButton},
+  data:()=>({
+    loaded: false,
+    hideLoading: false
+  }),
   mounted(){
     this.beforeLoad()
-
-    let time = Date.now()
-    imagesLoaded('html',{background: true},()=> {
-      let diff = Math.max(1500 - (Date.now() - time),0)
-      setTimeout(this.afterLoad,diff)
-    })
+    imagesLoaded('html',{background: true},this.checkLoaded)
   },
   watch:{
     ready(ready){
@@ -47,23 +47,27 @@ export default{
   },
   computed:mapState(['ready']),
   methods:{
+    checkLoaded(){
+      if (this.loaded) this.hideLoading = true
+      this.loaded = true
+    },
     beforeLoad(){
       gsap.timeline()
           .set('#site', {height: '100vh', overflow: 'hidden'})
           .set('header a',{yPercent: 110})
           .set('#nav-button',{scale: 0, opacity:0})
-          .to('#loading svg',.5,{delay: .25, y:0, opacity:1})
     },
     afterLoad(){
       gsap.timeline()
           .set('#site', {clearProps:"height, auto"})
-          .to('#loading',.5,{height:0,display:'none', ease: 'power2.in'},0)
-          .add(()=> this.$store.commit('ready', true),.75)
+          .add(()=> this.$store.commit('ready', true))
     },
     onReady(){
       scroller.refresh()
+
       gsap.timeline()
-          .fromTo('header a',.75,{yPercent: 110},{yPercent: 0,stagger:.1, ease: 'power4.out', clearProps: 'all'},0)
+          .set('main',{clearProps:'all'})
+          .fromTo('header a',.75,{yPercent: 110},{yPercent: 0,stagger:.1, ease: 'power4.out', clearProps: 'all'})
           .fromTo('#nav-button',.5,{scale: 0, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.25)
     }
   },
@@ -72,9 +76,10 @@ export default{
       return new Promise((next)=>{
         gsap.timeline()
             .add(context.store.commit('ready', false))
-            .to('main',{y: 50, opacity:0},0)
+            .to('main',.75,{y: 50, opacity:0},0)
             .to('header a',.75,{yPercent: -100, stagger:.1, ease: 'power4.in'},0)
             .to('#nav-button',.5,{scale: 0, opacity:0, ease:'power4.in'},.75)
+            .add(()=> window.scrollTo(0,0))
             .add(next)
       })
     }

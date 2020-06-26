@@ -15,7 +15,7 @@ function runCallbacks(){
     pageX: mouser.pageX,
     pageY: mouser.pageY,
     clientX: mouser.clientX,
-    clientY: mouser.clientY
+    clientY: mouser.clientY,
   }, c.id))
 }
 

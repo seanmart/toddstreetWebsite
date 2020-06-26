@@ -1,8 +1,8 @@
 <template lang="html">
   <button type="button" id="nav-button">
-    <i :style="{background: color}"/>
-    <i :style="{background: color}"/>
-    <i :style="{background: color}"/>
+    <div class="menu link--font link--sm" ref="menu" :style="{borderColor: color, color}">
+      <span>menu</span>
+    </div>
   </button>
 </template>
 
@@ -13,13 +13,15 @@ export default {
     els: [],
     color: '#000',
     last: '#000',
-    first: true
+    active: false,
+    position: {}
   }),
   watch:{
-    color(to,from){this.last = from},
-    ready(ready){
-      ready ? this.addEls() : this.reset()
-    }
+    ready(ready){ready ? this.addEls() : this.reset()}
+  },
+  mounted(){
+    resizer.add(this.getPosition)
+    this.getPosition()
   },
   computed:mapState(['ready']),
   methods:{
@@ -28,15 +30,36 @@ export default {
     },
     addEls(){
       this.ids = Array.from(document.querySelectorAll('[data-button-color]')).map(el => {
+
         let color = el.getAttribute('data-button-color')
+
         let id = ScrollBuddy.create(el,{
-          offsetStart: '90vh',
-          offsetEnd: '10vh',
-          onEnter: ()=> this.color = color,
-          onLeave: ()=> this.color = this.last
+          offsetStart: this.position.bottom,
+          onScroll:({position, scroll})=>{
+            let active = position.top < this.position.top + scroll.top
+                      && position.bottom > this.position.bottom + scroll.top
+                      && position.right > this.position.left
+
+            if (active && !this.active) this.setColor(color)
+            if (!active && this.active) this.color = this.last
+            this.active = active
+          }
         }).id
+
         return id
       })
+    },
+    setColor(color){
+      this.last = this.color
+      this.color = color
+    },
+    getPosition(){
+      let rect = this.$refs.menu.getBoundingClientRect()
+      this.position = {
+        top: rect.top,
+        left: rect.left,
+        bottom: rect.bottom
+      }
     }
   }
 }
@@ -55,23 +78,18 @@ export default {
   justify-content: center;
   align-items: center;
 
-  i{
+  .menu{
     flex: 0 0 auto;
-    width: 30px;
-    height: 2px;
-    margin: 2px 0px;
-    background: black;
-    border-radius: 1px;
-    transition: transform .25s;
+    padding: 7px 10px;
+    border: 1px solid black;
+    transition: border .25s;
+    font-size: 14px;
   }
-  &:hover{
-    i:first-child{
-      transform: translateY(-2px);
-    }
-    i:last-child{
-      transform: translateY(2px);
-    }
+
+  span{
+    transition: color .25s;
   }
+
   @media (max-width: $tablet){
     height: $space--tb;
     width: $margin--tb;
@@ -79,6 +97,11 @@ export default {
   @media (max-width: $mobile){
     height: $space--mb;
     width: $margin--mb-right;
+
+    .menu{
+      padding: 5px 8px;
+      transform: rotate(-90deg);
+    }
   }
 }
 </style>

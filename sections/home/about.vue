@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
-#cares{
+#about{
   height: 600px;
 }
 </style>

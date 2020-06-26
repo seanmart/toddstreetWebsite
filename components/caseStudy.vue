@@ -73,6 +73,13 @@ export default {
     @media (max-width: $mobile){
       padding-bottom: 0%;
       height: 600px;
+      margin-bottom: $margin--mb-left;
+    }
+
+    @media (max-width: 500px){
+      padding-bottom: 175%;
+      height: 0px;
+      margin-bottom: $margin--mb-left;
     }
 
   }
