@@ -68,21 +68,23 @@ export default{
       gsap.timeline()
           .set('main',{clearProps:'all'})
           .fromTo('header a',.75,{yPercent: 110},{yPercent: 0,stagger:.1, ease: 'power4.out', clearProps: 'all'})
-          .fromTo('#nav-button',.5,{scale: 0, opacity:0},{scale: 1, opacity:1, ease: 'power4.out'},.25)
+          .to('#nav-button',.5,{scale: 1, opacity:1, ease: 'power4.out'},.25)
     }
   },
   middleware(context){
-    if (!process.server){
+    if (process.server) return
+
       return new Promise((next)=>{
+
         gsap.timeline()
             .add(context.store.commit('ready', false))
-            .to('main',.75,{y: 50, opacity:0},0)
+            .to('main',.5,{opacity:0},0)
             .to('header a',.75,{yPercent: -100, stagger:.1, ease: 'power4.in'},0)
             .to('#nav-button',.5,{scale: 0, opacity:0, ease:'power4.in'},.75)
             .add(()=> window.scrollTo(0,0))
             .add(next)
       })
-    }
+
   },
 }
 

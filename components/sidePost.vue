@@ -17,20 +17,20 @@ export default {
 
 <style lang="scss">
 .side-post{
-  padding: 30px 0px;
+  padding: 25px 0px;
   border-top: 1px solid $yellow;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  min-height: 180px;
+  min-height: 160px;
 
   &:last-child{
     border-bottom: 1px solid $yellow;
   }
 
   h3{
-    font-weight: 600;
+    font-weight: 500;
     font-size: 30px;
     margin-bottom: 10px;
   }

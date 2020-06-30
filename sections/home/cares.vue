@@ -2,13 +2,13 @@
   <section id="cares" class="space--all" data-button-color="#fff">
     <section-title :text="data.title"/>
     <div class="margin--t content">
-      <div class="main">
+      <div class="main" v-enter:zoomout>
         <div class="image" v-image="carePosts[0].image"/>
         <h3 class="title--font" v-html="carePosts[0].title"/>
         <p class="body--font" v-html="carePosts[0].body.split('.')[0] + '...'"/>
         <nuxt-link :to="carePosts[0].link" class="fancy-link">keep reading</nuxt-link>
       </div>
-      <div class="side">
+      <div class="side" v-enter:slideup>
         <side-post v-for="(post, i) in carePosts.slice(1,5)" :key="i" :data="post"/>
       </div>
     </div>

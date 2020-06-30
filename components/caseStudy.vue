@@ -32,6 +32,10 @@ export default {
     background: #999;
     position: relative;
     overflow: hidden;
+    margin-bottom: 50px;
+    &:last-child{
+      margin-bottom: 0px;
+    }
 
     .background-container{
       position: absolute;

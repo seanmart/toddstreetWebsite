@@ -1,10 +1,13 @@
 <template lang="html">
   <main id="care" class="space--all">
-    <div class="article">
-      <nuxt-child :post="post"  :key="post.id"/>
-    </div>
-    <div class="side">
-      <side-post v-for="(post,i) in carePosts" :key="i" :data="post"/>
+    <section-title v-if="post.title" :key="post.id" :text="post.title" class="space--b"/>
+    <div class="content">
+      <div class="article">
+        <nuxt-child :post="post" :key="post.id"/>
+      </div>
+      <div class="side">
+        <side-post v-for="(post,i) in carePosts" :key="i" :data="post"/>
+      </div>
     </div>
   </main>
 </template>
@@ -12,8 +15,9 @@
 <script>
 import {mapGetters, mapState} from 'vuex'
 import sidePost from '@/components/sidePost'
+import sectionTitle from '@/components/sectionTitle'
 export default {
-  components:{sidePost},
+  components:{sidePost,sectionTitle},
   mounted(){
     gsap.set('.side-post',{y:100, opacity:0})
   },
@@ -38,8 +42,11 @@ export default {
 
 <style lang="scss">
 #care{
-  display: flex;
-  flex-direction: row;
+
+  .content{
+    display: flex;
+    flex-direction: row;
+  }
 
   .article{
     flex: 1 1 auto;

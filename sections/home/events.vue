@@ -7,12 +7,10 @@
 
     <div class="texture big-circle margin--t" v-enter:zoomout v-parallax="2"/>
 
-    <div class="gallery margin--t">
-      <div v-for="(caseStudy,i) in data.caseStudies" :key="i" class="gallery-item">
-        <case-study :title="caseStudy.title">
-          <div class="image" v-image="caseStudy.image" v-parallax:no-min="'200px'"/>
+    <div class="margin--t">
+        <case-study :title="caseStudy.title" v-for="(caseStudy,i) in data.caseStudies" :key="i">
+          <div class="image" v-image="caseStudy.image" v-parallax:no-min="'400px'"/>
         </case-study>
-      </div>
     </div>
 
   </section>
@@ -30,16 +28,11 @@ export default {
 <style lang="scss">
 #events{
 
-  .gallery-item{
-    position: relative;
-    flex: 0 0 100%;
-  }
-
   .image{
     background-size: cover;
     background-position: center center;
     position: absolute;
-    top: -200px;
+    top: -400px;
     left: 0px;
     right: 0px;
     bottom: 0px;

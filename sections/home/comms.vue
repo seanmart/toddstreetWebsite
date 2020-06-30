@@ -6,14 +6,12 @@
     <p v-if="data.description" class="description body--font col--ml4" v-enter:slideup v-html="data.description"/>
     <div class="texture big-circle margin--t" v-enter:zoomout v-parallax="2"/>
 
-    <div class="gallery margin--t">
-      <div v-for="(caseStudy,i) in data.caseStudies" :key="i" class="gallery-item">
-        <case-study :title="caseStudy.title" v-bg="caseStudy.color">
+    <div class="margin--t">
+        <case-study :title="caseStudy.title" v-for="(caseStudy,i) in data.caseStudies" :key="i" v-bg="caseStudy.color">
           <div class="comm">
-            <img class="image" :src="caseStudy.image"/>
+            <img class="image" :src="caseStudy.image" v-enter:slideup/>
           </div>
         </case-study>
-      </div>
     </div>
 
   </section>
@@ -30,9 +28,6 @@ export default {
 
 <style lang="scss">
 #comms{
-  .gallery-item{
-    flex: 0 0 100%;
-  }
 
   .comm{
     height: 100%;

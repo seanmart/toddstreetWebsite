@@ -5,10 +5,8 @@
     <p v-if="data.description" class="description body--font col--ml4" v-enter:slideup v-html="data.description"/>
     <div class="texture big-circle margin--t" v-enter:zoomout v-parallax="2"/>
 
-    <div class="gallery margin--t">
-      <div v-for="(caseStudy,i) in data.caseStudies" :key="i" class="gallery-item">
-        <case-study :title="caseStudy.title"/>
-      </div>
+    <div class="margin--t">
+        <case-study :title="caseStudy.title" v-for="(caseStudy,i) in data.caseStudies" :key="i"/>
     </div>
 
   </section>
