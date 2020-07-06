@@ -21,11 +21,6 @@ export default {
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollToPlugin.min.js', body: true}
     ]
   },
-  router:{
-    scrollBehavior: function (to, from, savedPosition) {
-      return { x: 0, y: 0 }
-    }
-  },
   loading: { color: '#fff' },
   styleResources: {
     scss: "~assets/scss/variables.scss"

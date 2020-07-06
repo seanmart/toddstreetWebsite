@@ -5,7 +5,7 @@
       <div class="article">
         <nuxt-child :post="post" :key="post.id"/>
       </div>
-      <div class="side">
+      <div class="side" v-parallax="1">
         <side-post v-for="(post,i) in carePosts" :key="i" :data="post"/>
       </div>
     </div>
@@ -72,6 +72,21 @@ export default {
       flex: 0 0 200px;
     }
 
+  }
+
+  @media (max-width: $mobile){
+    .content{
+      flex-direction: column;
+    }
+
+    .article{
+      flex: 0 0 auto;
+      margin: 0px 0px $space--mb;
+    }
+
+    .side{
+      flex: 0 0 auto;
+    }
   }
 }
 </style>

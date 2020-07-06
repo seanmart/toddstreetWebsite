@@ -1,13 +1,14 @@
 <template lang="html">
-  <div class="video-player">
+  <div class="video-player" @click="togglePlay">
 
     <div class="video-container">
       <div v-if="videoId" :id="videoId" :class="`video wistia_embed wistia_async_${videoId}`"/>
     </div>
 
-    <cursor-zone class="video-cursor-zone">
+    <cursor-zone
+      class="video-cursor-zone" :hideOnStop="videoPlaying">
       <div class="button link--font link--sm" ref="button">
-        play
+        {{videoPlaying ? 'pause' : 'play'}}
       </div>
     </cursor-zone>
 
@@ -23,22 +24,24 @@ export default {
     play: {type: Boolean, default: false}
   },
   data:()=>({
-    wistia: null
+    wistia: null,
+    videoPlaying: false
   }),
   mounted(){
     if (this.videoId) this.setVideo()
   },
   watch:{
+    videoPlaying(play){
+      play ? this.wistia.play() : this.wistia.pause()
+    },
     play(play){
-      if (play) {
-        this.wistia.play()
-      }
-      if (!play) {
-        this.wistia.pause()
-      }
+      this.togglePlay(play)
     },
   },
   methods:{
+    togglePlay(){
+      this.videoPlaying = ! this.videoPlaying
+    },
     setVideo() {
       let interval;
       let check = () => {
@@ -63,7 +66,6 @@ export default {
   .video-container{
     width: 100%;
     padding-bottom: 56.25%;
-    background: black;
 
     .video{
       position: absolute;
