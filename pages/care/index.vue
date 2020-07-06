@@ -1,6 +1,6 @@
 <template lang="html">
-  <main id="care" class="space--all">
-    <section-title v-if="post.title" :key="post.id" :text="post.title" class="space--b"/>
+  <main id="care" class="space--all" :key="post.id">
+    <section-title v-if="post.title" :text="post.title" class="space--b"/>
     <div class="content">
       <div class="article">
         <nuxt-child :post="post" :key="post.id"/>

@@ -79,7 +79,7 @@ export default{
         gsap.timeline({onComplete: next})
             .to('main',.5,{opacity:0},0)
             .to('header a',.75,{yPercent: -100, stagger:.1, ease: 'power4.in'},0)
-            .to('#nav-button',.5,{scale: 0, opacity:0, ease:'power4.in'},.75)
+            //.to('#nav-button',.5,{scale: 0, opacity:0, ease:'power4.in'},.75)
         })
   },
 }
