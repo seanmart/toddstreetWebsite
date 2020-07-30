@@ -1,0 +1,55 @@
+$nav-d: 170px;
+$nav-t: 120px;
+$nav-m: 80px;
+
+$space-ld: 50px;
+$space-rd: 150px;
+$space-vd: 150px;
+
+$space-lt: 40px;
+$space-rt: 120px;
+$space-vt: 100px;
+
+$space-lm: 20px;
+$space-rm: 60px;
+$space-vm: 75px;
+
+$blue: #13306C;
+$lightBlue: #0053AD;
+$yellow:#FFD273;
+$fire: #F85F57;
+$storm: #1c1c20;
+
+$desktop: 1400px;
+$tablet: 1100px;
+$mobile: 700px;
+
+:export{
+  mobile: $mobile;
+  tablet: $tablet;
+  desktop: $desktop;
+  blue: $blue;
+  lightBlue: $lightBlue;
+  yellow: $yellow;
+  fire: $fire;
+  storm: $storm;
+}
+
+@mixin fullscreen{
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+}
+
+@mixin flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-center{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
