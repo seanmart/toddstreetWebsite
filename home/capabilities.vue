@@ -82,7 +82,7 @@ export default {
     }
 
     .case-study{
-      margin-bottom: $space-vd;
+      margin-bottom: $space-vd / 2;
 
       &:nth-child(8n + 1){
         width: 40%;
