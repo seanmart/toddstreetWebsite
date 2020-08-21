@@ -290,5 +290,19 @@ export default {
     }
   }
 
+  @media(min-width: $desktop){
+    .content{
+      height: 60vh;
+    }
+
+    .window{
+      flex: 0 1 60vh;
+    }
+
+    .message{
+      margin-top: 25vh;
+    }
+  }
+
 }
 </style>

@@ -23,6 +23,9 @@
 .space-b{padding-bottom: $space-vd}
 .space-nav{padding-top: $nav-d}
 
+.width-r{width: $space-rd}
+.height-nav{height: $nav-d}
+
 @media (max-width: $tablet){
 
   .space{
@@ -44,6 +47,9 @@
   .space-t{padding-top: $space-vt}
   .space-b{padding-bottom: $space-vt}
   .space-nav{padding-top: $nav-t}
+
+  .width-r{width: $space-rt}
+  .height-nav{height: $nav-t}
 
 }
 
@@ -68,5 +74,8 @@
   .space-t{padding-top: $space-vm}
   .space-b{padding-bottom: $space-vm}
   .space-nav{padding-top: $nav-m}
+
+  .width-r{width: $space-rm}
+  .height-nav{height: $nav-m}
 
 }

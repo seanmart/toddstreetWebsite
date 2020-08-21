@@ -1,8 +1,9 @@
 <template lang="html">
-  <nav class="h5 caps loose">
+  <nav id="top-nav" class="h5 caps loose">
       <nuxt-link class="logo" to="/"><span><icon logo/></span></nuxt-link>
       <nuxt-link class="link" to="/about"> <span>about</span> </nuxt-link>
-      <nuxt-link class="link" to="/care"> <span>care</span> </nuxt-link>
+      <nuxt-link class="link" to="/care"> <span>we care</span> </nuxt-link>
+      <nuxt-link class="link" to="/contact"> <span>contact</span> </nuxt-link>
   </nav>
 </template>
 
@@ -13,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
-nav{
+#top-nav{
   z-index: 99;
   position: absolute;
   top: 0px;

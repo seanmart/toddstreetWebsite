@@ -1,7 +1,7 @@
 <template lang="html">
   <section id="capabilities" data-nav-container="[65,120]">
 
-    <div class="section space" v-for="item,a in data" :data-nav="item.type" :key="a" :style="">
+    <div class="section space" :class="item.type" v-for="item,a in data" :data-nav="item.type" :key="a" :style="">
 
       <p v-html="item.subhead" class="subhead h3" v-enter:fadeup="{offset:'5vh'}"/>
       <split-text :text="item.head" class="head space-b" textClass="h1 contain" v-enter:splitTextUp="{offset: '7vw'}"/>
@@ -10,16 +10,23 @@
         <div class="reel-button">
           <circle-button class="h4 caps" v-speed="2.2">view the reel</circle-button>
         </div>
-        <p v-html="item.description" class="description p4" v-enter:fadeup="{offset:'10vh'}"/>
+        <div class="description">
+          <p v-html="item.description" class="p4" v-enter:fadeup="{offset:'10vh'}"/>
+        </div>
       </div>
 
       <div class="case-studies">
-        <div class="case-study" v-for="cs,b in item.caseStudies" :key="b" v-enter:slideup="{offset: '5vh'}">
+        <div class="case-study" v-for="cs,b in item.caseStudies" :key="b">
           <div class="content">
-            <div class="background-container" v-bg="cs.color">
-              <div v-if="cs.background" class="background" v-image="cs.background" v-speed="'20%'"/>
-              <img v-if="cs.image" class="image" :src="cs.image" v-enter:fadeup="{offset:'5vh'}"/>
+
+            <div class="background-container" v-bg="cs.color" v-enter:slideup="{offset: '5vh'}">
+              <div v-if="cs.background" class="background" v-image="cs.background" v-speed="'20%'" />
             </div>
+
+            <div class="image-container" v-enter:slideup="{offset: '15vh'}">
+              <img v-if="cs.image" class="image" :src="cs.image" v-transform="{yPercent:-15, scale: 1.05, transformOrigin: 'top'}"/>
+            </div>
+
           </div>
           <div class="info">
             <h1 class="h4 thin title " v-html="cs.title" v-enter:fadeup="{offset:'5vh'}"/>
@@ -40,6 +47,10 @@ export default {
 
 <style lang="scss">
   #capabilities{
+
+    .communications{
+      @include texture;
+    }
     .section{
       position: relative;
     }
@@ -78,7 +89,10 @@ export default {
     }
 
     .description{
-      flex: 0 1 600px;
+      flex: 1 1 auto;
+      p{
+        max-width: 700px;
+      }
     }
 
     .case-study{
@@ -128,21 +142,28 @@ export default {
       width: 100%;
     }
 
+    .image-container,
     .background-container{
       position: absolute;
       top: 0px;
       left: 0px;
       width: 100%;
       height: 100%;
-      z-index: 1;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
+    .background-container{
+      overflow: hidden;
+    }
+
+    .image-container{
+      z-index: 1;
+    }
+
     .info{
-      padding: 20px 0px;
+      padding-top: 20px;
       display: flex;
       flex-direction: row;
     }
@@ -167,7 +188,7 @@ export default {
     .image{
       flex: 0 0 auto;
       max-width: 80%;
-      max-height: 80%;
+      max-height: 100%;
     }
 
     @media (max-width: $mobile){
@@ -198,6 +219,18 @@ export default {
 
       .content{
         padding-bottom: 130%;
+      }
+    }
+
+    @media (min-width: $desktop){
+      .head{
+        max-width: 70vw;
+      }
+
+      .description{
+        p{
+          max-width: 50vw;
+        }
       }
     }
 

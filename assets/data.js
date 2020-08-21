@@ -29,7 +29,7 @@ export default{
     },
     capabilities:[
       {
-        type: 'Events',
+        type: 'events',
         head: `Create immersive experiences with your audience at the center.`,
         subhead: 'Meaningful Live & Virtual Events',
         description: `toddstreet produces meaningful events that engage minds across the globe.
@@ -46,7 +46,7 @@ export default{
         ]
       },
       {
-        type: 'Communications',
+        type: 'communications',
         head: `Create brand stories that captivate the attention of your audience.`,
         subhead: `Impactful Communication Campaigns`,
         description: `toddstreet engages your audience through storytelling by creating
@@ -54,14 +54,14 @@ export default{
                       leveraging our marketing and strategic expertise to fuel your vision with
                       creativity and clarity.`,
         caseStudies:[
-          {link: '/', title: 'Integrated Campaigns', color: '#eab22c', image: 'test/test.png'},
-          {link: '/', title: 'Video', color: '#c0e1e8', image: 'test/test.png'},
-          {link: '/', title: 'Digital', color: '#5734c8', image: 'test/test.png'},
-          {link: '/', title: 'Print Design & Branding',color: '#eab22c', image: 'test/test.png'}
+          {link: '/', title: 'Integrated Campaigns', color: '#eab22c', image: 'digital/cover.png'},
+          {link: '/', title: 'Video', color: '#c0e1e8', image: 'video/cover.png'},
+          {link: '/', title: 'Digital', color: '#5734c8', image: 'digital/cover.png'},
+          {link: '/', title: 'Print Design & Branding',color: '#eab22c', image: 'video/cover.png'}
         ]
       },
       {
-        type: 'Training',
+        type: 'training',
         head: `Stay focused on your learner with targeted and effective training.`,
         subhead: `Training That Elevates Your Team`,
         description: `At toddstreet, we know that learning never stops. We work with a wide

@@ -1,16 +1,14 @@
 <template lang="html">
+
   <div id="site">
 
-    <menu-button/>
-    <menu/>
+    <sidebar/>
+    <bars/>
 
     <div id="scroll">
       <navigation/>
       <nuxt/>
     </div>
-
-    <bars/>
-    <side-nav :key="$route.path"/>
 
   </div>
 
@@ -26,6 +24,7 @@ export default {
       let diff = Math.max(1000 - (Date.now() - ts),0)
       setTimeout(()=>this.$store.commit('ready', true),diff)
     })
+
   },
   watch:{
     $route(){
@@ -51,7 +50,7 @@ export default {
           .add(next,1)
     })
   },
-  computed: mapState(['ready'])
+  computed: mapState(['ready']),
 }
 </script>
 

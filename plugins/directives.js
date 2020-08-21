@@ -107,3 +107,17 @@ Vue.directive('speed',{
 
   }
 })
+
+Vue.directive('transform',{
+  inserted: function(el,{arg,value}){
+
+    if (!value) return
+
+    let min = arg == 'no-min' ? 0 : 600
+    let animation = gsap.to(el,1,{...value,paused: true})
+    let onScroll = (e)=> animation.progress(e.percent)
+
+    ScrollBuddy.create(el,{minWidth: min, onScroll})
+
+  }
+})

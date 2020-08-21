@@ -4,7 +4,7 @@ $nav-m: 80px;
 
 $space-ld: 50px;
 $space-rd: 150px;
-$space-vd: 150px;
+$space-vd: 175px;
 
 $space-lt: 40px;
 $space-rt: 120px;
@@ -23,6 +23,12 @@ $storm: #1c1c20;
 $desktop: 1400px;
 $tablet: 1100px;
 $mobile: 700px;
+
+@mixin texture{
+  background-image: url('../static/texture.jpg');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
 
 :export{
   mobile: $mobile;
