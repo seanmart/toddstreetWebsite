@@ -1,5 +1,5 @@
 <template lang="html">
-<section id="cares" class="space" data-button-color="#fff">
+<section id="cares" class="space" data-color-container>
   <split-text :text="data.title" class="space-b" textClass="h1 contain" v-enter:splitTextUp="{offset: '5vw'}"/>
   <div class="content">
     <div class="main">

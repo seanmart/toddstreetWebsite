@@ -2,7 +2,7 @@
   <aside id="sidebar" class="width-r">
 
     <div class="menu-button">
-      <button type="button">menu</button>
+      <button type="button" data-color>menu</button>
     </div>
 
     <div class="side-nav">
@@ -99,12 +99,18 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-color: black;
     height: $nav-d;
 
     button{
       flex: 0 0 auto;
       padding: 10px 13px;
       border: 1px solid black;
+
+      &.color-active{
+        border: 1px solid white;
+        color: white;
+      }
     }
   }
 

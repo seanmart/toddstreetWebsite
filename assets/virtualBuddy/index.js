@@ -3,6 +3,8 @@ import resizer from './handlers/Resizer'
 import mouser from './handlers/Mouser'
 import MouseBuddy from './MouseBuddy'
 import ScrollBuddy from './ScrollBuddy'
+import ColorBuddy from './ColorBuddy'
+
 import {getPosition, getValue, lerp} from './tools'
 
 export default function(options = {}){
@@ -17,5 +19,6 @@ export default function(options = {}){
 
   window.ScrollBuddy = ScrollBuddy
   window.MouseBuddy = MouseBuddy
+  window.ColorBuddy = new ColorBuddy
   window.utils = {getPosition, getValue, lerp}
 }

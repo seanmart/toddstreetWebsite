@@ -35,6 +35,7 @@ export default {
       gsap.timeline()
           .add(scroller.refresh)
           .add(ScrollBuddy.init)
+          .add(ColorBuddy.init)
           .fromTo('#bars li',.75,{yPercent: 0},{yPercent: 100, stagger:.1, ease: 'power4.out'},0)
           .fromTo('nav span',.75,{yPercent: -105},{yPercent:0,stagger:.1, ease: 'power4.out'},.45)
 

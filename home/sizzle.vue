@@ -1,7 +1,7 @@
 <template lang="html">
   <section id="sizzle" class="space-t space-b">
     <div class="content" @click="play = !play" data-button-color="#fff">
-      <video-player :videoId="data.videoId" :play="play"/>
+      <video-player :videoId="data.videoId" :play="play" data-color-container/>
       <cursor-zone :hideOnStop="play">
         <circle-button class="sizzle-button h5">{{play ? 'pause' : 'play'}}</circle-button>
       </cursor-zone>
