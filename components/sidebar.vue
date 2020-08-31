@@ -2,7 +2,7 @@
   <aside id="sidebar" class="width-r">
 
     <div class="menu-button">
-      <button type="button" data-color>menu</button>
+      <button type="button" class="h6 caps" data-color>menu</button>
     </div>
 
     <div class="side-nav">
@@ -18,8 +18,8 @@
       </nav>
     </div>
 
-    <div class="logo-bug">
-      <button type="button"><icon logo/></button>
+    <div class="logo-bug" data-color ref="logo">
+      <button type="button"><icon logo /></button>
     </div>
 
   </aside>
@@ -44,6 +44,9 @@ export default {
   methods:{
     setSideNav(){
 
+      gsap.set('#sidebar .logo-bug',{clearProps: 'all'})
+      gsap.set('#sidebar .side-nav',{clearProps: 'all'})
+
       let links = Array.from(document.querySelectorAll('[data-nav]')).reverse()
       let container = document.querySelector('[data-nav-container]')
 
@@ -51,14 +54,15 @@ export default {
 
         let offsets = container.getAttribute('data-nav-container').replace('[','').replace(']','').split(',')
         let duration = 500 / (container.offsetHeight / 10)
-        let timeline = gsap.timeline({paused: true})
+
+        let navtl = gsap.timeline({paused: true})
                        .to('#sidebar .side-nav',duration,{x:0, ease: 'power4.out'},0)
                        .to('#sidebar .side-nav',duration,{x:'100%', ease: 'power4.in'},10)
 
         ScrollBuddy.create(container,{
           offsetStart: offsets.length > 0 ? `${offsets[0]}vh` : 0,
           offsetEnd: offsets.length > 1 ? `${offsets[1]}vh` : 0,
-          onScroll:(e)=> timeline.progress(e.percent)
+          onScroll:(e)=> navtl.progress(e.percent)
         })
 
         links.forEach((l,i) => ScrollBuddy.create(l,{
@@ -69,6 +73,14 @@ export default {
               if (this.sideNav.scrolling && i == this.sideNav.active) this.sideNav.scrolling = false
             }
         }))
+
+        let logotl = gsap.to('#sidebar .logo-bug',1,{y:0, ease: 'none', paused: true},0)
+
+        ScrollBuddy.create(this.$refs.logo,{
+          start: 200,
+          end: 600,
+          onScroll:(e)=> logotl.progress(e.percent),
+        })
       }
 
       this.sideNav.links = links.map((el,i) => ({el,label: el.getAttribute('data-nav'),index: i}))
@@ -142,6 +154,10 @@ export default {
     width: 100%;
     height: $nav-d * 1.25;
     transform: translateY(100%);
+    &.color-active{
+      fill: white;
+      transition: fill .5s;
+    }
 
     button{
       flex: 0 0 auto;
@@ -151,6 +167,16 @@ export default {
         width: 100%;
       }
     }
+  }
+
+  @media (max-width: $mobile){
+    .menu-button{
+      height: $nav-m;
+      button{
+        transform: rotate(-90deg)
+      }
+    }
+
   }
 }
 </style>

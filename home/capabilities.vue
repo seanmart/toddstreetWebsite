@@ -3,35 +3,39 @@
 
     <div class="section space" :class="item.type" v-for="item,a in data" :data-nav="item.type" :key="a" :style="">
 
-      <p v-html="item.subhead" class="subhead h3" v-enter:fadeup="{offset:'5vh'}"/>
+      <p v-html="item.subhead" class="subhead h4 caps" v-enter:fadeup="{offset:'5vh'}"/>
       <split-text :text="item.head" class="head space-b" textClass="h1 contain" v-enter:splitTextUp="{offset: '7vw'}"/>
 
       <div class="db-container space-b">
         <div class="reel-button">
-          <circle-button class="h4 caps" v-speed="2.2">view the reel</circle-button>
+          <circle-button class="h4 caps" v-speed="1">view the reel</circle-button>
         </div>
         <div class="description">
           <p v-html="item.description" class="p4" v-enter:fadeup="{offset:'10vh'}"/>
         </div>
       </div>
 
-      <div class="case-studies">
-        <div class="case-study" v-for="cs,b in item.caseStudies" :key="b">
+      <div class="projects">
+        <div class="project" v-for="p,b in projectData[item.type]" :key="b">
+
           <div class="content">
 
-            <div class="background-container" v-bg="cs.color" v-enter:slideup="{offset: '5vh'}">
-              <div v-if="cs.background" class="background" v-image="cs.background" v-speed="'20%'" />
+            <div class="background-container" v-bg="p.color" v-enter:slideup="{offset: '5vh'}">
+              <div v-if="p.background" class="background" v-image="p.background" v-speed="'20%'" />
             </div>
 
-            <div class="image-container" v-enter:slideup="{offset: '15vh'}">
-              <img v-if="cs.image" class="image" :src="cs.image" v-transform="{yPercent:-15, scale: 1.05, transformOrigin: 'top'}"/>
+            <div v-if="p.image" class="image-container" v-enter:slideup="{offset: '15vh'}">
+              <img class="image" :src="p.image" v-transform="{yPercent:-15, scale: 1.05, transformOrigin: 'top'}"/>
             </div>
 
+            <circle-button class="project-link" v-enter:popout="{offset:'10vh', duration: 1}">
+              <nuxt-link class="link h6 caps" :to="`/project/${p.id}`" v-html="'view'"/>
+            </circle-button>
+
           </div>
-          <div class="info">
-            <h1 class="h4 thin title " v-html="cs.title" v-enter:fadeup="{offset:'5vh'}"/>
-            <div class="dot" v-enter:zoomout="{offset:'10vh', duration: 1}"/>
-          </div>
+
+          <h1 class="h4 thin title " v-html="p.title" v-enter:fadeup="{offset:'5vh'}"/>
+
         </div>
       </div>
 
@@ -40,8 +44,21 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-  props:['data']
+  props:['data'],
+  computed:{
+    ...mapState(['projects']),
+    projectData(){
+      let projects = {}
+      this.data.forEach(d => {
+        projects[d.type] = d.projects.map( p => {
+          return this.projects.find(pd => pd.id == p)
+        })
+      })
+      return projects
+    }
+  }
 }
 </script>
 
@@ -55,9 +72,10 @@ export default {
       position: relative;
     }
     .subhead{
-      margin-bottom: 50px;
+      margin-bottom: 70px;
       color: $lightBlue;
-      font-weight: 500;
+      font-weight: 400;
+      letter-spacing: 2px;
     }
     .head{
       max-width: 1000px;
@@ -95,44 +113,47 @@ export default {
       }
     }
 
-    .case-study{
-      margin-bottom: $space-vd / 2;
+    .project{
 
       &:nth-child(8n + 1){
         width: 40%;
-        margin-bottom: 0px;
       }
       &:nth-child(8n + 2){
         width: 50%;
         margin-left: 50%;
         margin-top: -10vw;
+        margin-bottom: $space-vd / 2;
       }
       &:nth-child(8n + 3){
         width: 50%;
         margin-left: 25%;
+        margin-bottom: $space-vd / 2;
       }
       &:nth-child(8n + 4){
         width: 75%;
+        margin-bottom: $space-vd / 2;
       }
       &:nth-child(8n + 5){
         width: 40%;
         margin-left: 60%;
-        margin-bottom: 0px;
       }
       &:nth-child(8n + 6){
         width: 50%;
         margin-top: -10vw;
+        margin-bottom: $space-vd / 2;
       }
       &:nth-child(8n + 7){
         width: 50%;
         margin-left: 25%;
+        margin-bottom: $space-vd / 2;
       }
       &:nth-child(8n + 8){
         width: 75%;
         margin-left: 25%;
+        margin-bottom: $space-vd / 2;
       }
       &:last-child{
-        margin-bottom: 0px;
+        margin-bottom:0px;
       }
     }
 
@@ -162,18 +183,18 @@ export default {
       z-index: 1;
     }
 
-    .info{
-      padding-top: 20px;
-      display: flex;
-      flex-direction: row;
+    .title{
+      margin-top: 20px;
     }
 
-    .dot{
-      height: 25px;
-      width: 25px;
-      border-radius: 50%;
-      background: $blue;
-      margin-left: auto;
+    .project-link{
+      position: absolute;
+      bottom: -50px;
+      right: 50px;
+      width: 100px;
+      background: white;
+      color: black;
+      border: 1px solid black;
     }
 
     .background{
@@ -191,10 +212,54 @@ export default {
       max-height: 100%;
     }
 
+    @media (max-width: $tablet){
+
+      .project{
+
+        &:nth-child(8n + 1){
+          width: 70%;
+          margin-bottom: $space-vd / 2;
+        }
+        &:nth-child(8n + 2){
+          width: 70%;
+          margin-left: 30%;
+          margin-top: 0px;
+        }
+        &:nth-child(8n + 3){
+          width: 70%;
+          margin-left: 15%;
+        }
+        &:nth-child(8n + 4){
+          width: 70%;
+        }
+        &:nth-child(8n + 5){
+          width: 70%;
+          margin-left: 20%;
+          margin-bottom: $space-vd / 2;
+        }
+        &:nth-child(8n + 6){
+          width: 70%;
+          margin-top: 0px;
+        }
+        &:nth-child(8n + 7){
+          width: 70%;
+          margin-left: 25%;
+        }
+        &:nth-child(8n + 8){
+          width: 70%;
+          margin-left: 25%;
+        }
+        &:last-child{
+          margin-bottom: 0px;
+        }
+      }
+
+    }
+
     @media (max-width: $mobile){
 
       .subhead{
-        margin-bottom: 20px;
+        margin-bottom: 50px;
       }
 
       .db-container{
@@ -212,7 +277,7 @@ export default {
         }
       }
 
-      .case-study{
+      .project{
         width: 100% !important;
         margin: 0px 0px $space-vm !important;
       }

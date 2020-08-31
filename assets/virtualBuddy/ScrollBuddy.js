@@ -9,6 +9,8 @@ export class ScrollBuddy{
     Object.assign(this,{
       offsetStart: 0,
       offsetEnd:0,
+      start: null,
+      end: null,
       minWidth: 0,
       maxWidth: 100000,
       onEnter: null,
@@ -29,8 +31,8 @@ export class ScrollBuddy{
     this.el = typeof el === 'string' ? document.querySelectorAll(el) : el
     this.position = {}
     this.visible = false
-    this.start = 0
-    this.end = 0
+    this.enter = 0
+    this.leave = 0
     this.active = true
     this.duration = 0
     this.scrolledOffset = 0
@@ -38,7 +40,6 @@ export class ScrollBuddy{
     this.endEl = null
     this.fixedEl = null
 
-    this.init && this.update(resizer.props())
     this.markers && this.addMarkers()
     this.fixed && this.addFixed()
 
@@ -47,17 +48,21 @@ export class ScrollBuddy{
   update({height, width}){
 
     this.position = getPosition(this.el)
-    this.start = this.position.top + getValue(this.offsetStart,this.el)
-    this.end = this.position.bottom - getValue(this.offsetEnd, this.el)
-    this.duration = Math.min(this.start, height) + (this.end - this.start)
-    this.scrolledOffset = Math.max(this.start - height,0)
+
+    this.enter = this.start || Math.max(this.position.top - height,0)
+    this.leave = this.end || this.position.bottom
+
+    this.enter += getValue(this.offsetStart,this.el)
+    this.leave -= getValue(this.offsetEnd,this.el)
+
+    this.duration = this.leave - this.enter
+    this.markers && this.updateMarkers('initial')
 
     let active = width >= this.minWidth && width <= this.maxWidth
     if (active && !this.active) this.resume()
     if (!active && this.active) this.pause()
 
     this.active = active
-    this.markers && this.updateMarkers()
 
   }
 
@@ -68,24 +73,25 @@ export class ScrollBuddy{
   }
 
   addMarkers(){
+    let markerId = typeof this.markers == 'string' ? this.markers : this.id
     this.startEl = document.createElement('span')
     this.endEl = document.createElement('span')
 
-    scroller.container.appendChild(this.startEl).appendChild(document.createTextNode('start'))
-    scroller.container.appendChild(this.endEl).appendChild(document.createTextNode('end'))
+    scroller.container.appendChild(this.startEl).appendChild(document.createTextNode(`start: ${markerId}`))
+    scroller.container.appendChild(this.endEl).appendChild(document.createTextNode(`end: ${markerId}`))
 
     this.startEl.classList.add(this.id)
     this.endEl.classList.add(this.id)
 
-    this.startEl.style.cssText = `position: absolute; right: 10%; z-index: 1000; color: green; border-top: 1px solid green; padding-top: 3px; width: 70px`
-    this.endEl.style.cssText = `position: absolute; right: 10%; z-index: 1000; color: red; border-top: 1px solid red; padding-top: 3px; width: 70px`
+    this.startEl.style.cssText = `position: absolute; right: 10%; z-index: 1000; color: green; border-top: 1px solid green; padding-top: 3px; width: 100px; font-size: 10px;`
+    this.endEl.style.cssText = `position: absolute; right: 10%; z-index: 1000; color: red; border-top: 1px solid red; padding-top: 3px; width: 100px; font-size: 10px;`
 
-    this.updateMarkers()
   }
 
-  updateMarkers(){
-    if (this.startEl) this.startEl.style.top = `${this.start}px`
-    if (this.endEl) this.endEl.style.top = `${this.end}px`
+  updateMarkers(msg){
+    console.log(msg)
+    this.startEl.style.top = `${this.enter}px`
+    this.endEl.style.top = `${this.leave}px`
   }
 
   removeMarkers(){
@@ -120,13 +126,16 @@ export class ScrollBuddy{
   }
 
   _run(e){
-    let visible = this.start < e.bottom && this.end > e.top
+    if (!init) return
+
+    let visible = this.enter <= e.top && this.leave >= e.top
+
     if (visible || this.visible){
 
       let props = {}
       props.scroll = e
-      props.position = {...this.position,start: this.start, end: this.end}
-      props.scrolled = Math.min(Math.max(e.top - this.scrolledOffset,0),this.duration)
+      props.position = {...this.position,start: this.enter, end: this.leave}
+      props.scrolled = e.top - this.enter
       props.percent = props.scrolled / this.duration
       props.id = this.id
 

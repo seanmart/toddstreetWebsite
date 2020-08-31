@@ -3,7 +3,7 @@
     <div class="content" @click="play = !play" data-button-color="#fff">
       <video-player :videoId="data.videoId" :play="play" data-color-container/>
       <cursor-zone :hideOnStop="play">
-        <circle-button class="sizzle-button h5">{{play ? 'pause' : 'play'}}</circle-button>
+        <circle-button class="sizzle-button h6 caps">{{play ? 'pause' : 'play'}}</circle-button>
       </cursor-zone>
     </div>
   </section>
@@ -34,6 +34,7 @@ export default {
   }
   .sizzle-button{
     width: 100px;
+    border: 1px solid black;
   }
 }
 </style>

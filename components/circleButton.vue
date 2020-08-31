@@ -25,6 +25,7 @@ export default {
     position: relative;
   }
 
+  .link,
   .circle-button-content{
     position: absolute;
     top: 0px;

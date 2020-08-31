@@ -16,9 +16,7 @@ export default async () => {
     target: 'server',
     components: true,
     loading: false,
-    server:{
-      port: 1234
-    },
+    server:{port: 1234},
     head: {
       title: process.env.npm_package_name || '',
       meta: [

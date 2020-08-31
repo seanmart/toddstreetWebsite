@@ -1,36 +1,59 @@
 export default{
   state:()=>({
     ready: false,
-    carePosts:[]
+    care:[],
+    projects:[]
   }),
   mutations:{
     ready(state, ready){
       state.ready = ready
     },
-    posts(state,{key, posts}){
-      state[key] = posts
+    set(state,{key, items}){
+      state[key] = items
     }
   },
   actions:{
-    nuxtServerInit({commit}){
+    nuxtServerInit({dispatch}){
 
-      let files = require.context('../assets/care', true, /.md/)
-      let posts = {}
+      dispatch('getCare')
+      dispatch('getProjects')
 
-      posts.carePosts = files.keys().map(key => {
-        let id = key.replace('.md','').replace('./','')
+    },
+    getCare({commit}){
+      let files = require.context(`../assets/data/care`, true, /.md/)
+      let items = files.keys().map(file => {
+
+        let id = file.replace('.md','').replace('./','')
+
         return {
-          ...files(key).attributes,
+          ...files(file).attributes,
           id: id,
-          html:files(key).html,
-          body: files(key).body,
+          html: files(file).html,
+          body: files(file).body,
           link: `/care/${id}`
         }
       })
 
-      Object.keys(posts).map(key => {
-        commit('posts',{key, posts: posts[key].sort((a,b)=>new Date(b.date) - new Date(a.date))})
+      items = items.sort((a,b)=>new Date(b.date) - new Date(a.date))
+
+      commit('set',{key: 'care', items})
+    },
+    getProjects({commit}){
+      let files = require.context(`../assets/data/projects`, true, /.md/)
+      let items = files.keys().map(file => {
+
+        let id = file.replace('.md','').replace('./','')
+
+        return {
+          ...files(file).attributes,
+          id: id,
+          html: files(file).html,
+          body: files(file).body,
+          link: `/projects/${id}`
+        }
       })
+
+      commit('set',{key: 'projects', items})
     }
   }
 }

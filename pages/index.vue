@@ -14,12 +14,12 @@ import sizzle from '@/home/sizzle'
 import capabilities from '@/home/capabilities'
 import cares from '@/home/cares'
 import about from '@/home/about'
-import data from '@/assets/data'
+import data from '@/assets/data/home'
 import {mapState} from 'vuex'
 export default {
   components:{landing, sizzle,capabilities,cares, about},
   computed: mapState(['ready']),
-  data:()=>({data: data.home})
+  data:()=>({data})
 }
 </script>
 

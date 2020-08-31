@@ -52,6 +52,10 @@ Vue.directive('enter',{
       animation = gsap.from(el,duration,{scale:.75,opacity:0,ease: 'power4.out',paused: true})
       break
 
+      case 'popout':
+      animation = gsap.from(el,duration,{scale:0,ease: 'power4.out',paused: true})
+      break
+
       case 'zoomin':
       animation = gsap.from(el,duration,{scale:1.25,opacity:0,ease: 'power4.out',paused: true})
       break
