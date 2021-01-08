@@ -2,6 +2,7 @@
 date: 2016-02-02
 title: Friends of Hudson River Park
 image: 'posts/hudson-river-park.png'
+preview: 'A toddstreet team member welcomes spring by volunteering at a city park'
 category: care
 ---
 

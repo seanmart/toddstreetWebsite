@@ -1,5 +1,15 @@
 .caps{text-transform: uppercase}
 
+.label{
+  text-transform: uppercase;
+  font-family: 'bebas neue';
+  font-size: .8em;
+  letter-spacing: .3em;
+  font-weight: 500;
+  opacity: .5;
+  padding-bottom: 1em;
+}
+
 .h{
   font-family: 'bebas neue';
 }
@@ -9,6 +19,7 @@
   font-weight: 500;
   font-family: 'bebas neue';
   line-height: 90%;
+  letter-spacing: -2px;
   &.contain{
     line-height: 65%;
     padding-top: 5px;
@@ -24,7 +35,7 @@
 }
 
 .h3{
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 500;
   font-family: 'bebas neue';
 }
@@ -36,7 +47,7 @@
 }
 
 .h5{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   font-family: 'bebas neue';
 }
@@ -55,7 +66,7 @@
 }
 
 .p5{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 300;
   font-family: 'Roboto Slab';
   line-height: 180%;
@@ -72,7 +83,7 @@
   }
 
   .h3{
-    font-size: 27px;
+    font-size: 25px;
   }
 
   .p4{
@@ -99,7 +110,7 @@
   }
 
   .h3{
-    font-size: 23px;
+    font-size: 20px;
   }
 
   .p4{

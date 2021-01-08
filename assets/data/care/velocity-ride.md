@@ -1,6 +1,7 @@
 ---
 date: 2018-10-09
 title: Velocity Ride
+preview: 'Last Sunday, our very own Geneviève rode 100km in the annual Velocity Ride'
 image: 'posts/velocity-ride.jpg'
 category: care
 ---

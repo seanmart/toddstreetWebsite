@@ -18,7 +18,7 @@ export default {
   z-index: 100;
   li{
     flex: 1 1 auto;
-    background: #000111;
+    background: $midnight;
   }
 
   @media (max-width: $mobile){

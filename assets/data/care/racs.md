@@ -2,6 +2,7 @@
 date: 2020-01-22
 title: Refugee and Casework Service in Sydney
 image: 'posts/racs.jpg'
+preview: 'While visiting his family over the Holiday period, Laurence, our Creative and Marketing Specialist, spent time volunteering with RACS, the Refugee and Casework Service in Sydney'
 category: care
 ---
 

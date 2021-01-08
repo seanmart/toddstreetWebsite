@@ -3,12 +3,15 @@
   <div id="site">
 
     <sidebar/>
+    <navigation-menu/>
     <bars/>
 
     <div id="scroll">
       <navigation/>
       <nuxt/>
     </div>
+
+    <lightbox/>
 
   </div>
 

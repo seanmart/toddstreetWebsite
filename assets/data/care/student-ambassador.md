@@ -2,6 +2,7 @@
 date: 2018-08-16
 title: Student Ambassador
 image: 'posts/student-ambassador.jpg'
+preview: 'This weekend our Coordinator, Gianna volunteered at the Vans Warped Tour as a Student Ambassador for Full Sail University'
 category: care
 ---
 

@@ -2,6 +2,7 @@
 date: 2017-01-01
 title: Partnering with Motherhood in Focus
 image: 'posts/motherhood_in_focus.jpg'
+preview: 'When the managing editor of Babble.com, a Disney Interactive parenting website, reached out to us about supporting a pro-bono initiative for Mother’s Day, we jumped on the opportunity'
 category: care
 ---
 

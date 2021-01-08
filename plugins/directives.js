@@ -1,12 +1,23 @@
 import Vue from 'vue'
 
 Vue.directive('image',{
-  inserted: function(el,{value}){
+  inserted: function(el,{arg, value}){
     if (!value) return
+
     el.style.backgroundImage = `url(${value})`
     el.style.backgroundSize ="cover"
-    el.style.backgroundPosition = "center center"
+    el.style.backgroundPosition = arg == 'top' ? "top center" : "center center"
   },
+  update: function(el,{arg,value}){
+
+    if (!value){
+      el.style.backgroundImage = `none`
+      return
+    }
+    el.style.backgroundImage = `url(${value})`
+    el.style.backgroundSize ="cover"
+    el.style.backgroundPosition = arg == 'top' ? "top center" : "center center"
+  }
 })
 
 Vue.directive('bg',{
@@ -20,6 +31,16 @@ Vue.directive('fixed',{
   inserted: function(el,{value}){
     ScrollBuddy.create(el,{fixed: true})
   },
+})
+
+Vue.directive('rotate',{
+  inserted: function(el,{arg, value = 3}){
+    let animation = gsap.to(el,value,{rotate: 360,repeat: -1,ease:'none', paused: true})
+    ScrollBuddy.create(el,{
+      onEnter:()=> animation.play(),
+      onLeave:()=> animation.pause()
+    })
+  }
 })
 
 Vue.directive('enter',{

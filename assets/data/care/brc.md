@@ -2,6 +2,7 @@
 date: 2015-12-20
 title: This holiday season, toddstreet is getting back to the basics of giving.
 image: posts/brc.png
+preview: 'More than 62 thousand people will be on the streets of NYC this winter, with 24 thousand of them being children. With the holidays coming, and really reflecting on the year behind us'
 category: care
 ---
 

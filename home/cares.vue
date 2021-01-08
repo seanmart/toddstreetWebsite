@@ -3,12 +3,25 @@
   <split-text :text="data.title" class="space-b" textClass="h1 contain" v-enter:splitTextUp="{offset: '5vw'}"/>
   <div class="content">
     <div class="main">
-      <div class="image" v-image="care[0].image"/>
-      <h1 v-html="care[0].title" class="h3 title"/>
-      <p class="p5 body" v-html="care[0].body.split('.')[0] + '...'"/>
+
+        <div class="image">
+          <transition name="care-image">
+            <div :key="index" class="inner-image" v-image:top="care[index].image"/>
+          </transition>
+        </div>
+
+      <h1 :key="index" v-html="care[index].title" class="h3 title"/>
+      <p class="p5" v-if="care[index].preview" v-html="care[index].preview + '...'"/>
+
+      <button
+        class="h6 caps button knockout cares-button"
+        v-html="'keep reading'"
+      />
+
     </div>
     <div class="side">
-      <side-posts :posts="care.slice(1,5)"/>
+      <h3 class="label">Most Recent</h3>
+      <side-posts :posts="care.slice(0,10)" @clicked="index = $event.index"/>
     </div>
   </div>
 </section>
@@ -18,7 +31,8 @@
 import {mapState} from 'vuex'
 export default {
   props:['data'],
-  computed: mapState(['care'])
+  data:()=>({index:0}),
+  computed: mapState(['care']),
 }
 </script>
 
@@ -26,6 +40,22 @@ export default {
 #cares{
   background: $storm;
   color: white;
+
+  .care-image-leave-active,
+  .care-image-enter-active
+  {
+    transition: .5s;
+  }
+
+  .care-image-enter,
+  .care-image-leave-to{
+    opacity: 0;
+  }
+
+  .care-image-enter-to,
+  .care-image-leave{
+    opacity: 1;
+  }
 
   .content{
     display: flex;
@@ -36,24 +66,60 @@ export default {
   .main{
     flex: 1 1 auto;
     position: relative;
-    padding-right: 100px;
-
-    .title, .body{
-      margin-top: 50px;
-    }
+    margin-right: 100px;
   }
 
   .side{
     flex: 0 0 300px;
+
+    .label{
+      margin-bottom: 50px;
+      padding: 0px;
+    }
 
     .post{
       border-color: rgba(255,255,255,.1)
     }
   }
 
+  .cares-button{
+    display: block;
+    margin-top: 30px;
+  }
+
+  .image, .title{
+    margin-bottom: 50px;
+    position: relative;
+  }
+
   .image{
     padding-bottom: 56.25%;
-    background: #ccc;
+    background: $midnight;
+  }
+
+  .inner-image{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+  }
+
+  @media (max-width: $mobile){
+    .content{
+      flex-direction: column;
+    }
+
+    .main{
+      flex: 0 0 auto;
+      margin: 0px;
+    }
+
+    .side{
+      margin-top: 100px;
+      flex: 0 0 auto;
+    }
+
   }
 }
 </style>

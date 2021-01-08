@@ -2,7 +2,7 @@
   <aside id="sidebar" class="width-r">
 
     <div class="menu-button">
-      <button type="button" class="h6 caps" data-color>menu</button>
+      <button type="button" class="h6 caps" data-color @click="menu = !menu">menu</button>
     </div>
 
     <div class="side-nav">
@@ -29,15 +29,21 @@
 import {mapState} from 'vuex'
 export default {
   data:()=>({
+    menu: false,
     sideNav:{
       links:[],
       scrolling: false,
-      active: null
+      active: null,
     }
   }),
   watch:{
     ready(r){
       r && this.setSideNav()
+    },
+    menu(m){
+      m
+      ? this.$store.dispatch('openMenu')
+      : this.$store.dispatch('closeMenu')
     }
   },
   computed: mapState(['ready']),
@@ -173,7 +179,9 @@ export default {
     .menu-button{
       height: $nav-m;
       button{
-        transform: rotate(-90deg)
+        transform: rotate(-90deg);
+        padding: .5em;
+        font-size: .9em;
       }
     }
 

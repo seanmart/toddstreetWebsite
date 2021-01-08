@@ -1,6 +1,7 @@
 ---
 date: 2020-07-01
-title: Break the Chains with Love Juneteenth Celebration March
+title: Juneteenth Celebration March
+preview: 'In celebration and honor of Juneteenth, on Friday June 19th 2020, our Senior Creative Producer, Genevieve, volunteered as a Safety Marshal for the Break the Chains With Love march led by Valerie Walker, and supported by Dyke March NYC'
 image: 'posts/juneteenth_2020.jpg'
 category: care
 ---

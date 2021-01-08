@@ -34,6 +34,7 @@ export default {
       description: `toddstreet produces meaningful events that engage minds across the globe.
                     Our events span from large-scale conferences and blockbuster product launches
                     to intimate and exclusive press launches, influencer activations and more. `,
+      reel: {type: 'image', src: '/test/test2.gif'},
       projects:[
         'product-launches',
         'virtual-events',

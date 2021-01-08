@@ -3,12 +3,16 @@
 
     <div class="section space" :class="item.type" v-for="item,a in data" :data-nav="item.type" :key="a" :style="">
 
-      <p v-html="item.subhead" class="subhead h4 caps" v-enter:fadeup="{offset:'5vh'}"/>
+      <p v-html="item.subhead" class="subhead h3" v-enter:fadeup="{offset:'5vh'}"/>
       <split-text :text="item.head" class="head space-b" textClass="h1 contain" v-enter:splitTextUp="{offset: '7vw'}"/>
 
       <div class="db-container space-b">
-        <div class="reel-button">
-          <circle-button class="h4 caps" v-speed="1">view the reel</circle-button>
+        <div class="reel-button" v-if="item.reel">
+          <circle-button
+            class="h4 caps"
+            v-speed="1"
+            @click.native="$store.commit('lightbox',{media:[item.reel]})"
+            >view the reel</circle-button>
         </div>
         <div class="description">
           <p v-html="item.description" class="p4" v-enter:fadeup="{offset:'10vh'}"/>
@@ -16,7 +20,7 @@
       </div>
 
       <div class="projects">
-        <div class="project" v-for="p,b in projectData[item.type]" :key="b">
+        <nuxt-link class="project" v-for="p,b in projectData[item.type]" :key="b" :to="`/project/${p.id}`">
 
           <div class="content">
 
@@ -28,15 +32,11 @@
               <img class="image" :src="p.image" v-transform="{yPercent:-15, scale: 1.05, transformOrigin: 'top'}"/>
             </div>
 
-            <circle-button class="project-link" v-enter:popout="{offset:'10vh', duration: 1}">
-              <nuxt-link class="link h6 caps" :to="`/project/${p.id}`" v-html="'view'"/>
-            </circle-button>
-
           </div>
 
-          <h1 class="h4 thin title " v-html="p.title" v-enter:fadeup="{offset:'5vh'}"/>
+          <h1 class="h4 title " v-html="p.title" v-enter:fadeup="{offset:'5vh'}"/>
 
-        </div>
+        </nuxt-link>
       </div>
 
     </div>
@@ -75,7 +75,6 @@ export default {
       margin-bottom: 70px;
       color: $lightBlue;
       font-weight: 400;
-      letter-spacing: 2px;
     }
     .head{
       max-width: 1000px;
@@ -103,6 +102,13 @@ export default {
         min-width: 200px;
         background: white;
         border: 2px solid black;
+        transition: background .25s, color .25s, border-color .25s;
+
+        &:hover{
+          background: $lightBlue;
+          color: white;
+          border: 2px solid $lightBlue;
+        }
       }
     }
 
@@ -114,6 +120,7 @@ export default {
     }
 
     .project{
+      display: block;
 
       &:nth-child(8n + 1){
         width: 40%;

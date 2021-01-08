@@ -34,7 +34,7 @@ export default {
   }
   .sizzle-button{
     width: 100px;
-    border: 1px solid black;
+    //border: 1px solid black;
   }
 }
 </style>

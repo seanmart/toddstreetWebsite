@@ -2,6 +2,7 @@
 date: 2018-11-15
 title: North Brooklyn Angels
 image: 'posts/north-brooklyn-angels.jpg'
+preview: 'This November 2018, a number of toddstreet employees rolled up their sleeves to volunteer for the North Brooklyn Angels, a mobile soup kitchen serving hot meals to residents of North Brooklyn in need'
 category: care
 ---
 

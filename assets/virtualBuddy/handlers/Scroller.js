@@ -60,13 +60,14 @@ let scroller, touch, smooth, inertia, callbacks, resizeId, update, ticking, prop
 
       let defaults = {
         container: document.body,
-        inertia: .09
+        inertia: .09,
+        smooth: true
       }
 
       options = Object.assign({},defaults,options)
       scroller.container = options.container
       inertia = options.inertia
-      smooth = !resizer.touch
+      smooth = options.smooth && !resizer.touch
       resizeId = null
       callbacks = []
       update = smooth ? updateSmooth : updateNative

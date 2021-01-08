@@ -15,10 +15,11 @@ $space-rm: 60px;
 $space-vm: 75px;
 
 $blue: #13306C;
-$lightBlue: #0053AD;
+$lightBlue: #1565E6;
 $yellow:#FFD273;
 $fire: #F85F57;
 $storm: #1c1c20;
+$midnight: #000111;
 
 $desktop: 1400px;
 $tablet: 1100px;
@@ -39,6 +40,7 @@ $mobile: 700px;
   yellow: $yellow;
   fire: $fire;
   storm: $storm;
+  midnight: $midnight;
 }
 
 @mixin fullscreen{

@@ -2,6 +2,7 @@
 date: 2015-01-01
 title: Community Kitchen & Food Pantry in Harlem
 image: "posts/food_pantry_cover.jpg"
+preview: 'Audra recently worked at the Community Kitchen & Food Pantry in Harlem and her service at the kitchen included food prep for hundreds of Harlem residents along with a new task for her of washing dishes'
 category: care
 ---
 

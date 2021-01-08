@@ -1,6 +1,7 @@
 ---
 date: 2018-05-08
 title: 'SAVE, A Friend to Homeless Animals'
+preview: 'Recently, we were asked if we could donate our services to produce a video for a fundraising Gala for SAVE, A Friend to Homeless Animals Shelter'
 category: care
 ---
 
